@@ -1,5 +1,9 @@
 # Dose Certa
 
+![image](https://github.com/user-attachments/assets/fa460868-fc87-4dfb-8efc-f493d6d77341)
+
+
+
 ## Sobre o Projeto
 
 Dose Certa é um aplicativo móvel desenvolvido para ajudar usuários a gerenciar seus medicamentos. Ele permite cadastrar diferentes medicamentos, definir horários e dosagens para lembretes, e acompanhar o histórico de administração.
