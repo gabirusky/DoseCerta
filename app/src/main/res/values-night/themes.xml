@@ -1,0 +1,123 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme for dark mode using Material Design 3 -->
+    <style name="Base.Theme.DoseCerta" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+        
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
+        
+        <!-- Tertiary Colors -->
+        <item name="colorTertiary">@color/md_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_dark_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_dark_onTertiaryContainer</item>
+        
+        <!-- Error Colors -->
+        <item name="colorError">@color/md_theme_dark_error</item>
+        <item name="colorOnError">@color/md_theme_dark_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
+        
+        <!-- Background & Surface -->
+        <item name="android:colorBackground">@color/md_theme_dark_background</item>
+        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/md_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
+        
+        <!-- Surface Containers -->
+        <item name="colorSurfaceContainer">@color/md_theme_dark_surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_dark_surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_dark_surfaceContainerHighest</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_dark_surfaceContainerLow</item>
+        <item name="colorSurfaceContainerLowest">@color/md_theme_dark_surfaceContainerLowest</item>
+        
+        <!-- Outline -->
+        <item name="colorOutline">@color/md_theme_dark_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_dark_outlineVariant</item>
+        
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        
+        <!-- Window -->
+        <item name="android:windowBackground">@color/md_theme_dark_background</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        
+        <!-- Shape System -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.DoseCerta.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.DoseCerta.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.DoseCerta.LargeComponent</item>
+        
+        <!-- Component Styles -->
+        <item name="materialCardViewStyle">@style/Widget.DoseCerta.CardView.Dark</item>
+        <item name="materialButtonStyle">@style/Widget.DoseCerta.Button</item>
+        <item name="extendedFloatingActionButtonStyle">@style/Widget.DoseCerta.ExtendedFloatingActionButton.Dark</item>
+        <item name="floatingActionButtonStyle">@style/Widget.DoseCerta.FloatingActionButton.Dark</item>
+        <item name="chipStyle">@style/Widget.DoseCerta.Chip.Dark</item>
+        <item name="toolbarStyle">@style/Widget.DoseCerta.Toolbar.Dark</item>
+    </style>
+
+    <!-- Base Widget Style for Dark Theme -->
+    <style name="Widget.DoseCerta" parent="">
+        <!-- Define common attributes for all DoseCerta widgets in dark theme here -->
+    </style>
+
+    <!-- Dark Theme Card View Style -->
+    <style name="Widget.DoseCerta.CardView.Dark" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/md_theme_dark_surfaceContainerLowest</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <!-- Dark Theme FAB Styles -->
+    <style name="Widget.DoseCerta.FloatingActionButton.Dark" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="shapeAppearance">@style/ShapeAppearance.DoseCerta.MediumComponent</item>
+        <item name="backgroundTint">@color/md_theme_dark_primaryContainer</item>
+        <item name="tint">@color/md_theme_dark_onPrimaryContainer</item>
+    </style>
+
+    <style name="Widget.DoseCerta.ExtendedFloatingActionButton.Dark" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="shapeAppearance">@style/ShapeAppearance.DoseCerta.MediumComponent</item>
+        <item name="backgroundTint">@color/md_theme_dark_primaryContainer</item>
+        <item name="iconTint">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="android:textColor">@color/md_theme_dark_onPrimaryContainer</item>
+    </style>
+
+    <!-- Dark Theme Chip Style -->
+    <style name="Widget.DoseCerta.Chip.Dark" parent="Widget.Material3.Chip.Filter">
+        <item name="chipCornerRadius">16dp</item>
+        <item name="chipBackgroundColor">@color/md_theme_dark_surfaceContainerHigh</item>
+        <item name="android:textColor">@color/md_theme_dark_onSurface</item>
+    </style>
+
+    <!-- Dark Theme Toolbar Style -->
+    <style name="Widget.DoseCerta.Toolbar.Dark" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">?attr/textAppearanceHeadlineSmall</item>
+        <item name="titleTextColor">@color/md_theme_dark_onSurface</item>
+        <item name="android:background">@color/md_theme_dark_surface</item>
+        <item name="navigationIconTint">@color/md_theme_dark_onSurface</item>
+    </style>
+
+    <!-- Base Badge Style for Dark Theme -->
+    <style name="Widget.DoseCerta.Badge">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:background">@color/md_theme_dark_surfaceContainerHigh</item>
+        <item name="android:textColor">@color/md_theme_dark_onSurface</item>
+    </style>
+</resources>

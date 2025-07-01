@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.dosecerta.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_languageSettingsFragment"
+            app:destination="@id/languageSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.example.dosecerta.ui.history.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
+        android:id="@+id/navigation_meds"
+        android:name="com.example.dosecerta.ui.meds.MedsFragment"
+        android:label="@string/title_meds"
+        tools:layout="@layout/fragment_meds">
+        <action
+            android:id="@+id/action_navigation_meds_to_addEditMedFragment"
+            app:destination="@id/add_edit_med_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/add_edit_med_fragment"
+        android:name="com.example.dosecerta.ui.add_edit_med.AddEditMedFragment"
+        android:label="Add/Edit Medication"
+        tools:layout="@layout/fragment_add_edit_med">
+        <argument
+            android:name="medicationId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/languageSettingsFragment"
+        android:name="com.example.dosecerta.ui.settings.LanguageSettingsFragment"
+        android:label="@string/language_settings"
+        tools:layout="@layout/fragment_language_settings" />
+
+</navigation>

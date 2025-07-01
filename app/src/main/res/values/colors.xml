@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Material Design 3 - Light Theme Colors -->
+    <!-- Primary Colors - Blue/Teal for health/medical theme -->
+    <color name="md_theme_light_primary">#006A6B</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#6FF7F8</color>
+    <color name="md_theme_light_onPrimaryContainer">#002020</color>
+    
+    <!-- Secondary Colors - Complementary green -->
+    <color name="md_theme_light_secondary">#4A6363</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#CCE8E8</color>
+    <color name="md_theme_light_onSecondaryContainer">#051F20</color>
+    
+    <!-- Tertiary Colors - Warm accent -->
+    <color name="md_theme_light_tertiary">#4F6179</color>
+    <color name="md_theme_light_onTertiary">#FFFFFF</color>
+    <color name="md_theme_light_tertiaryContainer">#D6E4FF</color>
+    <color name="md_theme_light_onTertiaryContainer">#0A1B32</color>
+    
+    <!-- Error Colors -->
+    <color name="md_theme_light_error">#BA1A1A</color>
+    <color name="md_theme_light_errorContainer">#FFDAD6</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_onErrorContainer">#410002</color>
+    
+    <!-- Background & Surface -->
+    <color name="md_theme_light_background">#FAFDFC</color>
+    <color name="md_theme_light_onBackground">#191C1C</color>
+    <color name="md_theme_light_surface">#FAFDFC</color>
+    <color name="md_theme_light_onSurface">#191C1C</color>
+    <color name="md_theme_light_surfaceVariant">#DAE5E4</color>
+    <color name="md_theme_light_onSurfaceVariant">#3F4948</color>
+    
+    <!-- Surface Containers -->
+    <color name="md_theme_light_surfaceContainer">#ECF1F0</color>
+    <color name="md_theme_light_surfaceContainerHigh">#E6EBEA</color>
+    <color name="md_theme_light_surfaceContainerHighest">#E0E5E4</color>
+    <color name="md_theme_light_surfaceContainerLow">#F2F7F6</color>
+    <color name="md_theme_light_surfaceContainerLowest">#FFFFFF</color>
+    
+    <!-- Outline -->
+    <color name="md_theme_light_outline">#6F7979</color>
+    <color name="md_theme_light_outlineVariant">#BEC9C8</color>
+    
+    <!-- Other -->
+    <color name="md_theme_light_scrim">#000000</color>
+    <color name="md_theme_light_inverseSurface">#2E3131</color>
+    <color name="md_theme_light_inverseOnSurface">#EFF1F1</color>
+    <color name="md_theme_light_inversePrimary">#4FDBDC</color>
+    
+    <!-- Material Design 3 - Dark Theme Colors -->
+    <color name="md_theme_dark_primary">#4FDBDC</color>
+    <color name="md_theme_dark_onPrimary">#003738</color>
+    <color name="md_theme_dark_primaryContainer">#005051</color>
+    <color name="md_theme_dark_onPrimaryContainer">#6FF7F8</color>
+    
+    <color name="md_theme_dark_secondary">#B0CCCC</color>
+    <color name="md_theme_dark_onSecondary">#1B3535</color>
+    <color name="md_theme_dark_secondaryContainer">#314B4B</color>
+    <color name="md_theme_dark_onSecondaryContainer">#CCE8E8</color>
+    
+    <color name="md_theme_dark_tertiary">#B8C8E8</color>
+    <color name="md_theme_dark_onTertiary">#233048</color>
+    <color name="md_theme_dark_tertiaryContainer">#394860</color>
+    <color name="md_theme_dark_onTertiaryContainer">#D6E4FF</color>
+    
+    <color name="md_theme_dark_error">#FFB4AB</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onError">#690005</color>
+    <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
+    
+    <color name="md_theme_dark_background">#0F1415</color>
+    <color name="md_theme_dark_onBackground">#E0E5E4</color>
+    <color name="md_theme_dark_surface">#0F1415</color>
+    <color name="md_theme_dark_onSurface">#E0E5E4</color>
+    <color name="md_theme_dark_surfaceVariant">#3F4948</color>
+    <color name="md_theme_dark_onSurfaceVariant">#BEC9C8</color>
+    
+    <color name="md_theme_dark_surfaceContainer">#1B2020</color>
+    <color name="md_theme_dark_surfaceContainerHigh">#262B2B</color>
+    <color name="md_theme_dark_surfaceContainerHighest">#313636</color>
+    <color name="md_theme_dark_surfaceContainerLow">#191C1C</color>
+    <color name="md_theme_dark_surfaceContainerLowest">#0A0F0F</color>
+    
+    <color name="md_theme_dark_outline">#889392</color>
+    <color name="md_theme_dark_outlineVariant">#3F4948</color>
+    <color name="md_theme_dark_scrim">#000000</color>
+    <color name="md_theme_dark_inverseSurface">#E0E5E4</color>
+    <color name="md_theme_dark_inverseOnSurface">#2E3131</color>
+    <color name="md_theme_dark_inversePrimary">#006A6B</color>
+    
+    <!-- Legacy Colors for backwards compatibility -->
+    <color name="colorPrimary">@color/md_theme_light_primary</color>
+    <color name="colorPrimaryVariant">@color/md_theme_light_primaryContainer</color>
+    <color name="colorOnPrimary">@color/md_theme_light_onPrimary</color>
+    <color name="colorSecondary">@color/md_theme_light_secondary</color>
+    <color name="colorSecondaryVariant">@color/md_theme_light_secondaryContainer</color>
+    <color name="colorOnSecondary">@color/md_theme_light_onSecondary</color>
+    
+    <!-- Status Colors for Health App -->
+    <color name="status_taken">#2E7D32</color>
+    <color name="status_taken_container">#C8E6C9</color>
+    <color name="status_taken_on_container">#1B5E20</color>
+    
+    <color name="status_missed">#D32F2F</color>
+    <color name="status_missed_container">#FFCDD2</color>
+    <color name="status_missed_on_container">#B71C1C</color>
+    
+    <color name="status_skipped">#F57C00</color>
+    <color name="status_skipped_container">#FFE0B2</color>
+    <color name="status_skipped_on_container">#E65100</color>
+    
+    <color name="status_pending">#1976D2</color>
+    <color name="status_pending_container">#BBDEFB</color>
+    <color name="status_pending_on_container">#0D47A1</color>
+    
+    <!-- Semantic Colors -->
+    <color name="success">#2E7D32</color>
+    <color name="warning">#F57C00</color>
+    <color name="info">#1976D2</color>
+    <color name="danger">#D32F2F</color>
+    
+    <!-- Surface Tints -->
+    <color name="surface_tint_primary">#E3F2FD</color>
+    <color name="surface_tint_secondary">#E8F5E8</color>
+    <color name="surface_tint_tertiary">#FFF3E0</color>
+    
+    <!-- Gray Colors for compatibility -->
+    <color name="gray_900">#212121</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_300">#E0E0E0</color>
+</resources>

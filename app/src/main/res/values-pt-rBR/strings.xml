@@ -1,0 +1,168 @@
+<resources>
+    <string name="app_name">Dose Certa</string>
+    <string name="title_home">Início</string>
+    <string name="title_history">Histórico</string>
+    <string name="title_meds">Medicamentos</string>
+
+    <!-- Home Screen -->
+    <string name="welcome_back">Bem-vindo de volta</string>
+    <string name="today_schedule">Programação de Hoje</string>
+    <string name="your_medication_reminders">Seus lembretes de medicamentos</string>
+    <string name="no_medications_scheduled">Nenhum medicamento agendado</string>
+    <string name="add_first_medication">Adicione seu primeiro medicamento para começar</string>
+    <string name="adherence">Aderência</string>
+    <string name="last_7_days">Últimos 7 dias</string>
+    <string name="view_all">Ver Tudo</string>
+    <string name="medications">Medicamentos</string>
+    <string name="missed_today">Perdidos Hoje</string>
+    <string name="add_medication">Adicionar Medicamento</string>
+
+    <!-- History Screen -->
+    <string name="track_your_progress">Acompanhe seu progresso</string>
+    <string name="medication_history">Histórico de Medicamentos</string>
+    <string name="taken">Tomado</string>
+    <string name="missed">Perdido</string>
+    <string name="skipped">Pulado</string>
+    <string name="adherence_percentage">Aderência</string>
+    <string name="filter">Filtrar</string>
+    <string name="last_7_days_filter">Últimos 7 dias</string>
+    <string name="all">Todos</string>
+    <string name="no_history_yet">Nenhum histórico ainda</string>
+    <string name="history_will_appear">Seu histórico de medicamentos aparecerá aqui conforme você acompanha suas doses</string>
+
+    <!-- Medications Screen -->
+    <string name="manage">Gerenciar</string>
+    <string name="my_medications">Meus Medicamentos</string>
+    <string name="search_medications">Buscar medicamentos…</string>
+    <string name="daily">Diário</string>
+    <string name="as_needed">Conforme Necessário</string>
+    <string name="no_medications_yet">Nenhum medicamento ainda</string>
+    <string name="add_first_medication_journey">Adicione seu primeiro medicamento para começar a acompanhar sua jornada de saúde</string>
+    <string name="quick_add">Adição Rápida</string>
+    <string name="add_another_medication">Adicione outro medicamento rapidamente</string>
+    <string name="add">Adicionar</string>
+
+    <!-- Add/Edit Medication Screen -->
+    <string name="medication_details">Detalhes do Medicamento</string>
+    <string name="basic_information">Informações Básicas</string>
+    <string name="medication_name">Nome do Medicamento</string>
+    <string name="dosage">Dosagem</string>
+    <string name="form">Forma</string>
+    <string name="strength_optional">Concentração (Opcional)</string>
+    <string name="unit">Unidade</string>
+    <string name="frequency">Frequência</string>
+    <string name="how_often">Com que frequência?</string>
+    <string name="every_x_days">A Cada X Dias</string>
+    <string name="select_days">Selecionar Dias</string>
+    <string name="reminders">Lembretes</string>
+    <string name="set_reminder_times">Definir horários dos lembretes</string>
+    <string name="add_time">Adicionar Horário</string>
+    <string name="no_reminders_set">Nenhum lembrete definido</string>
+    <string name="additional_notes">Observações Adicionais</string>
+    <string name="notes_optional">Observações (Opcional)</string>
+    <string name="save_medication">Salvar Medicamento</string>
+    <string name="edit_medication">Editar Medicamento</string>
+
+    <!-- Schedule Items -->
+    <string name="take">Tomar</string>
+    <string name="skip">Pular</string>
+    <string name="undo">Desfazer</string>
+    <string name="take_again">Tomar Novamente</string>
+
+    <!-- Days of Week -->
+    <string name="sun">Dom</string>
+    <string name="mon">Seg</string>
+    <string name="tue">Ter</string>
+    <string name="wed">Qua</string>
+    <string name="thu">Qui</string>
+    <string name="fri">Sex</string>
+    <string name="sat">Sáb</string>
+
+    <!-- Status Strings -->
+    <string name="status_taken">TOMADO</string>
+    <string name="status_skipped">PULADO</string>
+    <string name="status_missed">PERDIDO</string>
+    <string name="status_pending">PENDENTE</string>
+
+    <!-- Actions -->
+    <string name="edit">Editar</string>
+    <string name="delete">Excluir</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">OK</string>
+    <string name="save">Salvar</string>
+
+    <!-- Dialogs -->
+    <string name="delete_medication_title">Excluir Medicamento</string>
+    <string name="delete_medication_message">Tem certeza de que deseja excluir %1$s?</string>
+    <string name="delete_medication_confirm">Excluir</string>
+
+    <!-- Time Display -->
+    <string name="scheduled_for">Agendado para %1$s</string>
+    <string name="next_dose_at">Próxima dose às %1$s</string>
+    <string name="reminders_count">%1$d lembretes</string>
+
+    <!-- Frequency Types -->
+    <string name="frequency_daily">Diário</string>
+    <string name="frequency_every_x_days">A Cada X Dias</string>
+    <string name="frequency_specific_days">Dias Específicos da Semana</string>
+    <string name="frequency_as_needed">Conforme Necessário</string>
+
+    <!-- Dosage Forms -->
+    <string name="dosage_form_tablet">Comprimido</string>
+    <string name="dosage_form_capsule">Cápsula</string>
+    <string name="dosage_form_liquid">Líquido</string>
+    <string name="dosage_form_injection">Injeção</string>
+    <string name="dosage_form_cream">Creme</string>
+    <string name="dosage_form_ointment">Pomada</string>
+    <string name="dosage_form_drops">Gotas</string>
+    <string name="dosage_form_spray">Spray</string>
+    <string name="dosage_form_other">Outro</string>
+
+    <!-- Units -->
+    <string name="unit_mg">mg</string>
+    <string name="unit_mcg">mcg</string>
+    <string name="unit_g">g</string>
+    <string name="unit_ml">ml</string>
+    <string name="unit_percentage">%</string>
+    <string name="unit_iu">UI</string>
+    <string name="unit_other">Outro</string>
+
+    <!-- Permissions -->
+    <string name="notification_permission_needed">Permissão de notificação é necessária para mostrar lembretes.</string>
+    <string name="notification_permission_denied">Permissão de notificações negada. Os lembretes podem não funcionar.</string>
+    <string name="exact_alarm_permission_needed">Este aplicativo precisa de permissão para agendar alarmes exatos para lembretes de medicamentos.</string>
+    <string name="exact_alarm_permission_denied">Permissão de alarme exato é necessária para agendar lembretes com precisão.</string>
+    <string name="settings">Configurações</string>
+
+    <!-- Validation Messages -->
+    <string name="error_medication_name_empty">O nome do medicamento não pode estar vazio</string>
+    <string name="error_dosage_empty">A dosagem não pode estar vazia</string>
+    <string name="error_select_dosage_form">Por favor, selecione uma forma de dosagem</string>
+    <string name="error_select_unit_for_strength">Por favor, selecione uma unidade para a concentração</string>
+    <string name="error_enter_strength_for_unit">Por favor, insira uma concentração para a unidade selecionada</string>
+    <string name="error_select_frequency">Por favor, selecione a frequência</string>
+    <string name="error_enter_interval">Por favor, insira um intervalo válido</string>
+    <string name="error_interval_positive">O intervalo deve ser um número positivo</string>
+    <string name="error_select_at_least_one_day">Por favor, selecione pelo menos um dia</string>
+    <string name="check_fields_above">Por favor, verifique os campos acima</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_edit_medication">Editar Medicamento</string>
+    <string name="cd_delete_medication">Excluir Medicamento</string>
+    <string name="cd_delete_reminder">Excluir Lembrete</string>
+    <string name="cd_medication_icon">Ícone do Medicamento</string>
+    <string name="cd_status_indicator">Indicador de Status</string>
+
+    <!-- Language Settings -->
+    <string name="language_settings">Configurações de Idioma</string>
+    <string name="select_language">Selecionar Idioma</string>
+    <string name="language_english">English</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_changed">Idioma alterado</string>
+    <string name="restart_app_language">Reinicie o aplicativo para aplicar o novo idioma</string>
+
+    <!-- New strings from the code block -->
+    <string name="all_bug_fixes_validated">✅ Todas as correções de bugs validadas</string>
+    <string name="validation_issues_detected">⚠️ Problemas de validação detectados</string>
+
+</resources>

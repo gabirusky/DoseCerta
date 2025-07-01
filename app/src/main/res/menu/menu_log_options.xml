@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_mark_taken"
+        android:title="Mark as Taken" />
+    <item
+        android:id="@+id/action_mark_skipped"
+        android:title="Mark as Skipped" />
+     <item
+        android:id="@+id/action_mark_missed"
+        android:title="Mark as Missed" />
+    <item
+        android:id="@+id/action_remove_log"
+        android:title="Remove Log Entry" />
+</menu>

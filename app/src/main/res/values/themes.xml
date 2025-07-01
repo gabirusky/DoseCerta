@@ -1,0 +1,191 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme using Material Design 3 -->
+    <style name="Base.Theme.DoseCerta" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        
+        <!-- Tertiary Colors -->
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        
+        <!-- Error Colors -->
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        
+        <!-- Background & Surface -->
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        
+        <!-- Surface Containers -->
+        <item name="colorSurfaceContainer">@color/md_theme_light_surfaceContainer</item>
+        <item name="colorSurfaceContainerHigh">@color/md_theme_light_surfaceContainerHigh</item>
+        <item name="colorSurfaceContainerHighest">@color/md_theme_light_surfaceContainerHighest</item>
+        <item name="colorSurfaceContainerLow">@color/md_theme_light_surfaceContainerLow</item>
+        <item name="colorSurfaceContainerLowest">@color/md_theme_light_surfaceContainerLowest</item>
+        
+        <!-- Outline -->
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_light_outlineVariant</item>
+        
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        
+        <!-- Window -->
+        <item name="android:windowBackground">@color/md_theme_light_background</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        
+        <!-- Shape System -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.DoseCerta.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.DoseCerta.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.DoseCerta.LargeComponent</item>
+        
+        <!-- Component Styles -->
+        <item name="materialCardViewStyle">@style/Widget.DoseCerta.CardView</item>
+        <item name="materialButtonStyle">@style/Widget.DoseCerta.Button</item>
+        <item name="extendedFloatingActionButtonStyle">@style/Widget.DoseCerta.ExtendedFloatingActionButton</item>
+        <item name="floatingActionButtonStyle">@style/Widget.DoseCerta.FloatingActionButton</item>
+        <item name="chipStyle">@style/Widget.DoseCerta.Chip</item>
+        <item name="toolbarStyle">@style/Widget.DoseCerta.Toolbar</item>
+    </style>
+
+    <style name="Theme.DoseCerta" parent="Base.Theme.DoseCerta" />
+
+    <!-- Base Widget Style -->
+    <style name="Widget.DoseCerta" parent="">
+        <!-- Define common attributes for all DoseCerta widgets here -->
+    </style>
+
+    <!-- Shape Appearances -->
+    <style name="ShapeAppearance.DoseCerta.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.DoseCerta.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.DoseCerta.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <!-- Card View Style -->
+    <style name="Widget.DoseCerta.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/md_theme_light_surfaceContainerLowest</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="Widget.DoseCerta.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">24dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceLabelLarge</item>
+        <item name="iconPadding">8dp</item>
+    </style>
+
+    <style name="Widget.DoseCerta.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">24dp</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget.DoseCerta.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="cornerRadius">24dp</item>
+    </style>
+
+    <!-- FAB Styles -->
+    <style name="Widget.DoseCerta.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="shapeAppearance">@style/ShapeAppearance.DoseCerta.MediumComponent</item>
+        <item name="backgroundTint">@color/md_theme_light_primaryContainer</item>
+        <item name="tint">@color/md_theme_light_onPrimaryContainer</item>
+    </style>
+
+    <style name="Widget.DoseCerta.ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="shapeAppearance">@style/ShapeAppearance.DoseCerta.MediumComponent</item>
+        <item name="backgroundTint">@color/md_theme_light_primaryContainer</item>
+        <item name="iconTint">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimaryContainer</item>
+    </style>
+
+    <!-- Chip Style -->
+    <style name="Widget.DoseCerta.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipCornerRadius">16dp</item>
+        <item name="chipBackgroundColor">@color/md_theme_light_surfaceContainerHigh</item>
+        <item name="android:textColor">@color/md_theme_light_onSurface</item>
+    </style>
+
+    <!-- Toolbar Style -->
+    <style name="Widget.DoseCerta.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextAppearance">?attr/textAppearanceHeadlineSmall</item>
+        <item name="titleTextColor">@color/md_theme_light_onSurface</item>
+        <item name="android:background">@color/md_theme_light_surface</item>
+        <item name="navigationIconTint">@color/md_theme_light_onSurface</item>
+    </style>
+
+    <!-- Status Badge Styles -->
+    <style name="Widget.DoseCerta.Badge.Taken">
+        <item name="android:background">@drawable/bg_status_taken</item>
+        <item name="android:textColor">@color/status_taken_on_container</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">4dp</item>
+    </style>
+
+    <style name="Widget.DoseCerta.Badge.Missed">
+        <item name="android:background">@drawable/bg_status_missed</item>
+        <item name="android:textColor">@color/status_missed_on_container</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">4dp</item>
+    </style>
+
+    <style name="Widget.DoseCerta.Badge.Skipped">
+        <item name="android:background">@drawable/bg_status_skipped</item>
+        <item name="android:textColor">@color/status_skipped_on_container</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">4dp</item>
+    </style>
+
+    <style name="Widget.DoseCerta.Badge.Pending">
+        <item name="android:background">@drawable/bg_status_pending</item>
+        <item name="android:textColor">@color/status_pending_on_container</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">4dp</item>
+    </style>
+
+    <!-- Base Badge Style -->
+    <style name="Widget.DoseCerta.Badge">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">12dp</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:background">@color/md_theme_light_surfaceContainerHigh</item>
+        <item name="android:textColor">@color/md_theme_light_onSurface</item>
+    </style>
+</resources>

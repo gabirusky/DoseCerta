@@ -1,0 +1,167 @@
+<resources>
+    <string name="app_name">Dose Certa</string>
+    <string name="title_home">Home</string>
+    <string name="title_history">History</string>
+    <string name="title_meds">Medications</string>
+
+    <!-- Home Screen -->
+    <string name="welcome_back">Welcome back</string>
+    <string name="today_schedule">Today\'s Schedule</string>
+    <string name="your_medication_reminders">Your medication reminders</string>
+    <string name="no_medications_scheduled">No medications scheduled</string>
+    <string name="add_first_medication">Add your first medication to get started</string>
+    <string name="adherence">Adherence</string>
+    <string name="last_7_days">Last 7 days</string>
+    <string name="view_all">View All</string>
+    <string name="medications">Medications</string>
+    <string name="missed_today">Missed Today</string>
+    <string name="add_medication">Add Medication</string>
+
+    <!-- History Screen -->
+    <string name="track_your_progress">Track your progress</string>
+    <string name="medication_history">Medication History</string>
+    <string name="taken">Taken</string>
+    <string name="missed">Missed</string>
+    <string name="skipped">Skipped</string>
+    <string name="adherence_percentage">Adherence</string>
+    <string name="filter">Filter</string>
+    <string name="last_7_days_filter">Last 7 days</string>
+    <string name="all">All</string>
+    <string name="no_history_yet">No history yet</string>
+    <string name="history_will_appear">Your medication history will appear here as you track your doses</string>
+
+    <!-- Medications Screen -->
+    <string name="manage">Manage</string>
+    <string name="my_medications">My Medications</string>
+    <string name="search_medications">Search medications…</string>
+    <string name="daily">Daily</string>
+    <string name="as_needed">As Needed</string>
+    <string name="no_medications_yet">No medications yet</string>
+    <string name="add_first_medication_journey">Add your first medication to start tracking your health journey</string>
+    <string name="quick_add">Quick Add</string>
+    <string name="add_another_medication">Add another medication quickly</string>
+    <string name="add">Add</string>
+
+    <!-- Add/Edit Medication Screen -->
+    <string name="medication_details">Medication Details</string>
+    <string name="basic_information">Basic Information</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="dosage">Dosage</string>
+    <string name="form">Form</string>
+    <string name="strength_optional">Strength (Optional)</string>
+    <string name="unit">Unit</string>
+    <string name="frequency">Frequency</string>
+    <string name="how_often">How often?</string>
+    <string name="every_x_days">Every X Days</string>
+    <string name="select_days">Select Days</string>
+    <string name="reminders">Reminders</string>
+    <string name="set_reminder_times">Set reminder times</string>
+    <string name="add_time">Add Time</string>
+    <string name="no_reminders_set">No reminders set</string>
+    <string name="additional_notes">Additional Notes</string>
+    <string name="notes_optional">Notes (Optional)</string>
+    <string name="save_medication">Save Medication</string>
+    <string name="edit_medication">Edit Medication</string>
+
+    <!-- Schedule Items -->
+    <string name="take">Take</string>
+    <string name="skip">Skip</string>
+    <string name="undo">Undo</string>
+    <string name="take_again">Take Again</string>
+
+    <!-- Days of Week -->
+    <string name="sun">Sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+
+    <!-- Status Strings -->
+    <string name="status_taken">TAKEN</string>
+    <string name="status_skipped">SKIPPED</string>
+    <string name="status_missed">MISSED</string>
+    <string name="status_pending">PENDING</string>
+
+    <!-- Actions -->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="save">Save</string>
+
+    <!-- Dialogs -->
+    <string name="delete_medication_title">Delete Medication</string>
+    <string name="delete_medication_message">Are you sure you want to delete %1$s?</string>
+    <string name="delete_medication_confirm">Delete</string>
+
+    <!-- Time Display -->
+    <string name="scheduled_for">Scheduled for %1$s</string>
+    <string name="next_dose_at">Next dose at %1$s</string>
+    <string name="reminders_count">%1$d reminders</string>
+
+    <!-- Frequency Types -->
+    <string name="frequency_daily">Daily</string>
+    <string name="frequency_every_x_days">Every X Days</string>
+    <string name="frequency_specific_days">Specific Days of Week</string>
+    <string name="frequency_as_needed">As Needed</string>
+
+    <!-- Dosage Forms -->
+    <string name="dosage_form_tablet">Tablet</string>
+    <string name="dosage_form_capsule">Capsule</string>
+    <string name="dosage_form_liquid">Liquid</string>
+    <string name="dosage_form_injection">Injection</string>
+    <string name="dosage_form_cream">Cream</string>
+    <string name="dosage_form_ointment">Ointment</string>
+    <string name="dosage_form_drops">Drops</string>
+    <string name="dosage_form_spray">Spray</string>
+    <string name="dosage_form_other">Other</string>
+
+    <!-- Units -->
+    <string name="unit_mg">mg</string>
+    <string name="unit_mcg">mcg</string>
+    <string name="unit_g">g</string>
+    <string name="unit_ml">ml</string>
+    <string name="unit_percentage">%</string>
+    <string name="unit_iu">IU</string>
+    <string name="unit_other">Other</string>
+
+    <!-- Permissions -->
+    <string name="notification_permission_needed">Notification permission is needed to show reminders.</string>
+    <string name="notification_permission_denied">Notifications permission denied. Reminders may not work.</string>
+    <string name="exact_alarm_permission_needed">This app needs permission to schedule exact alarms for medication reminders.</string>
+    <string name="exact_alarm_permission_denied">Exact alarm permission is needed to schedule reminders accurately.</string>
+    <string name="settings">Settings</string>
+
+    <!-- Validation Messages -->
+    <string name="error_medication_name_empty">Medication name cannot be empty</string>
+    <string name="error_dosage_empty">Dosage cannot be empty</string>
+    <string name="error_select_dosage_form">Please select a dosage form</string>
+    <string name="error_select_unit_for_strength">Please select a unit for the strength</string>
+    <string name="error_enter_strength_for_unit">Please enter a strength for the selected unit</string>
+    <string name="error_select_frequency">Please select frequency</string>
+    <string name="error_enter_interval">Please enter a valid interval</string>
+    <string name="error_interval_positive">Interval must be a positive number</string>
+    <string name="error_select_at_least_one_day">Please select at least one day</string>
+    <string name="check_fields_above">Please check the fields above</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_edit_medication">Edit Medication</string>
+    <string name="cd_delete_medication">Delete Medication</string>
+    <string name="cd_delete_reminder">Delete Reminder</string>
+    <string name="cd_medication_icon">Medication Icon</string>
+    <string name="cd_status_indicator">Status Indicator</string>
+
+    <!-- Language Settings -->
+    <string name="language_settings">Language Settings</string>
+    <string name="select_language">Select Language</string>
+    <string name="language_english">English</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_changed">Language changed</string>
+    <string name="restart_app_language">Restart the app to apply the new language</string>
+
+    <!-- New strings from MainActivity.kt -->
+    <string name="all_bug_fixes_validated">✅ All bug fixes validated</string>
+    <string name="validation_issues_detected">⚠️ Validation issues detected</string>
+</resources>

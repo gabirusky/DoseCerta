@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="?attr/colorOutlineVariant"
+    app:cardBackgroundColor="?attr/colorSurfaceContainer">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Time Badge -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/time_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/text_schedule_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:textStyle="bold"
+                tools:text="09:00" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Medication Info -->
+        <LinearLayout
+            android:id="@+id/medication_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/time_badge"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/action_container"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/text_schedule_med_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorOnSurface"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Metformin" />
+
+            <TextView
+                android:id="@+id/text_schedule_dosage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="500mg • Tablet" />
+
+        </LinearLayout>
+
+        <!-- Action Container -->
+        <LinearLayout
+            android:id="@+id/action_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- Pending Actions Group -->
+            <LinearLayout
+                android:id="@+id/group_pending_actions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible"
+                tools:visibility="visible">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_schedule_skip"
+                    style="@style/Widget.DoseCerta.Button.Outlined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Skip"
+                    android:textSize="12sp"
+                    android:minWidth="64dp"
+                    android:minHeight="32dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    app:cornerRadius="16dp"
+                    app:strokeColor="?attr/colorOutline" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_schedule_take"
+                    style="@style/Widget.DoseCerta.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Take"
+                    android:textSize="12sp"
+                    android:minWidth="64dp"
+                    android:minHeight="32dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/ic_check_circle"
+                    app:iconSize="16dp" />
+
+            </LinearLayout>
+
+            <!-- Status Badge for Completed Actions -->
+            <TextView
+                android:id="@+id/text_status_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:textAppearance="?attr/textAppearanceLabelMedium"
+                android:textStyle="bold"
+                android:background="@drawable/bg_status_taken"
+                android:visibility="gone"
+                tools:visibility="visible"
+                tools:text="Taken"
+                tools:background="@drawable/bg_status_taken" />
+
+            <!-- Undo Button for Skipped -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_schedule_undo_skip"
+                style="@style/Widget.DoseCerta.Button.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Undo"
+                android:textSize="12sp"
+                android:minWidth="56dp"
+                android:minHeight="32dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="6dp"
+                android:textColor="?attr/colorPrimary"
+                android:visibility="gone"
+                tools:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

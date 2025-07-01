@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Basic rules for Auto Backup. Adjust as needed. -->
+<full-backup-content>
+    <!-- Specify what to include/exclude from auto backup -->
+    <!-- By default, include most things. -->
+    <!-- <include domain="sharedpref" path="."/> -->
+    <!-- <exclude domain="database" path="my_cache_db"/> -->
+</full-backup-content> 

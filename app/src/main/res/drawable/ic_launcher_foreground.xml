@@ -1,0 +1,30 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:pivotX="54"
+        android:pivotY="54">
+        <!-- Medical cross background circle -->
+        <path
+            android:fillColor="#4CAF50"
+            android:pathData="M54,18 C73.88,18 90,34.12 90,54 C90,73.88 73.88,90 54,90 C34.12,90 18,73.88 18,54 C18,34.12 34.12,18 54,18 Z" />
+        
+        <!-- Medical cross -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M60,36 L60,48 L72,48 L72,60 L60,60 L60,72 L48,72 L48,60 L36,60 L36,48 L48,48 L48,36 Z" />
+        
+        <!-- Pills/capsules decoration -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.8"
+            android:pathData="M30,30 C32.21,30 34,31.79 34,34 L34,38 C34,40.21 32.21,42 30,42 C27.79,42 26,40.21 26,38 L26,34 C26,31.79 27.79,30 30,30 Z" />
+        
+        <path
+            android:fillColor="#E3F2FD"
+            android:pathData="M78,66 C80.21,66 82,67.79 82,70 L82,74 C82,76.21 80.21,78 78,78 C75.79,78 74,76.21 74,74 L74,70 C74,67.79 75.79,66 78,66 Z" />
+    </group>
+</vector>

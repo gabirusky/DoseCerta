@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Basic rules for Data Extraction. Adjust as needed. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Specify what to include/exclude from cloud backup -->
+        <!-- By default, include most things. -->
+        <!-- <include domain="sharedpref" path="."/> -->
+        <!-- <exclude domain="database" path="my_sensitive_db"/> -->
+    </cloud-backup>
+    <device-transfer>
+        <!-- Specify what to include/exclude from device-to-device transfer -->
+        <!-- By default, include most things. -->
+        <!-- <include domain="file" path="."/> -->
+    </device-transfer>
+</data-extraction-rules> 
