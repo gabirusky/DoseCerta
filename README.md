@@ -24,7 +24,7 @@ Para gerar o arquivo APK do projeto, siga os passos básicos abaixo.
 
 1.  **Clonar repositório:**
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/gabirusky/DoseCerta
     cd DoseCerta
     ```
 2.  **Abrir no Android Studio:**
@@ -66,7 +66,7 @@ Os arquivos APKs gerados estarão no diretório `app/build/outputs/apk/`.
      - drawable/: Ícones e outros recursos gráficos.
      - values/: Arquivos de recursos como strings, cores e estilos.
 
-  Tecnologias e Bibliotecas
+## Tecnologias e Bibliotecas
 
 
    - Linguagem: Kotlin
@@ -81,13 +81,13 @@ Os arquivos APKs gerados estarão no diretório `app/build/outputs/apk/`.
      - Coroutines: Para gerenciamento de tarefas assíncronas.
      - Material Components for Android: Para um design moderno e consistente.
 
-  Contribuições
+## Contribuições
 
 
   Contribuições são bem-vindas! Se você tiver sugestões de melhorias, correções de bugs ou
   novas funcionalidades, sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
-  Licença
+## Licença
 
   Este projeto está licenciado sob a Licença MIT (LICENSE).
 
