@@ -89,5 +89,5 @@ Os arquivos APKs gerados estarão no diretório `app/build/outputs/apk/`.
 
 ## Licença
 
-  Este projeto está licenciado sob a Licença MIT (LICENSE).
+  Este projeto está licenciado sob a GNU General Public License (GPL-3.0).
 
