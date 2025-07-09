@@ -2,8 +2,6 @@
 
 ![image](https://github.com/user-attachments/assets/fa460868-fc87-4dfb-8efc-f493d6d77341)
 
-
-
 ## Sobre o Projeto
 
 Dose Certa é um aplicativo móvel desenvolvido para ajudar usuários a gerenciar seus medicamentos. Ele permite cadastrar diferentes medicamentos, definir horários e dosagens para lembretes, e acompanhar o histórico de administração.
@@ -39,10 +37,8 @@ Os arquivos APKs gerados estarão no diretório `app/build/outputs/apk/`.
 
 ## Estrutura do Projeto
 
-
   O projeto segue a arquitetura recomendada pelo Google para aplicativos Android, utilizando
   componentes do Android Jetpack.
-
 
    - `app/src/main/java/com/example/medtracker/`: Código-fonte principal do aplicativo.
      - `data/`: Contém as classes de dados (entidades do Room), DAOs (Data Access Objects) e o
@@ -68,7 +64,6 @@ Os arquivos APKs gerados estarão no diretório `app/build/outputs/apk/`.
 
 ## Tecnologias e Bibliotecas
 
-
    - Linguagem: Kotlin
    - Arquitetura: MVVM (Model-View-ViewModel)
    - Componentes do Jetpack:
@@ -82,7 +77,6 @@ Os arquivos APKs gerados estarão no diretório `app/build/outputs/apk/`.
      - Material Components for Android: Para um design moderno e consistente.
 
 ## Contribuições
-
 
   Contribuições são bem-vindas! Se você tiver sugestões de melhorias, correções de bugs ou
   novas funcionalidades, sinta-se à vontade para abrir uma issue ou enviar um pull request.
