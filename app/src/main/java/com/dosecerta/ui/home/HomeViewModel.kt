@@ -64,16 +64,22 @@ class HomeViewModel(private val repository: MedicationRepository) : ViewModel() 
         val startOfWeek = DateTimeUtils.getStartOfWeek()
         val now = System.currentTimeMillis()
         
-        val adherence = repository.calculateAdherence(startOfWeek, now)
         val takenCount = repository.getTakenCountInRange(startOfWeek, now)
-        val totalCount = repository.getTotalCountInRange(startOfWeek, now)
-        val activeCount = repository.getActiveMedicationCount().first()
+        val missedCount = repository.getMissedCountInRange(startOfWeek, now)
+        val skippedCount = repository.getSkippedCountInRange(startOfWeek, now)
+        val totalCount = takenCount + missedCount + skippedCount
+        
+        val adherence = if (totalCount > 0) {
+            ((takenCount.toFloat() / totalCount) * 100).toInt()
+        } else {
+            100 // Default to 100% if no logs
+        }
         
         emit(
             MedicationStatistics(
-                takenCount = activeCount,
-                missedCount = 0,
-                skippedCount = 0,
+                takenCount = takenCount,
+                missedCount = missedCount,
+                skippedCount = skippedCount,
                 adherencePercentage = adherence
             )
         )
@@ -120,7 +126,27 @@ class HomeViewModel(private val repository: MedicationRepository) : ViewModel() 
      * Snooze reminder for 10 minutes.
      */
     suspend fun snoozeReminder(scheduleItem: ScheduleItem) {
-        // TODO: Reschedule alarm for 10 minutes from now
-        // This will be implemented with AlarmScheduler
+        // Reschedule for 10 minutes from now
+        val snoozeTime = System.currentTimeMillis() + (10 * 60 * 1000) // 10 minutes
+        
+        // Create a log entry for the snooze action
+        val existingLog = repository.getLog(
+            scheduleItem.medication.id,
+            scheduleItem.schedule.id,
+            scheduleItem.scheduledTime
+        )
+        
+        if (existingLog != null) {
+            // Update existing log to mark as snoozed
+            repository.updateLog(
+                existingLog.copy(
+                    status = MedicationStatus.PENDING,
+                    actualTime = null
+                )
+            )
+        }
+        
+        // TODO: Use AlarmScheduler to reschedule the notification for snoozeTime
+        // For now, just update the log status
     }
 }

@@ -25,7 +25,7 @@
         <item name="colorOnError">@color/white</item>
         
         <!-- Background colors -->
-        <item name="android:colorBackground">@color/cream</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="colorOnBackground">@color/gray_900</item>
         
         <!-- Surface colors -->

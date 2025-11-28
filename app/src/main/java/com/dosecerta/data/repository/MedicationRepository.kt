@@ -86,6 +86,12 @@ class MedicationRepository(
     suspend fun getTakenCountInRange(startTime: Long, endTime: Long): Int = 
         medicationLogDao.getTakenCountInRange(startTime, endTime)
     
+    suspend fun getMissedCountInRange(startTime: Long, endTime: Long): Int = 
+        medicationLogDao.getCountByStatusInRange(MedicationStatus.MISSED, startTime, endTime)
+    
+    suspend fun getSkippedCountInRange(startTime: Long, endTime: Long): Int = 
+        medicationLogDao.getCountByStatusInRange(MedicationStatus.SKIPPED, startTime, endTime)
+    
     suspend fun getTotalCountInRange(startTime: Long, endTime: Long): Int = 
         medicationLogDao.getTotalCountInRange(startTime, endTime)
     

@@ -26,13 +26,13 @@
         
         <!-- Background colors -->
         <item name="android:colorBackground">@color/background_dark</item>
-        <item name="colorOnBackground">@color/cream</item>
+        <item name="colorOnBackground">@color/white</item>
         
         <!-- Surface colors -->
         <item name="colorSurface">@color/surface_dark</item>
-        <item name="colorOnSurface">@color/cream</item>
+        <item name="colorOnSurface">@color/white</item>
         <item name="colorSurfaceVariant">@color/surface_variant_dark</item>
-        <item name="colorOnSurfaceVariant">@color/gray_400</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
         
         <!-- Outline -->
         <item name="colorOutline">@color/gray_600</item>

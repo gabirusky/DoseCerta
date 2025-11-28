@@ -85,8 +85,12 @@ class HomeFragment : Fragment() {
         
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.statistics.collect { stats ->
+                binding.textAdherencePercentageCard.text = "${stats.adherencePercentage}%"
                 binding.textAdherencePercentage.text = "${stats.adherencePercentage}%"
                 binding.textActiveMedicationsCount.text = stats.takenCount.toString()
+                
+                // Update circular progress indicator in welcome card
+                binding.progressAdherence.setProgressCompat(stats.adherencePercentage, true)
             }
         }
     }

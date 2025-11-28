@@ -60,8 +60,11 @@ class MedicationsFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = MedicationAdapter(
             onEditClick = { medication ->
-                // TODO: Navigate to edit screen
-                // findNavController().navigate(...)
+                val action = R.id.action_medications_to_addMedication
+                val bundle = Bundle().apply {
+                    putLong("medicationId", medication.id)
+                }
+                findNavController().navigate(action, bundle)
             },
             onDeleteClick = { medication ->
                 showDeleteConfirmation(medication)
@@ -101,8 +104,7 @@ class MedicationsFragment : Fragment() {
     
     private fun setupFab() {
         binding.fabAdd.setOnClickListener {
-            // TODO: Navigate to add medication screen
-            // findNavController().navigate(...)
+            findNavController().navigate(R.id.action_medications_to_addMedication)
         }
     }
     

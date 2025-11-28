@@ -13,37 +13,104 @@
         android:orientation="vertical"
         android:padding="@dimen/spacing_medium">
 
-        <!-- Greeting Card -->
+        <!-- Greeting Card with Gradient -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="@dimen/card_elevation"
-            style="@style/Widget.DoseCerta.CardView">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
 
+            <!-- Gradient Background -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/card_padding">
+                android:background="@drawable/gradient_welcome_card"
+                android:orientation="horizontal"
+                android:padding="20dp">
 
-                <TextView
-                    android:id="@+id/text_greeting"
-                    android:layout_width="wrap_content"
+                <!-- Welcome Text Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/home_greeting_morning"
-                    android:textAppearance="@style/TextAppearance.DoseCerta.Headline"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/home_subtitle"
-                    android:textAppearance="@style/TextAppearance.DoseCerta.Body"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/text_greeting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_greeting_morning"
+                        android:textColor="@android:color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/home_subtitle"
+                        android:textColor="#E6FFFFFF"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="2dp" />
+
+                    <TextView
+                        android:id="@+id/text_weekly_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Semana em progresso"
+                        android:textColor="#CCF0F3BD"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Circular Progress Indicator -->
+                <RelativeLayout
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_vertical">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress_adherence"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_centerInParent="true"
+                        android:progress="0"
+                        android:max="100"
+                        app:indicatorSize="90dp"
+                        app:trackThickness="8dp"
+                        app:trackColor="#40FFFFFF"
+                        app:indicatorColor="@color/cream"
+                        style="@style/Widget.Material3.CircularProgressIndicator" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/text_adherence_percentage_card"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="98%"
+                            android:textColor="@android:color/white"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Adesão"
+                            android:textColor="#CCF0F3BD"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

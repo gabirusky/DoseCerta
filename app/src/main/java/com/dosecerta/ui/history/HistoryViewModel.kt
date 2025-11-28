@@ -27,9 +27,8 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
         val endTime = System.currentTimeMillis()
         
         val takenCount = repository.getTakenCountInRange(startTime, endTime)
-        val totalCount = repository.getTotalCountInRange(startTime, endTime)
-        val missedCount = totalCount - takenCount // Simplified
-        val skippedCount = 0 // TODO: Count skipped separately
+        val missedCount = repository.getMissedCountInRange(startTime, endTime)
+        val skippedCount = repository.getSkippedCountInRange(startTime, endTime)
         
         Statistics(
             taken = takenCount,

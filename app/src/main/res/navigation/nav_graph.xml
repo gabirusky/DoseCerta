@@ -17,7 +17,20 @@
     <fragment
         android:id="@+id/nav_medications"
         android:name="com.dosecerta.ui.medications.MedicationsFragment"
-        android:label="@string/nav_medications" />
+        android:label="@string/nav_medications">
+        <action
+            android:id="@+id/action_medications_to_addMedication"
+            app:destination="@id/nav_add_medication" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_add_medication"
+        android:name="com.dosecerta.ui.addmedication.AddMedicationFragment"
+        android:label="@string/medication_add_title">
+        <argument
+            android:name="medicationId"
+            android:defaultValue="-1L" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_settings"

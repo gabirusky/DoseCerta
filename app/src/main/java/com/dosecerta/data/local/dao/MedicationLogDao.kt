@@ -42,6 +42,12 @@ interface MedicationLogDao {
     
     @Query("""
         SELECT COUNT(*) FROM medication_logs 
+        WHERE status = :status AND scheduledTime >= :startTime AND scheduledTime <= :endTime
+    """)
+    suspend fun getCountByStatusInRange(status: MedicationStatus, startTime: Long, endTime: Long): Int
+    
+    @Query("""
+        SELECT COUNT(*) FROM medication_logs 
         WHERE scheduledTime >= :startTime AND scheduledTime <= :endTime
     """)
     suspend fun getTotalCountInRange(startTime: Long, endTime: Long): Int
