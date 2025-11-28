@@ -1,0 +1,42 @@
+<resources>
+    <!-- Spacing -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">16dp</dimen>
+    <dimen name="spacing_large">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    
+    <!-- Card -->
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    
+    <!-- Button -->
+    <dimen name="button_corner_radius">12dp</dimen>
+    <dimen name="button_padding_vertical">12dp</dimen>
+    <dimen name="button_padding_horizontal">24dp</dimen>
+    <dimen name="button_height">48dp</dimen>
+    
+    <!-- FAB -->
+    <dimen name="fab_margin">16dp</dimen>
+    
+    <!-- Icon Sizes -->
+    <dimen name="icon_size_small">24dp</dimen>
+    <dimen name="icon_size_medium">32dp</dimen>
+    <dimen name="icon_size_large">48dp</dimen>
+    <dimen name="icon_size_xl">64dp</dimen>
+    
+    <!-- Touch Target -->
+    <dimen name="touch_target_min">48dp</dimen>
+    
+    <!-- Border -->
+    <dimen name="border_width">1dp</dimen>
+    
+    <!-- Medication Card -->
+    <dimen name="medication_card_height">96dp</dimen>
+    <dimen name="medication_icon_size">40dp</dimen>
+    
+    <!-- Statistics Card -->
+    <dimen name="stats_card_width">110dp</dimen>
+    <dimen name="stats_card_height">100dp</dimen>
+</resources>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_medium">
+
+        <!-- Greeting Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            style="@style/Widget.DoseCerta.CardView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
+
+                <TextView
+                    android:id="@+id/text_greeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_greeting_morning"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Headline"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/home_subtitle"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Today's Medications Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:text="@string/home_medications_today"
+            android:textAppearance="@style/TextAppearance.DoseCerta.Title"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Medications List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_medications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginBottom="@dimen/spacing_medium" />
+
+        <!-- Empty State -->
+        <TextView
+            android:id="@+id/text_no_medications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/spacing_xl"
+            android:text="@string/home_no_medications"
+            android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+            android:visibility="gone" />
+
+        <!-- Statistics Section -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:text="@string/home_statistics"
+            android:textAppearance="@style/TextAppearance.DoseCerta.Title"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <!-- Adherence Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/stats_card_height"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/spacing_small"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_medium">
+
+                    <TextView
+                        android:id="@+id/text_adherence_percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="98%"
+                        android:textColor="@color/mint_leaf"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_adherence_week"
+                        android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Active Medications Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/stats_card_height"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/spacing_small"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_medium">
+
+                    <TextView
+                        android:id="@+id/text_active_medications_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textColor="@color/baltic_blue"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_active_medications"
+                        android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

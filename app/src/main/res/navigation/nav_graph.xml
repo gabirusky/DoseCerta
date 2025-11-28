@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.dosecerta.ui.home.HomeFragment"
+        android:label="@string/nav_home" />
+
+    <fragment
+        android:id="@+id/nav_history"
+        android:name="com.dosecerta.ui.history.HistoryFragment"
+        android:label="@string/nav_history" />
+
+    <fragment
+        android:id="@+id/nav_medications"
+        android:name="com.dosecerta.ui.medications.MedicationsFragment"
+        android:label="@string/nav_medications" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.dosecerta.ui.settings.SettingsFragment"
+        android:label="@string/nav_settings">
+        <action
+            android:id="@+id/action_nav_settings_to_nav_privacy_policy"
+            app:destination="@id/nav_privacy_policy" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_privacy_policy"
+        android:name="com.dosecerta.ui.privacy.PrivacyPolicyFragment"
+        android:label="@string/privacy_policy_title" />
+
+</navigation>

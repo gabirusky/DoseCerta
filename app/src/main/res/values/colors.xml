@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom Color Palette -->
+    <!-- Baltic Blue: Tranquil oceanic hue for primary actions -->
+    <color name="baltic_blue">#05668D</color>
+    <color name="baltic_blue_light">#0A7FAF</color>
+    <color name="baltic_blue_dark">#034D6A</color>
+    
+    <!-- Teal: Deep aquatic strength for secondary elements -->
+    <color name="teal">#028090</color>
+    <color name="teal_light">#0399AC</color>
+    <color name="teal_dark">#016373</color>
+    
+    <!-- Verdigris: Serene tropical accent -->
+    <color name="verdigris">#00A896</color>
+    <color name="verdigris_light">#00C9B3</color>
+    <color name="verdigris_dark">#008679</color>
+    
+    <!-- Mint Leaf: Refreshing success state -->
+    <color name="mint_leaf">#02C39A</color>
+    <color name="mint_leaf_light">#04DFAE</color>
+    <color name="mint_leaf_dark">#01A57F</color>
+    
+    <!-- Cream: Warm, cozy backgrounds -->
+    <color name="cream">#F0F3BD</color>
+    <color name="cream_light">#F7F9DA</color>
+    <color name="cream_dark">#E6E9A0</color>
+    
+    <!-- Status Colors -->
+    <color name="status_taken">#02C39A</color>      <!-- Mint Leaf -->
+    <color name="status_missed">#E63946</color>     <!-- Red -->
+    <color name="status_skipped">#F77F00</color>    <!-- Orange -->
+    <color name="status_pending">#028090</color>    <!-- Teal -->
+    
+    <!-- Neutral Colors - Light Theme -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+    
+    <!-- Dark Theme Specific -->
+    <color name="surface_dark">#1A1A1A</color>
+    <color name="surface_variant_dark">#2D2D2D</color>
+    <color name="background_dark">#121212</color>
+    
+    <!-- Transparent overlays -->
+    <color name="scrim">#80000000</color>
+    <color name="overlay_light">#14000000</color>
+    <color name="overlay_dark">#14FFFFFF</color>
+</resources>

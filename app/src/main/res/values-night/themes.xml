@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark Theme -->
+    <style name="Base.Theme.DoseCerta" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/baltic_blue_light</item>
+        <item name="colorOnPrimary">@color/gray_900</item>
+        <item name="colorPrimaryContainer">@color/baltic_blue_dark</item>
+        <item name="colorOnPrimaryContainer">@color/cream</item>
+        
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/teal_light</item>
+        <item name="colorOnSecondary">@color/gray_900</item>
+        <item name="colorSecondaryContainer">@color/teal_dark</item>
+        <item name="colorOnSecondaryContainer">@color/cream</item>
+        
+        <!-- Tertiary colors -->
+        <item name="colorTertiary">@color/verdigris_light</item>
+        <item name="colorOnTertiary">@color/gray_900</item>
+        <item name="colorTertiaryContainer">@color/verdigris_dark</item>
+        <item name="colorOnTertiaryContainer">@color/cream</item>
+        
+        <!-- Error colors -->
+        <item name="colorError">@color/status_missed</item>
+        <item name="colorOnError">@color/white</item>
+        
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/background_dark</item>
+        <item name="colorOnBackground">@color/cream</item>
+        
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnSurface">@color/cream</item>
+        <item name="colorSurfaceVariant">@color/surface_variant_dark</item>
+        <item name="colorOnSurfaceVariant">@color/gray_400</item>
+        
+        <!-- Outline -->
+        <item name="colorOutline">@color/gray_600</item>
+        <item name="colorOutlineVariant">@color/gray_700</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@color/surface_dark</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o">false</item>
+    </style>
+    
+    <style name="Theme.DoseCerta" parent="Base.Theme.DoseCerta" />
+</resources>

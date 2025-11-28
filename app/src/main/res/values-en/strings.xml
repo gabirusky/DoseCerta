@@ -1,0 +1,92 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Dose Certa</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_history">History</string>
+    <string name="nav_medications">Medications</string>
+    <string name="nav_settings">Settings</string>
+    
+    <!-- Home Screen -->
+    <string name="home_greeting_morning">Good morning!</string>
+    <string name="home_greeting_afternoon">Good afternoon!</string>
+    <string name="home_greeting_evening">Good evening!</string>
+    <string name="home_subtitle">Keep your medication routine on track</string>
+    <string name="home_medications_today">Today\'s medications</string>
+    <string name="home_no_medications">No medications scheduled for today</string>
+    <string name="home_button_taken">Taken</string>
+    <string name="home_button_snooze">Snooze</string>
+    <string name="home_statistics">Statistics</string>
+    <string name="home_adherence_week">Adherence this week</string>
+    <string name="home_active_medications">Active medications</string>
+    
+    <!-- Medications Screen -->
+    <string name="medications_title">My Medications</string>
+    <string name="medications_search_hint">Search medications…</string>
+    <string name="medications_filter_all">All</string>
+    <string name="medications_filter_daily">Daily</string>
+    <string name="medications_filter_as_needed">As Needed</string>
+    <string name="medications_empty">No medications registered</string>
+    <string name="medications_delete_confirm">Delete this medication?</string>
+    
+    <!-- History Screen -->
+    <string name="history_title">Medication History</string>
+    <string name="history_subtitle">Track your progress</string>
+    <string name="history_taken">Taken</string>
+    <string name="history_missed">Missed</string>
+    <string name="history_skipped">Skipped</string>
+    <string name="history_filter">Filter</string>
+    <string name="history_filter_all">All</string>
+    <string name="history_last_7_days">Last 7 days</string>
+    <string name="history_last_30_days">Last 30 days</string>
+    <string name="history_empty">No records found</string>
+    
+    <!-- Pharmaceutical Forms -->
+    <string name="form_tablet">Tablet</string>
+    <string name="form_capsule">Capsule</string>
+    <string name="form_syrup">Syrup</string>
+    <string name="form_drops">Drops</string>
+    <string name="form_injection">Injectable</string>
+    <string name="form_cream">Cream</string>
+    <string name="form_spray">Spray</string>
+    <string name="form_other">Other</string>
+    
+    <!-- Notifications -->
+    <string name="notification_title">Time to take %1$s</string>
+    <string name="notification_message">%1$s - %2$s</string>
+    <string name="notification_action_take">Taken</string>
+    <string name="notification_action_skip">Skip</string>
+    <string name="notification_action_snooze">Snooze 10 min</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_portuguese">Portuguese (Brazil)</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_privacy_policy_subtitle">Read our LGPD privacy policy</string>
+    <string name="settings_about">About the App</string>
+    <string name="settings_version">Version 1.0</string>
+    
+    <!-- Privacy Policy -->
+    <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="privacy_policy_message">Your data is stored only on your device and is not shared with third parties. Dose Certa respects your privacy in accordance with the General Data Protection Law (LGPD).</string>
+    <string name="privacy_policy_full_text">Our Privacy Policy\n\nLast updated: June 30, 2025\n\nYour privacy is our top priority. We created Dose Certa with a fundamental principle: we do not collect, store, or share your personal health information.\n\n1. The Essential: Your Data is Yours Alone\n\nTo be as transparent as possible, here\'s what you need to know:\n\n• No data is sent to us: All information you enter in the app (medication names, times, dose history) is saved exclusively on your phone.\n\n• No one else has access: We, the developers of Dose Certa, cannot see, access, or analyze your information.\n\n• You have 100% control: You can add, edit, and delete your data at any time, directly in the app.\n\n2. What Data Does the App Use (and Where Is It Stored)?\n\nDose Certa needs to save some information on your own device to function properly. They are:\n\n• Medication Information: Name, dosage, and notes you enter.\n\n• Alarm Configuration: The times and frequency you set for your reminders.\n\n• Usage History: The record of when you confirm you took or skipped a dose.\n\nTo repeat: All this information is stored securely only in your device\'s internal memory. If you uninstall the app, all this data will be permanently deleted.\n\n3. What We DO NOT Do\n\nTo leave no doubt, our policy is clear:\n\n• We DO NOT sell your information.\n\n• We DO NOT share your data with third parties (companies, advertisers, etc.).\n\n• We DO NOT use your data for marketing or advertising purposes.\n\n• We DO NOT track your location or other activities on your phone.\n\n4. Your Rights as a Data Subject (LGPD)\n\nThe General Data Protection Law (LGPD) guarantees you rights over your information. With Dose Certa, exercising them is simple:\n\n• Right of Access: You can see all your data at any time, simply by navigating through the app.\n\n• Right of Correction: You can edit any incorrect information directly on the medication editing screens.\n\n• Right of Elimination (Forgetting): You can delete a specific medication or all your information by uninstalling the app from your phone.\n\n5. App Permissions\n\nTo function, Dose Certa will request Notification permission. This permission is essential so we can remind you of your medications with alarms, even if the app is closed. We will not request any other permission that is not strictly necessary for the app to function.\n\n6. Consent\n\nBy clicking \"Agree and Continue\", you declare that you have read, understood, and agree with this Privacy Policy, and understand that your data will be stored securely and locally only on your device.</string>
+    
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="close">Close</string>
+    <string name="error">Error</string>
+    <string name="disclaimer_message">This application does not replace the guidance of a healthcare professional. Always follow your doctor\'s prescription. If in doubt, consult your doctor or pharmacist.</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_medication_icon">Medication icon</string>
+    <string name="cd_add_medication">Add new medication</string>
+    <string name="cd_edit_medication">Edit medication</string>
+    <string name="cd_delete_medication">Delete medication</string>
+</resources>

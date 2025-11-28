@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_small"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_medium"
+        android:gravity="center_vertical">
+
+        <!-- Status Icon -->
+        <ImageView
+            android:id="@+id/image_status_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_pill_background"
+            android:contentDescription="@string/cd_medication_icon"
+            android:padding="6dp"
+            android:src="@drawable/ic_pill"
+            app:tint="@color/white" />
+
+        <!-- Medication Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_medication_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desvenlafaxina"
+                android:textAppearance="@style/TextAppearance.DoseCerta.Title"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nov. 23, 06:36 PM"
+                android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Status Badge -->
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/status_badge_taken"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:text="TOMADO"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
