@@ -58,6 +58,10 @@ class NotificationActionReceiver : BroadcastReceiver() {
                 val medication = medicationDao.getMedicationByIdSync(medicationId)
                 val medicationName = medication?.name ?: "Medicamento"
                 
+                // Cancel the missed check alarm since user is taking action
+                val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(context)
+                alarmScheduler.cancelMissedCheckAlarm(medicationId, scheduleId, scheduledTime)
+                
                 when (intent.action) {
                     Constants.ACTION_TAKE_MEDICATION -> {
                         Log.d(TAG, "Processing TAKE action")

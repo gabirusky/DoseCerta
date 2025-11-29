@@ -38,10 +38,13 @@ class MedicationAlarmReceiver : BroadcastReceiver() {
                     val notificationHelper = com.dosecerta.notification.NotificationHelper(context)
                     notificationHelper.showMedicationReminder(medication, scheduleId, scheduledTime)
                     
+                    // Schedule alarm to mark as missed if no action taken within 30 minutes
+                    val alarmScheduler = AlarmScheduler(context)
+                    alarmScheduler.scheduleMissedCheckAlarm(medicationId, scheduleId, scheduledTime)
+                    
                     // Reschedule alarm for next occurrence
                     val schedule = database.scheduleDao().getScheduleById(scheduleId)
                     if (schedule != null && schedule.isActive) {
-                        val alarmScheduler = AlarmScheduler(context)
                         alarmScheduler.scheduleAlarm(medicationId, schedule)
                     }
                 }

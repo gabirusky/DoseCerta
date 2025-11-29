@@ -144,4 +144,31 @@ class NotificationHelper(private val context: Context) {
             else -> context.getString(R.string.form_other)
         }
     }
+    
+    /**
+     * Show a reminder notification for missed medication.
+     */
+    fun showMissedReminderNotification(medicationName: String) {
+        val contentIntent = Intent(context, com.dosecerta.ui.MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val contentPendingIntent = PendingIntent.getActivity(
+            context,
+            999999,
+            contentIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        
+        val notification = NotificationCompat.Builder(context, Constants.NOTIFICATION_CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(context.getString(R.string.missed_reminder_title))
+            .setContentText(context.getString(R.string.missed_reminder_message, medicationName))
+            .setContentIntent(contentPendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setAutoCancel(true)
+            .build()
+        
+        notificationManager.notify(888888, notification)
+    }
 }

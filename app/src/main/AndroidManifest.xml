@@ -53,6 +53,18 @@
             android:name=".notification.NotificationActionReceiver"
             android:enabled="true"
             android:exported="false" />
+        
+        <!-- Mark Missed Receiver -->
+        <receiver
+            android:name=".notification.MarkMissedReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        
+        <!-- Missed Reminder Receiver -->
+        <receiver
+            android:name=".notification.MissedReminderReceiver"
+            android:enabled="true"
+            android:exported="false" />
 
     </application>
 

@@ -180,4 +180,52 @@ class AlarmScheduler(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
+    
+    fun scheduleMissedCheckAlarm(medicationId: Long, scheduleId: Long, scheduledTime: Long) {
+        val checkTime = System.currentTimeMillis() + (Constants.MISSED_CHECK_DELAY_MINUTES * 60 * 1000L)
+        val intent = Intent(context, com.dosecerta.notification.MarkMissedReceiver::class.java).apply {
+            action = Constants.ACTION_MARK_MISSED
+            putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
+            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
+            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
+        }
+        val requestCode = ((medicationId * 1000000 + scheduleId * 1000 + 999).toInt())
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager.canScheduleExactAlarms()) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, checkTime, pendingIntent)
+        } else {
+            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, checkTime, pendingIntent)
+        }
+    }
+    
+    fun cancelMissedCheckAlarm(medicationId: Long, scheduleId: Long, scheduledTime: Long) {
+        val intent = Intent(context, com.dosecerta.notification.MarkMissedReceiver::class.java).apply {
+            action = Constants.ACTION_MARK_MISSED
+            putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
+            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
+            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
+        }
+        val requestCode = ((medicationId * 1000000 + scheduleId * 1000 + 999).toInt())
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        alarmManager.cancel(pendingIntent)
+        pendingIntent.cancel()
+    }
+    
+    fun scheduleMissedReminderAlarm(medicationId: Long, scheduleId: Long, scheduledTime: Long) {
+        val reminderTime = System.currentTimeMillis() + (Constants.MISSED_REMINDER_DELAY_HOURS * 60 * 60 * 1000L)
+        val intent = Intent(context, com.dosecerta.notification.MissedReminderReceiver::class.java).apply {
+            putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
+            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
+            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
+        }
+        val requestCode = ((medicationId * 1000000 + scheduleId * 1000 + 998).toInt())
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager.canScheduleExactAlarms()) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent)
+        } else {
+            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, reminderTime, pendingIntent)
+        }
+    }
 }
