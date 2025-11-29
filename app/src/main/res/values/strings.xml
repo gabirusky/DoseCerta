@@ -139,4 +139,18 @@
     <string name="cd_delete_medication">Excluir medicamento</string>
     <string name="cd_add_reminder_time">Adicionar horário de lembrete</string>
     <string name="cd_remove_reminder_time">Remover horário</string>
+    
+    <!-- Permissions -->
+    <string name="exact_alarm_permission_title">Permissão de Alarme Necessária</string>
+    <string name="exact_alarm_permission_message">Para que os lembretes funcionem na hora certa, o Dose Certa precisa de permissão para definir alarmes exatos. Por favor, ative essa permissão nas configurações.</string>
+    <string name="settings">Configurações</string>
+    
+    <!-- Medication Action Feedback -->
+    <string name="medication_taken_toast">%s - Tomado</string>
+    <string name="medication_skipped_toast">%s - Pulado</string>
+    <string name="medication_snoozed_toast">%s - Lembrete adiado</string>
+    <string name="medication_taken_message">Você marcou \"%s\" como tomado</string>
+    <string name="medication_skipped_message">Você pulou \"%s\"</string>
+    <string name="medication_snoozed_message">\"%s\" - Lembrete voltará em 10 minutos</string>
 </resources>
+

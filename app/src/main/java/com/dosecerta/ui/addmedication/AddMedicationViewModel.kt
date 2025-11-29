@@ -2,6 +2,7 @@ package com.dosecerta.ui.addmedication
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dosecerta.alarm.AlarmScheduler
 import com.dosecerta.data.local.entity.Medication
 import com.dosecerta.data.local.entity.Schedule
 import com.dosecerta.data.model.Frequency
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
  */
 class AddMedicationViewModel(
     private val repository: MedicationRepository,
+    private val alarmScheduler: AlarmScheduler,
     private val medicationId: Long = -1L
 ) : ViewModel() {
     
@@ -154,6 +156,12 @@ class AddMedicationViewModel(
                     }
                     
                     repository.insertSchedules(schedules)
+                    
+                    // Fetch schedules from database to get their generated IDs
+                    val insertedSchedules = repository.getSchedulesForMedicationSync(medicationId)
+                    
+                    // Schedule alarms with the actual schedule IDs from database
+                    alarmScheduler.scheduleAlarmsForMedication(medicationId, insertedSchedules)
                 } else {
                     // Create new medication
                     val medication = Medication(
@@ -179,6 +187,12 @@ class AddMedicationViewModel(
                     }
                     
                     repository.insertSchedules(schedules)
+                    
+                    // Fetch schedules from database to get their generated IDs
+                    val insertedSchedules = repository.getSchedulesForMedicationSync(newMedicationId)
+                    
+                    // Schedule alarms with the actual schedule IDs from database
+                    alarmScheduler.scheduleAlarmsForMedication(newMedicationId, insertedSchedules)
                 }
                 
                 _saveState.value = SaveState.Success

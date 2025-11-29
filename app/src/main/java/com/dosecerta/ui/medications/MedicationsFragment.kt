@@ -33,7 +33,8 @@ class MedicationsFragment : Fragment() {
             database.scheduleDao(),
             database.medicationLogDao()
         )
-        MedicationsViewModelFactory(repository)
+        val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(requireContext())
+        MedicationsViewModelFactory(repository, alarmScheduler)
     }
     
     private lateinit var adapter: MedicationAdapter
@@ -144,11 +145,14 @@ class MedicationsFragment : Fragment() {
     }
 }
 
-class MedicationsViewModelFactory(private val repository: MedicationRepository) : ViewModelProvider.Factory {
+class MedicationsViewModelFactory(
+    private val repository: MedicationRepository,
+    private val alarmScheduler: com.dosecerta.alarm.AlarmScheduler
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MedicationsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MedicationsViewModel(repository) as T
+            return MedicationsViewModel(repository, alarmScheduler) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

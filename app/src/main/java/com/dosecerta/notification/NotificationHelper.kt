@@ -82,7 +82,7 @@ class NotificationHelper(private val context: Context) {
         
         // Build notification
         val notification = NotificationCompat.Builder(context, Constants.NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_pill)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(context.getString(R.string.notification_title, medication.name))
             .setContentText(context.getString(
                 R.string.notification_message,

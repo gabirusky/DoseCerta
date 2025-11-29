@@ -2,6 +2,7 @@ package com.dosecerta.ui.medications
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dosecerta.alarm.AlarmScheduler
 import com.dosecerta.data.local.entity.Medication
 import com.dosecerta.data.model.Frequency
 import com.dosecerta.data.repository.MedicationRepository
@@ -11,7 +12,10 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel for the Medications screen.
  */
-class MedicationsViewModel(private val repository: MedicationRepository) : ViewModel() {
+class MedicationsViewModel(
+    private val repository: MedicationRepository,
+    private val alarmScheduler: AlarmScheduler
+) : ViewModel() {
     
     // Search query
     private val _searchQuery = MutableStateFlow("")
@@ -61,6 +65,13 @@ class MedicationsViewModel(private val repository: MedicationRepository) : ViewM
     
     fun deleteMedication(medication: Medication) {
         viewModelScope.launch {
+            // Get schedules to cancel alarms
+            val schedules = repository.getSchedulesForMedicationSync(medication.id)
+            
+            // Cancel alarms
+            alarmScheduler.cancelAlarmsForMedication(medication.id, schedules)
+            
+            // Delete medication
             repository.deleteMedication(medication)
         }
     }
