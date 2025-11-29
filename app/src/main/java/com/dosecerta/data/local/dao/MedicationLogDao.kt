@@ -58,6 +58,37 @@ interface MedicationLogDao {
     """)
     suspend fun getLog(medicationId: Long, scheduleId: Long, scheduledTime: Long): MedicationLog?
     
+    // Queries with medication details joined
+    @Query("""
+        SELECT ml.*, m.name as medicationName, m.dosage, m.unit 
+        FROM medication_logs ml
+        INNER JOIN medications m ON ml.medicationId = m.id
+        ORDER BY ml.scheduledTime DESC
+    """)
+    fun getAllLogsWithDetails(): Flow<List<MedicationLogWithDetails>>
+    
+    @Query("""
+        SELECT ml.*, m.name as medicationName, m.dosage, m.unit 
+        FROM medication_logs ml
+        INNER JOIN medications m ON ml.medicationId = m.id
+        WHERE ml.scheduledTime >= :startTime AND ml.scheduledTime <= :endTime 
+        ORDER BY ml.scheduledTime DESC
+    """)
+    fun getLogsInRangeWithDetails(startTime: Long, endTime: Long): Flow<List<MedicationLogWithDetails>>
+    
+    @Query("""
+        SELECT ml.*, m.name as medicationName, m.dosage, m.unit 
+        FROM medication_logs ml
+        INNER JOIN medications m ON ml.medicationId = m.id
+        WHERE ml.scheduledTime >= :startTime AND ml.scheduledTime <= :endTime AND ml.status = :status
+        ORDER BY ml.scheduledTime DESC
+    """)
+    fun getLogsByStatusInRangeWithDetails(
+        startTime: Long, 
+        endTime: Long, 
+        status: MedicationStatus
+    ): Flow<List<MedicationLogWithDetails>>
+    
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(log: MedicationLog): Long
     
@@ -70,3 +101,11 @@ interface MedicationLogDao {
     @Query("DELETE FROM medication_logs WHERE medicationId = :medicationId")
     suspend fun deleteAllForMedication(medicationId: Long)
 }
+
+// Data class for joined query result
+data class MedicationLogWithDetails(
+    @Embedded val log: MedicationLog,
+    val medicationName: String,
+    val dosage: String,
+    val unit: String
+)

@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dosecerta.R
-import com.dosecerta.data.local.entity.MedicationLog
+import com.dosecerta.data.local.dao.MedicationLogWithDetails
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.databinding.ItemMedicationLogBinding
 import com.dosecerta.util.DateTimeUtils
 
 /**
- * Adapter for displaying medication logs.
+ * Adapter for displaying medication logs with details.
  */
-class MedicationLogAdapter : ListAdapter<MedicationLog, MedicationLogAdapter.ViewHolder>(DiffCallback()) {
+class MedicationLogAdapter : ListAdapter<MedicationLogWithDetails, MedicationLogAdapter.ViewHolder>(DiffCallback()) {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemMedicationLogBinding.inflate(
@@ -33,9 +33,11 @@ class MedicationLogAdapter : ListAdapter<MedicationLog, MedicationLogAdapter.Vie
         private val binding: ItemMedicationLogBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         
-        fun bind(log: MedicationLog) {
-            // TODO: Load medication name from repository
-            binding.textMedicationName.text = "Medication #${log.medicationId}"
+        fun bind(logWithDetails: MedicationLogWithDetails) {
+            val log = logWithDetails.log
+            
+            // Display medication name and dosage
+            binding.textMedicationName.text = "${logWithDetails.medicationName} (${logWithDetails.dosage} ${logWithDetails.unit})"
             binding.textDateTime.text = DateTimeUtils.formatDateTime(log.scheduledTime)
             
             // Status badge
@@ -60,12 +62,18 @@ class MedicationLogAdapter : ListAdapter<MedicationLog, MedicationLogAdapter.Vie
         }
     }
     
-    class DiffCallback : DiffUtil.ItemCallback<MedicationLog>() {
-        override fun areItemsTheSame(oldItem: MedicationLog, newItem: MedicationLog): Boolean {
-            return oldItem.id == newItem.id
+    class DiffCallback : DiffUtil.ItemCallback<MedicationLogWithDetails>() {
+        override fun areItemsTheSame(
+            oldItem: MedicationLogWithDetails, 
+            newItem: MedicationLogWithDetails
+        ): Boolean {
+            return oldItem.log.id == newItem.log.id
         }
         
-        override fun areContentsTheSame(oldItem: MedicationLog, newItem: MedicationLog): Boolean {
+        override fun areContentsTheSame(
+            oldItem: MedicationLogWithDetails, 
+            newItem: MedicationLogWithDetails
+        ): Boolean {
             return oldItem == newItem
         }
     }

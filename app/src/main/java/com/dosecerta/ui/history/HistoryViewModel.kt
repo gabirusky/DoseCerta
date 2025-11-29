@@ -21,14 +21,32 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
     private val _daysBack = MutableStateFlow(7)
     val daysBack: StateFlow<Int> = _daysBack.asStateFlow()
     
-    // Statistics
-    val statistics: StateFlow<Statistics> = _daysBack.map { days ->
+    // Medication logs - reactively updates when logs change
+    val logs: StateFlow<List<com.dosecerta.data.local.dao.MedicationLogWithDetails>> = combine(
+        _daysBack,
+        _selectedFilter
+    ) { days, filter ->
+        Pair(days, filter)
+    }.flatMapLatest { (days, filter) ->
         val startTime = System.currentTimeMillis() - (days * 24 * 60 * 60 * 1000L)
         val endTime = System.currentTimeMillis()
         
-        val takenCount = repository.getTakenCountInRange(startTime, endTime)
-        val missedCount = repository.getMissedCountInRange(startTime, endTime)
-        val skippedCount = repository.getSkippedCountInRange(startTime, endTime)
+        if (filter != null) {
+            repository.getLogsByStatusInRangeWithDetails(startTime, endTime, filter)
+        } else {
+            repository.getLogsInRangeWithDetails(startTime, endTime)
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
+    
+    // Statistics - derived from logs for reactive updates
+    val statistics: StateFlow<Statistics> = logs.map { logsList ->
+        val takenCount = logsList.count { it.log.status == MedicationStatus.TAKEN }
+        val missedCount = logsList.count { it.log.status == MedicationStatus.MISSED }
+        val skippedCount = logsList.count { it.log.status == MedicationStatus.SKIPPED }
         
         Statistics(
             taken = takenCount,
@@ -39,25 +57,6 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = Statistics(0, 0, 0)
-    )
-    
-    // Medication logs
-    val logs: StateFlow<List<MedicationLog>> = combine(
-        _daysBack,
-        _selectedFilter
-    ) { days, filter ->
-        val startTime = System.currentTimeMillis() - (days * 24 * 60 * 60 * 1000L)
-        val endTime = System.currentTimeMillis()
-        
-        if (filter != null) {
-            repository.getLogsByStatusInRange(startTime, endTime, filter).first()
-        } else {
-            repository.getLogsInRange(startTime, endTime).first()
-        }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = emptyList()
     )
     
     fun updateFilter(filter: MedicationStatus?) {

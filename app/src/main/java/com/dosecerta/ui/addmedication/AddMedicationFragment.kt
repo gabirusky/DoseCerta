@@ -60,6 +60,7 @@ class AddMedicationFragment : Fragment() {
         setupUI()
         setupRecyclerView()
         observeViewModel()
+        observeFormData()
     }
     
     private fun setupUI() {
@@ -188,6 +189,53 @@ class AddMedicationFragment : Fragment() {
             Frequency.MONTHLY -> getString(R.string.frequency_monthly)
             Frequency.AS_NEEDED -> getString(R.string.frequency_as_needed)
             Frequency.CUSTOM -> getString(R.string.frequency_custom)
+        }
+    }
+    
+    private fun observeFormData() {
+        // Observe and populate form fields when medication data is loaded (for edit mode)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.medicationName.collect { name ->
+                if (name.isNotEmpty() && binding.editName.text.toString() != name) {
+                    binding.editName.setText(name)
+                }
+            }
+        }
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.dosage.collect { dosage ->
+                if (dosage.isNotEmpty() && binding.editDosage.text.toString() != dosage) {
+                    binding.editDosage.setText(dosage)
+                }
+            }
+        }
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.unit.collect { unit ->
+                if (binding.editUnit.text.toString() != unit) {
+                    binding.editUnit.setText(unit)
+                }
+            }
+        }
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.form.collect { form ->
+                binding.autoCompleteForm.setText(getFormName(form), false)
+            }
+        }
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.frequency.collect { frequency ->
+                binding.autoCompleteFrequency.setText(getFrequencyName(frequency), false)
+            }
+        }
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.notes.collect { notes ->
+                if (binding.editNotes.text.toString() != notes) {
+                    binding.editNotes.setText(notes)
+                }
+            }
         }
     }
     

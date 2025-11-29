@@ -80,6 +80,20 @@ class MedicationRepository(
     ): Flow<List<MedicationLog>> = 
         medicationLogDao.getLogsByStatusInRange(startTime, endTime, status)
     
+    // Medication log operations with details (includes medication name, dosage, etc.)
+    fun getAllLogsWithDetails(): Flow<List<com.dosecerta.data.local.dao.MedicationLogWithDetails>> = 
+        medicationLogDao.getAllLogsWithDetails()
+    
+    fun getLogsInRangeWithDetails(startTime: Long, endTime: Long): Flow<List<com.dosecerta.data.local.dao.MedicationLogWithDetails>> = 
+        medicationLogDao.getLogsInRangeWithDetails(startTime, endTime)
+    
+    fun getLogsByStatusInRangeWithDetails(
+        startTime: Long,
+        endTime: Long,
+        status: MedicationStatus
+    ): Flow<List<com.dosecerta.data.local.dao.MedicationLogWithDetails>> = 
+        medicationLogDao.getLogsByStatusInRangeWithDetails(startTime, endTime, status)
+    
     fun getCountByStatus(status: MedicationStatus, startTime: Long): Flow<Int> = 
        medicationLogDao.getCountByStatus(status, startTime)
     
