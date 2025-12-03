@@ -155,8 +155,19 @@
     <string name="medication_skipped_message">Você pulou \"%s\"</string>
     <string name="medication_snoozed_message">\"%s\" - Lembrete voltará em 10 minutos</string>
     
-    <!-- Missed Reminder -->
     <string name="missed_reminder_title">Medicação Perdida</string>
     <string name="missed_reminder_message">Você perdeu a dose de %s. Toque para abrir o app e verificar seu histórico.</string>
+    
+    <!-- Extra Dose Feature -->
+    <string name="extra_dose_title">Você tomou uma dose extra hoje?</string>
+    <string name="extra_dose_register">Registrar</string>
+    <string name="extra_dose_dialog_title">Registrar Dose Extra</string>
+    <string name="extra_dose_custom_hint">Digite o nome do remédio...</string>
+    <string name="extra_dose_add_custom">Adicionar Medicamento Personalizado</string>
+    <string name="extra_dose_active_meds">Medicamentos Ativos</string>
+    <string name="extra_dose_no_medications">Nenhum medicamento ativo</string>
+    <string name="extra_dose_recorded">Dose extra registrada!</string>
+    <string name="extra_dose_error_empty">Por favor, digite o nome do medicamento</string>
 </resources>
+
 

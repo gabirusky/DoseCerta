@@ -62,7 +62,7 @@ interface MedicationLogDao {
     @Query("""
         SELECT ml.*, m.name as medicationName, m.dosage, m.unit, m.color 
         FROM medication_logs ml
-        INNER JOIN medications m ON ml.medicationId = m.id
+        LEFT JOIN medications m ON ml.medicationId = m.id
         ORDER BY ml.scheduledTime DESC
     """)
     fun getAllLogsWithDetails(): Flow<List<MedicationLogWithDetails>>
@@ -70,7 +70,7 @@ interface MedicationLogDao {
     @Query("""
         SELECT ml.*, m.name as medicationName, m.dosage, m.unit, m.color 
         FROM medication_logs ml
-        INNER JOIN medications m ON ml.medicationId = m.id
+        LEFT JOIN medications m ON ml.medicationId = m.id
         WHERE ml.scheduledTime >= :startTime AND ml.scheduledTime <= :endTime 
         ORDER BY ml.scheduledTime DESC
     """)
@@ -79,7 +79,7 @@ interface MedicationLogDao {
     @Query("""
         SELECT ml.*, m.name as medicationName, m.dosage, m.unit, m.color 
         FROM medication_logs ml
-        INNER JOIN medications m ON ml.medicationId = m.id
+        LEFT JOIN medications m ON ml.medicationId = m.id
         WHERE ml.scheduledTime >= :startTime AND ml.scheduledTime <= :endTime AND ml.status = :status
         ORDER BY ml.scheduledTime DESC
     """)
@@ -105,8 +105,8 @@ interface MedicationLogDao {
 // Data class for joined query result
 data class MedicationLogWithDetails(
     @Embedded val log: MedicationLog,
-    val medicationName: String,
-    val dosage: String,
-    val unit: String,
-    val color: Int
+    val medicationName: String?,
+    val dosage: String?,
+    val unit: String?,
+    val color: Int?
 )

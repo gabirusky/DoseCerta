@@ -167,4 +167,28 @@ class HomeViewModel(
             )
         }
     }
+    
+    /**
+     * Get all active medications for extra dose dialog.
+     */
+    val activeMedications = repository.getAllActiveMedications()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+    
+    /**
+     * Record an extra dose for an existing medication.
+     */
+    suspend fun recordExtraDose(medicationId: Long) {
+        repository.recordExtraDose(medicationId)
+    }
+    
+    /**
+     * Record an extra dose for a custom medication.
+     */
+    suspend fun recordCustomExtraDose(medicationName: String) {
+        repository.recordCustomExtraDose(medicationName)
+    }
 }

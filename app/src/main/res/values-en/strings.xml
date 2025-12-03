@@ -108,4 +108,15 @@
     <string name="cd_add_medication">Add new medication</string>
     <string name="cd_edit_medication">Edit medication</string>
     <string name="cd_delete_medication">Delete medication</string>
+    
+    <!-- Extra Dose Feature -->
+    <string name="extra_dose_title">Did you take an extra dose today?</string>
+    <string name="extra_dose_register">Register</string>
+    <string name="extra_dose_dialog_title">Register Extra Dose</string>
+    <string name="extra_dose_custom_hint">Enter medication name...</string>
+    <string name="extra_dose_add_custom">Add Custom Medication</string>
+    <string name="extra_dose_active_meds">Active Medications</string>
+    <string name="extra_dose_no_medications">No active medications</string>
+    <string name="extra_dose_recorded">Extra dose recorded!</string>
+    <string name="extra_dose_error_empty">Please enter medication name</string>
 </resources>

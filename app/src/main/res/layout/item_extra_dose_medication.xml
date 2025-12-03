@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_small"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_medium"
+        android:gravity="center_vertical">
+
+        <!-- Medication Icon -->
+        <ImageView
+            android:id="@+id/image_medication_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/ic_circle"
+            android:contentDescription="@string/cd_medication_icon" />
+
+        <!-- Medication Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_medication_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medication Name"
+                android:textAppearance="@style/TextAppearance.DoseCerta.Title"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_medication_dosage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50mg"
+                android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- +1 Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_add_dose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+1"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:minWidth="64dp"
+            app:cornerRadius="20dp"
+            style="@style/Widget.Material3.Button" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

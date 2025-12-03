@@ -37,12 +37,19 @@ class MedicationLogAdapter : ListAdapter<MedicationLogWithDetails, MedicationLog
             val log = logWithDetails.log
             
             // Display medication name and dosage
-            binding.textMedicationName.text = "${logWithDetails.medicationName} (${logWithDetails.dosage} ${logWithDetails.unit})"
+            // For custom medications, use customMedicationName and show no dosage
+            val displayName = if (log.customMedicationName != null) {
+                log.customMedicationName
+            } else {
+                "${logWithDetails.medicationName} (${logWithDetails.dosage} ${logWithDetails.unit})"
+            }
+            binding.textMedicationName.text = displayName
             binding.textDateTime.text = DateTimeUtils.formatDateTime(log.scheduledTime)
             
-            // Set medication icon color
+            // Set medication icon color (use default color for custom medications)
+            val iconColor = logWithDetails.color ?: 0xFF757575.toInt() // Default gray
             binding.imageStatusIcon.backgroundTintList = 
-                android.content.res.ColorStateList.valueOf(logWithDetails.color)
+                android.content.res.ColorStateList.valueOf(iconColor)
             
             // Status badge
             when (log.status) {

@@ -19,7 +19,7 @@ import com.dosecerta.data.local.entity.*
         Schedule::class,
         MedicationLog::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(

@@ -119,6 +119,44 @@ class MedicationRepository(
     suspend fun deleteLog(log: MedicationLog) = medicationLogDao.delete(log)
     
     /**
+     * Record an extra dose for an existing medication.
+     * @param medicationId ID of the medication that was taken
+     * @return ID of the created log entry
+     */
+    suspend fun recordExtraDose(medicationId: Long): Long {
+        val currentTime = System.currentTimeMillis()
+        val log = MedicationLog(
+            medicationId = medicationId,
+            scheduleId = null,
+            scheduledTime = currentTime,
+            actualTime = currentTime,
+            status = MedicationStatus.TAKEN,
+            isExtraDose = true,
+            customMedicationName = null
+        )
+        return insertLog(log)
+    }
+    
+    /**
+     * Record an extra dose for a custom/ad-hoc medication not in the app database.
+     * @param medicationName Name of the medication (e.g., "Tylenol for headache")
+     * @return ID of the created log entry
+     */
+    suspend fun recordCustomExtraDose(medicationName: String): Long {
+        val currentTime = System.currentTimeMillis()
+        val log = MedicationLog(
+            medicationId = null,
+            scheduleId = null,
+            scheduledTime = currentTime,
+            actualTime = currentTime,
+            status = MedicationStatus.TAKEN,
+            isExtraDose = true,
+            customMedicationName = medicationName
+        )
+        return insertLog(log)
+    }
+    
+    /**
      * Calculate adherence percentage for a time range.
      * @return Percentage (0-100) of medications taken vs. scheduled.
      */

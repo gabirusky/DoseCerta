@@ -32,12 +32,16 @@ data class MedicationLog(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     
-    val medicationId: Long,
-    val scheduleId: Long,
-    val scheduledTime: Long,     // Timestamp when medication was scheduled
+    val medicationId: Long?,      // Nullable for custom/ad-hoc medications
+    val scheduleId: Long?,        // Nullable for extra doses
+    val scheduledTime: Long,      // Timestamp when medication was scheduled
     val actualTime: Long? = null, // Timestamp when medication was actually taken (null if not taken)
-    val status: MedicationStatus,  // TAKEN, SKIPPED, MISSED
-    val notes: String? = null
+    val status: MedicationStatus, // TAKEN, SKIPPED, MISSED
+    val notes: String? = null,
+    
+    // Extra dose tracking fields
+    val isExtraDose: Boolean = false,        // True if this is an extra/unscheduled dose
+    val customMedicationName: String? = null // For ad-hoc medications (e.g., "Tylenol for headache")
 )
 
 // Type converter for MedicationStatus
