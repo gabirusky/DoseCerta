@@ -54,6 +54,12 @@ class HistoryFragment : Fragment() {
         observeViewModel()
     }
     
+    override fun onResume() {
+        super.onResume()
+        // Refresh data whenever the history page is opened or returns to foreground
+        viewModel.refresh()
+    }
+    
     private fun setupRecyclerView() {
         adapter = MedicationLogAdapter()
         binding.recyclerLogs.layoutManager = LinearLayoutManager(requireContext())

@@ -21,11 +21,15 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
     private val _daysBack = MutableStateFlow(7)
     val daysBack: StateFlow<Int> = _daysBack.asStateFlow()
     
+    // Refresh trigger - increment to force data reload
+    private val _refreshTrigger = MutableStateFlow(0)
+    
     // Medication logs - reactively updates when logs change
     val logs: StateFlow<List<com.dosecerta.data.local.dao.MedicationLogWithDetails>> = combine(
         _daysBack,
-        _selectedFilter
-    ) { days, filter ->
+        _selectedFilter,
+        _refreshTrigger
+    ) { days, filter, _ ->
         Pair(days, filter)
     }.flatMapLatest { (days, filter) ->
         val startTime = System.currentTimeMillis() - (days * 24 * 60 * 60 * 1000L)
@@ -65,6 +69,14 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
     
     fun updateDaysBack(days: Int) {
         _daysBack.value = days
+    }
+    
+    /**
+     * Refresh the medication logs and statistics from the database.
+     * This forces a reload of all data.
+     */
+    fun refresh() {
+        _refreshTrigger.value += 1
     }
     
     data class Statistics(
