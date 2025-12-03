@@ -59,6 +59,25 @@
     <string name="notification_action_skip">Skip</string>
     <string name="notification_action_snooze">Snooze 10 min</string>
     
+    <!-- Add/Edit Medication -->
+    <string name="medication_name">Medication Name</string>
+    <string name="medication_dosage">Dosage</string>
+    <string name="medication_unit">Unit</string>
+    <string name="medication_form">Pharmaceutical Form</string>
+    <string name="medication_frequency">Frequency</string>
+    <string name="medication_reminders">Reminders</string>
+    <string name="medication_reminders_subtitle">Set the times</string>
+    <string name="medication_add_time">+ Add Time</string>
+    <string name="medication_no_reminders">No reminders configured</string>
+    <string name="medication_notes">Additional Notes</string>
+    <string name="medication_save">Save Medication</string>
+    <string name="medication_saved">Medication saved successfully</string>
+    <string name="medication_error_name">Please enter medication name</string>
+    <string name="medication_error_dosage">Please enter dosage</string>
+    <string name="medication_error_reminders">Add at least one time</string>
+    <string name="medication_color">Icon Color</string>
+    <string name="medication_color_subtitle">Choose a color to identify this medication</string>
+    
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
     <string name="settings_language">Language</string>

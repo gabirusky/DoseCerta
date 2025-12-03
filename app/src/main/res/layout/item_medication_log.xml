@@ -15,16 +15,13 @@
         android:padding="@dimen/spacing_medium"
         android:gravity="center_vertical">
 
-        <!-- Status Icon -->
+        <!-- Medication Icon -->
         <ImageView
             android:id="@+id/image_status_icon"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:background="@drawable/ic_pill_background"
-            android:contentDescription="@string/cd_medication_icon"
-            android:padding="6dp"
-            android:src="@drawable/ic_pill"
-            app:tint="@color/white" />
+            android:background="@drawable/ic_circle"
+            android:contentDescription="@string/cd_medication_icon" />
 
         <!-- Medication Info -->
         <LinearLayout

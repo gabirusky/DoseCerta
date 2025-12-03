@@ -20,6 +20,7 @@ data class Medication(
     val pharmaceuticalForm: PharmaceuticalForm,
     val frequency: Frequency,
     val notes: String? = null,
+    val color: Int = 0xFF00897B.toInt(), // Default teal color
     val isActive: Boolean = true,
     val createdAt: Long = System.currentTimeMillis()
 )

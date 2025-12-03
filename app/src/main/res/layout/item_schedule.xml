@@ -23,13 +23,11 @@
 
             <!-- Medication Icon -->
             <ImageView
+                android:id="@+id/image_medication_icon"
                 android:layout_width="@dimen/medication_icon_size"
                 android:layout_height="@dimen/medication_icon_size"
-                android:background="@drawable/ic_pill_background"
-                android:contentDescription="@string/cd_medication_icon"
-                android:padding="8dp"
-                android:src="@drawable/ic_pill"
-                app:tint="@color/white" />
+                android:src="@drawable/ic_circle"
+                android:contentDescription="@string/cd_medication_icon" />
 
             <!-- Medication Info -->
             <LinearLayout

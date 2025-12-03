@@ -40,6 +40,12 @@ class ScheduleAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         
         fun bind(item: ScheduleItem) {
+            // Set icon color
+            binding.imageMedicationIcon.setColorFilter(
+                item.medication.color,
+                android.graphics.PorterDuff.Mode.SRC_IN
+            )
+            
             binding.textMedicationName.text = item.medication.name
             binding.textDosage.text = "${item.medication.dosage} ${item.medication.unit} - " +
                     "${item.medication.pharmaceuticalForm.name.lowercase().capitalize()}"

@@ -57,6 +57,8 @@
     <string name="medication_error_name">Por favor, insira o nome do medicamento</string>
     <string name="medication_error_dosage">Por favor, insira a dosagem</string>
     <string name="medication_error_reminders">Adicione pelo menos um horário</string>
+    <string name="medication_color">Cor do ícone</string>
+    <string name="medication_color_subtitle">Escolha uma cor para identificar este medicamento</string>
     
     <!-- Pharmaceutical Forms -->
     <string name="form_tablet">Comprimido</string>

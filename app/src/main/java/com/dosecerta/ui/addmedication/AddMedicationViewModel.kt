@@ -39,6 +39,7 @@ class AddMedicationViewModel(
             _form.value = medication.pharmaceuticalForm
             _frequency.value = medication.frequency
             _notes.value = medication.notes ?: ""
+            _color.value = medication.color
             
             // Load existing schedules
             val schedules = repository.getSchedulesForMedicationSync(medicationId)
@@ -64,6 +65,9 @@ class AddMedicationViewModel(
     
     private val _notes = MutableStateFlow("")
     val notes: StateFlow<String> = _notes.asStateFlow()
+    
+    private val _color = MutableStateFlow(0xFF00897B.toInt())
+    val color: StateFlow<Int> = _color.asStateFlow()
     
     private val _scheduleTimes = MutableStateFlow<List<Int>>(emptyList())
     val scheduleTimes: StateFlow<List<Int>> = _scheduleTimes.asStateFlow()
@@ -94,6 +98,10 @@ class AddMedicationViewModel(
     
     fun updateNotes(notes: String) {
         _notes.value = notes
+    }
+    
+    fun updateColor(color: Int) {
+        _color.value = color
     }
     
     fun addScheduleTime(timeInMinutes: Int) {
@@ -138,6 +146,7 @@ class AddMedicationViewModel(
                         pharmaceuticalForm = _form.value,
                         frequency = _frequency.value,
                         notes = _notes.value.trim(),
+                        color = _color.value,
                         isActive = true
                     )
                     
@@ -171,6 +180,7 @@ class AddMedicationViewModel(
                         pharmaceuticalForm = _form.value,
                         frequency = _frequency.value,
                         notes = _notes.value.trim(),
+                        color = _color.value,
                         isActive = true
                     )
                     

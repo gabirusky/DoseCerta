@@ -37,6 +37,12 @@ class MedicationAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         
         fun bind(medication: Medication) {
+            // Set icon color
+            binding.imageMedicationIcon.setColorFilter(
+                medication.color,
+                android.graphics.PorterDuff.Mode.SRC_IN
+            )
+            
             binding.textMedicationName.text = medication.name
             binding.textDosageInfo.text = "${medication.dosage} ${medication.unit} - " +
                     getFormString(medication.pharmaceuticalForm.name)

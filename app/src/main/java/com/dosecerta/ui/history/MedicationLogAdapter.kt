@@ -40,6 +40,10 @@ class MedicationLogAdapter : ListAdapter<MedicationLogWithDetails, MedicationLog
             binding.textMedicationName.text = "${logWithDetails.medicationName} (${logWithDetails.dosage} ${logWithDetails.unit})"
             binding.textDateTime.text = DateTimeUtils.formatDateTime(log.scheduledTime)
             
+            // Set medication icon color
+            binding.imageStatusIcon.backgroundTintList = 
+                android.content.res.ColorStateList.valueOf(logWithDetails.color)
+            
             // Status badge
             when (log.status) {
                 MedicationStatus.TAKEN -> {

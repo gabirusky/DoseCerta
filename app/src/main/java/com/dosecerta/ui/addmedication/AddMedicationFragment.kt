@@ -88,6 +88,9 @@ class AddMedicationFragment : Fragment() {
             viewModel.updateFrequency(Frequency.values()[position])
         }
         
+        // Color picker
+        setupColorPicker()
+        
         // Add time button
         binding.buttonAddTime.setOnClickListener {
             showTimePicker()
@@ -235,6 +238,52 @@ class AddMedicationFragment : Fragment() {
                 if (binding.editNotes.text.toString() != notes) {
                     binding.editNotes.setText(notes)
                 }
+            }
+        }
+        
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.color.collect { color ->
+                updateColorSelection(color)
+            }
+        }
+    }
+    
+    private fun setupColorPicker() {
+        val colors = mapOf(
+            binding.colorOptionTeal to 0xFF00897B.toInt(),
+            binding.colorOptionBlue to 0xFF1976D2.toInt(),
+            binding.colorOptionPurple to 0xFF7B1FA2.toInt(),
+            binding.colorOptionRed to 0xFFD32F2F.toInt(),
+            binding.colorOptionOrange to 0xFFF57C00.toInt(),
+            binding.colorOptionGreen to 0xFF388E3C.toInt()
+        )
+        
+        colors.forEach { (imageView, colorValue) ->
+            imageView.setOnClickListener {
+                viewModel.updateColor(colorValue)
+            }
+        }
+    }
+    
+    private fun updateColorSelection(selectedColor: Int) {
+        val colors = mapOf(
+            binding.colorOptionTeal to 0xFF00897B.toInt(),
+            binding.colorOptionBlue to 0xFF1976D2.toInt(),
+            binding.colorOptionPurple to 0xFF7B1FA2.toInt(),
+            binding.colorOptionRed to 0xFFD32F2F.toInt(),
+            binding.colorOptionOrange to 0xFFF57C00.toInt(),
+            binding.colorOptionGreen to 0xFF388E3C.toInt()
+        )
+        
+        colors.forEach { (imageView, colorValue) ->
+            if (colorValue == selectedColor) {
+                imageView.alpha = 1.0f
+                imageView.scaleX = 1.0f
+                imageView.scaleY = 1.0f
+            } else {
+                imageView.alpha = 0.5f
+                imageView.scaleX = 0.8f
+                imageView.scaleY = 0.8f
             }
         }
     }
