@@ -44,7 +44,10 @@ class MedicationLogAdapter : ListAdapter<MedicationLogWithDetails, MedicationLog
                 "${logWithDetails.medicationName} (${logWithDetails.dosage} ${logWithDetails.unit})"
             }
             binding.textMedicationName.text = displayName
-            binding.textDateTime.text = DateTimeUtils.formatDateTime(log.scheduledTime)
+            
+            // Show actual time taken, or scheduled time if not taken yet
+            val displayTime = log.actualTime ?: log.scheduledTime
+            binding.textDateTime.text = DateTimeUtils.formatDateTime(displayTime)
             
             // Set medication icon color (use default color for custom medications)
             val iconColor = logWithDetails.color ?: 0xFF757575.toInt() // Default gray
