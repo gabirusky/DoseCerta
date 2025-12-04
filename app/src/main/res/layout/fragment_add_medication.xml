@@ -1,263 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
 
-    <LinearLayout
+    <!-- Top Bar -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="?attr/actionBarSize"
+        android:paddingHorizontal="16dp"
+        android:gravity="center_vertical">
 
-        <!-- Medication Name -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/button_cancel"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close"
+            android:contentDescription="@string/cancel"
+            app:tint="?attr/colorOnSurface" />
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/medication_name"
-            app:startIconDrawable="@android:drawable/ic_menu_edit">
+            android:layout_centerInParent="true"
+            android:text="@string/medication_add_title"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <ImageButton
+            android:id="@+id/button_save"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_check"
+            android:contentDescription="@string/save"
+            app:tint="?attr/colorPrimary" />
+    </RelativeLayout>
 
-        <!-- Dosage and Unit Row -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="24dp">
 
+            <!-- Medication Name -->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:hint="@string/medication_dosage">
+                android:layout_marginBottom="24dp"
+                android:hint="@string/medication_name"
+                app:startIconDrawable="@android:drawable/ic_menu_edit">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_dosage"
+                    android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
+                    android:inputType="textCapWords"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+            <!-- Dosage and Unit Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/medication_unit">
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_unit"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:hint="@string/medication_dosage">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_dosage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/medication_unit"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/autoComplete_unit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Frequency -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:hint="@string/medication_frequency"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoComplete_frequency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:text="mg" />
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Color Picker Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/medication_color"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/medication_color_subtitle"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <LinearLayout
+                android:id="@+id/color_picker_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:orientation="horizontal"
+                android:gravity="start">
+
+                <ImageView
+                    android:id="@+id/color_option_teal"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_circle"
+                    app:tint="#00897B"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Teal" />
+
+                <ImageView
+                    android:id="@+id/color_option_blue"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_circle"
+                    app:tint="#1976D2"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Blue" />
+
+                <ImageView
+                    android:id="@+id/color_option_purple"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_circle"
+                    app:tint="#7B1FA2"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Purple" />
+
+                <ImageView
+                    android:id="@+id/color_option_red"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_circle"
+                    app:tint="#D32F2F"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Red" />
+
+                <ImageView
+                    android:id="@+id/color_option_orange"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_circle"
+                    app:tint="#F57C00"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Orange" />
+
+                <ImageView
+                    android:id="@+id/color_option_green"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_circle"
+                    app:tint="#388E3C"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Green" />
+            </LinearLayout>
+
+            <!-- Reminders Section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/medication_reminders"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/medication_reminders_subtitle"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_add_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/medication_add_time"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                app:icon="@android:drawable/ic_menu_add" />
+
+            <TextView
+                android:id="@+id/text_no_reminders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:padding="16dp"
+                android:text="@string/medication_no_reminders"
+                android:textAlignment="center"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_times"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:visibility="gone" />
+
+            <!-- Notes -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:hint="@string/medication_notes">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:maxLines="5" />
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
-
-        <!-- Pharmaceutical Form -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="@string/medication_form"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:id="@+id/autoComplete_form"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Frequency -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:hint="@string/medication_frequency"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:id="@+id/autoComplete_frequency"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Color Picker Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/medication_color"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="@string/medication_color_subtitle"
-            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:textColor="?attr/colorOnSurfaceVariant" />
-
-        <LinearLayout
-            android:id="@+id/color_picker_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:orientation="horizontal"
-            android:gravity="start">
-
-            <ImageView
-                android:id="@+id/color_option_teal"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_circle"
-                android:tint="#00897B"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Teal" />
-
-            <ImageView
-                android:id="@+id/color_option_blue"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_circle"
-                android:tint="#1976D2"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Blue" />
-
-            <ImageView
-                android:id="@+id/color_option_purple"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_circle"
-                android:tint="#7B1FA2"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Purple" />
-
-            <ImageView
-                android:id="@+id/color_option_red"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_circle"
-                android:tint="#D32F2F"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Red" />
-
-            <ImageView
-                android:id="@+id/color_option_orange"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="12dp"
-                android:src="@drawable/ic_circle"
-                android:tint="#F57C00"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Orange" />
-
-            <ImageView
-                android:id="@+id/color_option_green"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_circle"
-                android:tint="#388E3C"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Green" />
-        </LinearLayout>
-
-        <!-- Reminders Section -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/medication_reminders"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="@string/medication_reminders_subtitle"
-            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:textColor="?attr/colorOnSurfaceVariant" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_add_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/medication_add_time"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            app:icon="@android:drawable/ic_menu_add" />
-
-        <TextView
-            android:id="@+id/text_no_reminders"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:padding="16dp"
-            android:text="@string/medication_no_reminders"
-            android:textAlignment="center"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:visibility="visible" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_times"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:visibility="gone" />
-
-        <!-- Notes -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:hint="@string/medication_notes">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_notes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:lines="3"
-                android:maxLines="5" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Save Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/medication_save"
-            android:textAllCaps="false" />
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

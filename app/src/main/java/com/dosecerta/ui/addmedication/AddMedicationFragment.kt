@@ -1,5 +1,6 @@
 package com.dosecerta.ui.addmedication
 
+import android.app.AlertDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -64,16 +65,25 @@ class AddMedicationFragment : Fragment() {
     }
     
     private fun setupUI() {
-        // Form dropdown
-        val formAdapter = ArrayAdapter(
+        // Top Bar Buttons
+        binding.buttonCancel.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        
+        binding.buttonSave.setOnClickListener {
+            saveMedication()
+        }
+        
+        // Unit Dropdown
+        val units = listOf("mg", "ml", "g", "mcg", "UI", "L", "oz")
+        val unitAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
-            PharmaceuticalForm.values().map { getFormName(it) }
+            units
         )
-        binding.autoCompleteForm.setAdapter(formAdapter)
-        binding.autoCompleteForm.setText(getFormName(PharmaceuticalForm.TABLET), false)
-        binding.autoCompleteForm.setOnItemClickListener { _, _, position, _ ->
-            viewModel.updateForm(PharmaceuticalForm.values()[position])
+        binding.autoCompleteUnit.setAdapter(unitAdapter)
+        binding.autoCompleteUnit.setOnItemClickListener { _, _, position, _ ->
+            viewModel.updateUnit(units[position])
         }
         
         // Frequency dropdown
@@ -95,15 +105,17 @@ class AddMedicationFragment : Fragment() {
         binding.buttonAddTime.setOnClickListener {
             showTimePicker()
         }
-        
-        // Save button
-        binding.buttonSave.setOnClickListener {
-            viewModel.updateName(binding.editName.text.toString())
-            viewModel.updateDosage(binding.editDosage.text.toString())
-            viewModel.updateUnit(binding.editUnit.text.toString())
-            viewModel.updateNotes(binding.editNotes.text.toString())
-            viewModel.saveMedication()
+    }
+    
+    private fun saveMedication() {
+        viewModel.updateName(binding.editName.text.toString())
+        viewModel.updateDosage(binding.editDosage.text.toString())
+        // Unit is updated via selection or text change if user types custom
+        if (binding.autoCompleteUnit.text.toString().isNotEmpty()) {
+            viewModel.updateUnit(binding.autoCompleteUnit.text.toString())
         }
+        viewModel.updateNotes(binding.editNotes.text.toString())
+        viewModel.saveMedication()
     }
     
     private fun setupRecyclerView() {
@@ -135,8 +147,7 @@ class AddMedicationFragment : Fragment() {
                         binding.buttonSave.isEnabled = false
                     }
                     is AddMedicationViewModel.SaveState.Success -> {
-                        Toast.makeText(requireContext(), R.string.medication_saved, Toast.LENGTH_SHORT).show()
-                        findNavController().navigateUp()
+                        showSuccessDialog()
                     }
                     is AddMedicationViewModel.SaveState.Error -> {
                         binding.buttonSave.isEnabled = true
@@ -146,6 +157,19 @@ class AddMedicationFragment : Fragment() {
                 }
             }
         }
+    }
+    
+    private fun showSuccessDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.success)
+            .setMessage(R.string.medication_saved)
+            .setIcon(R.drawable.ic_check)
+            .setPositiveButton(R.string.ok) { dialog, _ ->
+                dialog.dismiss()
+                findNavController().navigateUp()
+            }
+            .setCancelable(false)
+            .show()
     }
     
     private fun showTimePicker() {
@@ -169,19 +193,6 @@ class AddMedicationFragment : Fragment() {
         } else {
             binding.recyclerTimes.visibility = View.VISIBLE
             binding.textNoReminders.visibility = View.GONE
-        }
-    }
-    
-    private fun getFormName(form: PharmaceuticalForm): String {
-        return when (form) {
-            PharmaceuticalForm.TABLET -> getString(R.string.form_tablet)
-            PharmaceuticalForm.CAPSULE -> getString(R.string.form_capsule)
-            PharmaceuticalForm.SYRUP -> getString(R.string.form_syrup)
-            PharmaceuticalForm.DROPS -> getString(R.string.form_drops)
-            PharmaceuticalForm.INJECTION -> getString(R.string.form_injection)
-            PharmaceuticalForm.CREAM -> getString(R.string.form_cream)
-            PharmaceuticalForm.SPRAY -> getString(R.string.form_spray)
-            PharmaceuticalForm.OTHER -> getString(R.string.form_other)
         }
     }
     
@@ -215,17 +226,13 @@ class AddMedicationFragment : Fragment() {
         
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.unit.collect { unit ->
-                if (binding.editUnit.text.toString() != unit) {
-                    binding.editUnit.setText(unit)
+                if (binding.autoCompleteUnit.text.toString() != unit) {
+                    binding.autoCompleteUnit.setText(unit, false)
                 }
             }
         }
         
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.form.collect { form ->
-                binding.autoCompleteForm.setText(getFormName(form), false)
-            }
-        }
+        // Form observation removed as UI element is gone
         
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.frequency.collect { frequency ->
