@@ -32,3 +32,11 @@ data class MedicationStatistics(
     val skippedCount: Int,
     val adherencePercentage: Int
 )
+
+/**
+ * UI model for editing schedule times.
+ */
+data class ScheduleTime(
+    val id: Long = 0,
+    val timeInMinutes: Int
+)

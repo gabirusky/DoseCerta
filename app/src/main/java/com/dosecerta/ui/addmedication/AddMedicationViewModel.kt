@@ -7,7 +7,9 @@ import com.dosecerta.data.local.entity.Medication
 import com.dosecerta.data.local.entity.Schedule
 import com.dosecerta.data.model.Frequency
 import com.dosecerta.data.model.PharmaceuticalForm
+import com.dosecerta.data.model.ScheduleTime
 import com.dosecerta.data.repository.MedicationRepository
+import com.dosecerta.util.DateTimeUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -43,7 +45,7 @@ class AddMedicationViewModel(
             
             // Load existing schedules
             val schedules = repository.getSchedulesForMedicationSync(medicationId)
-            _scheduleTimes.value = schedules.map { it.timeInMinutes }
+            _scheduleTimes.value = schedules.map { ScheduleTime(it.id, it.timeInMinutes) }
         }
     }
     
@@ -69,8 +71,8 @@ class AddMedicationViewModel(
     private val _color = MutableStateFlow(0xFF00897B.toInt())
     val color: StateFlow<Int> = _color.asStateFlow()
     
-    private val _scheduleTimes = MutableStateFlow<List<Int>>(emptyList())
-    val scheduleTimes: StateFlow<List<Int>> = _scheduleTimes.asStateFlow()
+    private val _scheduleTimes = MutableStateFlow<List<ScheduleTime>>(emptyList())
+    val scheduleTimes: StateFlow<List<ScheduleTime>> = _scheduleTimes.asStateFlow()
     
     // UI state
     private val _saveState = MutableStateFlow<SaveState>(SaveState.Idle)
@@ -105,11 +107,12 @@ class AddMedicationViewModel(
     }
     
     fun addScheduleTime(timeInMinutes: Int) {
-        _scheduleTimes.value = _scheduleTimes.value + timeInMinutes
+        // Add new time with ID 0
+        _scheduleTimes.value = _scheduleTimes.value + ScheduleTime(0, timeInMinutes)
     }
     
-    fun removeScheduleTime(timeInMinutes: Int) {
-        _scheduleTimes.value = _scheduleTimes.value - timeInMinutes
+    fun removeScheduleTime(scheduleTime: ScheduleTime) {
+        _scheduleTimes.value = _scheduleTimes.value - scheduleTime
     }
     
     /**
@@ -152,25 +155,52 @@ class AddMedicationViewModel(
                     
                     repository.updateMedication(medication)
                     
-                    // Delete old schedules and create new ones
-                    repository.deleteAllSchedulesForMedication(medicationId)
+                    // Smart update of schedules to preserve logs
+                    val currentSchedules = repository.getSchedulesForMedicationSync(medicationId)
+                    val newScheduleTimes = _scheduleTimes.value
                     
-                    val schedules = _scheduleTimes.value.map { timeInMinutes ->
-                        Schedule(
-                            medicationId = medicationId,
-                            timeInMinutes = timeInMinutes,
-                            daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
-                            isActive = true
-                        )
+                    // 1. Delete removed schedules
+                    val newIds = newScheduleTimes.map { it.id }.filter { it != 0L }
+                    val schedulesToDelete = currentSchedules.filter { it.id !in newIds }
+                    
+                    for (schedule in schedulesToDelete) {
+                        repository.deleteSchedule(schedule)
                     }
                     
-                    repository.insertSchedules(schedules)
+                    // 2. Update or Insert schedules
+                    for (scheduleTime in newScheduleTimes) {
+                        if (scheduleTime.id == 0L) {
+                            // Insert new
+                            val newSchedule = Schedule(
+                                medicationId = medicationId,
+                                timeInMinutes = scheduleTime.timeInMinutes,
+                                daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
+                                isActive = true
+                            )
+                            repository.insertSchedule(newSchedule)
+                        } else {
+                            // Update existing
+                            val existingSchedule = currentSchedules.find { it.id == scheduleTime.id }
+                            if (existingSchedule != null && existingSchedule.timeInMinutes != scheduleTime.timeInMinutes) {
+                                // Time changed - update schedule
+                                repository.updateSchedule(existingSchedule.copy(timeInMinutes = scheduleTime.timeInMinutes))
+                                
+                                // Fix: Update log for today if it exists, so status is preserved
+                                val oldScheduledTime = DateTimeUtils.getTimestampForToday(existingSchedule.timeInMinutes)
+                                val log = repository.getLog(medicationId, existingSchedule.id, oldScheduledTime)
+                                
+                                if (log != null) {
+                                    val newScheduledTime = DateTimeUtils.getTimestampForToday(scheduleTime.timeInMinutes)
+                                    repository.updateLog(log.copy(scheduledTime = newScheduledTime))
+                                }
+                            }
+                        }
+                    }
                     
-                    // Fetch schedules from database to get their generated IDs
-                    val insertedSchedules = repository.getSchedulesForMedicationSync(medicationId)
+                    // Fetch final schedules to ensure alarms are correct
+                    val finalSchedules = repository.getSchedulesForMedicationSync(medicationId)
+                    alarmScheduler.scheduleAlarmsForMedication(medicationId, finalSchedules)
                     
-                    // Schedule alarms with the actual schedule IDs from database
-                    alarmScheduler.scheduleAlarmsForMedication(medicationId, insertedSchedules)
                 } else {
                     // Create new medication
                     val medication = Medication(
@@ -187,10 +217,10 @@ class AddMedicationViewModel(
                     val newMedicationId = repository.insertMedication(medication)
                     
                     // Create schedules
-                    val schedules = _scheduleTimes.value.map { timeInMinutes ->
+                    val schedules = _scheduleTimes.value.map { scheduleTime ->
                         Schedule(
                             medicationId = newMedicationId,
-                            timeInMinutes = timeInMinutes,
+                            timeInMinutes = scheduleTime.timeInMinutes,
                             daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
                             isActive = true
                         )

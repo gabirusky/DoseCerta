@@ -132,8 +132,8 @@ class AddMedicationFragment : Fragment() {
     
     private fun setupRecyclerView() {
         timeAdapter = ScheduleTimeAdapter(
-            onDeleteClick = { timeInMinutes ->
-                viewModel.removeScheduleTime(timeInMinutes)
+            onDeleteClick = { scheduleTime ->
+                viewModel.removeScheduleTime(scheduleTime)
             }
         )
         
