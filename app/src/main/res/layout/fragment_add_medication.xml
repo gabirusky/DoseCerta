@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:hint="@string/medication_name"
-                app:startIconDrawable="@android:drawable/ic_menu_edit">
+                app:startIconDrawable="@drawable/ic_pill">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_name"
