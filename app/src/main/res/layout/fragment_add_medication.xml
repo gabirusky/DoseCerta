@@ -32,16 +32,18 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:textStyle="bold" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/button_save"
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_check"
-            android:contentDescription="@string/save"
-            app:tint="?attr/colorPrimary" />
+            android:text="Salvar"
+            android:textColor="?attr/colorPrimary"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
     </RelativeLayout>
 
     <ScrollView
