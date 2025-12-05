@@ -75,7 +75,7 @@ class AddMedicationFragment : Fragment() {
         }
         
         // Unit Dropdown
-        val units = listOf("mg", "ml", "g", "mcg", "UI", "L", "oz")
+        val units = listOf("mg", "ml", "cp", "gts", "g", "mcg", "UI", "amp", "env", "L", "oz")
         val unitAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_dropdown_item_1line,
@@ -84,6 +84,18 @@ class AddMedicationFragment : Fragment() {
         binding.autoCompleteUnit.setAdapter(unitAdapter)
         binding.autoCompleteUnit.setOnItemClickListener { _, _, position, _ ->
             viewModel.updateUnit(units[position])
+        }
+        
+        // Form Dropdown
+        val formAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            PharmaceuticalForm.values().map { getFormName(it) }
+        )
+        binding.autoCompleteForm.setAdapter(formAdapter)
+        binding.autoCompleteForm.setText(getFormName(PharmaceuticalForm.TABLET), false)
+        binding.autoCompleteForm.setOnItemClickListener { _, _, position, _ ->
+            viewModel.updateForm(PharmaceuticalForm.values()[position])
         }
         
         // Frequency dropdown
@@ -206,6 +218,19 @@ class AddMedicationFragment : Fragment() {
         }
     }
     
+    private fun getFormName(form: PharmaceuticalForm): String {
+        return when (form) {
+            PharmaceuticalForm.TABLET -> getString(R.string.form_tablet)
+            PharmaceuticalForm.CAPSULE -> getString(R.string.form_capsule)
+            PharmaceuticalForm.SYRUP -> getString(R.string.form_syrup)
+            PharmaceuticalForm.DROPS -> getString(R.string.form_drops)
+            PharmaceuticalForm.INJECTION -> getString(R.string.form_injection)
+            PharmaceuticalForm.CREAM -> getString(R.string.form_cream)
+            PharmaceuticalForm.SPRAY -> getString(R.string.form_spray)
+            PharmaceuticalForm.OTHER -> getString(R.string.form_other)
+        }
+    }
+
     private fun observeFormData() {
         // Observe and populate form fields when medication data is loaded (for edit mode)
         viewLifecycleOwner.lifecycleScope.launch {
@@ -232,7 +257,11 @@ class AddMedicationFragment : Fragment() {
             }
         }
         
-        // Form observation removed as UI element is gone
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.form.collect { form ->
+                binding.autoCompleteForm.setText(getFormName(form), false)
+            }
+        }
         
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.frequency.collect { frequency ->
