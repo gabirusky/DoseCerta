@@ -107,7 +107,10 @@ class AddMedicationFragment : Fragment() {
         binding.autoCompleteFrequency.setAdapter(frequencyAdapter)
         binding.autoCompleteFrequency.setText(getFrequencyName(Frequency.DAILY), false)
         binding.autoCompleteFrequency.setOnItemClickListener { _, _, position, _ ->
-            viewModel.updateFrequency(Frequency.values()[position])
+            val selectedFrequency = Frequency.values()[position]
+            viewModel.updateFrequency(selectedFrequency)
+            // Auto-generate default reminders if none exist
+            viewModel.generateDefaultReminders(selectedFrequency)
         }
         
         // Color picker
@@ -139,6 +142,7 @@ class AddMedicationFragment : Fragment() {
         
         binding.recyclerTimes.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerTimes.adapter = timeAdapter
+        binding.recyclerTimes.isNestedScrollingEnabled = false
     }
     
     private fun observeViewModel() {
@@ -211,10 +215,11 @@ class AddMedicationFragment : Fragment() {
     private fun getFrequencyName(frequency: Frequency): String {
         return when (frequency) {
             Frequency.DAILY -> getString(R.string.frequency_daily)
-            Frequency.WEEKLY -> getString(R.string.frequency_weekly)
-            Frequency.MONTHLY -> getString(R.string.frequency_monthly)
+            Frequency.EVERY_4_HOURS -> getString(R.string.frequency_every_4_hours)
+            Frequency.EVERY_6_HOURS -> getString(R.string.frequency_every_6_hours)
+            Frequency.EVERY_8_HOURS -> getString(R.string.frequency_every_8_hours)
+            Frequency.EVERY_12_HOURS -> getString(R.string.frequency_every_12_hours)
             Frequency.AS_NEEDED -> getString(R.string.frequency_as_needed)
-            Frequency.CUSTOM -> getString(R.string.frequency_custom)
         }
     }
     

@@ -50,10 +50,11 @@ class MedicationAdapter(
             // Frequency badge
             binding.textFrequency.text = when (medication.frequency) {
                 com.dosecerta.data.model.Frequency.DAILY -> "Diário"
-                com.dosecerta.data.model.Frequency.WEEKLY -> "Semanal"
-                com.dosecerta.data.model.Frequency.MONTHLY -> "Mensal"
-                com.dosecerta.data.model.Frequency.AS_NEEDED -> "Conforme necessário"
-                else -> "Personalizado"
+                com.dosecerta.data.model.Frequency.EVERY_4_HOURS -> "4 em 4h"
+                com.dosecerta.data.model.Frequency.EVERY_6_HOURS -> "6 em 6h"
+                com.dosecerta.data.model.Frequency.EVERY_8_HOURS -> "8 em 8h"
+                com.dosecerta.data.model.Frequency.EVERY_12_HOURS -> "12 em 12h"
+                com.dosecerta.data.model.Frequency.AS_NEEDED -> "S/N"
             }
             
             // Click listeners

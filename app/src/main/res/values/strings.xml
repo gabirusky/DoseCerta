@@ -70,12 +70,12 @@
     <string name="form_spray">Spray</string>
     <string name="form_other">Outro</string>
     
-    <!-- Frequency Options -->
-    <string name="frequency_daily">Diariamente</string>
-    <string name="frequency_weekly">Semanalmente</string>
-    <string name="frequency_monthly">Mensalmente</string>
+    <string name="frequency_daily">Diariamente (1x ao dia)</string>
+    <string name="frequency_every_4_hours">A cada 4 horas (6x ao dia)</string>
+    <string name="frequency_every_6_hours">A cada 6 horas (4x ao dia)</string>
+    <string name="frequency_every_8_hours">A cada 8 horas (3x ao dia)</string>
+    <string name="frequency_every_12_hours">A cada 12 horas (2x ao dia)</string>
     <string name="frequency_as_needed">Conforme necessário</string>
-    <string name="frequency_custom">Personalizado</string>
     
     <!-- History Screen -->
     <string name="history_title">Histórico de Medicamentos</string>

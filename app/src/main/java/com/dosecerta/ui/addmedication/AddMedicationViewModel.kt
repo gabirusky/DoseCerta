@@ -116,6 +116,34 @@ class AddMedicationViewModel(
     }
     
     /**
+     * Generate default reminder times based on frequency.
+     * Replaces existing reminders with new times based on selected frequency.
+     */
+    fun generateDefaultReminders(frequency: Frequency) {
+        // Don't generate for AS_NEEDED - clear reminders instead
+        if (frequency == Frequency.AS_NEEDED) {
+            _scheduleTimes.value = emptyList()
+            return
+        }
+        
+        val reminderCount = frequency.defaultReminderCount
+        val intervalHours = frequency.intervalHours
+        
+        // Start at 8:00 AM (480 minutes from midnight)
+        val startTimeMinutes = 8 * 60
+        
+        val newReminders = mutableListOf<ScheduleTime>()
+        
+        for (i in 0 until reminderCount) {
+            // Calculate time: start from 8 AM and add interval * i hours
+            val timeInMinutes = (startTimeMinutes + (intervalHours * i * 60)) % (24 * 60)
+            newReminders.add(ScheduleTime(0, timeInMinutes))
+        }
+        
+        _scheduleTimes.value = newReminders
+    }
+    
+    /**
      * Validate and save medication.
      */
     fun saveMedication() {
