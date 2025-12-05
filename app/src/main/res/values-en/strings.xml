@@ -26,6 +26,10 @@
     <string name="medications_search_hint">Search medications…</string>
     <string name="medications_filter_all">All</string>
     <string name="medications_filter_daily">Daily</string>
+    <string name="medications_filter_every_4_hours">Every 4h</string>
+    <string name="medications_filter_every_6_hours">Every 6h</string>
+    <string name="medications_filter_every_8_hours">Every 8h</string>
+    <string name="medications_filter_every_12_hours">Every 12h</string>
     <string name="medications_filter_as_needed">As Needed</string>
     <string name="medications_empty">No medications registered</string>
     <string name="medications_delete_confirm">Delete this medication?</string>

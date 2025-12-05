@@ -27,6 +27,10 @@
     <string name="medications_search_hint">Buscar medicamentos…</string>
     <string name="medications_filter_all">Todos</string>
     <string name="medications_filter_daily">Diário</string>
+    <string name="medications_filter_every_4_hours">4 em 4h</string>
+    <string name="medications_filter_every_6_hours">6 em 6h</string>
+    <string name="medications_filter_every_8_hours">8 em 8h</string>
+    <string name="medications_filter_every_12_hours">12 em 12h</string>
     <string name="medications_filter_as_needed">Conforme Necessário</string>
     <string name="medications_add">Adicionar Medicamento</string>
     <string name="medications_empty">Nenhum medicamento cadastrado</string>

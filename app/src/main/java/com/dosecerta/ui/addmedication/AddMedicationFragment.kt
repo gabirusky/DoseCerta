@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.dosecerta.R
 import com.dosecerta.data.local.DoseCertaDatabase
 import com.dosecerta.data.model.Frequency
@@ -134,15 +134,26 @@ class AddMedicationFragment : Fragment() {
     }
     
     private fun setupRecyclerView() {
-        timeAdapter = ScheduleTimeAdapter(
-            onDeleteClick = { scheduleTime ->
-                viewModel.removeScheduleTime(scheduleTime)
-            }
-        )
+        timeAdapter = ScheduleTimeAdapter { selectedTime ->
+            updateDeleteButtonState(selectedTime != null)
+        }
         
-        binding.recyclerTimes.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerTimes.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerTimes.adapter = timeAdapter
         binding.recyclerTimes.isNestedScrollingEnabled = false
+        
+        // Delete button click handler
+        binding.buttonDeleteTime.setOnClickListener {
+            timeAdapter.getSelectedItem()?.let { selectedTime ->
+                viewModel.removeScheduleTime(selectedTime)
+                timeAdapter.clearSelection()
+            }
+        }
+    }
+    
+    private fun updateDeleteButtonState(hasSelection: Boolean) {
+        binding.buttonDeleteTime.isEnabled = hasSelection
+        binding.buttonDeleteTime.alpha = if (hasSelection) 1.0f else 0.3f
     }
     
     private fun observeViewModel() {

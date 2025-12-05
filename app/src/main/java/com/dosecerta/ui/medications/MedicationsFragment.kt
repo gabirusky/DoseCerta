@@ -98,6 +98,22 @@ class MedicationsFragment : Fragment() {
             if (isChecked) viewModel.updateFilter(Frequency.DAILY)
         }
         
+        binding.chipEvery4Hours.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) viewModel.updateFilter(Frequency.EVERY_4_HOURS)
+        }
+        
+        binding.chipEvery6Hours.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) viewModel.updateFilter(Frequency.EVERY_6_HOURS)
+        }
+        
+        binding.chipEvery8Hours.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) viewModel.updateFilter(Frequency.EVERY_8_HOURS)
+        }
+        
+        binding.chipEvery12Hours.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) viewModel.updateFilter(Frequency.EVERY_12_HOURS)
+        }
+        
         binding.chipAsNeeded.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) viewModel.updateFilter(Frequency.AS_NEEDED)
         }

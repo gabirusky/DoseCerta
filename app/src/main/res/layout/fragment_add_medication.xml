@@ -253,14 +253,36 @@
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                 android:textColor="?attr/colorOnSurfaceVariant" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_add_time"
-                android:layout_width="wrap_content"
+            <!-- Header Row: Add Time + Delete Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="@string/medication_add_time"
-                style="@style/Widget.Material3.Button.OutlinedButton"
-                app:icon="@android:drawable/ic_menu_add" />
+                android:orientation="horizontal"
+                android:gravity="start|center_vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_add_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medication_add_time"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    app:icon="@android:drawable/ic_input_add"
+                    app:cornerRadius="24dp" />
+
+                <ImageButton
+                    android:id="@+id/button_delete_time"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="12dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_delete"
+                    android:contentDescription="@string/cd_remove_reminder_time"
+                    android:alpha="0.3"
+                    android:enabled="false"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/text_no_reminders"

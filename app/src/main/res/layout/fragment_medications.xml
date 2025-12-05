@@ -33,35 +33,71 @@
             app:queryHint="@string/medications_search_hint" />
 
         <!-- Filter Chips -->
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_medium"
-            app:singleSelection="true"
-            app:selectionRequired="true">
+            android:scrollbars="none"
+            android:clipToPadding="false">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_all"
-                style="@style/Widget.Material3.Chip.Filter"
+            <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/medications_filter_all" />
+                app:singleSelection="true"
+                app:singleLine="true"
+                app:selectionRequired="true">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_daily"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/medications_filter_daily" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_all"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/medications_filter_all" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_as_needed"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/medications_filter_as_needed" />
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_daily"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medications_filter_daily" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_every_4_hours"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medications_filter_every_4_hours" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_every_6_hours"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medications_filter_every_6_hours" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_every_8_hours"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medications_filter_every_8_hours" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_every_12_hours"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medications_filter_every_12_hours" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_as_needed"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/medications_filter_as_needed" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <!-- Medications List -->
         <androidx.recyclerview.widget.RecyclerView
