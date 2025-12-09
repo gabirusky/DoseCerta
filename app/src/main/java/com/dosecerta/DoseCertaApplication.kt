@@ -18,13 +18,9 @@ class DoseCertaApplication : Application() {
         super.onCreate()
         createNotificationChannel()
         
-        // Insert sample data and schedule alarms on first launch
+        // Schedule alarms for existing medications on app startup (e.g., after reboot)
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Insert sample data
-                com.dosecerta.util.SampleDataProvider.insertSampleData(this@DoseCertaApplication)
-                
-                // Schedule alarms for all active medications
                 val database = com.dosecerta.data.local.DoseCertaDatabase.getDatabase(this@DoseCertaApplication)
                 val schedules = database.scheduleDao().getAllActiveSchedulesSync()
                 

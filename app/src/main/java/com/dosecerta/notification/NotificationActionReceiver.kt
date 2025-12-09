@@ -53,14 +53,16 @@ class NotificationActionReceiver : BroadcastReceiver() {
                 val database = DoseCertaDatabase.getDatabase(context)
                 val logDao = database.medicationLogDao()
                 val medicationDao = database.medicationDao()
+                val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(context)
                 
                 // Get medication name for toast message
                 val medication = medicationDao.getMedicationByIdSync(medicationId)
                 val medicationName = medication?.name ?: "Medicamento"
                 
-                // Cancel the missed check alarm since user is taking action
-                val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(context)
-                alarmScheduler.cancelMissedCheckAlarm(medicationId, scheduleId, scheduledTime)
+                // Cancel the missed reminder alarm since user is taking action
+                // (If user acts, we don't need to remind them about missed dose)
+                alarmScheduler.cancelMissedReminderAlarm(medicationId, scheduleId, scheduledTime)
+                Log.d(TAG, "Cancelled missed reminder alarm")
                 
                 when (intent.action) {
                     Constants.ACTION_TAKE_MEDICATION -> {
@@ -79,6 +81,7 @@ class NotificationActionReceiver : BroadcastReceiver() {
                     
                     Constants.ACTION_SNOOZE_MEDICATION -> {
                         Log.d(TAG, "Processing SNOOZE action")
+                        // For snooze, reschedule both the notification alarm and the missed reminder
                         handleSnoozeAction(context, medicationId, scheduleId, scheduledTime)
                         showToast(context, context.getString(R.string.medication_snoozed_toast, medicationName))
                         sendSnackbarBroadcast(context, context.getString(R.string.medication_snoozed_message, medicationName))

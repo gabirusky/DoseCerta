@@ -13,10 +13,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.dosecerta.R
 import com.dosecerta.databinding.ActivityMainBinding
+import com.dosecerta.ui.setup.SetupActivity
+import com.dosecerta.util.SettingsPreferences
+import kotlinx.coroutines.launch
 
 /**
  * Main activity hosting the bottom navigation and nav host fragment.
@@ -24,6 +28,7 @@ import com.dosecerta.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityMainBinding
+    private lateinit var settingsPreferences: SettingsPreferences
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -39,6 +44,28 @@ class MainActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        settingsPreferences = SettingsPreferences(this)
+        
+        // Check if setup is completed
+        lifecycleScope.launch {
+            val isSetupCompleted = settingsPreferences.isSetupCompletedSync()
+            
+            if (!isSetupCompleted) {
+                // Redirect to setup activity
+                val intent = Intent(this@MainActivity, SetupActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+                return@launch
+            }
+            
+            // Setup is completed, continue with normal flow
+            initializeMainActivity()
+        }
+    }
+    
+    private fun initializeMainActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
@@ -89,3 +116,4 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 }
+

@@ -3,6 +3,7 @@ package com.dosecerta.util
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -20,6 +21,8 @@ class SettingsPreferences(private val context: Context) {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
         private val LANGUAGE_KEY = stringPreferencesKey("language")
         private val MISSED_REMINDER_HOURS_KEY = intPreferencesKey("missed_reminder_hours")
+        private val SETUP_COMPLETED_KEY = booleanPreferencesKey("setup_completed")
+        private val TERMS_ACCEPTED_KEY = booleanPreferencesKey("terms_accepted")
         
         const val LANGUAGE_PORTUGUESE = "pt"
         const val LANGUAGE_ENGLISH = "en"
@@ -68,4 +71,44 @@ class SettingsPreferences(private val context: Context) {
             preferences[MISSED_REMINDER_HOURS_KEY] = safeHours
         }
     }
+    
+    /**
+     * Check if first-time setup has been completed.
+     */
+    val isSetupCompleted: Flow<Boolean> = context.dataStore.data.map { preferences ->
+        preferences[SETUP_COMPLETED_KEY] ?: false
+    }
+    
+    /**
+     * Check if setup is completed synchronously.
+     */
+    suspend fun isSetupCompletedSync(): Boolean {
+        return isSetupCompleted.first()
+    }
+    
+    /**
+     * Mark setup as completed.
+     */
+    suspend fun setSetupCompleted() {
+        context.dataStore.edit { preferences ->
+            preferences[SETUP_COMPLETED_KEY] = true
+        }
+    }
+    
+    /**
+     * Check if terms and privacy policy have been accepted.
+     */
+    val hasAcceptedTerms: Flow<Boolean> = context.dataStore.data.map { preferences ->
+        preferences[TERMS_ACCEPTED_KEY] ?: false
+    }
+    
+    /**
+     * Mark terms as accepted.
+     */
+    suspend fun acceptTerms() {
+        context.dataStore.edit { preferences ->
+            preferences[TERMS_ACCEPTED_KEY] = true
+        }
+    }
 }
+

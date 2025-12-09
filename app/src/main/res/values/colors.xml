@@ -31,6 +31,7 @@
     <color name="status_missed">#E63946</color>     <!-- Red -->
     <color name="status_skipped">#F77F00</color>    <!-- Orange -->
     <color name="status_pending">#028090</color>    <!-- Teal -->
+    <color name="success_green">#02C39A</color>     <!-- Alias for Mint Leaf -->
     
     <!-- Neutral Colors - Light Theme -->
     <color name="white">#FFFFFF</color>

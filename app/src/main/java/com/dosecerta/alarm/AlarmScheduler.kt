@@ -111,7 +111,26 @@ class AlarmScheduler(private val context: Context) {
     }
     
     /**
+     * Cancel missed-reminder alarm (public method for when user takes action).
+     */
+    fun cancelMissedReminderAlarm(medicationId: Long, scheduleId: Long, scheduledTime: Long) {
+        val intent = Intent(context, com.dosecerta.notification.MissedReminderReceiver::class.java).apply {
+            putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
+            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
+            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
+        }
+        val requestCode = ((medicationId * 1000000 + scheduleId * 1000 + 998).toInt())
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, requestCode, intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        alarmManager.cancel(pendingIntent)
+        pendingIntent.cancel()
+    }
+    
+    /**
      * Cancel missed-reminder alarm without needing the original scheduledTime.
+     * Used internally when cancelling all alarms for a medication.
      */
     private fun cancelMissedReminderAlarmForSchedule(medicationId: Long, scheduleId: Long) {
         val intent = Intent(context, com.dosecerta.notification.MissedReminderReceiver::class.java)

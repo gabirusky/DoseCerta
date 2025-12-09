@@ -181,6 +181,27 @@
     <string name="extra_dose_no_medications">Nenhum medicamento ativo</string>
     <string name="extra_dose_recorded">Dose extra registrada!</string>
     <string name="extra_dose_error_empty">Por favor, digite o nome do medicamento</string>
+    
+    <!-- First-Time Setup -->
+    <string name="setup_terms_title">Bem-vindo ao Dose Certa</string>
+    <string name="setup_terms_checkbox">Li e concordo com a Política de Privacidade</string>
+    <string name="setup_terms_button">Concordo e Continuar</string>
+    
+    <string name="setup_notifications_title">Ative as Notificações</string>
+    <string name="setup_notifications_description">Para que o Dose Certa possa te lembrar dos seus medicamentos nos horários certos, precisamos da sua permissão para enviar notificações.</string>
+    <string name="setup_notifications_button">Permitir Notificações</string>
+    <string name="setup_notifications_skip">Pular</string>
+    <string name="setup_notifications_granted">Notificações ativadas!</string>
+    <string name="setup_notifications_continue">Continuar</string>
+    
+    <string name="setup_tutorial_title_1">Seu Assistente de Medicamentos</string>
+    <string name="setup_tutorial_desc_1">O Dose Certa ajuda você a nunca esquecer de tomar seus medicamentos. Organize todos os seus remédios em um só lugar.</string>
+    <string name="setup_tutorial_title_2">Adicione Seus Medicamentos</string>
+    <string name="setup_tutorial_desc_2">Toque no botão + para adicionar um novo medicamento. Informe o nome, dosagem e os horários que você precisa tomar.</string>
+    <string name="setup_tutorial_title_3">Receba Lembretes</string>
+    <string name="setup_tutorial_desc_3">Você receberá uma notificação no horário de cada dose. Marque como tomado, adiado ou pulado diretamente pela notificação.</string>
+    <string name="setup_tutorial_button_next">Próximo</string>
+    <string name="setup_tutorial_button_start">Começar</string>
 </resources>
 
 
