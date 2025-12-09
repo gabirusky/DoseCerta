@@ -16,7 +16,7 @@
     <string name="home_medications_today">Today\'s medications</string>
     <string name="home_no_medications">No medications scheduled for today</string>
     <string name="home_button_taken">Taken</string>
-    <string name="home_button_snooze">Snooze</string>
+    <string name="home_button_snooze">Skip</string>
     <string name="home_statistics">Statistics</string>
     <string name="home_adherence_week">Adherence this week</string>
     <string name="home_active_medications">Active medications</string>

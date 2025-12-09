@@ -17,7 +17,7 @@ import com.dosecerta.util.DateTimeUtils
  */
 class ScheduleAdapter(
     private val onTakeClick: (ScheduleItem) -> Unit,
-    private val onSnoozeClick: (ScheduleItem) -> Unit
+    private val onSkipClick: (ScheduleItem) -> Unit
 ) : ListAdapter<ScheduleItem, ScheduleAdapter.ViewHolder>(DiffCallback()) {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,7 +26,7 @@ class ScheduleAdapter(
             parent,
             false
         )
-        return ViewHolder(binding, onTakeClick, onSnoozeClick)
+        return ViewHolder(binding, onTakeClick, onSkipClick)
     }
     
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -36,7 +36,7 @@ class ScheduleAdapter(
     class ViewHolder(
         private val binding: ItemScheduleBinding,
         private val onTakeClick: (ScheduleItem) -> Unit,
-        private val onSnoozeClick: (ScheduleItem) -> Unit
+        private val onSkipClick: (ScheduleItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         
         fun bind(item: ScheduleItem) {
@@ -77,7 +77,7 @@ class ScheduleAdapter(
             }
             
             binding.buttonSnooze.setOnClickListener {
-                onSnoozeClick(item)
+                onSkipClick(item)
             }
         }
     }

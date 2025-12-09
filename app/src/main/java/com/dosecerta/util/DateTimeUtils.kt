@@ -2,6 +2,7 @@ package com.dosecerta.util
 
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Calendar
 
 object DateTimeUtils {
     
@@ -15,6 +16,15 @@ object DateTimeUtils {
             in 12..17 -> "Boa tarde!"
             else -> "Boa noite!"
         }
+    }
+    
+    /**
+     * Get current weekday name in Portuguese.
+     */
+    fun getWeekday(): String {
+        val calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("EEEE", Locale("pt", "BR"))
+        return sdf.format(calendar.time).replaceFirstChar { it.uppercase() }
     }
     
     /**

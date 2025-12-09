@@ -15,7 +15,7 @@
     <string name="home_medications_today">Medicações de hoje</string>
     <string name="home_no_medications">Nenhuma medicação programada para hoje</string>
     <string name="home_button_taken">Tomei</string>
-    <string name="home_button_snooze">Adiar</string>
+    <string name="home_button_snooze">Pular</string>
     <string name="home_statistics">Estatísticas</string>
     <string name="home_adherence_week">Adesão esta semana</string>
     <string name="home_active_medications">Medicamentos ativos</string>

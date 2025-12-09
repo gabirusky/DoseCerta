@@ -135,35 +135,34 @@ class HomeViewModel(
     }
     
     /**
-     * Snooze reminder for 10 minutes.
+     * Skip medication - mark as skipped.
      */
-    fun snoozeReminder(scheduleItem: ScheduleItem) {
-        viewModelScope.launch {
-            // Reschedule for 10 minutes from now
-            val snoozeTime = System.currentTimeMillis() + (10 * 60 * 1000) // 10 minutes
-            
-            // Create a log entry for the snooze action
-            val existingLog = repository.getLog(
-                scheduleItem.medication.id,
-                scheduleItem.schedule.id,
-                scheduleItem.scheduledTime
-            )
-            
-            if (existingLog != null) {
-                // Update existing log to mark as snoozed
-                repository.updateLog(
-                    existingLog.copy(
-                        status = MedicationStatus.PENDING,
-                        actualTime = null
-                    )
+    suspend fun skipMedication(scheduleItem: ScheduleItem) {
+        // Check if log already exists
+        val existingLog = repository.getLog(
+            scheduleItem.medication.id,
+            scheduleItem.schedule.id,
+            scheduleItem.scheduledTime
+        )
+        
+        if (existingLog != null) {
+            // Update existing log to mark as skipped
+            repository.updateLog(
+                existingLog.copy(
+                    status = MedicationStatus.SKIPPED,
+                    actualTime = System.currentTimeMillis()
                 )
-            }
-            
-            // Reschedule the notification
-            alarmScheduler.snoozeAlarm(
-                scheduleItem.medication.id,
-                scheduleItem.schedule.id,
-                scheduleItem.scheduledTime
+            )
+        } else {
+            // Create new log as skipped
+            repository.insertLog(
+                MedicationLog(
+                    medicationId = scheduleItem.medication.id,
+                    scheduleId = scheduleItem.schedule.id,
+                    scheduledTime = scheduleItem.scheduledTime,
+                    actualTime = System.currentTimeMillis(),
+                    status = MedicationStatus.SKIPPED
+                )
             )
         }
     }

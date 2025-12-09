@@ -61,6 +61,9 @@ class HomeFragment : Fragment() {
     private fun setupUI() {
         binding.textGreeting.text = DateTimeUtils.getGreeting()
         
+        // Set weekday as header
+        binding.textMedicationsHeader.text = DateTimeUtils.getWeekday()
+        
         // Setup extra dose button
         binding.buttonRegisterExtraDose.setOnClickListener {
             showExtraDoseDialog()
@@ -74,9 +77,9 @@ class HomeFragment : Fragment() {
                     viewModel.markAsTaken(scheduleItem)
                 }
             },
-            onSnoozeClick = { scheduleItem ->
+            onSkipClick = { scheduleItem ->
                 lifecycleScope.launch {
-                    viewModel.snoozeReminder(scheduleItem)
+                    viewModel.skipMedication(scheduleItem)
                 }
             }
         )
