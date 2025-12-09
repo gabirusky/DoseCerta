@@ -144,6 +144,23 @@
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Notes -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:hint="@string/medication_notes">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:lines="3"
+                    android:maxLines="5" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Color Picker Section -->
             <TextView
                 android:layout_width="match_parent"
@@ -302,25 +319,8 @@
                 android:id="@+id/recycler_times"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="80dp"
                 android:visibility="gone" />
-
-            <!-- Notes -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:hint="@string/medication_notes">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_notes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
-                    android:lines="3"
-                    android:maxLines="5" />
-            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </ScrollView>
