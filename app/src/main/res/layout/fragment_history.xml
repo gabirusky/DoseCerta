@@ -177,7 +177,7 @@
                 android:padding="@dimen/spacing_small"
                 android:text="@string/history_last_7_days"
                 android:textAppearance="@style/TextAppearance.DoseCerta.Body"
-                android:textColor="@color/teal"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="14sp" />
         </LinearLayout>
 

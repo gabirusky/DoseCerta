@@ -116,7 +116,7 @@
                     android:layout_height="24dp"
                     android:src="@drawable/ic_edit"
                     android:contentDescription="@string/settings_privacy_policy"
-                    app:tint="@color/gray_600" />
+                    app:tint="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

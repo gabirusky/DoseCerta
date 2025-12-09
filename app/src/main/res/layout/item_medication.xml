@@ -57,7 +57,7 @@
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
                 android:text="Diário"
-                android:textColor="@color/teal"
+                android:textColor="?attr/colorSecondary"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -69,7 +69,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/cd_edit_medication"
             android:src="@drawable/ic_edit"
-            app:tint="@color/gray_600" />
+            app:tint="?attr/colorOnSurfaceVariant" />
 
         <ImageButton
             android:id="@+id/button_delete"
