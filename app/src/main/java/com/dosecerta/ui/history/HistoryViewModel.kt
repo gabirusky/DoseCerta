@@ -7,6 +7,7 @@ import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.data.repository.MedicationRepository
 import com.dosecerta.util.DateTimeUtils
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 /**
  * ViewModel for the History screen.
