@@ -54,7 +54,7 @@ object DateTimeUtils {
      * Format timestamp to date and time string.
      */
     fun formatDateTime(timestamp: Long): String {
-        val sdf = SimpleDateFormat("dd MMM, HH:mm", Locale("pt", "BR"))
+        val sdf = SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale("pt", "BR"))
         return sdf.format(Date(timestamp))
     }
     
