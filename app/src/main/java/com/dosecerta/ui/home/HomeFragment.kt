@@ -80,6 +80,11 @@ class HomeFragment : Fragment() {
             onSkipClick = { scheduleItem ->
                 lifecycleScope.launch {
                     viewModel.skipMedication(scheduleItem)
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.medication_skipped_toast, scheduleItem.medication.name),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         )
