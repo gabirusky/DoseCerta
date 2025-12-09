@@ -187,7 +187,10 @@ class AddMedicationViewModel(
                     val currentSchedules = repository.getSchedulesForMedicationSync(medicationId)
                     val newScheduleTimes = _scheduleTimes.value
                     
-                    // 1. Delete removed schedules
+                    // 1. Cancel ALL existing alarms first to prevent duplicates
+                    alarmScheduler.cancelAlarmsForMedication(medicationId, currentSchedules)
+                    
+                    // 2. Delete removed schedules (alarm already cancelled above)
                     val newIds = newScheduleTimes.map { it.id }.filter { it != 0L }
                     val schedulesToDelete = currentSchedules.filter { it.id !in newIds }
                     
@@ -195,7 +198,7 @@ class AddMedicationViewModel(
                         repository.deleteSchedule(schedule)
                     }
                     
-                    // 2. Update or Insert schedules
+                    // 3. Update or Insert schedules
                     for (scheduleTime in newScheduleTimes) {
                         if (scheduleTime.id == 0L) {
                             // Insert new
@@ -225,7 +228,7 @@ class AddMedicationViewModel(
                         }
                     }
                     
-                    // Fetch final schedules to ensure alarms are correct
+                    // 4. Fetch final schedules and schedule fresh alarms
                     val finalSchedules = repository.getSchedulesForMedicationSync(medicationId)
                     alarmScheduler.scheduleAlarmsForMedication(medicationId, finalSchedules)
                     
