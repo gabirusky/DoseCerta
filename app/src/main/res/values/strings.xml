@@ -46,7 +46,7 @@
     <string name="medication_dosage_hint">Ex: 500</string>
     <string name="medication_unit">Unidade</string>
     <string name="medication_unit_hint">Ex: mg</string>
-    <string name="medication_form">Forma Farmacêutica</string>
+    <string name="medication_form">Forma</string>
     <string name="medication_form_hint">Selecione a forma</string>
     <string name="medication_frequency">Frequência</string>
     <string name="medication_frequency_hint">Como tomar</string>

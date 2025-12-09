@@ -74,7 +74,7 @@
     <string name="medication_name">Medication Name</string>
     <string name="medication_dosage">Dosage</string>
     <string name="medication_unit">Unit</string>
-    <string name="medication_form">Pharmaceutical Form</string>
+    <string name="medication_form">Form</string>
     <string name="medication_frequency">Frequency</string>
     <string name="medication_reminders">Reminders</string>
     <string name="medication_reminders_subtitle">Set the times</string>
