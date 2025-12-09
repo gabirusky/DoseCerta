@@ -14,7 +14,9 @@ import com.dosecerta.util.DateTimeUtils
 /**
  * Adapter for displaying medication logs with details.
  */
-class MedicationLogAdapter : ListAdapter<MedicationLogWithDetails, MedicationLogAdapter.ViewHolder>(DiffCallback()) {
+class MedicationLogAdapter(
+    private val onLongClick: (MedicationLogWithDetails) -> Unit = {}
+) : ListAdapter<MedicationLogWithDetails, MedicationLogAdapter.ViewHolder>(DiffCallback()) {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemMedicationLogBinding.inflate(
@@ -22,7 +24,7 @@ class MedicationLogAdapter : ListAdapter<MedicationLogWithDetails, MedicationLog
             parent,
             false
         )
-        return ViewHolder(binding)
+        return ViewHolder(binding, onLongClick)
     }
     
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -30,10 +32,21 @@ class MedicationLogAdapter : ListAdapter<MedicationLogWithDetails, MedicationLog
     }
     
     class ViewHolder(
-        private val binding: ItemMedicationLogBinding
+        private val binding: ItemMedicationLogBinding,
+        private val onLongClick: (MedicationLogWithDetails) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         
+        private var currentItem: MedicationLogWithDetails? = null
+        
+        init {
+            binding.root.setOnLongClickListener {
+                currentItem?.let { onLongClick(it) }
+                true
+            }
+        }
+        
         fun bind(logWithDetails: MedicationLogWithDetails) {
+            currentItem = logWithDetails
             val log = logWithDetails.log
             
             // Display medication name and dosage
@@ -92,3 +105,4 @@ class MedicationLogAdapter : ListAdapter<MedicationLogWithDetails, MedicationLog
         }
     }
 }
+

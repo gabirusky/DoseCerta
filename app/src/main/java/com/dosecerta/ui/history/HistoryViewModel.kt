@@ -79,6 +79,30 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
         _refreshTrigger.value += 1
     }
     
+    /**
+     * Update the status of a medication log.
+     */
+    fun updateLogStatus(log: MedicationLog, newStatus: MedicationStatus) {
+        viewModelScope.launch {
+            val updatedLog = log.copy(
+                status = newStatus,
+                actualTime = if (newStatus == MedicationStatus.TAKEN) System.currentTimeMillis() else log.actualTime
+            )
+            repository.updateLog(updatedLog)
+            refresh()
+        }
+    }
+    
+    /**
+     * Delete a medication log entry.
+     */
+    fun deleteLog(log: MedicationLog) {
+        viewModelScope.launch {
+            repository.deleteLog(log)
+            refresh()
+        }
+    }
+    
     data class Statistics(
         val taken: Int,
         val missed: Int,

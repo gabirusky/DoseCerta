@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dosecerta.R
 import com.dosecerta.data.local.DoseCertaDatabase
+import com.dosecerta.data.local.dao.MedicationLogWithDetails
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.data.repository.MedicationRepository
 import com.dosecerta.databinding.FragmentHistoryBinding
@@ -61,9 +64,69 @@ class HistoryFragment : Fragment() {
     }
     
     private fun setupRecyclerView() {
-        adapter = MedicationLogAdapter()
+        adapter = MedicationLogAdapter { logWithDetails ->
+            showLogOptionsDialog(logWithDetails)
+        }
         binding.recyclerLogs.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerLogs.adapter = adapter
+    }
+    
+    private fun showLogOptionsDialog(logWithDetails: MedicationLogWithDetails) {
+        val log = logWithDetails.log
+        val currentStatus = log.status
+        
+        // Build options based on current status
+        val options = mutableListOf<String>()
+        val statuses = mutableListOf<MedicationStatus?>()
+        
+        // Add status change options (show the two statuses that are NOT the current one)
+        if (currentStatus != MedicationStatus.TAKEN) {
+            options.add(getString(R.string.history_mark_taken))
+            statuses.add(MedicationStatus.TAKEN)
+        }
+        if (currentStatus != MedicationStatus.MISSED) {
+            options.add(getString(R.string.history_mark_missed))
+            statuses.add(MedicationStatus.MISSED)
+        }
+        if (currentStatus != MedicationStatus.SKIPPED) {
+            options.add(getString(R.string.history_mark_skipped))
+            statuses.add(MedicationStatus.SKIPPED)
+        }
+        
+        // Add delete option
+        options.add(getString(R.string.history_delete_log))
+        statuses.add(null) // null indicates delete action
+        
+        // Get display name for dialog title
+        val displayName = log.customMedicationName ?: logWithDetails.medicationName ?: ""
+        
+        AlertDialog.Builder(requireContext())
+            .setTitle(displayName)
+            .setItems(options.toTypedArray()) { _, which ->
+                val selectedStatus = statuses[which]
+                if (selectedStatus != null) {
+                    viewModel.updateLogStatus(log, selectedStatus)
+                } else {
+                    // Delete action - show confirmation
+                    showDeleteConfirmation(logWithDetails)
+                }
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
+    }
+    
+    private fun showDeleteConfirmation(logWithDetails: MedicationLogWithDetails) {
+        val displayName = logWithDetails.log.customMedicationName 
+            ?: logWithDetails.medicationName ?: ""
+        
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.history_delete_confirm_title)
+            .setMessage(getString(R.string.history_delete_confirm_message, displayName))
+            .setPositiveButton(R.string.delete) { _, _ ->
+                viewModel.deleteLog(logWithDetails.log)
+            }
+            .setNegativeButton(R.string.cancel, null)
+            .show()
     }
     
     private fun setupFilterChips() {
@@ -140,3 +203,4 @@ class HistoryViewModelFactory(private val repository: MedicationRepository) : Vi
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+

@@ -45,6 +45,12 @@
     <string name="history_last_7_days">Last 7 days</string>
     <string name="history_last_30_days">Last 30 days</string>
     <string name="history_empty">No records found</string>
+    <string name="history_mark_taken">Mark as Taken</string>
+    <string name="history_mark_missed">Mark as Missed</string>
+    <string name="history_mark_skipped">Mark as Skipped</string>
+    <string name="history_delete_log">Delete Record</string>
+    <string name="history_delete_confirm_title">Delete Record?</string>
+    <string name="history_delete_confirm_message">Delete record for %s?</string>
     
     <!-- Pharmaceutical Forms -->
     <string name="form_tablet">Tablet</string>
