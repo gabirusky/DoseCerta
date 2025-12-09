@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
         binding.textGreeting.text = DateTimeUtils.getGreeting()
         
         // Set weekday as header
-        binding.textMedicationsHeader.text = DateTimeUtils.getWeekday()
+        binding.textMedicationsHeader.text = "${DateTimeUtils.getWeekday()}:"
         
         // Setup extra dose button
         binding.buttonRegisterExtraDose.setOnClickListener {

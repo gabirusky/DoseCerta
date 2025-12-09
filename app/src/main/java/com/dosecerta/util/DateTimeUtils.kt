@@ -19,11 +19,11 @@ object DateTimeUtils {
     }
     
     /**
-     * Get current weekday name in Portuguese.
+     * Get current weekday name using device locale.
      */
     fun getWeekday(): String {
         val calendar = Calendar.getInstance()
-        val sdf = SimpleDateFormat("EEEE", Locale("pt", "BR"))
+        val sdf = SimpleDateFormat("EEEE", Locale.getDefault())
         return sdf.format(calendar.time).replaceFirstChar { it.uppercase() }
     }
     
