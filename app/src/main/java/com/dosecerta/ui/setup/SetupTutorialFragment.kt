@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.dosecerta.R
 import com.dosecerta.databinding.FragmentSetupTutorialBinding
+import com.dosecerta.databinding.ItemTutorialCardBinding
 import com.dosecerta.ui.MainActivity
 import com.dosecerta.util.SettingsPreferences
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 /**
@@ -30,6 +33,7 @@ class SetupTutorialFragment : Fragment() {
     private var _binding: FragmentSetupTutorialBinding? = null
     private val binding get() = _binding!!
     
+    private lateinit var cardBinding: ItemTutorialCardBinding
     private lateinit var settingsPreferences: SettingsPreferences
     
     private var currentStep = 0
@@ -49,14 +53,6 @@ class SetupTutorialFragment : Fragment() {
         )
     )
     
-    private val indicators by lazy {
-        listOf(
-            binding.tutorialCard.findViewById<View>(R.id.indicator_1),
-            binding.tutorialCard.findViewById<View>(R.id.indicator_2),
-            binding.tutorialCard.findViewById<View>(R.id.indicator_3)
-        )
-    }
-    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,6 +67,9 @@ class SetupTutorialFragment : Fragment() {
         
         settingsPreferences = SettingsPreferences(requireContext())
         
+        // The included card layout is already bound
+        cardBinding = binding.tutorialCard
+        
         updateCardContent()
         setupButton()
     }
@@ -78,16 +77,19 @@ class SetupTutorialFragment : Fragment() {
     private fun updateCardContent() {
         val step = tutorialSteps[currentStep]
         
-        binding.tutorialCard.findViewById<android.widget.TextView>(R.id.text_title)
-            .setText(step.titleRes)
-        binding.tutorialCard.findViewById<android.widget.TextView>(R.id.text_description)
-            .setText(step.descriptionRes)
+        cardBinding.textTitle.setText(step.titleRes)
+        cardBinding.textDescription.setText(step.descriptionRes)
         
         updateIndicators()
         updateButtonText()
     }
     
     private fun updateIndicators() {
+        val indicators = listOf(
+            cardBinding.indicator1,
+            cardBinding.indicator2,
+            cardBinding.indicator3
+        )
         indicators.forEachIndexed { index, view ->
             view.setBackgroundResource(
                 if (index == currentStep) {
@@ -101,26 +103,24 @@ class SetupTutorialFragment : Fragment() {
     
     private fun updateButtonText() {
         val isLastStep = currentStep == tutorialSteps.size - 1
-        binding.tutorialCard.findViewById<com.google.android.material.button.MaterialButton>(R.id.button_action).text =
-            if (isLastStep) {
-                getString(R.string.setup_tutorial_button_start)
-            } else {
-                getString(R.string.setup_tutorial_button_next)
-            }
+        cardBinding.buttonAction.text = if (isLastStep) {
+            getString(R.string.setup_tutorial_button_start)
+        } else {
+            getString(R.string.setup_tutorial_button_next)
+        }
     }
     
     private fun setupButton() {
-        binding.tutorialCard.findViewById<com.google.android.material.button.MaterialButton>(R.id.button_action)
-            .setOnClickListener {
-                val isLastStep = currentStep == tutorialSteps.size - 1
-                
-                if (isLastStep) {
-                    completeSetup()
-                } else {
-                    currentStep++
-                    updateCardContent()
-                }
+        cardBinding.buttonAction.setOnClickListener {
+            val isLastStep = currentStep == tutorialSteps.size - 1
+            
+            if (isLastStep) {
+                completeSetup()
+            } else {
+                currentStep++
+                updateCardContent()
             }
+        }
     }
     
     private fun completeSetup() {
