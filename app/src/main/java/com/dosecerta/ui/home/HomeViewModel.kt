@@ -25,9 +25,6 @@ class HomeViewModel(
         repository.getAllActiveSchedules(),
         repository.getAllLogs()
     ) { schedules, allLogs ->
-        val today = DateTimeUtils.getStartOfToday()
-        val endOfDay = DateTimeUtils.getEndOfToday()
-        
         // Build schedule items for today
         val items = mutableListOf<ScheduleItem>()
         

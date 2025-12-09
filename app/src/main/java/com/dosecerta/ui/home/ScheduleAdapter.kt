@@ -48,7 +48,7 @@ class ScheduleAdapter(
             
             binding.textMedicationName.text = item.medication.name
             binding.textDosage.text = "${item.medication.dosage} ${item.medication.unit} - " +
-                    "${item.medication.pharmaceuticalForm.name.lowercase().capitalize()}"
+                    "${item.medication.pharmaceuticalForm.name.lowercase().replaceFirstChar { it.uppercase() }}"
             binding.textTime.text = DateTimeUtils.formatTimestamp(item.scheduledTime)
             binding.textTimeUntil.text = DateTimeUtils.getTimeUntilString(item.scheduledTime)
             

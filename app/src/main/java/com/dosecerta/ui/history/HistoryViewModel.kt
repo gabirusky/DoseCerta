@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel for the History screen.
  */
+@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class HistoryViewModel(private val repository: MedicationRepository) : ViewModel() {
     
     // Selected filter
