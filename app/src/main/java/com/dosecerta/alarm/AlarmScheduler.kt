@@ -80,10 +80,49 @@ class AlarmScheduler(private val context: Context) {
     
     /**
      * Cancel all alarms for a medication.
+     * This includes main reminders AND missed-check/missed-reminder alarms.
      */
     fun cancelAlarmsForMedication(medicationId: Long, schedules: List<Schedule>) {
         schedules.forEach { schedule ->
             cancelAlarm(medicationId, schedule.id)
+            // Also cancel any pending missed-check and missed-reminder alarms
+            cancelMissedCheckAlarmForSchedule(medicationId, schedule.id)
+            cancelMissedReminderAlarmForSchedule(medicationId, schedule.id)
+        }
+    }
+    
+    /**
+     * Cancel missed-check alarm without needing the original scheduledTime.
+     * Uses a deterministic request code based on medicationId and scheduleId.
+     */
+    private fun cancelMissedCheckAlarmForSchedule(medicationId: Long, scheduleId: Long) {
+        val intent = Intent(context, com.dosecerta.notification.MarkMissedReceiver::class.java).apply {
+            action = Constants.ACTION_MARK_MISSED
+        }
+        val requestCode = ((medicationId * 1000000 + scheduleId * 1000 + 999).toInt())
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, requestCode, intent, 
+            PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+        )
+        pendingIntent?.let {
+            alarmManager.cancel(it)
+            it.cancel()
+        }
+    }
+    
+    /**
+     * Cancel missed-reminder alarm without needing the original scheduledTime.
+     */
+    private fun cancelMissedReminderAlarmForSchedule(medicationId: Long, scheduleId: Long) {
+        val intent = Intent(context, com.dosecerta.notification.MissedReminderReceiver::class.java)
+        val requestCode = ((medicationId * 1000000 + scheduleId * 1000 + 998).toInt())
+        val pendingIntent = PendingIntent.getBroadcast(
+            context, requestCode, intent,
+            PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
+        )
+        pendingIntent?.let {
+            alarmManager.cancel(it)
+            it.cancel()
         }
     }
     
