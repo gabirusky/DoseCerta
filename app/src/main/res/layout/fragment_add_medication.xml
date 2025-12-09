@@ -122,7 +122,10 @@
                         android:id="@+id/autoComplete_form"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:inputType="none"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
