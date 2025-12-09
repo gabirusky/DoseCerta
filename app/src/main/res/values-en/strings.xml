@@ -77,6 +77,8 @@
     <string name="notification_action_snooze">Snooze 10 min</string>
     
     <!-- Add/Edit Medication -->
+    <string name="medication_add_title">Add Medication</string>
+    <string name="medication_edit_title">Edit Medication</string>
     <string name="medication_name">Medication Name</string>
     <string name="medication_dosage">Dosage</string>
     <string name="medication_unit">Unit</string>

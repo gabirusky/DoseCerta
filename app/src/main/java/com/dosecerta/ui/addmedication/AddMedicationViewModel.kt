@@ -24,7 +24,7 @@ class AddMedicationViewModel(
     private val medicationId: Long = -1L
 ) : ViewModel() {
     
-    private var isEditMode = medicationId != -1L
+    val isEditMode = medicationId != -1L
     
     init {
         if (isEditMode) {

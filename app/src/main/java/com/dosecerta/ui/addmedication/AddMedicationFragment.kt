@@ -65,6 +65,13 @@ class AddMedicationFragment : Fragment() {
     }
     
     private fun setupUI() {
+        // Set title based on mode
+        if (viewModel.isEditMode) {
+            binding.textPageTitle.text = getString(R.string.medication_edit_title)
+        } else {
+            binding.textPageTitle.text = getString(R.string.medication_add_title)
+        }
+        
         // Top Bar Buttons
         binding.buttonCancel.setOnClickListener {
             findNavController().navigateUp()
