@@ -15,6 +15,8 @@ import com.dosecerta.BuildConfig
 import com.dosecerta.R
 import com.dosecerta.databinding.FragmentSettingsBinding
 import com.dosecerta.util.SettingsPreferences
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -27,6 +29,9 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
     
     private lateinit var settingsPreferences: SettingsPreferences
+    
+    // Debounce job for slider changes
+    private var sliderSaveJob: Job? = null
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -94,13 +99,18 @@ class SettingsFragment : Fragment() {
             binding.textMissedReminderHours.text = "${savedHours}h"
         }
         
-        // Handle slider changes
+        // Handle slider changes with debounce (4 seconds delay)
         binding.sliderMissedReminderHours.addOnChangeListener { _, value, fromUser ->
             val hours = value.toInt()
             binding.textMissedReminderHours.text = "${hours}h"
             
             if (fromUser) {
-                lifecycleScope.launch {
+                // Cancel any pending save job
+                sliderSaveJob?.cancel()
+                
+                // Start new save job with 4 second delay
+                sliderSaveJob = lifecycleScope.launch {
+                    delay(4000) // Wait 4 seconds
                     settingsPreferences.saveMissedReminderHours(hours)
                     Toast.makeText(
                         requireContext(),
@@ -125,6 +135,7 @@ class SettingsFragment : Fragment() {
     
     override fun onDestroyView() {
         super.onDestroyView()
+        sliderSaveJob?.cancel()
         _binding = null
     }
 }
