@@ -1,6 +1,7 @@
 package com.dosecerta.ui.setup
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -10,12 +11,13 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.dosecerta.R
 import com.dosecerta.databinding.FragmentSetupNotificationsBinding
+import com.dosecerta.ui.MainActivity
 
 /**
  * Step 2 of setup: Request notification permission.
+ * After this step, go directly to MainActivity (tutorial shown as overlay there).
  */
 class SetupNotificationsFragment : Fragment() {
     
@@ -28,8 +30,8 @@ class SetupNotificationsFragment : Fragment() {
         if (isGranted) {
             showPermissionGranted()
         }
-        // Navigate to next step regardless of result
-        navigateToTutorial()
+        // Navigate to main app (tutorial will be shown there)
+        navigateToMainApp()
     }
     
     override fun onCreateView(
@@ -78,20 +80,24 @@ class SetupNotificationsFragment : Fragment() {
                 ) {
                     requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 } else {
-                    navigateToTutorial()
+                    navigateToMainApp()
                 }
             } else {
-                navigateToTutorial()
+                navigateToMainApp()
             }
         }
         
         binding.buttonSkip.setOnClickListener {
-            navigateToTutorial()
+            navigateToMainApp()
         }
     }
     
-    private fun navigateToTutorial() {
-        findNavController().navigate(R.id.action_notifications_to_tutorial)
+    private fun navigateToMainApp() {
+        // Go directly to MainActivity, tutorial will be shown as overlay there
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        requireActivity().finish()
     }
     
     override fun onDestroyView() {

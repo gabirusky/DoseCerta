@@ -110,5 +110,12 @@ class SettingsPreferences(private val context: Context) {
             preferences[TERMS_ACCEPTED_KEY] = true
         }
     }
+    
+    /**
+     * Check if terms are accepted synchronously.
+     */
+    suspend fun hasAcceptedTermsSync(): Boolean {
+        return hasAcceptedTerms.first()
+    }
 }
 

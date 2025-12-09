@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tutorial_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC000000"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Centered Tutorial Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tutorial_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="32dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="?attr/colorPrimary"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <!-- ViewPager for Tutorial Steps -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/tutorial_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="200dp" />
+
+            <!-- Bottom Row: Dots + Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="24dp">
+
+                <!-- Page Indicators -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="start|center_vertical">
+
+                    <View
+                        android:id="@+id/indicator_1"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/indicator_dot_white_selected"
+                        android:layout_marginEnd="6dp" />
+
+                    <View
+                        android:id="@+id/indicator_2"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/indicator_dot_white_unselected"
+                        android:layout_marginEnd="6dp" />
+
+                    <View
+                        android:id="@+id/indicator_3"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@drawable/indicator_dot_white_unselected" />
+
+                </LinearLayout>
+
+                <!-- Next/Start Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tutorial_button"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:text="@string/setup_tutorial_button_next"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorPrimary"
+                    app:backgroundTint="@android:color/white"
+                    app:cornerRadius="22dp"
+                    android:paddingHorizontal="24dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</FrameLayout>
