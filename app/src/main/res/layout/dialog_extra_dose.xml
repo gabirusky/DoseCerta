@@ -17,34 +17,47 @@
         android:textStyle="bold"
         android:layout_marginBottom="@dimen/spacing_medium" />
 
-    <!-- Custom Medication Input -->
-    <com.google.android.material.textfield.TextInputLayout
+    <!-- Custom Medication Input Row -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/extra_dose_custom_hint"
-        android:layout_marginBottom="@dimen/spacing_small"
-        style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/spacing_medium">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_custom_medication"
-            android:layout_width="match_parent"
+        <!-- Text Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_weight="1"
+            android:hint="@string/extra_dose_custom_hint"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
 
-    <!-- Add Custom Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_add_custom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/extra_dose_add_custom"
-        android:textAllCaps="false"
-        android:layout_marginBottom="@dimen/spacing_medium"
-        app:icon="@drawable/ic_add"
-        app:iconGravity="textStart"
-        style="@style/Widget.Material3.Button.TonalButton" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_custom_medication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Simple +1 Button beside input -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_add_custom"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/ic_add"
+            app:iconSize="24dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            style="@style/Widget.Material3.Button.TonalButton"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+    </LinearLayout>
 
     <!-- Divider -->
     <View
