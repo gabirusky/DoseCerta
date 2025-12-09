@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
@@ -42,6 +43,7 @@ class SettingsFragment : Fragment() {
         settingsPreferences = SettingsPreferences(requireContext())
         
         setupLanguageSelection()
+        setupMissedReminderSlider()
         setupPrivacyPolicyLink()
         setupAppVersion()
     }
@@ -81,6 +83,32 @@ class SettingsFragment : Fragment() {
             
             // Restart activity to apply changes
             requireActivity().recreate()
+        }
+    }
+    
+    private fun setupMissedReminderSlider() {
+        // Load saved preference
+        lifecycleScope.launch {
+            val savedHours = settingsPreferences.getMissedReminderHoursSync()
+            binding.sliderMissedReminderHours.value = savedHours.toFloat()
+            binding.textMissedReminderHours.text = "${savedHours}h"
+        }
+        
+        // Handle slider changes
+        binding.sliderMissedReminderHours.addOnChangeListener { _, value, fromUser ->
+            val hours = value.toInt()
+            binding.textMissedReminderHours.text = "${hours}h"
+            
+            if (fromUser) {
+                lifecycleScope.launch {
+                    settingsPreferences.saveMissedReminderHours(hours)
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.settings_missed_reminder_updated, hours),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
     

@@ -251,8 +251,8 @@ class AlarmScheduler(private val context: Context) {
         pendingIntent.cancel()
     }
     
-    fun scheduleMissedReminderAlarm(medicationId: Long, scheduleId: Long, scheduledTime: Long) {
-        val reminderTime = System.currentTimeMillis() + (Constants.MISSED_REMINDER_DELAY_HOURS * 60 * 60 * 1000L)
+    fun scheduleMissedReminderAlarm(medicationId: Long, scheduleId: Long, scheduledTime: Long, hours: Int = Constants.MISSED_REMINDER_DELAY_HOURS) {
+        val reminderTime = System.currentTimeMillis() + (hours * 60 * 60 * 1000L)
         val intent = Intent(context, com.dosecerta.notification.MissedReminderReceiver::class.java).apply {
             putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
             putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)

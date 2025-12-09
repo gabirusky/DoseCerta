@@ -104,6 +104,9 @@
     <string name="settings_privacy_policy_subtitle">Read our LGPD privacy policy</string>
     <string name="settings_about">About the App</string>
     <string name="settings_version">Version 1.0</string>
+    <string name="settings_missed_reminder">Missed Dose Reminder</string>
+    <string name="settings_missed_reminder_subtitle">Re-notify after how many hours if you miss a dose</string>
+    <string name="settings_missed_reminder_updated">Reminder set to %d hours</string>
     
     <!-- Privacy Policy -->
     <string name="privacy_policy_title">Privacy Policy</string>

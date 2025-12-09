@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -64,55 +65,44 @@ class HistoryFragment : Fragment() {
     }
     
     private fun setupRecyclerView() {
-        adapter = MedicationLogAdapter { logWithDetails ->
-            showLogOptionsDialog(logWithDetails)
+        adapter = MedicationLogAdapter { view, logWithDetails ->
+            showLogOptionsPopup(view, logWithDetails)
         }
         binding.recyclerLogs.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerLogs.adapter = adapter
     }
     
-    private fun showLogOptionsDialog(logWithDetails: MedicationLogWithDetails) {
+    private fun showLogOptionsPopup(anchorView: View, logWithDetails: MedicationLogWithDetails) {
         val log = logWithDetails.log
         val currentStatus = log.status
         
-        // Build options based on current status
-        val options = mutableListOf<String>()
-        val statuses = mutableListOf<MedicationStatus?>()
+        val popup = PopupMenu(requireContext(), anchorView)
         
-        // Add status change options (show the two statuses that are NOT the current one)
+        // Add status change options (show the statuses that are NOT the current one)
         if (currentStatus != MedicationStatus.TAKEN) {
-            options.add(getString(R.string.history_mark_taken))
-            statuses.add(MedicationStatus.TAKEN)
+            popup.menu.add(0, 1, 0, getString(R.string.history_mark_taken))
         }
         if (currentStatus != MedicationStatus.MISSED) {
-            options.add(getString(R.string.history_mark_missed))
-            statuses.add(MedicationStatus.MISSED)
+            popup.menu.add(0, 2, 1, getString(R.string.history_mark_missed))
         }
         if (currentStatus != MedicationStatus.SKIPPED) {
-            options.add(getString(R.string.history_mark_skipped))
-            statuses.add(MedicationStatus.SKIPPED)
+            popup.menu.add(0, 3, 2, getString(R.string.history_mark_skipped))
         }
         
         // Add delete option
-        options.add(getString(R.string.history_delete_log))
-        statuses.add(null) // null indicates delete action
+        popup.menu.add(0, 4, 3, getString(R.string.history_delete_log))
         
-        // Get display name for dialog title
-        val displayName = log.customMedicationName ?: logWithDetails.medicationName ?: ""
-        
-        AlertDialog.Builder(requireContext())
-            .setTitle(displayName)
-            .setItems(options.toTypedArray()) { _, which ->
-                val selectedStatus = statuses[which]
-                if (selectedStatus != null) {
-                    viewModel.updateLogStatus(log, selectedStatus)
-                } else {
-                    // Delete action - show confirmation
-                    showDeleteConfirmation(logWithDetails)
-                }
+        popup.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                1 -> viewModel.updateLogStatus(log, MedicationStatus.TAKEN)
+                2 -> viewModel.updateLogStatus(log, MedicationStatus.MISSED)
+                3 -> viewModel.updateLogStatus(log, MedicationStatus.SKIPPED)
+                4 -> showDeleteConfirmation(logWithDetails)
             }
-            .setNegativeButton(R.string.cancel, null)
-            .show()
+            true
+        }
+        
+        popup.show()
     }
     
     private fun showDeleteConfirmation(logWithDetails: MedicationLogWithDetails) {

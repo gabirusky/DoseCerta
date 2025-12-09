@@ -8,6 +8,7 @@ import com.dosecerta.data.local.DoseCertaDatabase
 import com.dosecerta.data.local.entity.MedicationLog
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.util.Constants
+import com.dosecerta.util.SettingsPreferences
 import kotlinx.coroutines.runBlocking
 
 /**
@@ -37,6 +38,7 @@ class MarkMissedReceiver : BroadcastReceiver() {
             try {
                 val database = DoseCertaDatabase.getDatabase(context)
                 val logDao = database.medicationLogDao()
+                val settingsPreferences = SettingsPreferences(context)
                 
                 // Check if a log already exists (user may have acted before timeout)
                 val existingLog = logDao.getLog(medicationId, scheduleId, scheduledTime)
@@ -54,10 +56,13 @@ class MarkMissedReceiver : BroadcastReceiver() {
                     )
                     Log.d(TAG, "Marked as MISSED with log ID: $insertedId")
                     
-                    // Schedule reminder notification 2 hours later
+                    // Get user's preferred reminder hours from settings
+                    val reminderHours = settingsPreferences.getMissedReminderHoursSync()
+                    
+                    // Schedule reminder notification based on user preference
                     val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(context)
-                    alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime)
-                    Log.d(TAG, "Scheduled missed reminder for 2 hours from now")
+                    alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
+                    Log.d(TAG, "Scheduled missed reminder for $reminderHours hours from now")
                 } else {
                     Log.d(TAG, "Log already exists with status: ${existingLog.status}, skipping")
                 }

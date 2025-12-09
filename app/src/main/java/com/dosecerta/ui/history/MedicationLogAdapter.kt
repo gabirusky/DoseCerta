@@ -1,6 +1,7 @@
 package com.dosecerta.ui.history
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,7 +16,7 @@ import com.dosecerta.util.DateTimeUtils
  * Adapter for displaying medication logs with details.
  */
 class MedicationLogAdapter(
-    private val onLongClick: (MedicationLogWithDetails) -> Unit = {}
+    private val onLongClick: (View, MedicationLogWithDetails) -> Unit = { _, _ -> }
 ) : ListAdapter<MedicationLogWithDetails, MedicationLogAdapter.ViewHolder>(DiffCallback()) {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,14 +34,14 @@ class MedicationLogAdapter(
     
     class ViewHolder(
         private val binding: ItemMedicationLogBinding,
-        private val onLongClick: (MedicationLogWithDetails) -> Unit
+        private val onLongClick: (View, MedicationLogWithDetails) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         
         private var currentItem: MedicationLogWithDetails? = null
         
         init {
-            binding.root.setOnLongClickListener {
-                currentItem?.let { onLongClick(it) }
+            binding.root.setOnLongClickListener { view ->
+                currentItem?.let { onLongClick(view, it) }
                 true
             }
         }
