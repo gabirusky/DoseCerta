@@ -57,16 +57,33 @@ class ScheduleAdapter(
                 MedicationStatus.TAKEN -> {
                     binding.buttonTake.isEnabled = false
                     binding.buttonTake.text = "Tomado"
+                    binding.buttonTake.setBackgroundColor(
+                        ContextCompat.getColor(binding.root.context, R.color.mint_leaf)
+                    )
                     binding.buttonSnooze.visibility = android.view.View.GONE
                 }
-                MedicationStatus.PENDING -> {
+                MedicationStatus.SKIPPED -> {
+                    binding.buttonTake.isEnabled = false
+                    binding.buttonTake.text = "Pulado"
+                    binding.buttonTake.setBackgroundColor(
+                        ContextCompat.getColor(binding.root.context, R.color.status_skipped)
+                    )
+                    binding.buttonSnooze.visibility = android.view.View.GONE
+                }
+                MedicationStatus.MISSED -> {
                     binding.buttonTake.isEnabled = true
                     binding.buttonTake.text = "Tomei"
+                    binding.buttonTake.setBackgroundColor(
+                        ContextCompat.getColor(binding.root.context, R.color.mint_leaf)
+                    )
                     binding.buttonSnooze.visibility = android.view.View.VISIBLE
                 }
                 else -> {
                     binding.buttonTake.isEnabled = true
                     binding.buttonTake.text = "Tomei"
+                    binding.buttonTake.setBackgroundColor(
+                        ContextCompat.getColor(binding.root.context, R.color.mint_leaf)
+                    )
                     binding.buttonSnooze.visibility = android.view.View.VISIBLE
                 }
             }
