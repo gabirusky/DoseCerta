@@ -16,9 +16,16 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.dosecerta.R
+import com.dosecerta.data.local.DoseCertaDatabase
 import com.dosecerta.data.local.entity.Medication
+import com.dosecerta.data.local.entity.MedicationLog
+import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.notification.NotificationActionReceiver
 import com.dosecerta.util.Constants
+import com.dosecerta.util.SettingsPreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * Foreground Service that manages the alarm lifecycle.
@@ -41,8 +48,11 @@ class AlarmService : Service() {
         // Action to stop alarm
         const val ACTION_STOP_ALARM = "com.dosecerta.ACTION_STOP_ALARM"
         
+        // Flag to indicate we need to load medication from database
+        private const val EXTRA_LOAD_FROM_DB = "load_from_db"
+        
         /**
-         * Start the alarm service.
+         * Start the alarm service with medication object (legacy method).
          */
         fun startAlarm(
             context: Context,
@@ -57,6 +67,34 @@ class AlarmService : Service() {
                 putExtra(EXTRA_SCHEDULE_ID, scheduleId)
                 putExtra(EXTRA_SCHEDULED_TIME, scheduledTime)
                 soundUri?.let { putExtra(EXTRA_SOUND_URI, it.toString()) }
+            }
+            
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent)
+            } else {
+                context.startService(intent)
+            }
+        }
+        
+        /**
+         * Start the alarm service with just IDs (for BroadcastReceiver).
+         * 
+         * CRITICAL: This method is called immediately from MedicationAlarmReceiver
+         * without any database work. The service will load data from the database
+         * itself, which is safe because foreground services are protected from
+         * being killed by the system.
+         */
+        fun startAlarmWithIds(
+            context: Context,
+            medicationId: Long,
+            scheduleId: Long,
+            scheduledTime: Long
+        ) {
+            val intent = Intent(context, AlarmService::class.java).apply {
+                putExtra(EXTRA_MEDICATION_ID, medicationId)
+                putExtra(EXTRA_SCHEDULE_ID, scheduleId)
+                putExtra(EXTRA_SCHEDULED_TIME, scheduledTime)
+                putExtra(EXTRA_LOAD_FROM_DB, true) // Flag to load from database
             }
             
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -97,7 +135,18 @@ class AlarmService : Service() {
             return START_NOT_STICKY
         }
         
-        // Get alarm data from intent
+        val medicationId = intent?.getLongExtra(EXTRA_MEDICATION_ID, -1L) ?: -1L
+        val scheduleId = intent?.getLongExtra(EXTRA_SCHEDULE_ID, -1L) ?: -1L
+        val scheduledTime = intent?.getLongExtra(EXTRA_SCHEDULED_TIME, 0L) ?: 0L
+        val loadFromDb = intent?.getBooleanExtra(EXTRA_LOAD_FROM_DB, false) ?: false
+        
+        if (medicationId == -1L || scheduleId == -1L) {
+            Log.e(TAG, "Invalid medication/schedule ID, stopping service")
+            stopSelf()
+            return START_NOT_STICKY
+        }
+        
+        // Check if we have medication in intent or need to load from database
         val medication = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent?.getParcelableExtra(EXTRA_MEDICATION, Medication::class.java)
         } else {
@@ -105,32 +154,136 @@ class AlarmService : Service() {
             intent?.getParcelableExtra(EXTRA_MEDICATION)
         }
         
-        val medicationId = intent?.getLongExtra(EXTRA_MEDICATION_ID, -1L) ?: -1L
-        val scheduleId = intent?.getLongExtra(EXTRA_SCHEDULE_ID, -1L) ?: -1L
-        val scheduledTime = intent?.getLongExtra(EXTRA_SCHEDULED_TIME, 0L) ?: 0L
         val soundUriString = intent?.getStringExtra(EXTRA_SOUND_URI)
         val soundUri = soundUriString?.let { Uri.parse(it) }
         
-        if (medication == null || medicationId == -1L) {
-            Log.e(TAG, "Invalid medication data, stopping service")
-            stopSelf()
-            return START_NOT_STICKY
+        if (loadFromDb || medication == null) {
+            // CRITICAL PATH: Started from BroadcastReceiver with just IDs
+            // Show placeholder notification IMMEDIATELY, then load data
+            Log.d(TAG, "Loading medication from database...")
+            
+            // Create placeholder notification to become foreground IMMEDIATELY
+            val placeholderNotification = createPlaceholderNotification()
+            startForeground(FOREGROUND_NOTIFICATION_ID, placeholderNotification)
+            
+            // Start playing default alarm sound while loading
+            soundManager.start(this, null)
+            
+            // Load medication data and update notification in background
+            // This is safe because we're now a foreground service
+            loadMedicationAndUpdateAlarm(medicationId, scheduleId, scheduledTime)
+        } else {
+            // Legacy path: medication already in intent
+            val notification = createAlarmNotification(medication, medicationId, scheduleId, scheduledTime)
+            startForeground(FOREGROUND_NOTIFICATION_ID, notification)
+            
+            soundManager.start(this, soundUri)
+            launchAlarmActivityDirectly(medication, medicationId, scheduleId, scheduledTime)
+            
+            Log.d(TAG, "Alarm started for medication: ${medication.name}")
         }
         
-        // Start foreground service with notification that has full-screen intent
-        val notification = createAlarmNotification(medication, medicationId, scheduleId, scheduledTime)
-        startForeground(FOREGROUND_NOTIFICATION_ID, notification)
-        
-        // Start playing alarm sound
-        soundManager.start(this, soundUri)
-        
-        // Force launch AlarmActivity directly after becoming foreground
-        // This is allowed because we're now a foreground service
-        launchAlarmActivityDirectly(medication, medicationId, scheduleId, scheduledTime)
-        
-        Log.d(TAG, "Alarm started for medication: ${medication.name}")
-        
         return START_STICKY
+    }
+    
+    /**
+     * Create a placeholder notification while loading medication data.
+     */
+    private fun createPlaceholderNotification(): Notification {
+        return NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(getString(R.string.alarm_service_notification_title))
+            .setContentText("Carregando...")
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setOngoing(true)
+            .setAutoCancel(false)
+            .build()
+    }
+    
+    /**
+     * Load medication from database and update the alarm.
+     * This runs in coroutine but is safe because we're already a foreground service.
+     */
+    private fun loadMedicationAndUpdateAlarm(
+        medicationId: Long,
+        scheduleId: Long,
+        scheduledTime: Long
+    ) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val database = DoseCertaDatabase.getDatabase(this@AlarmService)
+                val medication = database.medicationDao().getMedicationByIdSync(medicationId)
+                
+                if (medication == null || !medication.isActive) {
+                    Log.e(TAG, "Medication not found or inactive, stopping alarm")
+                    Handler(Looper.getMainLooper()).post {
+                        stopAlarmAndService()
+                    }
+                    return@launch
+                }
+                
+                // Load alarm sound preference
+                val settingsPreferences = SettingsPreferences(this@AlarmService)
+                val soundUriString = settingsPreferences.getAlarmSoundUriSync()
+                val soundUri = soundUriString?.let { Uri.parse(it) }
+                
+                // Update sound if custom sound is set
+                if (soundUri != null) {
+                    Handler(Looper.getMainLooper()).post {
+                        soundManager.stop()
+                        soundManager.start(this@AlarmService, soundUri)
+                    }
+                }
+                
+                // Update notification with real medication info
+                Handler(Looper.getMainLooper()).post {
+                    val notification = createAlarmNotification(medication, medicationId, scheduleId, scheduledTime)
+                    val notificationManager = getSystemService(NotificationManager::class.java)
+                    notificationManager.notify(FOREGROUND_NOTIFICATION_ID, notification)
+                    
+                    // Launch AlarmActivity
+                    launchAlarmActivityDirectly(medication, medicationId, scheduleId, scheduledTime)
+                }
+                
+                // Create MISSED log (user actions will update this)
+                val logDao = database.medicationLogDao()
+                val existingLog = logDao.getLog(medicationId, scheduleId, scheduledTime)
+                
+                if (existingLog == null) {
+                    val logId = logDao.insert(
+                        MedicationLog(
+                            medicationId = medicationId,
+                            scheduleId = scheduleId,
+                            scheduledTime = scheduledTime,
+                            actualTime = null,
+                            status = MedicationStatus.MISSED
+                        )
+                    )
+                    Log.d(TAG, "Created MISSED log with ID: $logId")
+                } else {
+                    Log.d(TAG, "Log already exists with status: ${existingLog.status}")
+                }
+                
+                // Schedule missed reminder notification based on user settings
+                val reminderHours = settingsPreferences.getMissedReminderHoursSync()
+                val alarmScheduler = AlarmScheduler(this@AlarmService)
+                alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
+                Log.d(TAG, "Scheduled missed reminder for $reminderHours hours from now")
+                
+                // Reschedule alarm for next occurrence
+                val schedule = database.scheduleDao().getScheduleById(scheduleId)
+                if (schedule != null && schedule.isActive) {
+                    alarmScheduler.scheduleAlarm(medicationId, schedule)
+                    Log.d(TAG, "Rescheduled alarm for next occurrence")
+                }
+                
+                Log.d(TAG, "Alarm fully loaded for medication: ${medication.name}")
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "Error loading medication", e)
+            }
+        }
     }
     
     /**

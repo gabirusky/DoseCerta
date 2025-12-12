@@ -3,29 +3,25 @@ package com.dosecerta.alarm
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.PowerManager
 import android.util.Log
-import com.dosecerta.data.local.DoseCertaDatabase
-import com.dosecerta.data.local.entity.MedicationLog
-import com.dosecerta.data.model.MedicationStatus
-import com.dosecerta.notification.NotificationHelper
 import com.dosecerta.util.Constants
-import com.dosecerta.util.SettingsPreferences
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * Receiver for medication alarm events.
- * When alarm fires:
- * 1. Start AlarmService with full-screen notification and looping sound
- * 2. Immediately create a MISSED log (will be updated if user takes action)
- * 3. Schedule missed reminder notification based on user settings
- * 4. Reschedule alarm for next occurrence
+ * 
+ * CRITICAL: This receiver starts the AlarmService IMMEDIATELY and SYNCHRONOUSLY.
+ * All database work is done in AlarmService (a foreground service that won't be killed).
+ * 
+ * This is essential for Xiaomi/MIUI/HyperOS devices with aggressive battery optimization
+ * that kill the app process before coroutines can complete.
  */
 class MedicationAlarmReceiver : BroadcastReceiver() {
     
     companion object {
         private const val TAG = "MedicationAlarmReceiver"
+        private const val WAKELOCK_TAG = "DoseCerta::AlarmReceiverWakeLock"
+        private const val WAKELOCK_TIMEOUT_MS = 10_000L // 10 seconds max
     }
     
     override fun onReceive(context: Context, intent: Intent) {
@@ -44,68 +40,38 @@ class MedicationAlarmReceiver : BroadcastReceiver() {
         // Use the actual scheduled time or current time if not provided
         val effectiveScheduledTime = if (scheduledTime > 0) scheduledTime else System.currentTimeMillis()
         
-        // Use coroutine to query database and start alarm service
-        val scope = CoroutineScope(Dispatchers.IO)
-        scope.launch {
+        // CRITICAL: Acquire wake lock IMMEDIATELY to prevent CPU sleep on Xiaomi devices
+        // This keeps the CPU awake while we start the foreground service
+        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
+        val wakeLock = powerManager.newWakeLock(
+            PowerManager.PARTIAL_WAKE_LOCK,
+            WAKELOCK_TAG
+        ).apply {
+            acquire(WAKELOCK_TIMEOUT_MS)
+        }
+        
+        try {
+            // CRITICAL: Start AlarmService IMMEDIATELY with just the IDs
+            // Do NOT do any database work here - it will be done in the foreground service
+            // which is protected from being killed by the system
+            AlarmService.startAlarmWithIds(
+                context,
+                medicationId,
+                scheduleId,
+                effectiveScheduledTime
+            )
+            Log.d(TAG, "AlarmService started immediately for MedID: $medicationId")
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "Error starting AlarmService", e)
+        } finally {
+            // Release wake lock - service will acquire its own
             try {
-                val database = DoseCertaDatabase.getDatabase(context)
-                val medication = database.medicationDao().getMedicationByIdSync(medicationId)
-                
-                if (medication != null && medication.isActive) {
-                    // 1. Load alarm sound preference
-                    val settingsPreferences = SettingsPreferences(context)
-                    val soundUriString = settingsPreferences.getAlarmSoundUriSync()
-                    val soundUri = soundUriString?.let { android.net.Uri.parse(it) }
-                    
-                    // 2. Start AlarmService with full-screen notification
-                    AlarmService.startAlarm(
-                        context,
-                        medication,
-                        scheduleId,
-                        effectiveScheduledTime,
-                        soundUri
-                    )
-                    Log.d(TAG, "AlarmService started for ${medication.name}")
-
-                    
-                    // 3. Immediately create a MISSED log (user actions will update this)
-                    val logDao = database.medicationLogDao()
-                    val existingLog = logDao.getLog(medicationId, scheduleId, effectiveScheduledTime)
-                    
-                    if (existingLog == null) {
-                        val logId = logDao.insert(
-                            MedicationLog(
-                                medicationId = medicationId,
-                                scheduleId = scheduleId,
-                                scheduledTime = effectiveScheduledTime,
-                                actualTime = null,
-                                status = MedicationStatus.MISSED
-                            )
-                        )
-                        Log.d(TAG, "Created MISSED log with ID: $logId")
-                    } else {
-                        Log.d(TAG, "Log already exists with status: ${existingLog.status}")
-                    }
-                    
-                    // 4. Schedule missed reminder notification based on user settings
-                    val reminderHours = settingsPreferences.getMissedReminderHoursSync()
-                    
-                    val alarmScheduler = AlarmScheduler(context)
-                    alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, effectiveScheduledTime, reminderHours)
-                    Log.d(TAG, "Scheduled missed reminder for $reminderHours hours from now")
-                    
-                    // 5. Reschedule alarm for next occurrence
-                    val schedule = database.scheduleDao().getScheduleById(scheduleId)
-                    if (schedule != null && schedule.isActive) {
-                        alarmScheduler.scheduleAlarm(medicationId, schedule)
-                        Log.d(TAG, "Rescheduled alarm for next occurrence")
-                    }
-                } else {
-                    Log.d(TAG, "Medication not found or inactive")
+                if (wakeLock.isHeld) {
+                    wakeLock.release()
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Error processing alarm", e)
-                e.printStackTrace()
+                Log.e(TAG, "Error releasing wake lock", e)
             }
         }
     }
