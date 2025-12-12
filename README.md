@@ -10,12 +10,14 @@ O objetivo é promover maior adesão ao tratamento médico, garantindo que você
 
 ## ✨ Principais Funcionalidades
 
-- ✅ **Cadastro Completo de Medicamentos** - Nome, dosagem, forma farmacêutica, frequência e anotações
-- ⏰ **Lembretes Inteligentes** - Configure múltiplos horários para cada medicamento
-- 📊 **Painel de Estatísticas** - Acompanhe sua adesão semanal com gráficos visuais
+- ✅ **Cadastro Completo de Medicamentos** - Nome, dosagem, unidade, frequência e anotações
+- ⏰ **Alarmes Estilo Despertador** - Lembretes com tela fullscreen, vibração e som personalizado
+- 📊 **Painel de Estatísticas** - Acompanhe sua adesão semanal com gráficos visuais  
 - 📅 **Histórico Detalhado** - Visualize doses tomadas, perdidas e puladas
 - 🔔 **Notificações Personalizadas** - Alertas com ações rápidas (Tomei, Pular, Adiar)
+- 🔄 **Relembretes Automáticos** - Notifica novamente doses não tomadas após intervalo configurável
 - 🎨 **Interface Moderna** - Design Material 3 com tema claro e escuro
+- 🌐 **Suporte Multilíngue** - Português (BR) e Inglês
 - 🔒 **Privacidade Total** - Todos os dados são armazenados localmente (LGPD)
 
 ## 🏗️ Estrutura do Projeto
@@ -48,15 +50,27 @@ DoseCerta/
 │   │   │   ├── HistoryFragment.kt
 │   │   │   ├── HistoryViewModel.kt
 │   │   │   └── LogAdapter.kt
-│   │   ├── settings/                 # Configurações e privacidade
-│   │   └── privacy/
-│   ├── alarm/                        # Sistema de alarmes
-│   │   ├── AlarmScheduler.kt
+│   │   ├── settings/                 # Configurações
+│   │   │   └── SettingsFragment.kt
+│   │   ├── privacy/                  # Política de privacidade
+│   │   │   └── PrivacyFragment.kt
+│   │   └── setup/                    # Wizard de configuração inicial
+│   │       ├── SetupActivity.kt
+│   │       ├── SetupNotificationsFragment.kt
+│   │       ├── SetupTermsFragment.kt
+│   │       └── SetupTutorialFragment.kt
+│   ├── alarm/                        # Sistema de alarmes (estilo despertador)
+│   │   ├── AlarmScheduler.kt         # Agendamento de alarmes
+│   │   ├── AlarmService.kt           # Serviço de foreground para alarmes
+│   │   ├── AlarmActivity.kt          # Activity fullscreen de alarme
+│   │   ├── AlarmSoundManager.kt      # Gerenciamento de áudio do alarme
 │   │   ├── MedicationAlarmReceiver.kt
 │   │   └── BootCompletedReceiver.kt
 │   ├── notification/                 # Gerenciamento de notificações
 │   │   ├── NotificationHelper.kt
-│   │   └── NotificationActionReceiver.kt
+│   │   ├── NotificationActionReceiver.kt
+│   │   ├── MarkMissedReceiver.kt     # Marcação automática de doses perdidas
+│   │   └── MissedReminderReceiver.kt # Lembrete de doses não tomadas
 │   ├── util/                         # Utilitários
 │   │   ├── DateTimeUtils.kt
 │   │   └── SampleDataProvider.kt
@@ -66,6 +80,7 @@ DoseCerta/
 │   ├── drawable/                     # Recursos gráficos e gradientes
 │   ├── navigation/                   # Navigation graph
 │   ├── values/                       # Strings, cores, temas, dimensões
+│   ├── values-en/                    # Suporte a inglês
 │   └── mipmap/                       # Ícones do app
 └── gradle/                           # Configuração Gradle
 ```
@@ -103,8 +118,10 @@ DoseCerta/
 ### Processamento de Anotações
 - **KSP** 1.9.20-1.0.14 - Kotlin Symbol Processing para Room
 
-### Notificações e Alarmes
-- **AlarmManager** - Agendamento preciso de lembretes
+### Sistema de Alarmes
+- **AlarmManager** - Agendamento preciso com alarmes exatos
+- **Foreground Service** - AlarmService com notificação persistente
+- **Full-Screen Intent** - Activity de alarme sobre lock screen
 - **NotificationCompat** - Notificações ricas com ações
 
 ## 🎨 Design System
@@ -149,16 +166,22 @@ DoseCerta/
 
 ## 📋 Funcionalidades Implementadas
 
-- [x] Tela inicial com medicações do dia
-- [x] Cadastro e edição de medicamentos
-- [x] Configuração de múltiplos horários
-- [x] Sistema de notificações com ações
-- [x] Histórico completo com filtros
-- [x] Estatísticas de adesão
+- [x] Tela inicial com medicações do dia e status em tempo real
+- [x] Cadastro e edição de medicamentos com unidades personalizadas
+- [x] Configuração de múltiplos horários por medicamento
+- [x] Sistema de alarmes estilo despertador (fullscreen, som, vibração)
+- [x] Ações rápidas: Tomar, Pular, Adiar (snooze configurável)
+- [x] Marcação automática de doses perdidas
+- [x] Relembretes para doses não tomadas (intervalo configurável)
+- [x] Histórico completo com filtros por status
+- [x] Edição/exclusão de logs no histórico
+- [x] Estatísticas de adesão semanal
 - [x] Tema claro e escuro
+- [x] Suporte a Português (BR) e Inglês
+- [x] Wizard de configuração inicial (tutorial + permissões)
 - [x] Política de privacidade LGPD
-- [x] Persistência local com Room
-- [x] Navegação fluida com Navigation Component
+- [x] Persistência local com Room Database
+- [x] Reagendamento de alarmes após reinício do dispositivo
 
 ## 🔒 Privacidade e Segurança
 
