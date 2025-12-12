@@ -146,4 +146,38 @@
     <string name="extra_dose_no_medications">No active medications</string>
     <string name="extra_dose_recorded">Extra dose recorded!</string>
     <string name="extra_dose_error_empty">Please enter medication name</string>
+    
+    <!-- First-Time Setup -->
+    <string name="setup_terms_title">Welcome to Dose Certa</string>
+    <string name="setup_terms_checkbox">I have read and agree to the Privacy Policy</string>
+    <string name="setup_terms_button">Agree and Continue</string>
+    
+    <!-- Privacy Summary (Setup Screen) -->
+    <string name="privacy_summary_title">Privacy and Security</string>
+    <string name="privacy_summary_subtitle">Your data is protected</string>
+    <string name="privacy_summary_item_1">All data is stored locally on the device</string>
+    <string name="privacy_summary_item_2">No information is sent to external servers</string>
+    <string name="privacy_summary_item_3">No activity tracking or analytics</string>
+    <string name="privacy_summary_item_4">No unnecessary permission requests</string>
+    <string name="privacy_summary_item_5">Compliance with LGPD (General Data Protection Law)</string>
+    <string name="privacy_full_policy_label">FULL POLICY</string>
+    
+    <!-- Setup Notifications -->
+    <string name="setup_notifications_title">Enable Notifications</string>
+    <string name="setup_notifications_description">For Dose Certa to remind you of your medications at the right times, we need your permission to send notifications.</string>
+    <string name="setup_notifications_button">Allow Notifications</string>
+    <string name="setup_notifications_skip">Skip</string>
+    <string name="setup_notifications_granted">Notifications enabled!</string>
+    <string name="setup_notifications_continue">Continue</string>
+    
+    <!-- Setup Tutorial -->
+    <string name="setup_tutorial_title_1">Your Medication Assistant</string>
+    <string name="setup_tutorial_desc_1">Dose Certa helps you never forget to take your medications. Organize all your medicines in one place.</string>
+    <string name="setup_tutorial_title_2">Add Your Medications</string>
+    <string name="setup_tutorial_desc_2">In the Medications tab, tap the + button to add a new medication. Enter the name, dosage, and the times you need to take it.</string>
+    <string name="setup_tutorial_title_3">Smart Alarm</string>
+    <string name="setup_tutorial_desc_3">At dose time, a full-screen alarm will be displayed, even with the screen locked. Tap Take, Snooze, or Skip to record your action.</string>
+    <string name="setup_tutorial_button_next">Next</string>
+    <string name="setup_tutorial_button_start">Get Started</string>
 </resources>
+

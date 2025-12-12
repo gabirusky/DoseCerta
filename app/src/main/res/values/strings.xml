@@ -197,6 +197,16 @@
     <string name="setup_terms_checkbox">Li e concordo com a Política de Privacidade</string>
     <string name="setup_terms_button">Concordo e Continuar</string>
     
+    <!-- Privacy Summary (Setup Screen) -->
+    <string name="privacy_summary_title">Privacidade e Segurança</string>
+    <string name="privacy_summary_subtitle">Seus dados estão protegidos</string>
+    <string name="privacy_summary_item_1">Todos os dados são armazenados localmente no dispositivo</string>
+    <string name="privacy_summary_item_2">Nenhuma informação é enviada para servidores externos</string>
+    <string name="privacy_summary_item_3">Sem rastreamento de atividades ou analytics</string>
+    <string name="privacy_summary_item_4">Sem requisição de permissões desnecessárias</string>
+    <string name="privacy_summary_item_5">Conformidade com a LGPD (Lei Geral de Proteção de Dados)</string>
+    <string name="privacy_full_policy_label">POLÍTICA COMPLETA</string>
+    
     <string name="setup_notifications_title">Ative as Notificações</string>
     <string name="setup_notifications_description">Para que o Dose Certa possa te lembrar dos seus medicamentos nos horários certos, precisamos da sua permissão para enviar notificações.</string>
     <string name="setup_notifications_button">Permitir Notificações</string>
