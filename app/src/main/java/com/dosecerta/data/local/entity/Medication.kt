@@ -1,14 +1,17 @@
 package com.dosecerta.data.local.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.dosecerta.data.model.Frequency
 import com.dosecerta.data.model.PharmaceuticalForm
+import kotlinx.parcelize.Parcelize
 
 /**
  * Room entity representing a medication in the database.
  */
+@Parcelize
 @Entity(tableName = "medications")
 data class Medication(
     @PrimaryKey(autoGenerate = true)
@@ -23,7 +26,8 @@ data class Medication(
     val color: Int = 0xFF00897B.toInt(), // Default teal color
     val isActive: Boolean = true,
     val createdAt: Long = System.currentTimeMillis()
-)
+) : Parcelable
+
 
 // Type converters for Room
 class MedicationTypeConverters {

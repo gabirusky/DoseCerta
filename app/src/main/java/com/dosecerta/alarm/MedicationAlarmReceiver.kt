@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 /**
  * Receiver for medication alarm events.
  * When alarm fires:
- * 1. Show notification
+ * 1. Start AlarmService with full-screen notification and looping sound
  * 2. Immediately create a MISSED log (will be updated if user takes action)
  * 3. Schedule missed reminder notification based on user settings
  * 4. Reschedule alarm for next occurrence
@@ -44,7 +44,7 @@ class MedicationAlarmReceiver : BroadcastReceiver() {
         // Use the actual scheduled time or current time if not provided
         val effectiveScheduledTime = if (scheduledTime > 0) scheduledTime else System.currentTimeMillis()
         
-        // Use coroutine to query database and show notification
+        // Use coroutine to query database and start alarm service
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             try {
@@ -52,12 +52,23 @@ class MedicationAlarmReceiver : BroadcastReceiver() {
                 val medication = database.medicationDao().getMedicationByIdSync(medicationId)
                 
                 if (medication != null && medication.isActive) {
-                    // 1. Show notification
-                    val notificationHelper = NotificationHelper(context)
-                    notificationHelper.showMedicationReminder(medication, scheduleId, effectiveScheduledTime)
-                    Log.d(TAG, "Notification shown for ${medication.name}")
+                    // 1. Load alarm sound preference
+                    val settingsPreferences = SettingsPreferences(context)
+                    val soundUriString = settingsPreferences.getAlarmSoundUriSync()
+                    val soundUri = soundUriString?.let { android.net.Uri.parse(it) }
                     
-                    // 2. Immediately create a MISSED log (user actions will update this)
+                    // 2. Start AlarmService with full-screen notification
+                    AlarmService.startAlarm(
+                        context,
+                        medication,
+                        scheduleId,
+                        effectiveScheduledTime,
+                        soundUri
+                    )
+                    Log.d(TAG, "AlarmService started for ${medication.name}")
+
+                    
+                    // 3. Immediately create a MISSED log (user actions will update this)
                     val logDao = database.medicationLogDao()
                     val existingLog = logDao.getLog(medicationId, scheduleId, effectiveScheduledTime)
                     
@@ -76,15 +87,14 @@ class MedicationAlarmReceiver : BroadcastReceiver() {
                         Log.d(TAG, "Log already exists with status: ${existingLog.status}")
                     }
                     
-                    // 3. Schedule missed reminder notification based on user settings
-                    val settingsPreferences = SettingsPreferences(context)
+                    // 4. Schedule missed reminder notification based on user settings
                     val reminderHours = settingsPreferences.getMissedReminderHoursSync()
                     
                     val alarmScheduler = AlarmScheduler(context)
                     alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, effectiveScheduledTime, reminderHours)
                     Log.d(TAG, "Scheduled missed reminder for $reminderHours hours from now")
                     
-                    // 4. Reschedule alarm for next occurrence
+                    // 5. Reschedule alarm for next occurrence
                     val schedule = database.scheduleDao().getScheduleById(scheduleId)
                     if (schedule != null && schedule.isActive) {
                         alarmScheduler.scheduleAlarm(medicationId, schedule)

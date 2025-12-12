@@ -1,11 +1,14 @@
 package com.dosecerta.ui.settings
 
 import android.content.Intent
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
@@ -33,6 +36,19 @@ class SettingsFragment : Fragment() {
     // Debounce job for slider changes
     private var sliderSaveJob: Job? = null
     
+    // Ringtone picker result launcher
+    private val ringtonePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK) {
+            val uri: Uri? = result.data?.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+            lifecycleScope.launch {
+                settingsPreferences.saveAlarmSoundUri(uri?.toString())
+                updateAlarmSoundDisplay(uri)
+            }
+        }
+    }
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,6 +65,7 @@ class SettingsFragment : Fragment() {
         
         setupLanguageSelection()
         setupMissedReminderSlider()
+        setupAlarmSoundSelector()
         setupPrivacyPolicyLink()
         setupAppVersion()
     }
@@ -120,6 +137,47 @@ class SettingsFragment : Fragment() {
                 }
             }
         }
+    }
+    
+    private fun setupAlarmSoundSelector() {
+        // Load and display current alarm sound
+        lifecycleScope.launch {
+            val currentUri = settingsPreferences.getAlarmSoundUriSync()
+            updateAlarmSoundDisplay(currentUri?.let { Uri.parse(it) })
+        }
+        
+        // Handle click to open ringtone picker
+        binding.cardAlarmSound.setOnClickListener {
+            lifecycleScope.launch {
+                val currentUriString = settingsPreferences.getAlarmSoundUriSync()
+                val currentUri = currentUriString?.let { Uri.parse(it) }
+                
+                val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM)
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, getString(R.string.settings_alarm_sound))
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currentUri)
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+                    putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false)
+                }
+                
+                ringtonePickerLauncher.launch(intent)
+            }
+        }
+    }
+    
+    private fun updateAlarmSoundDisplay(uri: Uri?) {
+        val displayName = if (uri != null) {
+            try {
+                val ringtone = RingtoneManager.getRingtone(requireContext(), uri)
+                ringtone.getTitle(requireContext())
+            } catch (e: Exception) {
+                getString(R.string.settings_alarm_sound_default)
+            }
+        } else {
+            getString(R.string.settings_alarm_sound_default)
+        }
+        
+        binding.textCurrentAlarmSound.text = displayName
     }
     
     private fun setupPrivacyPolicyLink() {

@@ -21,6 +21,7 @@ class SettingsPreferences(private val context: Context) {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
         private val LANGUAGE_KEY = stringPreferencesKey("language")
         private val MISSED_REMINDER_HOURS_KEY = intPreferencesKey("missed_reminder_hours")
+        private val ALARM_SOUND_URI_KEY = stringPreferencesKey("alarm_sound_uri")
         private val SETUP_COMPLETED_KEY = booleanPreferencesKey("setup_completed")
         private val TERMS_ACCEPTED_KEY = booleanPreferencesKey("terms_accepted")
         
@@ -116,6 +117,34 @@ class SettingsPreferences(private val context: Context) {
      */
     suspend fun hasAcceptedTermsSync(): Boolean {
         return hasAcceptedTerms.first()
+    }
+    
+    /**
+     * Get alarm sound URI preference.
+     */
+    val alarmSoundUri: Flow<String?> = context.dataStore.data.map { preferences ->
+        preferences[ALARM_SOUND_URI_KEY]
+    }
+    
+    /**
+     * Get alarm sound URI synchronously (blocking).
+     * Returns null if default system alarm should be used.
+     */
+    suspend fun getAlarmSoundUriSync(): String? {
+        return alarmSoundUri.first()
+    }
+    
+    /**
+     * Save alarm sound URI preference.
+     */
+    suspend fun saveAlarmSoundUri(uri: String?) {
+        context.dataStore.edit { preferences ->
+            if (uri != null) {
+                preferences[ALARM_SOUND_URI_KEY] = uri
+            } else {
+                preferences.remove(ALARM_SOUND_URI_KEY)
+            }
+        }
     }
 }
 

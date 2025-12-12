@@ -103,3 +103,4 @@ Thumbs.db
 .cache/
 tmp/
 temp/
+conversations/

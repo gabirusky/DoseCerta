@@ -46,6 +46,10 @@ class NotificationActionReceiver : BroadcastReceiver() {
         notificationManager.cancel(notificationId)
         Log.d(TAG, "Notification dismissed: $notificationId")
         
+        // Stop alarm service if it's running
+        com.dosecerta.alarm.AlarmService.stopAlarm(context)
+        Log.d(TAG, "Alarm service stop signal sent")
+        
         // Use runBlocking to ensure database operations complete
         // This is acceptable in BroadcastReceiver for critical operations
         runBlocking {

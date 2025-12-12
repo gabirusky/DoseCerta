@@ -129,6 +129,54 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Alarm Sound Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_alarm_sound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/card_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_alarm_sound"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Title"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/settings_alarm_sound_subtitle"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/text_current_alarm_sound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_small"
+                    android:text="@string/settings_alarm_sound_default"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Privacy Policy Section -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_privacy_policy"
