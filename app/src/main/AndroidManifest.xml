@@ -2,16 +2,50 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permissions -->
+    <!-- ============================================= -->
+    <!-- CORE PERMISSIONS - Android Standard           -->
+    <!-- ============================================= -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    
+    <!-- ============================================= -->
+    <!-- ALARM & SCHEDULING PERMISSIONS                -->
+    <!-- Required for: All devices                     -->
+    <!-- ============================================= -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    
+    <!-- ============================================= -->
+    <!-- FOREGROUND SERVICE PERMISSIONS                -->
+    <!-- Required for: Android 8+ (Oreo)               -->
+    <!-- ============================================= -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    
+    <!-- ============================================= -->
+    <!-- FULL-SCREEN INTENT & WAKE PERMISSIONS         -->
+    <!-- Required for: Lock screen alarm display       -->
+    <!-- ============================================= -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <!-- ============================================= -->
+    <!-- MANUFACTURER-SPECIFIC COMPATIBILITY           -->
+    <!-- ============================================= -->
+    
+    <!-- Xiaomi (MIUI / HyperOS) -->
+    <!-- Requires: Autostart, Battery restrictions off, Show on lock screen -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    
+    <!-- Samsung (One UI) -->
+    <!-- Requires: Sleeping apps whitelist, Battery optimization off -->
+    <!-- Uses standard permissions above -->
+    
+    <!-- Huawei (EMUI / HarmonyOS) -->
+    <!-- Requires: App Launch settings, Ignore battery optimization -->
+    <!-- Uses standard permissions above -->
 
     <application
         android:name=".DoseCertaApplication"

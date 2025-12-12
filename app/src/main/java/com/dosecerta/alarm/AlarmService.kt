@@ -137,6 +137,8 @@ class AlarmService : Service() {
      * Directly launch AlarmActivity from foreground service with a small delay.
      * The delay ensures foreground service is fully registered, which is required for
      * activity launch on Android 10+ BAL (Background Activity Launch) restrictions.
+     * 
+     * For Xiaomi/MIUI/HyperOS: Uses aggressive flags to force activity over lockscreen.
      */
     private fun launchAlarmActivityDirectly(
         medication: Medication,
@@ -148,9 +150,17 @@ class AlarmService : Service() {
         Handler(Looper.getMainLooper()).postDelayed({
             try {
                 val activityIntent = Intent(this, AlarmActivity::class.java).apply {
+                    // More aggressive flags for Xiaomi/MIUI/HyperOS compatibility
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or 
                             Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP or
+                            Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or
+                            Intent.FLAG_ACTIVITY_NO_USER_ACTION or
+                            Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
+                    
+                    // Add category for high priority
+                    addCategory(Intent.CATEGORY_DEFAULT)
+                    
                     putExtra(EXTRA_MEDICATION, medication)
                     putExtra(EXTRA_MEDICATION_ID, medicationId)
                     putExtra(EXTRA_SCHEDULE_ID, scheduleId)
@@ -162,7 +172,7 @@ class AlarmService : Service() {
                 Log.e(TAG, "Failed to launch AlarmActivity directly: ${e.message}")
                 // Full-screen intent in notification will serve as fallback
             }
-        }, 100) // 100ms delay to ensure foreground service is registered
+        }, 150) // Slightly longer delay for Xiaomi devices
     }
     
 
@@ -323,20 +333,40 @@ class AlarmService : Service() {
     }
     
     /**
-     * Acquire wake lock to keep screen on.
+     * Acquire wake lock to keep CPU and screen active.
+     * Uses aggressive flags for Xiaomi/MIUI/HyperOS compatibility.
      */
+    @Suppress("DEPRECATION")
     private fun acquireWakeLock() {
         try {
             val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+            
+            // Use FULL_WAKE_LOCK for Xiaomi devices - deprecated but still works
+            // This forces screen ON which is critical for Xiaomi/MIUI
             wakeLock = powerManager.newWakeLock(
-                PowerManager.PARTIAL_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
+                PowerManager.FULL_WAKE_LOCK or 
+                PowerManager.ACQUIRE_CAUSES_WAKEUP or
+                PowerManager.ON_AFTER_RELEASE,
                 "DoseCerta::AlarmWakeLock"
             ).apply {
                 acquire(10 * 60 * 1000L) // 10 minutes max
             }
-            Log.d(TAG, "WakeLock acquired")
+            Log.d(TAG, "WakeLock acquired with FULL_WAKE_LOCK")
         } catch (e: Exception) {
             Log.e(TAG, "Error acquiring WakeLock", e)
+            // Fallback to partial wake lock
+            try {
+                val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+                wakeLock = powerManager.newWakeLock(
+                    PowerManager.PARTIAL_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
+                    "DoseCerta::AlarmWakeLock"
+                ).apply {
+                    acquire(10 * 60 * 1000L)
+                }
+                Log.d(TAG, "Fallback WakeLock acquired")
+            } catch (e2: Exception) {
+                Log.e(TAG, "Error acquiring fallback WakeLock", e2)
+            }
         }
     }
     

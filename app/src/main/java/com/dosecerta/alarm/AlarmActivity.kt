@@ -60,17 +60,21 @@ class AlarmActivity : AppCompatActivity() {
     
     /**
      * Setup window flags to show over lockscreen.
+     * Uses aggressive flags for Xiaomi/MIUI/HyperOS compatibility.
      */
+    @Suppress("DEPRECATION")
     private fun setupWindowFlags() {
         // Apply window flags BEFORE setContentView for all API levels
-        @Suppress("DEPRECATION")
+        // Xiaomi/MIUI requires multiple flags to work properly
         window.addFlags(
             WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
             WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
             WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
             WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
             WindowManager.LayoutParams.FLAG_FULLSCREEN or
-            WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+            WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON or
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
         
         // For API 27+ also use the newer methods
@@ -79,8 +83,24 @@ class AlarmActivity : AppCompatActivity() {
             setTurnScreenOn(true)
             
             val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            keyguardManager.requestDismissKeyguard(this, null)
+            keyguardManager.requestDismissKeyguard(this, object : KeyguardManager.KeyguardDismissCallback() {
+                override fun onDismissSucceeded() {
+                    Log.d(TAG, "Keyguard dismissed successfully")
+                }
+                override fun onDismissError() {
+                    Log.e(TAG, "Keyguard dismiss error")
+                }
+                override fun onDismissCancelled() {
+                    Log.w(TAG, "Keyguard dismiss cancelled")
+                }
+            })
         }
+        
+        // Additional workaround: Force window to be visible
+        window.decorView.systemUiVisibility = (
+            android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+            android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        )
     }
     
     /**
