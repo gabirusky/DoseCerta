@@ -107,16 +107,11 @@ class AlarmActivity : AppCompatActivity() {
     private fun displayMedicationInfo() {
         medication?.let { med ->
             binding.textMedicationName.text = med.name
-            binding.textDosageInfo.text = getString(
-                R.string.notification_message,
-                "${med.dosage} ${med.unit}",
-                getFormString(med.pharmaceuticalForm.name)
-            )
+            binding.textDosageInfo.text = "${med.dosage} ${med.unit} - ${getFormString(med.pharmaceuticalForm.name)}"
             
-            // Format scheduled time
+            // Format scheduled time - just the time, no prefix
             val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-            val formattedTime = timeFormat.format(Date(scheduledTime))
-            binding.textScheduledTime.text = getString(R.string.alarm_scheduled_time, formattedTime)
+            binding.textScheduledTime.text = timeFormat.format(Date(scheduledTime))
         }
     }
     
