@@ -1,8 +1,11 @@
-# Dose Certa 💊
+<div align="center">
 
 ![App Icon](https://github.com/user-attachments/assets/fa460868-fc87-4dfb-8efc-f493d6d77341)
+<h3>Dose Certa</h3>
 
-## 📱 Sobre o Projeto
+</div>
+
+## Sobre o Projeto
 
 **Dose Certa** é um aplicativo Android nativo desenvolvido para ajudar usuários a gerenciar seus medicamentos de forma simples e eficaz. Com uma interface moderna e intuitiva, o app permite cadastrar medicamentos, configurar lembretes personalizados e acompanhar o histórico completo de administração.
 
