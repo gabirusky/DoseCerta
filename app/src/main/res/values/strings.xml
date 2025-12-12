@@ -208,8 +208,8 @@
     <string name="setup_tutorial_desc_1">O Dose Certa ajuda você a nunca esquecer de tomar seus medicamentos. Organize todos os seus remédios em um só lugar.</string>
     <string name="setup_tutorial_title_2">Adicione Seus Medicamentos</string>
     <string name="setup_tutorial_desc_2">Na aba Medicamentos, toque no botão + para adicionar um novo medicamento. Informe o nome, dosagem e os horários que você precisa tomar.</string>
-    <string name="setup_tutorial_title_3">Receba Lembretes</string>
-    <string name="setup_tutorial_desc_3">Você receberá uma notificação no horário de cada dose. Marque como tomado, adiado ou pulado diretamente pela notificação.</string>
+    <string name="setup_tutorial_title_3">Alarme Inteligente</string>
+    <string name="setup_tutorial_desc_3">No horário da dose, um alarme com tela cheia será exibido, mesmo com a tela bloqueada. Toque em Tomar, Adiar ou Pular para registrar sua ação.</string>
     <string name="setup_tutorial_button_next">Próximo</string>
     <string name="setup_tutorial_button_start">Começar</string>
 </resources>

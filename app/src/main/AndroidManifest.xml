@@ -52,6 +52,8 @@
             android:showWhenLocked="true"
             android:turnScreenOn="true"
             android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
             android:theme="@style/Theme.DoseCerta" />
         
         <!-- Alarm Service -->

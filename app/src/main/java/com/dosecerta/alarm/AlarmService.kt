@@ -9,7 +9,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -115,17 +117,55 @@ class AlarmService : Service() {
             return START_NOT_STICKY
         }
         
-        // Start foreground service with notification
+        // Start foreground service with notification that has full-screen intent
         val notification = createAlarmNotification(medication, medicationId, scheduleId, scheduledTime)
         startForeground(FOREGROUND_NOTIFICATION_ID, notification)
         
         // Start playing alarm sound
         soundManager.start(this, soundUri)
         
+        // Force launch AlarmActivity directly after becoming foreground
+        // This is allowed because we're now a foreground service
+        launchAlarmActivityDirectly(medication, medicationId, scheduleId, scheduledTime)
+        
         Log.d(TAG, "Alarm started for medication: ${medication.name}")
         
         return START_STICKY
     }
+    
+    /**
+     * Directly launch AlarmActivity from foreground service with a small delay.
+     * The delay ensures foreground service is fully registered, which is required for
+     * activity launch on Android 10+ BAL (Background Activity Launch) restrictions.
+     */
+    private fun launchAlarmActivityDirectly(
+        medication: Medication,
+        medicationId: Long,
+        scheduleId: Long,
+        scheduledTime: Long
+    ) {
+        // Use a small delay to ensure foreground service is fully registered
+        Handler(Looper.getMainLooper()).postDelayed({
+            try {
+                val activityIntent = Intent(this, AlarmActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or 
+                            Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    putExtra(EXTRA_MEDICATION, medication)
+                    putExtra(EXTRA_MEDICATION_ID, medicationId)
+                    putExtra(EXTRA_SCHEDULE_ID, scheduleId)
+                    putExtra(EXTRA_SCHEDULED_TIME, scheduledTime)
+                }
+                startActivity(activityIntent)
+                Log.d(TAG, "AlarmActivity launched directly from foreground service")
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to launch AlarmActivity directly: ${e.message}")
+                // Full-screen intent in notification will serve as fallback
+            }
+        }, 100) // 100ms delay to ensure foreground service is registered
+    }
+    
+
     
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -148,17 +188,24 @@ class AlarmService : Service() {
             val channel = NotificationChannel(
                 CHANNEL_ID,
                 "Alarmes de Medicação",
-                NotificationManager.IMPORTANCE_HIGH
+                NotificationManager.IMPORTANCE_HIGH  // HIGH is required for full-screen intent
             ).apply {
                 description = "Alarmes de lembretes de medicamentos"
                 setSound(null, null) // Sound managed by MediaPlayer
                 enableVibration(true)
-                vibrationPattern = longArrayOf(0, 500, 250, 500)
+                vibrationPattern = longArrayOf(0, 500, 250, 500, 250, 500)
+                setShowBadge(true)
+                lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+                setBypassDnd(true) // Bypass Do Not Disturb mode
+                enableLights(true)
+                lightColor = android.graphics.Color.RED
             }
             
             val notificationManager = getSystemService(NotificationManager::class.java)
+            // Delete old channel to apply new settings (channels can't be updated)
+            notificationManager.deleteNotificationChannel(CHANNEL_ID)
             notificationManager.createNotificationChannel(channel)
-            Log.d(TAG, "Notification channel created")
+            Log.d(TAG, "Notification channel created with DND bypass")
         }
     }
     
@@ -224,17 +271,30 @@ class AlarmService : Service() {
         
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(getString(R.string.alarm_title))
+            .setContentTitle(getString(R.string.alarm_service_notification_title))
             .setContentText("${medication.name} - ${medication.dosage} ${medication.unit}")
-            .setPriority(NotificationCompat.PRIORITY_MAX)
-            .setCategory(NotificationCompat.CATEGORY_ALARM)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("${medication.name} - ${medication.dosage} ${medication.unit}\nToque para abrir ou use os botões abaixo."))
+            .setPriority(NotificationCompat.PRIORITY_MAX)  // MAX priority for heads-up display
+            .setCategory(NotificationCompat.CATEGORY_ALARM)  // ALARM category for alarm-like behavior
             .setOngoing(true) // Cannot be dismissed
             .setAutoCancel(false)
-            .setFullScreenIntent(fullScreenPendingIntent, true) // Critical: opens full screen
+            .setVibrate(longArrayOf(0, 500, 250, 500, 250, 500)) // Vibration triggers heads-up
+            .setOnlyAlertOnce(false) // Alert every time
             .setContentIntent(contentPendingIntent)
-            .addAction(R.drawable.ic_pill, getString(R.string.notification_action_take), takePendingIntent)
-            .addAction(0, getString(R.string.notification_action_skip), skipPendingIntent)
-            .addAction(0, getString(R.string.notification_action_snooze), snoozePendingIntent)
+            .setFullScreenIntent(fullScreenPendingIntent, true)  // This triggers activity launch over lock screen
+            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC) // Show full content on lock screen
+            .setPublicVersion(  // Explicit public version for lock screen
+                NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(getString(R.string.alarm_service_notification_title))
+                    .setContentText("${medication.name} - ${medication.dosage} ${medication.unit}")
+                    .build()
+            )
+            // Action buttons visible on lock screen and heads-up
+            .addAction(R.drawable.ic_check, getString(R.string.notification_action_take), takePendingIntent)
+            .addAction(R.drawable.ic_close, getString(R.string.notification_action_skip), skipPendingIntent)
+            .addAction(R.drawable.ic_notifications, getString(R.string.notification_action_snooze), snoozePendingIntent)
             .build()
     }
     
