@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_large">
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/extra_dose_dialog_title"
+        android:textAppearance="@style/TextAppearance.DoseCerta.Title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/spacing_medium" />
+
+    <!-- Custom Medication Input Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/spacing_medium">
+
+        <!-- Text Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/extra_dose_custom_hint"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_custom_medication"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Simple +1 Button beside input -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_add_custom"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="@dimen/spacing_small"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:icon="@drawable/ic_add"
+            app:iconSize="24dp"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            style="@style/Widget.Material3.Button.TonalButton"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        android:layout_marginVertical="@dimen/spacing_small" />
+
+    <!-- Active Medications Label -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/extra_dose_active_meds"
+        android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/spacing_small" />
+
+    <!-- Medications List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_medications"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="300dp"
+        android:nestedScrollingEnabled="true" />
+
+    <!-- Empty State -->
+    <TextView
+        android:id="@+id/text_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/extra_dose_no_medications"
+        android:textAlignment="center"
+        android:padding="@dimen/spacing_large"
+        android:visibility="gone" />
+
+</LinearLayout>

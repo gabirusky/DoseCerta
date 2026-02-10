@@ -1,0 +1,183 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Dose Certa</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_history">History</string>
+    <string name="nav_medications">Medications</string>
+    <string name="nav_settings">Settings</string>
+    
+    <!-- Home Screen -->
+    <string name="home_greeting_morning">Good morning!</string>
+    <string name="home_greeting_afternoon">Good afternoon!</string>
+    <string name="home_greeting_evening">Good evening!</string>
+    <string name="home_subtitle">Keep your medication routine on track</string>
+    <string name="home_medications_today">Today\'s medications</string>
+    <string name="home_no_medications">No medications scheduled for today</string>
+    <string name="home_button_taken">Taken</string>
+    <string name="home_button_snooze">Skip</string>
+    <string name="home_statistics">Statistics</string>
+    <string name="home_adherence_week">Adherence this week</string>
+    <string name="home_active_medications">Active medications</string>
+    
+    <!-- Medications Screen -->
+    <string name="medications_title">My Medications</string>
+    <string name="medications_search_hint">Search medications…</string>
+    <string name="medications_filter_all">All</string>
+    <string name="medications_filter_daily">Daily</string>
+    <string name="medications_filter_every_4_hours">Every 4h</string>
+    <string name="medications_filter_every_6_hours">Every 6h</string>
+    <string name="medications_filter_every_8_hours">Every 8h</string>
+    <string name="medications_filter_every_12_hours">Every 12h</string>
+    <string name="medications_filter_as_needed">As Needed</string>
+    <string name="medications_empty">No medications registered</string>
+    <string name="medications_delete_confirm">Delete this medication?</string>
+    
+    <!-- History Screen -->
+    <string name="history_title">Medication History</string>
+    <string name="history_subtitle">Track your progress</string>
+    <string name="history_taken">Taken</string>
+    <string name="history_missed">Missed</string>
+    <string name="history_skipped">Skipped</string>
+    <string name="history_filter">Filter</string>
+    <string name="history_filter_all">All</string>
+    <string name="history_last_7_days">Last 7 days</string>
+    <string name="history_last_30_days">Last 30 days</string>
+    <string name="history_empty">No records found</string>
+    <string name="history_mark_taken">Mark as Taken</string>
+    <string name="history_mark_missed">Mark as Missed</string>
+    <string name="history_mark_skipped">Mark as Skipped</string>
+    <string name="history_delete_log">Delete Record</string>
+    <string name="history_delete_confirm_title">Delete Record?</string>
+    <string name="history_delete_confirm_message">Delete record for %s?</string>
+    
+    <!-- Pharmaceutical Forms -->
+    <string name="form_tablet">Tablet</string>
+    <string name="form_capsule">Capsule</string>
+    <string name="form_syrup">Syrup</string>
+    <string name="form_drops">Drops</string>
+    <string name="form_injection">Injectable</string>
+    <string name="form_cream">Cream</string>
+    <string name="form_spray">Spray</string>
+    <string name="form_other">Other</string>
+    
+    <!-- Frequency Options -->
+    <string name="frequency_daily">Daily (1x per day)</string>
+    <string name="frequency_every_4_hours">Every 4 hours (6x per day)</string>
+    <string name="frequency_every_6_hours">Every 6 hours (4x per day)</string>
+    <string name="frequency_every_8_hours">Every 8 hours (3x per day)</string>
+    <string name="frequency_every_12_hours">Every 12 hours (2x per day)</string>
+    <string name="frequency_as_needed">As needed</string>
+    <!-- Notifications -->
+    <string name="notification_title">Time to take %1$s</string>
+    <string name="notification_message">%1$s - %2$s</string>
+    <string name="notification_action_take">Taken</string>
+    <string name="notification_action_skip">Skip</string>
+    <string name="notification_action_snooze">Snooze 10 min</string>
+    
+    <!-- Add/Edit Medication -->
+    <string name="medication_add_title">Add Medication</string>
+    <string name="medication_edit_title">Edit Medication</string>
+    <string name="medication_name">Medication Name</string>
+    <string name="medication_dosage">Dosage</string>
+    <string name="medication_unit">Unit</string>
+    <string name="medication_form">Form</string>
+    <string name="medication_frequency">Frequency</string>
+    <string name="medication_reminders">Reminders</string>
+    <string name="medication_reminders_subtitle">Set the times</string>
+    <string name="medication_add_time">+ Add Time</string>
+    <string name="medication_no_reminders">No reminders configured</string>
+    <string name="medication_notes">Additional Notes</string>
+    <string name="medication_save">Save Medication</string>
+    <string name="medication_saved">Medication saved successfully</string>
+    <string name="medication_error_name">Please enter medication name</string>
+    <string name="medication_error_dosage">Please enter dosage</string>
+    <string name="medication_error_reminders">Add at least one time</string>
+    <string name="medication_color">Icon Color</string>
+    <string name="medication_color_subtitle">Choose a color to identify this medication</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_portuguese">Portuguese (Brazil)</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_privacy_policy_subtitle">Read our LGPD privacy policy</string>
+    <string name="settings_about">About the App</string>
+    <string name="settings_version">Version 1.0</string>
+    <string name="settings_missed_reminder">Missed Dose Reminder</string>
+    <string name="settings_missed_reminder_subtitle">Re-notify after how many hours if you miss a dose</string>
+    <string name="settings_missed_reminder_updated">Reminder set to %d hours</string>
+    
+    <!-- Privacy Policy -->
+    <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="privacy_policy_message">Your data is stored only on your device and is not shared with third parties. Dose Certa respects your privacy in accordance with the General Data Protection Law (LGPD).</string>
+    <string name="privacy_policy_full_text">Our Privacy Policy\n\nLast updated: June 30, 2025\n\nYour privacy is our top priority. We created Dose Certa with a fundamental principle: we do not collect, store, or share your personal health information.\n\n1. The Essential: Your Data is Yours Alone\n\nTo be as transparent as possible, here\'s what you need to know:\n\n• No data is sent to us: All information you enter in the app (medication names, times, dose history) is saved exclusively on your phone.\n\n• No one else has access: We, the developers of Dose Certa, cannot see, access, or analyze your information.\n\n• You have 100% control: You can add, edit, and delete your data at any time, directly in the app.\n\n2. What Data Does the App Use (and Where Is It Stored)?\n\nDose Certa needs to save some information on your own device to function properly. They are:\n\n• Medication Information: Name, dosage, and notes you enter.\n\n• Alarm Configuration: The times and frequency you set for your reminders.\n\n• Usage History: The record of when you confirm you took or skipped a dose.\n\nTo repeat: All this information is stored securely only in your device\'s internal memory. If you uninstall the app, all this data will be permanently deleted.\n\n3. What We DO NOT Do\n\nTo leave no doubt, our policy is clear:\n\n• We DO NOT sell your information.\n\n• We DO NOT share your data with third parties (companies, advertisers, etc.).\n\n• We DO NOT use your data for marketing or advertising purposes.\n\n• We DO NOT track your location or other activities on your phone.\n\n4. Your Rights as a Data Subject (LGPD)\n\nThe General Data Protection Law (LGPD) guarantees you rights over your information. With Dose Certa, exercising them is simple:\n\n• Right of Access: You can see all your data at any time, simply by navigating through the app.\n\n• Right of Correction: You can edit any incorrect information directly on the medication editing screens.\n\n• Right of Elimination (Forgetting): You can delete a specific medication or all your information by uninstalling the app from your phone.\n\n5. App Permissions\n\nTo function, Dose Certa will request Notification permission. This permission is essential so we can remind you of your medications with alarms, even if the app is closed. We will not request any other permission that is not strictly necessary for the app to function.\n\n6. Consent\n\nBy clicking \"Agree and Continue\", you declare that you have read, understood, and agree with this Privacy Policy, and understand that your data will be stored securely and locally only on your device.</string>
+    
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
+    <string name="close">Close</string>
+    <string name="error">Error</string>
+    <string name="disclaimer_message">This application does not replace the guidance of a healthcare professional. Always follow your doctor\'s prescription. If in doubt, consult your doctor or pharmacist.</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_medication_icon">Medication icon</string>
+    <string name="cd_add_medication">Add new medication</string>
+    <string name="cd_edit_medication">Edit medication</string>
+    <string name="cd_delete_medication">Delete medication</string>
+    
+    <!-- Medication Action Feedback -->
+    <string name="medication_taken_toast">%s - Taken</string>
+    <string name="medication_skipped_toast">%s - Skipped</string>
+    <string name="medication_snoozed_toast">%s - Reminder snoozed</string>
+    
+    <!-- Extra Dose Feature -->
+    <string name="extra_dose_title">Did you take an extra dose today?</string>
+    <string name="extra_dose_register">Register</string>
+    <string name="extra_dose_dialog_title">Register Extra Dose</string>
+    <string name="extra_dose_custom_hint">Enter medication name...</string>
+    <string name="extra_dose_add_custom">Add Custom Medication</string>
+    <string name="extra_dose_active_meds">Active Medications</string>
+    <string name="extra_dose_no_medications">No active medications</string>
+    <string name="extra_dose_recorded">Extra dose recorded!</string>
+    <string name="extra_dose_error_empty">Please enter medication name</string>
+    
+    <!-- First-Time Setup -->
+    <string name="setup_terms_title">Welcome to Dose Certa</string>
+    <string name="setup_terms_checkbox">I have read and agree to the Privacy Policy</string>
+    <string name="setup_terms_button">Agree and Continue</string>
+    
+    <!-- Privacy Summary (Setup Screen) -->
+    <string name="privacy_summary_title">Privacy and Security</string>
+    <string name="privacy_summary_subtitle">Your data is protected</string>
+    <string name="privacy_summary_item_1">All data is stored locally on the device</string>
+    <string name="privacy_summary_item_2">No information is sent to external servers</string>
+    <string name="privacy_summary_item_3">No activity tracking or analytics</string>
+    <string name="privacy_summary_item_4">No unnecessary permission requests</string>
+    <string name="privacy_summary_item_5">Compliance with LGPD (General Data Protection Law)</string>
+    <string name="privacy_full_policy_label">FULL POLICY</string>
+    
+    <!-- Setup Notifications -->
+    <string name="setup_notifications_title">Enable Notifications</string>
+    <string name="setup_notifications_description">For Dose Certa to remind you of your medications at the right times, we need your permission to send notifications.</string>
+    <string name="setup_notifications_button">Allow Notifications</string>
+    <string name="setup_notifications_skip">Skip</string>
+    <string name="setup_notifications_granted">Notifications enabled!</string>
+    <string name="setup_notifications_continue">Continue</string>
+    
+    <!-- Setup Tutorial -->
+    <string name="setup_tutorial_title_1">Your Medication Assistant</string>
+    <string name="setup_tutorial_desc_1">Dose Certa helps you never forget to take your medications. Organize all your medicines in one place.</string>
+    <string name="setup_tutorial_title_2">Add Your Medications</string>
+    <string name="setup_tutorial_desc_2">In the Medications tab, tap the + button to add a new medication. Enter the name, dosage, and the times you need to take it.</string>
+    <string name="setup_tutorial_title_3">Smart Alarm</string>
+    <string name="setup_tutorial_desc_3">At dose time, a full-screen alarm will be displayed, even with the screen locked. Tap Take, Snooze, or Skip to record your action.</string>
+    <string name="setup_tutorial_button_next">Next</string>
+    <string name="setup_tutorial_button_start">Get Started</string>
+</resources>
+

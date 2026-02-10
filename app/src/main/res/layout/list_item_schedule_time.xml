@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/button_time"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_margin="4dp"
+    android:checkable="true"
+    android:insetTop="0dp"
+    android:insetBottom="0dp"
+    android:text="08:00"
+    android:textColor="?attr/colorPrimary"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    style="@style/Widget.Material3.Button.OutlinedButton"
+    app:cornerRadius="24dp"
+    app:strokeColor="@color/time_button_stroke"
+    app:strokeWidth="1dp" />

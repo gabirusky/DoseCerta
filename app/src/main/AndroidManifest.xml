@@ -2,15 +2,50 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permissions -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- Required for exact alarms on Android 12+ -->
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> 
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-    <!-- Permission required on Android 13+ to show notifications -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!-- Potentially needed for AlarmManager WakeLock -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- ============================================= -->
+    <!-- CORE PERMISSIONS - Android Standard           -->
+    <!-- ============================================= -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    
+    <!-- ============================================= -->
+    <!-- ALARM & SCHEDULING PERMISSIONS                -->
+    <!-- Required for: All devices                     -->
+    <!-- ============================================= -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    
+    <!-- ============================================= -->
+    <!-- FOREGROUND SERVICE PERMISSIONS                -->
+    <!-- Required for: Android 8+ (Oreo)               -->
+    <!-- ============================================= -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    
+    <!-- ============================================= -->
+    <!-- FULL-SCREEN INTENT & WAKE PERMISSIONS         -->
+    <!-- Required for: Lock screen alarm display       -->
+    <!-- ============================================= -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    
+    <!-- ============================================= -->
+    <!-- MANUFACTURER-SPECIFIC COMPATIBILITY           -->
+    <!-- ============================================= -->
+    
+    <!-- Xiaomi (MIUI / HyperOS) -->
+    <!-- Requires: Autostart, Battery restrictions off, Show on lock screen -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    
+    <!-- Samsung (One UI) -->
+    <!-- Requires: Sleeping apps whitelist, Battery optimization off -->
+    <!-- Uses standard permissions above -->
+    
+    <!-- Huawei (EMUI / HarmonyOS) -->
+    <!-- Requires: App Launch settings, Ignore battery optimization -->
+    <!-- Uses standard permissions above -->
 
     <application
         android:name=".DoseCertaApplication"
@@ -22,35 +57,80 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoseCerta"
-        tools:targetApi="33">
+        tools:targetApi="31">
+        
+        <!-- Main Activity -->
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.DoseCerta">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Receiver for Boot Completed -->
-        <receiver
-            android:name=".receivers.BootReceiver"
+        
+        <!-- Setup/Onboarding Activity -->
+        <activity
+            android:name=".ui.setup.SetupActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.DoseCerta" />
+        
+        <!-- Alarm Activity -->
+        <activity
+            android:name=".alarm.AlarmActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/Theme.DoseCerta.Transparent" />
+        
+        <!-- Alarm Service -->
+        <service
+            android:name=".alarm.AlarmService"
             android:enabled="true"
-            android:exported="false"> <!-- Set exported to false for security -->
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+        
+        <!-- Alarm Receiver -->
+        <receiver
+            android:name=".alarm.MedicationAlarmReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        
+        <!-- Boot Completed Receiver -->
+        <receiver
+            android:name=".alarm.BootCompletedReceiver"
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         
-        <!-- Receiver for Alarms (to be created) -->
-        <receiver 
-            android:name=".receivers.AlarmReceiver"
+        <!-- Notification Action Receiver -->
+        <receiver
+            android:name=".notification.NotificationActionReceiver"
             android:enabled="true"
             android:exported="false" />
-            
-        <!-- Service for Notification Actions (to be created) -->
-        <!-- <service android:name=".services.NotificationActionService" /> -->
+        
+        <!-- Mark Missed Receiver -->
+        <receiver
+            android:name=".notification.MarkMissedReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        
+        <!-- Missed Reminder Receiver -->
+        <receiver
+            android:name=".notification.MissedReminderReceiver"
+            android:enabled="true"
+            android:exported="false" />
 
     </application>
 
-</manifest> 
+</manifest>

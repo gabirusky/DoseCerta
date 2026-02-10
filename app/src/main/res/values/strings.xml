@@ -1,167 +1,227 @@
 <resources>
+    <!-- App Name -->
     <string name="app_name">Dose Certa</string>
-    <string name="title_home">Home</string>
-    <string name="title_history">History</string>
-    <string name="title_meds">Medications</string>
-
+    
+    <!-- Navigation -->
+    <string name="nav_home">Início</string>
+    <string name="nav_history">Histórico</string>
+    <string name="nav_medications">Medicamentos</string>
+    
     <!-- Home Screen -->
-    <string name="welcome_back">Welcome back</string>
-    <string name="today_schedule">Today\'s Schedule</string>
-    <string name="your_medication_reminders">Your medication reminders</string>
-    <string name="no_medications_scheduled">No medications scheduled</string>
-    <string name="add_first_medication">Add your first medication to get started</string>
-    <string name="adherence">Adherence</string>
-    <string name="last_7_days">Last 7 days</string>
-    <string name="view_all">View All</string>
-    <string name="medications">Medications</string>
-    <string name="missed_today">Missed Today</string>
-    <string name="add_medication">Add Medication</string>
-
-    <!-- History Screen -->
-    <string name="track_your_progress">Track your progress</string>
-    <string name="medication_history">Medication History</string>
-    <string name="taken">Taken</string>
-    <string name="missed">Missed</string>
-    <string name="skipped">Skipped</string>
-    <string name="adherence_percentage">Adherence</string>
-    <string name="filter">Filter</string>
-    <string name="last_7_days_filter">Last 7 days</string>
-    <string name="all">All</string>
-    <string name="no_history_yet">No history yet</string>
-    <string name="history_will_appear">Your medication history will appear here as you track your doses</string>
-
+    <string name="home_greeting_morning">Bom dia!</string>
+    <string name="home_greeting_afternoon">Boa tarde!</string>
+    <string name="home_greeting_evening">Boa noite!</string>
+    <string name="home_subtitle">Mantenha sua rotina de medicação em dia</string>
+    <string name="home_medications_today">Medicações de hoje</string>
+    <string name="home_no_medications">Nenhuma medicação programada para hoje</string>
+    <string name="home_button_taken">Tomei</string>
+    <string name="home_button_snooze">Pular</string>
+    <string name="home_statistics">Estatísticas</string>
+    <string name="home_adherence_week">Adesão esta semana</string>
+    <string name="home_active_medications">Medicamentos ativos</string>
+    <string name="home_time_in">Em %1$s</string>
+    <string name="home_time_ago">há %1$s</string>
+    
     <!-- Medications Screen -->
-    <string name="manage">Manage</string>
-    <string name="my_medications">My Medications</string>
-    <string name="search_medications">Search medications…</string>
-    <string name="daily">Daily</string>
-    <string name="as_needed">As Needed</string>
-    <string name="no_medications_yet">No medications yet</string>
-    <string name="add_first_medication_journey">Add your first medication to start tracking your health journey</string>
-    <string name="quick_add">Quick Add</string>
-    <string name="add_another_medication">Add another medication quickly</string>
-    <string name="add">Add</string>
-
+    <string name="medications_title">Meus Medicamentos</string>
+    <string name="medications_search_hint">Buscar medicamentos…</string>
+    <string name="medications_filter_all">Todos</string>
+    <string name="medications_filter_daily">Diário</string>
+    <string name="medications_filter_every_4_hours">4 em 4h</string>
+    <string name="medications_filter_every_6_hours">6 em 6h</string>
+    <string name="medications_filter_every_8_hours">8 em 8h</string>
+    <string name="medications_filter_every_12_hours">12 em 12h</string>
+    <string name="medications_filter_as_needed">Conforme Necessário</string>
+    <string name="medications_add">Adicionar Medicamento</string>
+    <string name="medications_empty">Nenhum medicamento cadastrado</string>
+    <string name="medications_delete_confirm">Deseja excluir este medicamento?</string>
+    <string name="medications_deleted">Medicamento excluído</string>
+    
     <!-- Add/Edit Medication Screen -->
-    <string name="medication_details">Medication Details</string>
-    <string name="basic_information">Basic Information</string>
-    <string name="medication_name">Medication Name</string>
-    <string name="dosage">Dosage</string>
-    <string name="form">Form</string>
-    <string name="strength_optional">Strength (Optional)</string>
-    <string name="unit">Unit</string>
-    <string name="frequency">Frequency</string>
-    <string name="how_often">How often?</string>
-    <string name="every_x_days">Every X Days</string>
-    <string name="select_days">Select Days</string>
-    <string name="reminders">Reminders</string>
-    <string name="set_reminder_times">Set reminder times</string>
-    <string name="add_time">Add Time</string>
-    <string name="no_reminders_set">No reminders set</string>
-    <string name="additional_notes">Additional Notes</string>
-    <string name="notes_optional">Notes (Optional)</string>
-    <string name="save_medication">Save Medication</string>
-    <string name="edit_medication">Edit Medication</string>
-
-    <!-- Schedule Items -->
-    <string name="take">Take</string>
-    <string name="skip">Skip</string>
-    <string name="undo">Undo</string>
-    <string name="take_again">Take Again</string>
-
-    <!-- Days of Week -->
-    <string name="sun">Sun</string>
-    <string name="mon">Mon</string>
-    <string name="tue">Tue</string>
-    <string name="wed">Wed</string>
-    <string name="thu">Thu</string>
-    <string name="fri">Fri</string>
-    <string name="sat">Sat</string>
-
-    <!-- Status Strings -->
-    <string name="status_taken">TAKEN</string>
-    <string name="status_skipped">SKIPPED</string>
-    <string name="status_missed">MISSED</string>
-    <string name="status_pending">PENDING</string>
-
-    <!-- Actions -->
-    <string name="edit">Edit</string>
-    <string name="delete">Delete</string>
-    <string name="cancel">Cancel</string>
+    <string name="medication_add_title">Novo Medicamento</string>
+    <string name="medication_edit_title">Editar Medicamento</string>
+    <string name="medication_name">Nome do Medicamento</string>
+    <string name="medication_name_hint">Ex: Paracetamol</string>
+    <string name="medication_dosage">Dosagem</string>
+    <string name="medication_dosage_hint">Ex: 500</string>
+    <string name="medication_unit">Unidade</string>
+    <string name="medication_unit_hint">Ex: mg</string>
+    <string name="medication_form">Forma</string>
+    <string name="medication_form_hint">Selecione a forma</string>
+    <string name="medication_frequency">Frequência</string>
+    <string name="medication_frequency_hint">Como tomar</string>
+    <string name="medication_reminders">Lembretes</string>
+    <string name="medication_reminders_subtitle">Defina os horários</string>
+    <string name="medication_add_time">+ Adicionar Horário</string>
+    <string name="medication_no_reminders">Nenhum lembrete configurado</string>
+    <string name="medication_notes">Anotações Adicionais</string>
+    <string name="medication_notes_hint">Notas (Opcional)</string>
+    <string name="medication_save">Salvar Medicamento</string>
+    <string name="medication_saved">Medicamento salvo com sucesso</string>
+    <string name="medication_error_name">Por favor, insira o nome do medicamento</string>
+    <string name="medication_error_dosage">Por favor, insira a dosagem</string>
+    <string name="medication_error_reminders">Adicione pelo menos um horário</string>
+    <string name="medication_color">Cor do ícone</string>
+    <string name="medication_color_subtitle">Escolha uma cor para identificar este medicamento</string>
+    
+    <!-- Pharmaceutical Forms -->
+    <string name="form_tablet">Comprimido</string>
+    <string name="form_capsule">Cápsula</string>
+    <string name="form_syrup">Xarope</string>
+    <string name="form_drops">Gotas</string>
+    <string name="form_injection">Injetável</string>
+    <string name="form_cream">Pomada</string>
+    <string name="form_spray">Spray</string>
+    <string name="form_other">Outro</string>
+    
+    <string name="frequency_daily">Diariamente (1x ao dia)</string>
+    <string name="frequency_every_4_hours">A cada 4 horas (6x ao dia)</string>
+    <string name="frequency_every_6_hours">A cada 6 horas (4x ao dia)</string>
+    <string name="frequency_every_8_hours">A cada 8 horas (3x ao dia)</string>
+    <string name="frequency_every_12_hours">A cada 12 horas (2x ao dia)</string>
+    <string name="frequency_as_needed">Conforme necessário</string>
+    
+    <!-- History Screen -->
+    <string name="history_title">Histórico de Medicamentos</string>
+    <string name="history_subtitle">Acompanhe seu progresso</string>
+    <string name="history_taken">Tomado</string>
+    <string name="history_missed">Perdido</string>
+    <string name="history_skipped">Pulado</string>
+    <string name="history_filter">Filtrar</string>
+    <string name="history_filter_all">Todos</string>
+    <string name="history_last_7_days">Últimos 7 dias</string>
+    <string name="history_last_30_days">Últimos 30 dias</string>
+    <string name="history_empty">Nenhum registro encontrado</string>
+    <string name="history_mark_taken">Marcar como Tomado</string>
+    <string name="history_mark_missed">Marcar como Perdido</string>
+    <string name="history_mark_skipped">Marcar como Pulado</string>
+    <string name="history_delete_log">Excluir Registro</string>
+    <string name="history_delete_confirm_title">Excluir Registro?</string>
+    <string name="history_delete_confirm_message">Deseja excluir o registro de %s?</string>
+    
+    <!-- Notifications -->
+    <string name="notification_channel_name">Lembretes de Medicação</string>
+    <string name="notification_channel_description">Alertas para tomar seus medicamentos</string>
+    <string name="notification_title">Hora de tomar %1$s</string>
+    <string name="notification_message">%1$s - %2$s</string>
+    <string name="notification_action_take">Tomei</string>
+    <string name="notification_action_skip">Pular</string>
+    <string name="notification_action_snooze">Adiar 10 min</string>
+    
+    <!-- Alarm Feature -->
+    <string name="alarm_title">Hora do Medicamento</string>
+    <string name="alarm_subtitle">Toque para confirmar</string>
+    <string name="alarm_scheduled_time">Programado para %1$s</string>
+    <string name="alarm_service_notification_title">Alarme Ativo</string>
+    <string name="alarm_service_notification_message">Alarme de medicamento tocando</string>
+    
+    <!-- Common -->
     <string name="ok">OK</string>
-    <string name="save">Save</string>
-
-    <!-- Dialogs -->
-    <string name="delete_medication_title">Delete Medication</string>
-    <string name="delete_medication_message">Are you sure you want to delete %1$s?</string>
-    <string name="delete_medication_confirm">Delete</string>
-
-    <!-- Time Display -->
-    <string name="scheduled_for">Scheduled for %1$s</string>
-    <string name="next_dose_at">Next dose at %1$s</string>
-    <string name="reminders_count">%1$d reminders</string>
-
-    <!-- Frequency Types -->
-    <string name="frequency_daily">Daily</string>
-    <string name="frequency_every_x_days">Every X Days</string>
-    <string name="frequency_specific_days">Specific Days of Week</string>
-    <string name="frequency_as_needed">As Needed</string>
-
-    <!-- Dosage Forms -->
-    <string name="dosage_form_tablet">Tablet</string>
-    <string name="dosage_form_capsule">Capsule</string>
-    <string name="dosage_form_liquid">Liquid</string>
-    <string name="dosage_form_injection">Injection</string>
-    <string name="dosage_form_cream">Cream</string>
-    <string name="dosage_form_ointment">Ointment</string>
-    <string name="dosage_form_drops">Drops</string>
-    <string name="dosage_form_spray">Spray</string>
-    <string name="dosage_form_other">Other</string>
-
-    <!-- Units -->
-    <string name="unit_mg">mg</string>
-    <string name="unit_mcg">mcg</string>
-    <string name="unit_g">g</string>
-    <string name="unit_ml">ml</string>
-    <string name="unit_percentage">%</string>
-    <string name="unit_iu">IU</string>
-    <string name="unit_other">Other</string>
-
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Excluir</string>
+    <string name="edit">Editar</string>
+    <string name="save">Salvar</string>
+    <string name="close">Fechar</string>
+    <string name="search">Buscar</string>
+    <string name="error">Erro</string>
+    <string name="success">Sucesso</string>
+    
+    <!-- Time Units -->
+    <string name="time_minutes">%1$d min</string>
+    <string name="time_hours">%1$d h</string>
+    <string name="time_days">%1$d d</string>
+    
+    <!-- Disclaimers -->
+    <string name="disclaimer_title">Aviso Importante</string>
+    <string name="disclaimer_message">Este aplicativo não substitui a orientação de um profissional de saúde. Sempre siga a prescrição médica. Em caso de dúvidas, consulte seu médico ou farmacêutico.</string>
+    <string name="privacy_policy_title">Política de Privacidade</string>
+    <string name="privacy_policy_message">Seus dados são armazenados apenas no seu dispositivo e não são compartilhados com terceiros. O Dose Certa respeita sua privacidade conforme a Lei Geral de Proteção de Dados (LGPD).</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_title">Configurações</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_language_portuguese">Português (Brasil)</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_privacy_policy">Política de Privacidade</string>
+    <string name="settings_privacy_policy_subtitle">Leia nossa política de privacidade LGPD</string>
+    <string name="settings_about">Sobre o Aplicativo</string>
+    <string name="settings_version">Versão 1.0</string>
+    <string name="nav_settings">Configurações</string>
+    <string name="settings_missed_reminder">Lembrete de Dose Perdida</string>
+    <string name="settings_missed_reminder_subtitle">Renotificar após quantas horas se perder uma dose</string>
+    <string name="settings_missed_reminder_updated">Lembrete configurado para %d horas</string>
+    <string name="settings_alarm_sound">Som do Alarme</string>
+    <string name="settings_alarm_sound_subtitle">Escolha o som que tocará nos lembretes</string>
+    <string name="settings_alarm_sound_default">Alarme Padrão do Sistema</string>
+    
+    <!-- Privacy Policy Full Text -->
+    <string name="privacy_policy_full_text">Nossa Política de Privacidade\n\nÚltima atualização: 30 de junho de 2025\n\nA sua privacidade é a nossa maior prioridade. Criamos o Dose Certa com um princípio fundamental: nós não coletamos, não armazenamos e não compartilhamos suas informações pessoais de saúde.\n\n1. O Essencial: Seus Dados são Apenas Seus\n\nPara ser o mais transparente possível, aqui está o que você precisa saber:\n\n• Nenhum dado é enviado para nós: Todas as informações que você insere no aplicativo (nomes de medicamentos, horários, histórico de doses) ficam salvas exclusivamente no seu celular.\n\n• Ninguém mais tem acesso: Nós, desenvolvedores do Dose Certa, não temos como ver, acessar ou analisar suas informações.\n\n• O controle é 100% seu: Você pode adicionar, editar e apagar seus dados a qualquer momento, diretamente no aplicativo.\n\n2. Que Dados o Aplicativo Utiliza (e Onde Ficam)?\n\nO Dose Certa precisa salvar algumas informações no seu próprio aparelho para funcionar corretamente. São elas:\n\n• Informações dos Medicamentos: Nome, dosagem e anotações que você cadastra.\n\n• Configuração de Alarmes: Os horários e a frequência que você define para seus lembretes.\n\n• Histórico de Uso: O registro de quando você confirma que tomou ou pulou uma dose.\n\nRepetindo: Todas essas informações ficam guardadas de forma segura apenas na memória interna do seu dispositivo. Se você desinstalar o aplicativo, todos esses dados serão permanentemente apagados.\n\n3. O Que Nós NÃO Fazemos\n\nPara não deixar nenhuma dúvida, nossa política é clara:\n\n• NÃO vendemos suas informações.\n\n• NÃO compartilhamos seus dados com terceiros (empresas, anunciantes, etc.).\n\n• NÃO utilizamos seus dados para fins de marketing ou publicidade.\n\n• NÃO rastreamos sua localização ou outras atividades no seu celular.\n\n4. Seus Direitos como Titular dos Dados (LGPD)\n\nA Lei Geral de Proteção de Dados (LGPD) garante a você direitos sobre suas informações. Com o Dose Certa, exercê-los é simples:\n\n• Direito de Acesso: Você pode ver todos os seus dados a qualquer momento, simplesmente navegando pelo aplicativo.\n\n• Direito de Correção: Você pode editar qualquer informação incorreta diretamente nas telas de edição de medicamentos.\n\n• Direito de Eliminação (Esquecimento): Você pode apagar um medicamento específico ou todas as suas informações ao desinstalar o aplicativo do seu celular.\n\n5. Permissões do Aplicativo\n\nPara funcionar, o Dose Certa solicitará a permissão de Notificações. Essa permissão é essencial para que possamos te lembrar dos seus medicamentos com alarmes, mesmo que o aplicativo esteja fechado. Nós não solicitaremos nenhuma outra permissão que não seja estritamente necessária para o funcionamento do app.\n\n6. Consentimento\n\nAo clicar em "Concordo e Continuar", você declara que leu, compreendeu e concorda com esta Política de Privacidade, e entende que seus dados serão armazenados de forma segura e local apenas no seu dispositivo.</string>
+    
+    <!-- Content Descriptions (Accessibility) -->
+    <string name="cd_medication_icon">Ícone do medicamento</string>
+    <string name="cd_add_medication">Adicionar novo medicamento</string>
+    <string name="cd_edit_medication">Editar medicamento</string>
+    <string name="cd_delete_medication">Excluir medicamento</string>
+    <string name="cd_add_reminder_time">Adicionar horário de lembrete</string>
+    <string name="cd_remove_reminder_time">Remover horário</string>
+    
     <!-- Permissions -->
-    <string name="notification_permission_needed">Notification permission is needed to show reminders.</string>
-    <string name="notification_permission_denied">Notifications permission denied. Reminders may not work.</string>
-    <string name="exact_alarm_permission_needed">This app needs permission to schedule exact alarms for medication reminders.</string>
-    <string name="exact_alarm_permission_denied">Exact alarm permission is needed to schedule reminders accurately.</string>
-    <string name="settings">Settings</string>
-
-    <!-- Validation Messages -->
-    <string name="error_medication_name_empty">Medication name cannot be empty</string>
-    <string name="error_dosage_empty">Dosage cannot be empty</string>
-    <string name="error_select_dosage_form">Please select a dosage form</string>
-    <string name="error_select_unit_for_strength">Please select a unit for the strength</string>
-    <string name="error_enter_strength_for_unit">Please enter a strength for the selected unit</string>
-    <string name="error_select_frequency">Please select frequency</string>
-    <string name="error_enter_interval">Please enter a valid interval</string>
-    <string name="error_interval_positive">Interval must be a positive number</string>
-    <string name="error_select_at_least_one_day">Please select at least one day</string>
-    <string name="check_fields_above">Please check the fields above</string>
-
-    <!-- Content Descriptions -->
-    <string name="cd_edit_medication">Edit Medication</string>
-    <string name="cd_delete_medication">Delete Medication</string>
-    <string name="cd_delete_reminder">Delete Reminder</string>
-    <string name="cd_medication_icon">Medication Icon</string>
-    <string name="cd_status_indicator">Status Indicator</string>
-
-    <!-- Language Settings -->
-    <string name="language_settings">Language Settings</string>
-    <string name="select_language">Select Language</string>
-    <string name="language_english">English</string>
-    <string name="language_portuguese">Português</string>
-    <string name="language_changed">Language changed</string>
-    <string name="restart_app_language">Restart the app to apply the new language</string>
-
-    <!-- New strings from MainActivity.kt -->
-    <string name="all_bug_fixes_validated">✅ All bug fixes validated</string>
-    <string name="validation_issues_detected">⚠️ Validation issues detected</string>
+    <string name="exact_alarm_permission_title">Permissão de Alarme Necessária</string>
+    <string name="exact_alarm_permission_message">Para que os lembretes funcionem na hora certa, o Dose Certa precisa de permissão para definir alarmes exatos. Por favor, ative essa permissão nas configurações.</string>
+    <string name="settings">Configurações</string>
+    
+    <!-- Medication Action Feedback -->
+    <string name="medication_taken_toast">%s - Tomado</string>
+    <string name="medication_skipped_toast">%s - Pulado</string>
+    <string name="medication_snoozed_toast">%s - Lembrete adiado</string>
+    <string name="medication_taken_message">Você marcou \"%s\" como tomado</string>
+    <string name="medication_skipped_message">Você pulou \"%s\"</string>
+    <string name="medication_snoozed_message">\"%s\" - Lembrete voltará em 10 minutos</string>
+    
+    <string name="missed_reminder_title">Medicação Perdida</string>
+    <string name="missed_reminder_message">Você perdeu a dose de %s. Toque para abrir o app e verificar seu histórico.</string>
+    
+    <!-- Extra Dose Feature -->
+    <string name="extra_dose_title">Você tomou uma dose extra hoje?</string>
+    <string name="extra_dose_register">Registrar</string>
+    <string name="extra_dose_dialog_title">Registrar Dose Extra</string>
+    <string name="extra_dose_custom_hint">Digite o nome do remédio...</string>
+    <string name="extra_dose_add_custom">Adicionar Medicamento Personalizado</string>
+    <string name="extra_dose_active_meds">Medicamentos Ativos</string>
+    <string name="extra_dose_no_medications">Nenhum medicamento ativo</string>
+    <string name="extra_dose_recorded">Dose extra registrada!</string>
+    <string name="extra_dose_error_empty">Por favor, digite o nome do medicamento</string>
+    
+    <!-- First-Time Setup -->
+    <string name="setup_terms_title">Bem-vindo ao Dose Certa</string>
+    <string name="setup_terms_checkbox">Li e concordo com a Política de Privacidade</string>
+    <string name="setup_terms_button">Concordo e Continuar</string>
+    
+    <!-- Privacy Summary (Setup Screen) -->
+    <string name="privacy_summary_title">Privacidade e Segurança</string>
+    <string name="privacy_summary_subtitle">Seus dados estão protegidos</string>
+    <string name="privacy_summary_item_1">Todos os dados são armazenados localmente no dispositivo</string>
+    <string name="privacy_summary_item_2">Nenhuma informação é enviada para servidores externos</string>
+    <string name="privacy_summary_item_3">Sem rastreamento de atividades ou analytics</string>
+    <string name="privacy_summary_item_4">Sem requisição de permissões desnecessárias</string>
+    <string name="privacy_summary_item_5">Conformidade com a LGPD (Lei Geral de Proteção de Dados)</string>
+    <string name="privacy_full_policy_label">POLÍTICA COMPLETA</string>
+    
+    <string name="setup_notifications_title">Ative as Notificações</string>
+    <string name="setup_notifications_description">Para que o Dose Certa possa te lembrar dos seus medicamentos nos horários certos, precisamos da sua permissão para enviar notificações.</string>
+    <string name="setup_notifications_button">Permitir Notificações</string>
+    <string name="setup_notifications_skip">Pular</string>
+    <string name="setup_notifications_granted">Notificações ativadas!</string>
+    <string name="setup_notifications_continue">Continuar</string>
+    
+    <string name="setup_tutorial_title_1">Seu Assistente de Medicamentos</string>
+    <string name="setup_tutorial_desc_1">O Dose Certa ajuda você a nunca esquecer de tomar seus medicamentos. Organize todos os seus remédios em um só lugar.</string>
+    <string name="setup_tutorial_title_2">Adicione Seus Medicamentos</string>
+    <string name="setup_tutorial_desc_2">Na aba Medicamentos, toque no botão + para adicionar um novo medicamento. Informe o nome, dosagem e os horários que você precisa tomar.</string>
+    <string name="setup_tutorial_title_3">Alarme Inteligente</string>
+    <string name="setup_tutorial_desc_3">No horário da dose, um alarme com tela cheia será exibido, mesmo com a tela bloqueada. Toque em Tomar, Adiar ou Pular para registrar sua ação.</string>
+    <string name="setup_tutorial_button_next">Próximo</string>
+    <string name="setup_tutorial_button_start">Começar</string>
 </resources>
+
+

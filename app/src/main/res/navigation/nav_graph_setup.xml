@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_setup"
+    app:startDestination="@id/setupTermsFragment">
+
+    <fragment
+        android:id="@+id/setupTermsFragment"
+        android:name="com.dosecerta.ui.setup.SetupTermsFragment"
+        android:label="@string/setup_terms_title">
+        <action
+            android:id="@+id/action_terms_to_notifications"
+            app:destination="@id/setupNotificationsFragment"
+            app:popUpTo="@id/setupTermsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/setupNotificationsFragment"
+        android:name="com.dosecerta.ui.setup.SetupNotificationsFragment"
+        android:label="@string/setup_notifications_title">
+        <action
+            android:id="@+id/action_notifications_to_tutorial"
+            app:destination="@id/setupTutorialFragment"
+            app:popUpTo="@id/setupNotificationsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/setupTutorialFragment"
+        android:name="com.dosecerta.ui.setup.SetupTutorialFragment"
+        android:label="@string/setup_tutorial_title_1" />
+
+</navigation>
