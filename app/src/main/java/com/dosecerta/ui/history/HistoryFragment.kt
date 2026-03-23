@@ -139,9 +139,7 @@ class HistoryFragment : Fragment() {
     
     private fun setupDateRange() {
         binding.textDateRange.setOnClickListener {
-            // Toggle between 7 and 30 days
-            val current = viewModel.daysBack.value
-            viewModel.updateDaysBack(if (current == 7) 30 else 7)
+            viewModel.cyclePeriod()
         }
     }
     
@@ -163,7 +161,11 @@ class HistoryFragment : Fragment() {
         
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.daysBack.collect { days ->
-                binding.textDateRange.text = "Últimos $days dias"
+                binding.textDateRange.text = when (days) {
+                    7 -> getString(R.string.history_last_7_days)
+                    30 -> getString(R.string.history_last_30_days)
+                    else -> getString(R.string.history_all_period)
+                }
             }
         }
     }

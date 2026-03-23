@@ -91,6 +91,7 @@
     <string name="history_filter_all">Todos</string>
     <string name="history_last_7_days">Últimos 7 dias</string>
     <string name="history_last_30_days">Últimos 30 dias</string>
+    <string name="history_all_period">Todo o Período</string>
     <string name="history_empty">Nenhum registro encontrado</string>
     <string name="history_mark_taken">Marcar como Tomado</string>
     <string name="history_mark_missed">Marcar como Perdido</string>

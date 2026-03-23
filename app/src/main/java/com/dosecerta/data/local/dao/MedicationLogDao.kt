@@ -71,6 +71,15 @@ interface MedicationLogDao {
         SELECT ml.*, m.name as medicationName, m.dosage, m.unit, m.color 
         FROM medication_logs ml
         LEFT JOIN medications m ON ml.medicationId = m.id
+        WHERE ml.status = :status
+        ORDER BY ml.scheduledTime DESC
+    """)
+    fun getAllLogsByStatusWithDetails(status: MedicationStatus): Flow<List<MedicationLogWithDetails>>
+    
+    @Query("""
+        SELECT ml.*, m.name as medicationName, m.dosage, m.unit, m.color 
+        FROM medication_logs ml
+        LEFT JOIN medications m ON ml.medicationId = m.id
         WHERE ml.scheduledTime >= :startTime AND ml.scheduledTime <= :endTime 
         ORDER BY ml.scheduledTime DESC
     """)

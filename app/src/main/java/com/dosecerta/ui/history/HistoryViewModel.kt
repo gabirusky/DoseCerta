@@ -19,9 +19,9 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
     private val _selectedFilter = MutableStateFlow<MedicationStatus?>(null)
     val selectedFilter: StateFlow<MedicationStatus?> = _selectedFilter.asStateFlow()
     
-    // Date range (last 7 days by default)
-    private val _daysBack = MutableStateFlow(7)
-    val daysBack: StateFlow<Int> = _daysBack.asStateFlow()
+    // Date range: 7 or 30 days, or null = all time (Todo o Período)
+    private val _daysBack = MutableStateFlow<Int?>(7)
+    val daysBack: StateFlow<Int?> = _daysBack.asStateFlow()
     
     // Refresh trigger - increment to force data reload
     private val _refreshTrigger = MutableStateFlow(0)
@@ -34,13 +34,21 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
     ) { days, filter, _ ->
         Pair(days, filter)
     }.flatMapLatest { (days, filter) ->
-        val startTime = System.currentTimeMillis() - (days * 24 * 60 * 60 * 1000L)
-        val endTime = System.currentTimeMillis()
-        
-        if (filter != null) {
-            repository.getLogsByStatusInRangeWithDetails(startTime, endTime, filter)
+        if (days == null) {
+            // All-time mode: no date restriction
+            if (filter != null) {
+                repository.getAllLogsByStatusWithDetails(filter)
+            } else {
+                repository.getAllLogsWithDetails()
+            }
         } else {
-            repository.getLogsInRangeWithDetails(startTime, endTime)
+            val startTime = System.currentTimeMillis() - (days * 24 * 60 * 60 * 1000L)
+            val endTime = System.currentTimeMillis()
+            if (filter != null) {
+                repository.getLogsByStatusInRangeWithDetails(startTime, endTime, filter)
+            } else {
+                repository.getLogsInRangeWithDetails(startTime, endTime)
+            }
         }
     }.stateIn(
         scope = viewModelScope,
@@ -69,8 +77,12 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
         _selectedFilter.value = filter
     }
     
-    fun updateDaysBack(days: Int) {
-        _daysBack.value = days
+    fun cyclePeriod() {
+        _daysBack.value = when (_daysBack.value) {
+            7 -> 30
+            30 -> null  // all time
+            else -> 7
+        }
     }
     
     /**
