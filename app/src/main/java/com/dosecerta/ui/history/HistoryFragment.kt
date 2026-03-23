@@ -1,11 +1,16 @@
 package com.dosecerta.ui.history
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -18,6 +23,7 @@ import com.dosecerta.data.local.dao.MedicationLogWithDetails
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.data.repository.MedicationRepository
 import com.dosecerta.databinding.FragmentHistoryBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 /**
@@ -39,6 +45,14 @@ class HistoryFragment : Fragment() {
     }
     
     private lateinit var adapter: MedicationLogAdapter
+
+    // ─── Permission launcher (legacy API 26-28 storage) ───────────────────────
+    private val storagePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) triggerExport()
+        else Snackbar.make(binding.root, R.string.history_export_error, Snackbar.LENGTH_SHORT).show()
+    }
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,12 +69,12 @@ class HistoryFragment : Fragment() {
         setupRecyclerView()
         setupFilterChips()
         setupDateRange()
+        setupFab()
         observeViewModel()
     }
     
     override fun onResume() {
         super.onResume()
-        // Refresh data whenever the history page is opened or returns to foreground
         viewModel.refresh()
     }
     
@@ -78,18 +92,12 @@ class HistoryFragment : Fragment() {
         
         val popup = PopupMenu(requireContext(), anchorView)
         
-        // Add status change options (show the statuses that are NOT the current one)
-        if (currentStatus != MedicationStatus.TAKEN) {
+        if (currentStatus != MedicationStatus.TAKEN)
             popup.menu.add(0, 1, 0, getString(R.string.history_mark_taken))
-        }
-        if (currentStatus != MedicationStatus.MISSED) {
+        if (currentStatus != MedicationStatus.MISSED)
             popup.menu.add(0, 2, 1, getString(R.string.history_mark_missed))
-        }
-        if (currentStatus != MedicationStatus.SKIPPED) {
+        if (currentStatus != MedicationStatus.SKIPPED)
             popup.menu.add(0, 3, 2, getString(R.string.history_mark_skipped))
-        }
-        
-        // Add delete option
         popup.menu.add(0, 4, 3, getString(R.string.history_delete_log))
         
         popup.setOnMenuItemClickListener { menuItem ->
@@ -101,7 +109,6 @@ class HistoryFragment : Fragment() {
             }
             true
         }
-        
         popup.show()
     }
     
@@ -123,15 +130,12 @@ class HistoryFragment : Fragment() {
         binding.chipAll.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) viewModel.updateFilter(null)
         }
-        
         binding.chipTaken.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) viewModel.updateFilter(MedicationStatus.TAKEN)
         }
-        
         binding.chipMissed.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) viewModel.updateFilter(MedicationStatus.MISSED)
         }
-        
         binding.chipSkipped.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) viewModel.updateFilter(MedicationStatus.SKIPPED)
         }
@@ -142,7 +146,41 @@ class HistoryFragment : Fragment() {
             viewModel.cyclePeriod()
         }
     }
+
+    // ─── FAB ─────────────────────────────────────────────────────────────────
+
+    private fun setupFab() {
+        binding.fabExportPdf.setOnClickListener {
+            checkPermissionAndExport()
+        }
+    }
+
+    private fun checkPermissionAndExport() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+            // API 26–28: need WRITE_EXTERNAL_STORAGE
+            when {
+                ContextCompat.checkSelfPermission(
+                    requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED -> triggerExport()
+
+                shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) ->
+                    Snackbar.make(binding.root, R.string.history_export_error, Snackbar.LENGTH_LONG).show()
+
+                else -> storagePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        } else {
+            // API 29+: MediaStore, no runtime permission needed
+            triggerExport()
+        }
+    }
+
+    private fun triggerExport() {
+        val periodLabel = binding.textDateRange.text.toString()
+        viewModel.exportPdf(requireContext().applicationContext, periodLabel)
+    }
     
+    // ─── Observers ───────────────────────────────────────────────────────────
+
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.statistics.collect { stats ->
@@ -162,22 +200,61 @@ class HistoryFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.daysBack.collect { days ->
                 binding.textDateRange.text = when (days) {
-                    7 -> getString(R.string.history_last_7_days)
-                    30 -> getString(R.string.history_last_30_days)
+                    7    -> getString(R.string.history_last_7_days)
+                    30   -> getString(R.string.history_last_30_days)
                     else -> getString(R.string.history_all_period)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.exportState.collect { state ->
+                when (state) {
+                    is HistoryViewModel.ExportState.Loading -> {
+                        binding.fabExportPdf.isEnabled = false
+                        Snackbar.make(
+                            binding.root,
+                            R.string.history_export_generating,
+                            Snackbar.LENGTH_INDEFINITE
+                        ).show()
+                    }
+                    is HistoryViewModel.ExportState.Success -> {
+                        binding.fabExportPdf.isEnabled = true
+                        val uri = state.uri
+                        Snackbar.make(
+                            binding.root,
+                            R.string.history_export_success,
+                            Snackbar.LENGTH_LONG
+                        ).setAction(R.string.history_export_open) {
+                            try {
+                                val intent = PdfReportGenerator(requireContext()).openIntent(uri)
+                                startActivity(intent)
+                            } catch (e: Exception) {
+                                // No PDF viewer installed — do nothing
+                            }
+                        }.show()
+                        viewModel.resetExportState()
+                    }
+                    is HistoryViewModel.ExportState.Error -> {
+                        binding.fabExportPdf.isEnabled = true
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.history_export_error) + ": ${state.message}",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        viewModel.resetExportState()
+                    }
+                    else -> {
+                        binding.fabExportPdf.isEnabled = true
+                    }
                 }
             }
         }
     }
     
     private fun updateEmptyState(isEmpty: Boolean) {
-        if (isEmpty) {
-            binding.recyclerLogs.visibility = View.GONE
-            binding.textEmpty.visibility = View.VISIBLE
-        } else {
-            binding.recyclerLogs.visibility = View.VISIBLE
-            binding.textEmpty.visibility = View.GONE
-        }
+        binding.recyclerLogs.visibility = if (isEmpty) View.GONE else View.VISIBLE
+        binding.textEmpty.visibility    = if (isEmpty) View.VISIBLE else View.GONE
     }
     
     override fun onDestroyView() {

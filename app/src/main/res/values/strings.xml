@@ -92,6 +92,11 @@
     <string name="history_last_7_days">Últimos 7 dias</string>
     <string name="history_last_30_days">Últimos 30 dias</string>
     <string name="history_all_period">Todo o Período</string>
+    <string name="history_export_pdf">Relatório PDF</string>
+    <string name="history_export_generating">Gerando relatório…</string>
+    <string name="history_export_success">Relatório salvo em Downloads</string>
+    <string name="history_export_open">Abrir</string>
+    <string name="history_export_error">Erro ao gerar relatório</string>
     <string name="history_empty">Nenhum registro encontrado</string>
     <string name="history_mark_taken">Marcar como Tomado</string>
     <string name="history_mark_missed">Marcar como Perdido</string>

@@ -1,11 +1,14 @@
 package com.dosecerta.ui.history
 
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dosecerta.data.local.entity.MedicationLog
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.data.repository.MedicationRepository
 import com.dosecerta.util.DateTimeUtils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -117,6 +120,38 @@ class HistoryViewModel(private val repository: MedicationRepository) : ViewModel
         }
     }
     
+    // ─── PDF Export ──────────────────────────────────────────────────────────
+
+    sealed class ExportState {
+        object Idle    : ExportState()
+        object Loading : ExportState()
+        data class Success(val uri: Uri, val fileName: String) : ExportState()
+        data class Error(val message: String) : ExportState()
+    }
+
+    private val _exportState = MutableStateFlow<ExportState>(ExportState.Idle)
+    val exportState: StateFlow<ExportState> = _exportState.asStateFlow()
+
+    fun exportPdf(context: Context, periodLabel: String) {
+        if (_exportState.value is ExportState.Loading) return
+        _exportState.value = ExportState.Loading
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val currentLogs = logs.value
+                val generator = PdfReportGenerator(context)
+                val uri = generator.generate(currentLogs, periodLabel)
+                val name = uri.lastPathSegment ?: "relatorio.pdf"
+                _exportState.value = ExportState.Success(uri, name)
+            } catch (e: Exception) {
+                _exportState.value = ExportState.Error(e.message ?: "Erro ao gerar PDF")
+            }
+        }
+    }
+
+    fun resetExportState() {
+        _exportState.value = ExportState.Idle
+    }
+
     data class Statistics(
         val taken: Int,
         val missed: Int,

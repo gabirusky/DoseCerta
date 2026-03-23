@@ -256,38 +256,21 @@ Statistics cards (Tomado / Perdido / Pulado) and status filter chips all update 
 
 ---
 
-### 🕐 Feature 2 — Histórico: Relatório PDF
-**Status:** Not started  
+### ✅ Feature 2 — Histórico: Relatório PDF
+**Status:** Implemented (2026-03-23) — awaiting build verification  
 **Screen:** History (`HistoryFragment`)  
 **Description:**  
-Add a **"Gerar Relatório PDF"** button on the History screen that generates and downloads a medical-grade PDF report to the device's `Downloads` folder. The report is designed to be presented to a doctor and should be:
+Added an **"Relatório PDF"** Extended FAB on the History screen. Tapping it generates and saves a medical-grade PDF to the device's Downloads folder using Android's built-in `PdfDocument` API (no third-party libs).
+
+**New/changed files:**
+- `PdfReportGenerator.kt` — full report renderer (A4, Canvas/Paint, teal branding)
+- `HistoryViewModel.kt` — `ExportState` sealed class + `exportPdf()` on IO dispatcher
+- `HistoryFragment.kt` — FAB, permission handling (API 26–28), `Snackbar` with "Abrir" action
+- `fragment_history.xml` — wrapped in `CoordinatorLayout`, `ExtendedFloatingActionButton`
+- `ic_pdf.xml` — new drawable for FAB icon
+- `AndroidManifest.xml` — `WRITE_EXTERNAL_STORAGE` with `maxSdkVersion="28"`
+- Both `strings.xml` files — 5 new PDF strings
 
 **Report structure:**
-1. **Header** — App name, patient device fingerprint (optional), generation date/time, selected period
-2. **Summary section** (one page)
-   - Total doses scheduled, taken, missed, skipped
-   - Adherence percentage per medication
-   - List of all active medications with name, dosage, unit, form, frequency
-3. **Day-by-day detail section**
-   - Grouped by date (most recent first)
-   - Each entry: medication name, dosage+unit, scheduled time, actual time (if taken), status badge, any notes
-   - Extra doses clearly flagged
-   - Custom/ad-hoc medications shown with their custom name
-
-**Implementation notes:**
-- Use Android's built-in `PdfDocument` API (no 3rd party lib needed, respects privacy)
-- Request `WRITE_EXTERNAL_STORAGE` only if SDK < 29; use `MediaStore` API for SDK ≥ 29
-- Show a `Snackbar` with "Abrir" action after download completes
-- Generate using a `CoroutineScope` launched from the ViewModel (not on main thread)
-- Report should cover the currently selected period (7 days / 30 days / All Time) and active status filter
-- Design: white background, DoseCerta teal color accent (`#00897B`), clean typography matching app style
-
-**Files to create/modify:**
-- `ui/history/PdfReportGenerator.kt` — new class, takes `List<MedicationLogWithDetails>` + metadata
-- `HistoryFragment.kt` — add FAB or action button, trigger generation, show Snackbar
-- `HistoryViewModel.kt` — expose `generateReport()` suspend fun
-- `fragment_history.xml` — add button/FAB
-- `AndroidManifest.xml` — add `WRITE_EXTERNAL_STORAGE` permission (legacy)
-- Both `strings.xml` files — add PDF-related strings
-
----
+- *Page 1 — Summary:* teal header, Tomado/Perdido/Pulado stat cards, adherence bar, medication table
+- *Pages 2+ — Detail:* day-grouped entries (pill header per day), medication name + dosage, scheduled/actual times, colour-coded status badge, extra dose flag ★

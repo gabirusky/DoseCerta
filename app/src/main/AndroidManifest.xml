@@ -17,6 +17,15 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     
     <!-- ============================================= -->
+    <!-- STORAGE - PDF Export to Downloads             -->
+    <!-- maxSdkVersion="28": not needed on API 29+     -->
+    <!-- API 29+ uses MediaStore (no permission req.)  -->
+    <!-- ============================================= -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
+    <!-- ============================================= -->
     <!-- FOREGROUND SERVICE PERMISSIONS                -->
     <!-- Required for: Android 8+ (Oreo)               -->
     <!-- ============================================= -->

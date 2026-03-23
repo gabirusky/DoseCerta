@@ -1,240 +1,258 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView 
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground"
-    android:fillViewport="true">
+    android:background="?android:attr/colorBackground">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/spacing_medium">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <!-- Header -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:text="@string/history_subtitle"
-            android:textAppearance="@style/TextAppearance.DoseCerta.Body"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="@string/history_title"
-            android:textAppearance="@style/TextAppearance.DoseCerta.Headline"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <!-- Statistics Cards -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_medium"
+            android:paddingBottom="80dp">
 
-            <!-- Taken Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="@dimen/stats_card_height"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/spacing_xs"
-                app:cardBackgroundColor="@color/mint_leaf"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_small">
-
-                    <TextView
-                        android:id="@+id/text_taken_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="15"
-                        android:textColor="@color/white"
-                        android:textSize="32sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/history_taken"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Missed Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="@dimen/stats_card_height"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="@dimen/spacing_xs"
-                app:cardBackgroundColor="@color/status_missed"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_small">
-
-                    <TextView
-                        android:id="@+id/text_missed_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textColor="@color/white"
-                        android:textSize="32sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/history_missed"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Skipped Card -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="@dimen/stats_card_height"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/spacing_xs"
-                app:cardBackgroundColor="@color/status_skipped"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/spacing_small">
-
-                    <TextView
-                        android:id="@+id/text_skipped_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textColor="@color/white"
-                        android:textSize="32sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/history_skipped"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-
-        <!-- Filter Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_small"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            <!-- Header -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/history_subtitle"
+                android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/history_filter"
-                android:textAppearance="@style/TextAppearance.DoseCerta.Title"
-                android:textSize="16sp"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:text="@string/history_title"
+                android:textAppearance="@style/TextAppearance.DoseCerta.Headline"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+            <!-- Statistics Cards -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
+                <!-- Taken Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/stats_card_height"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/spacing_xs"
+                    app:cardBackgroundColor="@color/mint_leaf"
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:cardElevation="@dimen/card_elevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_small">
+
+                        <TextView
+                            android:id="@+id/text_taken_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15"
+                            android:textColor="@color/white"
+                            android:textSize="32sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/history_taken"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Missed Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/stats_card_height"
+                    android:layout_weight="1"
+                    android:layout_marginHorizontal="@dimen/spacing_xs"
+                    app:cardBackgroundColor="@color/status_missed"
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:cardElevation="@dimen/card_elevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_small">
+
+                        <TextView
+                            android:id="@+id/text_missed_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textColor="@color/white"
+                            android:textSize="32sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/history_missed"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Skipped Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/stats_card_height"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_xs"
+                    app:cardBackgroundColor="@color/status_skipped"
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:cardElevation="@dimen/card_elevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="@dimen/spacing_small">
+
+                        <TextView
+                            android:id="@+id/text_skipped_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textColor="@color/white"
+                            android:textSize="32sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/history_skipped"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Filter Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_small"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history_filter"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Title"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/text_date_range"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="@dimen/spacing_small"
+                    android:text="@string/history_last_7_days"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Body"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Filter Chips -->
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_all"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/history_filter_all" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_taken"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history_taken" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_missed"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history_missed" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_skipped"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history_skipped" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Logs List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_logs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- Empty State -->
             <TextView
-                android:id="@+id/text_date_range"
-                android:layout_width="wrap_content"
+                android:id="@+id/text_empty"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="@dimen/spacing_small"
-                android:text="@string/history_last_7_days"
+                android:gravity="center"
+                android:padding="@dimen/spacing_xl"
+                android:text="@string/history_empty"
                 android:textAppearance="@style/TextAppearance.DoseCerta.Body"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="14sp" />
+                android:visibility="gone" />
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <!-- Filter Chips -->
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            app:singleSelection="true"
-            app:selectionRequired="true">
+    <!-- PDF Export FAB -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_export_pdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="@string/history_export_pdf"
+        app:icon="@drawable/ic_pdf"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_all"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/history_filter_all" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_taken"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/history_taken" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_missed"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/history_missed" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_skipped"
-                style="@style/Widget.Material3.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/history_skipped" />
-        </com.google.android.material.chip.ChipGroup>
-
-        <!-- Logs List -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_logs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false" />
-
-        <!-- Empty State -->
-        <TextView
-            android:id="@+id/text_empty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/spacing_xl"
-            android:text="@string/history_empty"
-            android:textAppearance="@style/TextAppearance.DoseCerta.Body"
-            android:visibility="gone" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

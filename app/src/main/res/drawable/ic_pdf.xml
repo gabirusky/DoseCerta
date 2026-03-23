@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- PDF file icon: document with "PDF" label -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,2H6C4.9,2 4,2.9 4,4v16c0,1.1 0.9,2 2,2h12c1.1,0 2,-0.9 2,-2V8L14,2z"/>
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M14,2v6h6"/>
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M6,14h12v2H6z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M7.5,15.5h0.7c0.2,0 0.3,-0.1 0.3,-0.3 0,-0.2 -0.1,-0.3 -0.3,-0.3H7.5v1.2H7v-1.6h1.2c0.4,0 0.8,0.2 0.8,0.7 0,0.4 -0.3,0.7 -0.8,0.7H7.5v-0.4z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,15.5v0.5h-0.5v-1.6H10c0.6,0 1,0.3 1,0.8s-0.4,0.8 -1,0.8h-0.5V15.5z M10,15.1h-0.5v0.8H10c0.3,0 0.5,-0.2 0.5,-0.4S10.3,15.1 10,15.1z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12.5,14.4h0.5v1.6h-0.5V15.5h-0.9v0.5H11v-1.6h0.5v0.7h0.9v-0.7z"/>
+</vector>
