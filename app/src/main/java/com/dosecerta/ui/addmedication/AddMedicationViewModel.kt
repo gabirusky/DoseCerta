@@ -162,7 +162,8 @@ class AddMedicationViewModel(
                     return@launch
                 }
                 
-                if (_scheduleTimes.value.isEmpty()) {
+                // AS_NEEDED medications don't require a schedule time
+                if (_frequency.value != Frequency.AS_NEEDED && _scheduleTimes.value.isEmpty()) {
                     _saveState.value = SaveState.Error("Adicione pelo menos um horário")
                     return@launch
                 }
@@ -183,54 +184,63 @@ class AddMedicationViewModel(
                     
                     repository.updateMedication(medication)
                     
-                    // Smart update of schedules to preserve logs
-                    val currentSchedules = repository.getSchedulesForMedicationSync(medicationId)
-                    val newScheduleTimes = _scheduleTimes.value
-                    
-                    // 1. Cancel ALL existing alarms first to prevent duplicates
-                    alarmScheduler.cancelAlarmsForMedication(medicationId, currentSchedules)
-                    
-                    // 2. Delete removed schedules (alarm already cancelled above)
-                    val newIds = newScheduleTimes.map { it.id }.filter { it != 0L }
-                    val schedulesToDelete = currentSchedules.filter { it.id !in newIds }
-                    
-                    for (schedule in schedulesToDelete) {
-                        repository.deleteSchedule(schedule)
-                    }
-                    
-                    // 3. Update or Insert schedules
-                    for (scheduleTime in newScheduleTimes) {
-                        if (scheduleTime.id == 0L) {
-                            // Insert new
-                            val newSchedule = Schedule(
-                                medicationId = medicationId,
-                                timeInMinutes = scheduleTime.timeInMinutes,
-                                daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
-                                isActive = true
-                            )
-                            repository.insertSchedule(newSchedule)
-                        } else {
-                            // Update existing
-                            val existingSchedule = currentSchedules.find { it.id == scheduleTime.id }
-                            if (existingSchedule != null && existingSchedule.timeInMinutes != scheduleTime.timeInMinutes) {
-                                // Time changed - update schedule
-                                repository.updateSchedule(existingSchedule.copy(timeInMinutes = scheduleTime.timeInMinutes))
-                                
-                                // Fix: Update log for today if it exists, so status is preserved
-                                val oldScheduledTime = DateTimeUtils.getTimestampForToday(existingSchedule.timeInMinutes)
-                                val log = repository.getLog(medicationId, existingSchedule.id, oldScheduledTime)
-                                
-                                if (log != null) {
-                                    val newScheduledTime = DateTimeUtils.getTimestampForToday(scheduleTime.timeInMinutes)
-                                    repository.updateLog(log.copy(scheduledTime = newScheduledTime))
+                    if (_frequency.value == Frequency.AS_NEEDED) {
+                        // A3: AS_NEEDED — cancel all existing alarms and delete all schedules
+                        val currentSchedules = repository.getSchedulesForMedicationSync(medicationId)
+                        alarmScheduler.cancelAlarmsForMedication(medicationId, currentSchedules)
+                        for (schedule in currentSchedules) {
+                            repository.deleteSchedule(schedule)
+                        }
+                    } else {
+                        // Smart update of schedules to preserve logs
+                        val currentSchedules = repository.getSchedulesForMedicationSync(medicationId)
+                        val newScheduleTimes = _scheduleTimes.value
+                        
+                        // 1. Cancel ALL existing alarms first to prevent duplicates
+                        alarmScheduler.cancelAlarmsForMedication(medicationId, currentSchedules)
+                        
+                        // 2. Delete removed schedules (alarm already cancelled above)
+                        val newIds = newScheduleTimes.map { it.id }.filter { it != 0L }
+                        val schedulesToDelete = currentSchedules.filter { it.id !in newIds }
+                        
+                        for (schedule in schedulesToDelete) {
+                            repository.deleteSchedule(schedule)
+                        }
+                        
+                        // 3. Update or Insert schedules
+                        for (scheduleTime in newScheduleTimes) {
+                            if (scheduleTime.id == 0L) {
+                                // Insert new
+                                val newSchedule = Schedule(
+                                    medicationId = medicationId,
+                                    timeInMinutes = scheduleTime.timeInMinutes,
+                                    daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
+                                    isActive = true
+                                )
+                                repository.insertSchedule(newSchedule)
+                            } else {
+                                // Update existing
+                                val existingSchedule = currentSchedules.find { it.id == scheduleTime.id }
+                                if (existingSchedule != null && existingSchedule.timeInMinutes != scheduleTime.timeInMinutes) {
+                                    // Time changed - update schedule
+                                    repository.updateSchedule(existingSchedule.copy(timeInMinutes = scheduleTime.timeInMinutes))
+                                    
+                                    // Fix: Update log for today if it exists, so status is preserved
+                                    val oldScheduledTime = DateTimeUtils.getTimestampForToday(existingSchedule.timeInMinutes)
+                                    val log = repository.getLog(medicationId, existingSchedule.id, oldScheduledTime)
+                                    
+                                    if (log != null) {
+                                        val newScheduledTime = DateTimeUtils.getTimestampForToday(scheduleTime.timeInMinutes)
+                                        repository.updateLog(log.copy(scheduledTime = newScheduledTime))
+                                    }
                                 }
                             }
                         }
+                        
+                        // 4. Fetch final schedules and schedule fresh alarms
+                        val finalSchedules = repository.getSchedulesForMedicationSync(medicationId)
+                        alarmScheduler.scheduleAlarmsForMedication(medicationId, finalSchedules)
                     }
-                    
-                    // 4. Fetch final schedules and schedule fresh alarms
-                    val finalSchedules = repository.getSchedulesForMedicationSync(medicationId)
-                    alarmScheduler.scheduleAlarmsForMedication(medicationId, finalSchedules)
                     
                 } else {
                     // Create new medication
@@ -247,23 +257,26 @@ class AddMedicationViewModel(
                     
                     val newMedicationId = repository.insertMedication(medication)
                     
-                    // Create schedules
-                    val schedules = _scheduleTimes.value.map { scheduleTime ->
-                        Schedule(
-                            medicationId = newMedicationId,
-                            timeInMinutes = scheduleTime.timeInMinutes,
-                            daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
-                            isActive = true
-                        )
+                    // A2: AS_NEEDED medications don't get schedules or alarms
+                    if (_frequency.value != Frequency.AS_NEEDED) {
+                        // Create schedules
+                        val schedules = _scheduleTimes.value.map { scheduleTime ->
+                            Schedule(
+                                medicationId = newMedicationId,
+                                timeInMinutes = scheduleTime.timeInMinutes,
+                                daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
+                                isActive = true
+                            )
+                        }
+                        
+                        repository.insertSchedules(schedules)
+                        
+                        // Fetch schedules from database to get their generated IDs
+                        val insertedSchedules = repository.getSchedulesForMedicationSync(newMedicationId)
+                        
+                        // Schedule alarms with the actual schedule IDs from database
+                        alarmScheduler.scheduleAlarmsForMedication(newMedicationId, insertedSchedules)
                     }
-                    
-                    repository.insertSchedules(schedules)
-                    
-                    // Fetch schedules from database to get their generated IDs
-                    val insertedSchedules = repository.getSchedulesForMedicationSync(newMedicationId)
-                    
-                    // Schedule alarms with the actual schedule IDs from database
-                    alarmScheduler.scheduleAlarmsForMedication(newMedicationId, insertedSchedules)
                 }
                 
                 _saveState.value = SaveState.Success

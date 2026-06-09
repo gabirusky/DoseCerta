@@ -1,6 +1,6 @@
 # DoseCerta — Agent Context
 
-> Last updated: 2026-03-23  
+> Last updated: 2026-06-09  
 > Purpose: Comprehensive orientation document for coding agents. Read this before touching any file.
 
 ---
@@ -224,6 +224,12 @@ Exposed the new `getAllLogsByStatusWithDetails()` method.
 - `BootCompletedReceiver` re-schedules all active alarms on device restart
 - Notification actions (Take / Skip / Snooze) are handled by `NotificationActionReceiver`
 
+### Missed Dose Flow
+1. When alarm fires, `AlarmService.loadMedicationAndUpdateAlarm()` creates a MISSED log immediately and schedules a `MissedReminderReceiver` alarm (line 249–272)
+2. `MarkMissedReceiver` fires 30 minutes after the alarm if no user action — creates MISSED log and schedules `MissedReminderReceiver`
+3. `MissedReminderReceiver` fires N hours later (user-configurable in settings) — shows a notification
+4. When user takes action (Take/Skip/Snooze), `NotificationActionReceiver` cancels the missed reminder alarm
+
 ---
 
 ## 9. First-Run Setup Flow
@@ -237,40 +243,112 @@ After completing setup, `SettingsPreferences` marks setup as done and redirects 
 
 ---
 
-## 10. Feature Backlog
+## 10. Common Agent Errors & Gotchas
 
-The following features have been requested. They are **not yet implemented** unless marked as ✅.
+### ❌ Using Hilt/Dagger annotations
+This project uses **manual DI**. Every ViewModel has a matching `*ViewModelFactory` class at the bottom of the Fragment file. Do NOT add `@Inject`, `@HiltViewModel`, or any DI framework annotations.
+
+### ❌ Forgetting to add strings to BOTH locale files
+Every new string resource MUST go in:
+- `res/values/strings.xml` (pt-BR — the default)
+- `res/values-en/strings.xml` (English)
+
+### ❌ Using `context` directly in ViewModel
+ViewModels should NOT hold `Context`. If you need context for `AlarmScheduler` or `SettingsPreferences`, pass them through the Factory constructor. The `HomeViewModelFactory` already receives `alarmScheduler` which was created with context in the Fragment.
+
+### ❌ Using `lifecycleScope.launch {}` for DB queries that should be reactive
+Use `Flow.collect {}` for data that should auto-update the UI. Use `suspend` functions only for one-shot mutations (insert/update/delete). The pattern is:
+```kotlin
+viewLifecycleOwner.lifecycleScope.launch {
+    viewModel.someFlow.collect { data ->
+        // update UI
+    }
+}
+```
+
+### ❌ Forgetting `runBlocking` is intentional in BroadcastReceivers
+`MarkMissedReceiver`, `MissedReminderReceiver`, and `NotificationActionReceiver` all use `runBlocking { ... }` because `BroadcastReceiver.onReceive()` must complete synchronously. This is the correct pattern — do NOT replace with coroutine launches.
+
+### ❌ Breaking the request code formula for PendingIntents
+Alarm PendingIntents use specific request code formulas:
+- Main alarm: `(medicationId * 1000 + scheduleId).toInt()`
+- Missed check: `(medicationId * 1000000 + scheduleId * 1000 + 999).toInt()`
+- Missed reminder: `(medicationId * 1000000 + scheduleId * 1000 + 998).toInt()`
+- Notification actions: `notificationId * 10 + (1|2|3)`
+
+Changing these formulas will break alarm cancellation — existing alarms won't be found by their PendingIntent.
+
+### ❌ Not rescheduling alarms after save in edit mode
+When editing a medication, you MUST:
+1. Cancel ALL existing alarms first
+2. Delete/update/insert schedules
+3. Fetch fresh schedules from DB
+4. Schedule NEW alarms with the fresh schedule IDs
+
+### ❌ Using hardcoded notification IDs
+`showMissedReminderNotification()` currently uses hardcoded `888888` — this means only one missed reminder notification can exist at a time. If fixing this, generate unique IDs per medication.
+
+### ❌ Forgetting Parcelable for Medication
+`Medication` is `@Parcelize` and passed via Intent extras to `AlarmActivity` and `AlarmService`. If you add fields to `Medication`, they must be `Parcelable`-compatible.
 
 ---
+
+## 11. Key Frequencies & Their Behavior
+
+| Frequency | `intervalHours` | `defaultReminderCount` | Behavior |
+|---|---|---|---|
+| DAILY | 24 | 1 | One alarm per day |
+| EVERY_4_HOURS | 4 | 6 | 6 alarms spaced 4h apart |
+| EVERY_6_HOURS | 6 | 4 | 4 alarms spaced 6h apart |
+| EVERY_8_HOURS | 8 | 3 | 3 alarms spaced 8h apart |
+| EVERY_12_HOURS | 12 | 2 | 2 alarms spaced 12h apart |
+| **AS_NEEDED** | **0** | **0** | **No schedules, no alarms, user-initiated doses only** |
+
+When `AS_NEEDED` is selected in `generateDefaultReminders()`:
+- `_scheduleTimes.value = emptyList()` — all reminders are cleared
+- `saveMedication()` then fails validation because it requires at least one time
+
+---
+
+## 12. Home Screen Architecture
+
+The home screen (`HomeFragment`) has two main sections:
+
+1. **Welcome Card** — Greeting, weekly progress ring, adherence %
+2. **Today's Schedule** — `RecyclerView` with `ScheduleAdapter` showing medications due today
+
+The schedule list is built in `HomeViewModel.todaySchedule` by:
+1. Combining `getAllActiveSchedules()` + `getAllLogs()` via `combine()`
+2. Filtering to today's day of week (`DateTimeUtils.shouldScheduleToday()`)
+3. Looking up medication details via `getMedicationByIdSync()`
+4. Finding the matching log for today's scheduled time
+5. Determining status: log exists? → use log status. No log + time passed? → MISSED. No log + future? → PENDING.
+
+**AS_NEEDED medications have no schedules**, so they never appear in `todaySchedule`. They need a separate display mechanism.
+
+3. **Extra Dose Card** — Button opening a dialog to record extra/custom doses
+
+---
+
+## 13. Notification Channels
+
+| Channel ID | Name | Usage |
+|---|---|---|
+| `medication_reminders` | Lembretes de Medicação | Standard notification reminders |
+| `medication_alarm_channel` | Alarmes de Medicação | Full-screen alarm notifications (high importance, DND bypass) |
+
+---
+
+## 14. Feature Backlog
 
 ### ✅ Feature 1 — Histórico: Filtro "Todo o Período"
-**Status:** Implemented (2026-03-23) — awaiting build verification  
-**Screen:** History (`HistoryFragment`)  
-**Description:**  
-Added a third date-range option to the History screen. The date label is now a 3-way tap toggle cycling through:
-- **Últimos 7 dias** — logs from the last 7 days (default)
-- **Últimos 30 dias** — logs from the last 30 days
-- **Todo o Período** — full history since first use, no date restriction
-
-Statistics cards (Tomado / Perdido / Pulado) and status filter chips all update reactively for each mode.
-
----
+**Status:** Implemented (2026-03-23)
 
 ### ✅ Feature 2 — Histórico: Relatório PDF
-**Status:** Implemented (2026-03-23) — awaiting build verification  
-**Screen:** History (`HistoryFragment`)  
-**Description:**  
-Added an **"Relatório PDF"** Extended FAB on the History screen. Tapping it generates and saves a medical-grade PDF to the device's Downloads folder using Android's built-in `PdfDocument` API (no third-party libs).
+**Status:** Implemented (2026-03-23)
 
-**New/changed files:**
-- `PdfReportGenerator.kt` — full report renderer (A4, Canvas/Paint, teal branding)
-- `HistoryViewModel.kt` — `ExportState` sealed class + `exportPdf()` on IO dispatcher
-- `HistoryFragment.kt` — FAB, permission handling (API 26–28), `Snackbar` with "Abrir" action
-- `fragment_history.xml` — wrapped in `CoordinatorLayout`, `ExtendedFloatingActionButton`
-- `ic_pdf.xml` — new drawable for FAB icon
-- `AndroidManifest.xml` — `WRITE_EXTERNAL_STORAGE` with `maxSdkVersion="28"`
-- Both `strings.xml` files — 5 new PDF strings
+### 🔧 Feature 3 — AS_NEEDED Frequency Fix
+**Status:** Planning (2026-06-09) — see PLAN.md
 
-**Report structure:**
-- *Page 1 — Summary:* teal header, Tomado/Perdido/Pulado stat cards, adherence bar, medication table
-- *Pages 2+ — Detail:* day-grouped entries (pill header per day), medication name + dosage, scheduled/actual times, colour-coded status badge, extra dose flag ★
+### 🔧 Feature 4 — Missed Dose Reminder Expansion  
+**Status:** Planning (2026-06-09) — see PLAN.md

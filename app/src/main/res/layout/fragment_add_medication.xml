@@ -258,6 +258,13 @@
                     android:contentDescription="Green" />
             </LinearLayout>
 
+            <!-- Reminders Section (hidden for AS_NEEDED frequency) -->
+            <LinearLayout
+                android:id="@+id/reminders_section_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
             <!-- Reminders Section -->
             <TextView
                 android:layout_width="match_parent"
@@ -320,7 +327,23 @@
                 android:id="@+id/recycler_times"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="80dp"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone" />
+
+            </LinearLayout>
+
+            <!-- AS_NEEDED hint (shown only when Conforme Necessário is selected) -->
+            <TextView
+                android:id="@+id/text_as_needed_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:padding="16dp"
+                android:text="@string/as_needed_hint"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:background="?attr/colorSurfaceVariant"
+                android:drawablePadding="8dp"
                 android:visibility="gone" />
 
         </LinearLayout>
