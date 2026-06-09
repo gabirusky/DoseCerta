@@ -21,6 +21,7 @@ object Constants {
     
     // Snooze duration
     const val SNOOZE_DURATION_MINUTES = 10
+    val SNOOZE_OPTIONS_MINUTES = intArrayOf(5, 10, 15, 30, 60)
     
     // Missed check delay (mark as missed if no action after this time)
     const val MISSED_CHECK_DELAY_MINUTES = 30

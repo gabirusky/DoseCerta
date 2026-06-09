@@ -347,8 +347,64 @@ The schedule list is built in `HomeViewModel.todaySchedule` by:
 ### ✅ Feature 2 — Histórico: Relatório PDF
 **Status:** Implemented (2026-03-23)
 
-### 🔧 Feature 3 — AS_NEEDED Frequency Fix
-**Status:** Planning (2026-06-09) — see PLAN.md
+### ✅ Feature 3 — AS_NEEDED Frequency Fix
+**Status:** Implemented (2026-06-09)
 
-### 🔧 Feature 4 — Missed Dose Reminder Expansion  
-**Status:** Planning (2026-06-09) — see PLAN.md
+### ✅ Feature 4 — Missed Dose Reminder Expansion
+**Status:** Implemented (2026-06-09)
+
+### 🔧 Feature 5 — Alarm Card Redesign (Swipe/Two-Step/Hold-Slide)
+**Status:** In Progress (2026-06-09) — see PLAN.md, TASKS.md
+
+---
+
+## 15. Alarm Card Architecture (Feature 5)
+
+### Current alarm flow
+```
+MedicationAlarmReceiver → AlarmService (ForegroundService) → AlarmActivity
+```
+
+### AlarmActivity responsibilities
+- Extracts `Medication`, `medicationId`, `scheduleId`, `scheduledTime` from Intent extras
+- Calls `setupWindowFlags()` for lockscreen display (see §15.1)
+- Displays medication info
+- Routes button actions to `handleTakeAction()`, `handleSkipAction()`, `handleSnoozeAction()`
+
+### 15.1 Lockscreen window flags (DO NOT REMOVE)
+These flags are critical and must be preserved in any refactor:
+```kotlin
+window.addFlags(
+    FLAG_SHOW_WHEN_LOCKED or FLAG_DISMISS_KEYGUARD or
+    FLAG_TURN_SCREEN_ON or FLAG_KEEP_SCREEN_ON or
+    FLAG_FULLSCREEN or FLAG_ALLOW_LOCK_WHILE_SCREEN_ON or
+    FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS
+)
+// API 27+:
+setShowWhenLocked(true)
+setTurnScreenOn(true)
+keyguardManager.requestDismissKeyguard(...)
+```
+
+### 15.2 New interaction components (Feature 5)
+
+| Component | Class/ID | Responsibility |
+|---|---|---|
+| Swipe track | `SwipeToConfirmView` | Custom View, drag to take |
+| Skip state machine | `AlarmActivity` fields | 2-tap with 4s timeout |
+| Snooze slider | `OnTouchListener` on `btn_alarm_snooze` | Hold to expand, drag to select minutes |
+
+### 15.3 Snooze options
+`Constants.SNOOZE_OPTIONS_MINUTES = [5, 10, 15, 30, 60]`
+Label: "5 min", "10 min", "15 min", "30 min", "1h"
+Default remains 10 min.
+
+### 15.4 Key gotchas for Feature 5
+- **`SwipeToConfirmView` must call `invalidate()` in every `ACTION_MOVE`** — not `postInvalidate()` — since it runs on the main thread
+- **Skip timeout handler must be cancelled in `stopAlarmAndFinish()`** to avoid calling `handleSkipAction()` after the activity is already closing
+- **Snooze `ACTION_DOWN` must return `true`** to prevent the touch from being consumed by `onClick` instead
+- **Haptic feedback requires `View.performHapticFeedback()`** not `Vibrator` directly — works on all API levels and respects system haptic settings
+- **`snoozeAlarm()` new parameter must have a default** (`= Constants.SNOOZE_DURATION_MINUTES`) so `NotificationActionReceiver` doesn't need to be updated
+- **`SwipeToConfirmView` thumb hit area**: accept touch within `thumbX ± thumbRadius * 1.5` for comfortable usability — not pixel-perfect
+- **Full-screen intent on Android 14**: `USE_FULL_SCREEN_INTENT` permission required in manifest; `notificationManager.canUseFullScreenIntent()` check needed before setting full-screen intent
+

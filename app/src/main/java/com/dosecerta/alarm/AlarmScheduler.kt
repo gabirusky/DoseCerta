@@ -147,9 +147,15 @@ class AlarmScheduler(private val context: Context) {
     
     /**
      * Reschedule an alarm (used for snooze functionality).
+     * C2: Accepts variable minutes so the alarm card can offer user-selectable durations.
      */
-    fun snoozeAlarm(medicationId: Long, scheduleId: Long, scheduledTime: Long) {
-        val snoozeTime = System.currentTimeMillis() + (Constants.SNOOZE_DURATION_MINUTES * 60 * 1000)
+    fun snoozeAlarm(
+        medicationId: Long,
+        scheduleId: Long,
+        scheduledTime: Long,
+        minutes: Int = Constants.SNOOZE_DURATION_MINUTES
+    ) {
+        val snoozeTime = System.currentTimeMillis() + (minutes * 60 * 1000L)
         
         val intent = createAlarmIntent(medicationId, scheduleId, scheduledTime)
         val pendingIntent = createPendingIntent(intent, medicationId, scheduleId)

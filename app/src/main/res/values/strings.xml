@@ -239,6 +239,13 @@
     <string name="skipped_reminder_message">Você pulou %1$s. Deseja tomar agora?</string>
     <string name="reminder_action_take_now">Tomei agora</string>
     <string name="reminder_action_dismiss">Ignorar</string>
+    <!-- Alarm Card Redesign (Feature 5) -->
+    <string name="alarm_swipe_label">Deslize para tomar</string>
+    <string name="alarm_swipe_done">Tomei!</string>
+    <string name="alarm_skip_confirm">Tem certeza?</string>
+    <string name="alarm_snooze_format">Adiar %d min</string>
+    <string name="alarm_snooze_1h">Adiar 1 hora</string>
+    <string name="alarm_snooze_default">Adiar 10 min</string>
 
 </resources>
 
