@@ -36,10 +36,11 @@ class HomeFragment : Fragment() {
             database.medicationLogDao()
         )
         val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(requireContext())
-        HomeViewModelFactory(repository, alarmScheduler)
+        HomeViewModelFactory(repository, alarmScheduler, requireContext())
     }
     
     private lateinit var adapter: ScheduleAdapter
+    private lateinit var asNeededAdapter: AsNeededMedicationAdapter
     
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,6 +92,20 @@ class HomeFragment : Fragment() {
         
         binding.recyclerMedications.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerMedications.adapter = adapter
+
+        // A10: Setup AS_NEEDED medications recycler
+        asNeededAdapter = AsNeededMedicationAdapter { medication ->
+            lifecycleScope.launch {
+                viewModel.recordExtraDose(medication.id)
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.extra_dose_recorded),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        binding.recyclerAsNeeded.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerAsNeeded.adapter = asNeededAdapter
     }
     
     private fun observeViewModel() {
@@ -107,6 +122,14 @@ class HomeFragment : Fragment() {
                 
                 // Update circular progress indicator in welcome card
                 binding.progressAdherence.setProgressCompat(stats.adherencePercentage, true)
+            }
+        }
+
+        // A10: Observe and display AS_NEEDED medications
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.asNeededMedications.collect { meds ->
+                asNeededAdapter.submitList(meds)
+                binding.sectionAsNeeded.visibility = if (meds.isNotEmpty()) View.VISIBLE else View.GONE
             }
         }
     }
@@ -192,12 +215,13 @@ class HomeFragment : Fragment() {
 
 class HomeViewModelFactory(
     private val repository: MedicationRepository,
-    private val alarmScheduler: com.dosecerta.alarm.AlarmScheduler
+    private val alarmScheduler: com.dosecerta.alarm.AlarmScheduler,
+    private val context: android.content.Context
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return HomeViewModel(repository, alarmScheduler) as T
+            return HomeViewModel(repository, alarmScheduler, context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

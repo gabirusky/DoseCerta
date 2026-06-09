@@ -185,5 +185,17 @@
     <string name="setup_tutorial_desc_3">At dose time, a full-screen alarm will be displayed, even with the screen locked. Tap Take, Snooze, or Skip to record your action.</string>
     <string name="setup_tutorial_button_next">Next</string>
     <string name="setup_tutorial_button_start">Get Started</string>
+    <!-- AS_NEEDED Frequency -->
+    <string name="as_needed_hint">This medication doesn\'t require scheduled times. Log doses from the home screen as needed.</string>
+    <string name="home_as_needed_title">As Needed</string>
+    <string name="home_as_needed_take">Took it</string>
+    <string name="home_as_needed_subtitle">Tap to log a dose</string>
+
+    <!-- Missed/Skipped Reminder Notifications -->
+    <string name="skipped_reminder_title">Skipped Dose</string>
+    <string name="skipped_reminder_message">You skipped %1$s. Want to take it now?</string>
+    <string name="reminder_action_take_now">Took it now</string>
+    <string name="reminder_action_dismiss">Dismiss</string>
+
 </resources>
 

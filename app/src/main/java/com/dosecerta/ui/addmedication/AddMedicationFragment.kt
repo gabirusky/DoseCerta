@@ -289,6 +289,10 @@ class AddMedicationFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.frequency.collect { frequency ->
                 binding.autoCompleteFrequency.setText(getFrequencyName(frequency), false)
+                // Toggle reminders section visibility for AS_NEEDED
+                val isAsNeeded = frequency == Frequency.AS_NEEDED
+                binding.remindersSectionContainer.visibility = if (isAsNeeded) View.GONE else View.VISIBLE
+                binding.textAsNeededHint.visibility = if (isAsNeeded) View.VISIBLE else View.GONE
             }
         }
         

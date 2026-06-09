@@ -228,6 +228,18 @@
     <string name="setup_tutorial_desc_3">No horário da dose, um alarme com tela cheia será exibido, mesmo com a tela bloqueada. Toque em Tomar, Adiar ou Pular para registrar sua ação.</string>
     <string name="setup_tutorial_button_next">Próximo</string>
     <string name="setup_tutorial_button_start">Começar</string>
+    <!-- AS_NEEDED Frequency -->
+    <string name="as_needed_hint">Este medicamento não requer horários. Registre doses pela tela inicial quando necessário.</string>
+    <string name="home_as_needed_title">Conforme Necessário</string>
+    <string name="home_as_needed_take">Tomei</string>
+    <string name="home_as_needed_subtitle">Toque para registrar uma dose</string>
+
+    <!-- Missed/Skipped Reminder Notifications -->
+    <string name="skipped_reminder_title">Dose pulada</string>
+    <string name="skipped_reminder_message">Você pulou %1$s. Deseja tomar agora?</string>
+    <string name="reminder_action_take_now">Tomei agora</string>
+    <string name="reminder_action_dismiss">Ignorar</string>
+
 </resources>
 
 

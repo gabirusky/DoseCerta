@@ -11,6 +11,7 @@ import com.dosecerta.data.local.DoseCertaDatabase
 import com.dosecerta.data.local.entity.MedicationLog
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.util.Constants
+import com.dosecerta.util.SettingsPreferences
 import kotlinx.coroutines.runBlocking
 
 /**
@@ -63,15 +64,12 @@ class NotificationActionReceiver : BroadcastReceiver() {
                 val medication = medicationDao.getMedicationByIdSync(medicationId)
                 val medicationName = medication?.name ?: "Medicamento"
                 
-                // Cancel the missed reminder alarm since user is taking action
-                // (If user acts, we don't need to remind them about missed dose)
-                alarmScheduler.cancelMissedReminderAlarm(medicationId, scheduleId, scheduledTime)
-                Log.d(TAG, "Cancelled missed reminder alarm")
-                
                 when (intent.action) {
                     Constants.ACTION_TAKE_MEDICATION -> {
                         Log.d(TAG, "Processing TAKE action")
                         handleTakeAction(logDao, medicationId, scheduleId, scheduledTime)
+                        // Cancel missed reminder — user confirmed they took it
+                        alarmScheduler.cancelMissedReminderAlarm(medicationId, scheduleId, scheduledTime)
                         showToast(context, context.getString(R.string.medication_taken_toast, medicationName))
                         sendSnackbarBroadcast(context, context.getString(R.string.medication_taken_message, medicationName))
                     }
@@ -79,6 +77,10 @@ class NotificationActionReceiver : BroadcastReceiver() {
                     Constants.ACTION_SKIP_MEDICATION -> {
                         Log.d(TAG, "Processing SKIP action")
                         handleSkipAction(logDao, medicationId, scheduleId, scheduledTime)
+                        // B1: Schedule missed reminder — deliberate skip should still get a follow-up
+                        val reminderHours = SettingsPreferences(context).getMissedReminderHoursSync()
+                        alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
+                        Log.d(TAG, "Scheduled missed reminder after skip for $reminderHours hours")
                         showToast(context, context.getString(R.string.medication_skipped_toast, medicationName))
                         sendSnackbarBroadcast(context, context.getString(R.string.medication_skipped_message, medicationName))
                     }

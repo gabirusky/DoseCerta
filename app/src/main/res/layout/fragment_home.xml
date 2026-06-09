@@ -143,6 +143,32 @@
             android:textAppearance="@style/TextAppearance.DoseCerta.Body"
             android:visibility="gone" />
 
+        <!-- AS_NEEDED Medications Section -->
+        <LinearLayout
+            android:id="@+id/section_as_needed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_small"
+                android:text="@string/home_as_needed_title"
+                android:textAppearance="@style/TextAppearance.DoseCerta.Title"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_as_needed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+
         <!-- Extra Dose Section -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"

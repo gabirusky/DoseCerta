@@ -15,6 +15,7 @@ import com.dosecerta.data.local.entity.MedicationLog
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.databinding.ActivityAlarmBinding
 import com.dosecerta.util.Constants
+import com.dosecerta.util.SettingsPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -214,8 +215,10 @@ class AlarmActivity : AppCompatActivity() {
                 val logDao = database.medicationLogDao()
                 val alarmScheduler = AlarmScheduler(this@AlarmActivity)
                 
-                // Cancel missed reminder alarm
-                alarmScheduler.cancelMissedReminderAlarm(medicationId, scheduleId, scheduledTime)
+                // B2: Schedule missed reminder — deliberate skip still warrants a follow-up
+                val reminderHours = SettingsPreferences(this@AlarmActivity).getMissedReminderHoursSync()
+                alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
+                Log.d(TAG, "Scheduled missed reminder after skip for $reminderHours hours")
                 
                 // Update or insert log
                 val existingLog = logDao.getLog(medicationId, scheduleId, scheduledTime)

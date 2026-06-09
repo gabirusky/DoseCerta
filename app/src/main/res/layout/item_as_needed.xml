@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="14dp"
+        android:gravity="center_vertical">
+
+        <!-- Medication color icon -->
+        <ImageView
+            android:id="@+id/image_medication_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_pill"
+            android:contentDescription="@string/cd_medication_icon" />
+
+        <!-- Name + dosage column -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_medication_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Ibuprofeno"
+                xmlns:tools="http://schemas.android.com/tools" />
+
+            <TextView
+                android:id="@+id/text_medication_dosage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="400 mg"
+                xmlns:tools="http://schemas.android.com/tools" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/home_as_needed_subtitle"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textColor="?attr/colorPrimary"
+                android:alpha="0.7" />
+
+        </LinearLayout>
+
+        <!-- Take button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_take_as_needed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_as_needed_take"
+            android:textAllCaps="false"
+            app:cornerRadius="24dp"
+            style="@style/Widget.Material3.Button" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
