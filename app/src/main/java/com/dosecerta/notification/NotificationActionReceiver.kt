@@ -92,6 +92,11 @@ class NotificationActionReceiver : BroadcastReceiver() {
                         showToast(context, context.getString(R.string.medication_snoozed_toast, medicationName))
                         sendSnackbarBroadcast(context, context.getString(R.string.medication_snoozed_message, medicationName))
                     }
+
+                    Constants.ACTION_DISMISS_REMINDER -> {
+                        // B9: Notification already cancelled at the top of onReceive — nothing else to do
+                        Log.d(TAG, "Reminder dismissed by user")
+                    }
                 }
                 
                 Log.d(TAG, "Action completed successfully")

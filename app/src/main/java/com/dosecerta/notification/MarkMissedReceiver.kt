@@ -64,7 +64,15 @@ class MarkMissedReceiver : BroadcastReceiver() {
                     alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
                     Log.d(TAG, "Scheduled missed reminder for $reminderHours hours from now")
                 } else {
-                    Log.d(TAG, "Log already exists with status: ${existingLog.status}, skipping")
+                    // B8: If user previously skipped, schedule a missed reminder even though log exists
+                    if (existingLog.status == MedicationStatus.SKIPPED) {
+                        val reminderHours = settingsPreferences.getMissedReminderHoursSync()
+                        val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(context)
+                        alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
+                        Log.d(TAG, "Log is SKIPPED — scheduled missed reminder for $reminderHours hours from now")
+                    } else {
+                        Log.d(TAG, "Log already exists with status: ${existingLog.status}, skipping")
+                    }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error marking as missed", e)

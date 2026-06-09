@@ -11,6 +11,8 @@ object Constants {
     const val ACTION_SKIP_MEDICATION = "com.dosecerta.ACTION_SKIP"
     const val ACTION_SNOOZE_MEDICATION = "com.dosecerta.ACTION_SNOOZE"
     const val ACTION_MARK_MISSED = "com.dosecerta.ACTION_MARK_MISSED"
+    // B9: Dismiss missed-reminder notification without any further action
+    const val ACTION_DISMISS_REMINDER = "com.dosecerta.ACTION_DISMISS_REMINDER"
     
     // Intent Extras
     const val EXTRA_MEDICATION_ID = "medication_id"
