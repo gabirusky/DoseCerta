@@ -196,6 +196,13 @@
     <string name="skipped_reminder_message">You skipped %1$s. Want to take it now?</string>
     <string name="reminder_action_take_now">Took it now</string>
     <string name="reminder_action_dismiss">Dismiss</string>
+    <!-- Alarm Card Redesign (Feature 5) -->
+    <string name="alarm_swipe_label">Slide to take</string>
+    <string name="alarm_swipe_done">Taken!</string>
+    <string name="alarm_skip_confirm">Are you sure?</string>
+    <string name="alarm_snooze_format">Snooze %d min</string>
+    <string name="alarm_snooze_1h">Snooze 1 hour</string>
+    <string name="alarm_snooze_default">Snooze 10 min</string>
 
 </resources>
 

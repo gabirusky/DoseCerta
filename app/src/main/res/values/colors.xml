@@ -56,4 +56,11 @@
     <color name="scrim">#80000000</color>
     <color name="overlay_light">#14000000</color>
     <color name="overlay_dark">#14FFFFFF</color>
+
+    <!-- Alarm Card (Feature 5) -->
+    <color name="swipe_track_bg">#4004DFAE</color>      <!-- mint_leaf_light 25% alpha -->
+    <color name="swipe_track_success">#02C39A</color>   <!-- mint_leaf solid -->
+    <color name="skip_confirm_bg">#33F77F00</color>     <!-- orange 20% alpha -->
+    <color name="alarm_card_bg">#FFFFFF</color>
+    <color name="alarm_screen_dim">#99000000</color>    <!-- 60% black scrim -->
 </resources>
