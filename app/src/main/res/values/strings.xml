@@ -246,7 +246,6 @@
     <string name="alarm_snooze_format">Adiar %d min</string>
     <string name="alarm_snooze_1h">Adiar 1 hora</string>
     <string name="alarm_snooze_default">Adiar 10 min</string>
-    <string name="cd_medication_icon">Ícone do medicamento</string>
 
 </resources>
 

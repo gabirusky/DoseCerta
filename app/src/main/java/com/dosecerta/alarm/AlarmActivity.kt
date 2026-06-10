@@ -318,7 +318,7 @@ class AlarmActivity : AppCompatActivity() {
                 if (existingLog != null) {
                     logDao.update(existingLog.copy(status = MedicationStatus.TAKEN, actualTime = currentTime))
                 } else {
-                    logDao.insert(MedicationLog(medicationId, scheduleId, scheduledTime, currentTime, MedicationStatus.TAKEN))
+                    logDao.insert(MedicationLog(medicationId = medicationId, scheduleId = scheduleId, scheduledTime = scheduledTime, actualTime = currentTime, status = MedicationStatus.TAKEN))
                 }
 
                 withContext(Dispatchers.Main) { stopAlarmAndFinish() }
@@ -351,7 +351,7 @@ class AlarmActivity : AppCompatActivity() {
                 if (existingLog != null) {
                     logDao.update(existingLog.copy(status = MedicationStatus.SKIPPED, actualTime = currentTime))
                 } else {
-                    logDao.insert(MedicationLog(medicationId, scheduleId, scheduledTime, currentTime, MedicationStatus.SKIPPED))
+                    logDao.insert(MedicationLog(medicationId = medicationId, scheduleId = scheduleId, scheduledTime = scheduledTime, actualTime = currentTime, status = MedicationStatus.SKIPPED))
                 }
 
                 withContext(Dispatchers.Main) { stopAlarmAndFinish() }
