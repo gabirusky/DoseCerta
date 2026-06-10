@@ -39,4 +39,9 @@
     <!-- Statistics Card -->
     <dimen name="stats_card_width">110dp</dimen>
     <dimen name="stats_card_height">100dp</dimen>
+
+    <!-- Alarm Card Swipe View (Feature 5) -->
+    <dimen name="swipe_track_height">64dp</dimen>
+    <dimen name="swipe_track_corner_radius">32dp</dimen>
+    <dimen name="swipe_label_text_size">16sp</dimen>
 </resources>

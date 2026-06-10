@@ -1,55 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout 
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@color/alarm_screen_dim">
 
-    <!-- Main Card -->
+    <!-- Main Alarm Card — centered vertically and horizontally -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_alarm"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginVertical="48dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="16dp"
+        app:cardBackgroundColor="@color/alarm_card_bg"
+        app:strokeWidth="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="28dp"
-            android:paddingTop="24dp"
+            android:paddingTop="32dp"
             android:paddingBottom="28dp">
 
-            <!-- App Icon (bigger) -->
+            <!-- ═══════════════════════════════════════ -->
+            <!-- HEADER SECTION                          -->
+            <!-- ═══════════════════════════════════════ -->
+
+            <!-- Medication color icon -->
             <ImageView
+                android:id="@+id/image_med_icon"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="16dp"
-                android:contentDescription="@string/app_name"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@drawable/ic_pill"
+                android:contentDescription="@string/cd_medication_icon" />
 
-            <!-- Scheduled Time (prominent) -->
+            <!-- Scheduled time — large, prominent -->
             <TextView
                 android:id="@+id/text_scheduled_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="6dp"
                 android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
                 android:textColor="@color/gray_600"
                 tools:text="08:00" />
 
-            <!-- Medication Name (main focus) -->
+            <!-- Medication name — primary focus -->
             <TextView
                 android:id="@+id/text_medication_name"
                 android:layout_width="wrap_content"
@@ -59,61 +63,116 @@
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
                 android:textColor="@color/baltic_blue"
                 android:textStyle="bold"
+                android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
                 tools:text="Paracetamol" />
 
-            <!-- Dosage Info -->
+            <!-- Dosage + pharmaceutical form -->
             <TextView
                 android:id="@+id/text_dosage_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="28dp"
+                android:layout_marginBottom="32dp"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="@color/gray_600"
-                tools:text="500 mg - Comprimido" />
+                tools:text="500 mg · Comprimido" />
 
-            <!-- Action Buttons -->
-            
-            <!-- Take Button (green primary with arrow) -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_alarm_take"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginBottom="12dp"
-                android:text="@string/notification_action_take"
-                android:textSize="16sp"
-                app:backgroundTint="@color/mint_leaf"
-                app:cornerRadius="14dp"
-                app:icon="@drawable/ic_arrow_forward"
-                app:iconGravity="textStart" />
+            <!-- ═══════════════════════════════════════ -->
+            <!-- PRIMARY ACTION — SWIPE TO TAKE          -->
+            <!-- ═══════════════════════════════════════ -->
 
-            <!-- Skip Button (yellow/orange) -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_alarm_skip"
+            <com.dosecerta.alarm.SwipeToConfirmView
+                android:id="@+id/swipe_take"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/notification_action_skip"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                app:backgroundTint="@color/status_skipped"
-                app:cornerRadius="14dp" />
+                android:layout_height="@dimen/swipe_track_height"
+                android:layout_marginBottom="16dp" />
 
-            <!-- Snooze Button (with clock icon) -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_alarm_snooze"
-                style="@style/Widget.Material3.Button.TextButton"
+            <!-- ═══════════════════════════════════════ -->
+            <!-- SECONDARY ACTIONS — SKIP + SNOOZE ROW  -->
+            <!-- ═══════════════════════════════════════ -->
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="@string/notification_action_snooze"
-                android:textSize="14sp"
-                app:cornerRadius="14dp"
-                app:icon="@drawable/ic_schedule"
-                app:iconGravity="textStart"
-                app:iconTint="@color/baltic_blue" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="2">
+
+                <!-- LEFT: Skip button (two-step) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_alarm_skip"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/notification_action_skip"
+                    android:textSize="14sp"
+                    app:cornerRadius="14dp"
+                    app:strokeColor="@color/status_skipped"
+                    app:strokeWidth="1.5dp" />
+
+                <!-- RIGHT: Snooze container (hold-and-slide) -->
+                <FrameLayout
+                    android:id="@+id/frame_snooze"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp">
+
+                    <!-- Default snooze text button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_alarm_snooze"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/alarm_snooze_default"
+                        android:textSize="14sp"
+                        app:cornerRadius="14dp"
+                        app:icon="@drawable/ic_schedule"
+                        app:iconGravity="textStart"
+                        app:iconSize="18dp"
+                        app:iconTint="@color/baltic_blue" />
+
+                    <!-- Snooze slider overlay (shown during hold) -->
+                    <LinearLayout
+                        android:id="@+id/snooze_slider_overlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@color/gray_100"
+                        android:paddingHorizontal="12dp"
+                        android:visibility="gone"
+                        android:alpha="0">
+
+                        <TextView
+                            android:id="@+id/text_snooze_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                            android:textColor="@color/baltic_blue"
+                            android:textStyle="bold"
+                            tools:text="10 min" />
+
+                        <!-- Slider track indicator bar -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/baltic_blue_light"
+                            android:alpha="0.4" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
