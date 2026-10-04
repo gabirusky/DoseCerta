@@ -1,0 +1,40 @@
+{
+  "runId": "20261003T195856179326Z-data",
+  "serial": "emulator-5580",
+  "avd": "DoseCerta_QA",
+  "suite": "data",
+  "api": "26",
+  "fingerprint": "Android/sdk_gphone_x86_64/generic_x86_64:8.0.0/OSR1.180418.026/6741039:userdebug/dev-keys",
+  "timezone": "America/Sao_Paulo",
+  "syntheticOnly": true,
+  "cryptoState": "encrypted",
+  "cryptoType": "block",
+  "startedAt": "2026-10-03T19:58:56.253600+00:00",
+  "passed": true,
+  "apkSha256": {
+    "app-debug.apk": "70ef457a6b6a6d76e811ca322b2d064f7a5aa6f343fcf8cdd08d964bb53dc99f",
+    "app-debug-androidTest.apk": "45d32d12ef3d567f8cf38382c604d3d65418e5dbbf486a2d766ee67be9c91e3f"
+  },
+  "kernelPageSizesBytes": [
+    4096
+  ],
+  "pageSizeSource": "KernelPageSize of /proc/self/smaps (getconf is absent on API 26)",
+  "command": [
+    "adb",
+    "-s",
+    "emulator-5580",
+    "shell",
+    "am",
+    "instrument",
+    "-w",
+    "-e",
+    "class",
+    "com.dosecerta.data.OccurrencePersistenceTest,com.dosecerta.data.SyntheticScaleTest",
+    "com.dosecerta.test/androidx.test.runner.AndroidJUnitRunner"
+  ],
+  "returnCode": 0,
+  "skipped": 0,
+  "tests": 13,
+  "finishedAt": "2026-10-03T19:59:10.070623+00:00",
+  "countSource": "JUnit runner summary from preserved instrumentation.txt"
+}

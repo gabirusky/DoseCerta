@@ -1,0 +1,11 @@
+{
+  "runId": "20261004T131831806233Z-main",
+  "scenario": "take",
+  "count": 1,
+  "medicine": "Medicamento fictício QA 1791119867117",
+  "passed": false,
+  "failure": "RuntimeException",
+  "message": "java.lang.NoSuchMethodException: android.hardware.input.InputManager.getInstance []",
+  "events": [],
+  "completedAt": 1791119869513
+}

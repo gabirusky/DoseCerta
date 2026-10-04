@@ -118,8 +118,8 @@
     
     <!-- Privacy Policy -->
     <string name="privacy_policy_title">Privacy Policy</string>
-    <string name="privacy_policy_message">Your data is stored only on your device and is not shared with third parties. Dose Certa respects your privacy in accordance with the General Data Protection Law (LGPD).</string>
-    <string name="privacy_policy_full_text">Our Privacy Policy\n\nLast updated: June 30, 2025\n\nYour privacy is our top priority. We created Dose Certa with a fundamental principle: we do not collect, store, or share your personal health information.\n\n1. The Essential: Your Data is Yours Alone\n\nTo be as transparent as possible, here\'s what you need to know:\n\n• No data is sent to us: All information you enter in the app (medication names, times, dose history) is saved exclusively on your phone.\n\n• No one else has access: We, the developers of Dose Certa, cannot see, access, or analyze your information.\n\n• You have 100% control: You can add, edit, and delete your data at any time, directly in the app.\n\n2. What Data Does the App Use (and Where Is It Stored)?\n\nDose Certa needs to save some information on your own device to function properly. They are:\n\n• Medication Information: Name, dosage, and notes you enter.\n\n• Alarm Configuration: The times and frequency you set for your reminders.\n\n• Usage History: The record of when you confirm you took or skipped a dose.\n\nTo repeat: All this information is stored securely only in your device\'s internal memory. If you uninstall the app, all this data will be permanently deleted.\n\n3. What We DO NOT Do\n\nTo leave no doubt, our policy is clear:\n\n• We DO NOT sell your information.\n\n• We DO NOT share your data with third parties (companies, advertisers, etc.).\n\n• We DO NOT use your data for marketing or advertising purposes.\n\n• We DO NOT track your location or other activities on your phone.\n\n4. Your Rights as a Data Subject (LGPD)\n\nThe General Data Protection Law (LGPD) guarantees you rights over your information. With Dose Certa, exercising them is simple:\n\n• Right of Access: You can see all your data at any time, simply by navigating through the app.\n\n• Right of Correction: You can edit any incorrect information directly on the medication editing screens.\n\n• Right of Elimination (Forgetting): You can delete a specific medication or all your information by uninstalling the app from your phone.\n\n5. App Permissions\n\nTo function, Dose Certa will request Notification permission. This permission is essential so we can remind you of your medications with alarms, even if the app is closed. We will not request any other permission that is not strictly necessary for the app to function.\n\n6. Consent\n\nBy clicking \"Agree and Continue\", you declare that you have read, understood, and agree with this Privacy Policy, and understand that your data will be stored securely and locally only on your device.</string>
+    <string name="privacy_policy_message">@string/ui_privacy_text</string>
+    <string name="privacy_policy_full_text">@string/ui_privacy_text</string>
     
     <!-- Common -->
     <string name="ok">OK</string>
@@ -178,11 +178,11 @@
     
     <!-- Setup Tutorial -->
     <string name="setup_tutorial_title_1">Your Medication Assistant</string>
-    <string name="setup_tutorial_desc_1">Dose Certa helps you never forget to take your medications. Organize all your medicines in one place.</string>
+    <string name="setup_tutorial_desc_1">DoseCerta organizes reminders and records. Follow the instructions you received and check the name, dose, and times before saving.</string>
     <string name="setup_tutorial_title_2">Add Your Medications</string>
     <string name="setup_tutorial_desc_2">In the Medications tab, tap the + button to add a new medication. Enter the name, dosage, and the times you need to take it.</string>
     <string name="setup_tutorial_title_3">Smart Alarm</string>
-    <string name="setup_tutorial_desc_3">At dose time, a full-screen alarm will be displayed, even with the screen locked. Tap Take, Snooze, or Skip to record your action.</string>
+    <string name="setup_tutorial_desc_3">At the scheduled time, Android delivers the reminder using the available permissions. I took it confirms a dose; Skip records a decision; Snooze keeps the dose pending. Silencing does not confirm a dose.</string>
     <string name="setup_tutorial_button_next">Next</string>
     <string name="setup_tutorial_button_start">Get Started</string>
     <!-- AS_NEEDED Frequency -->
@@ -204,5 +204,41 @@
     <string name="alarm_snooze_1h">Snooze 1 hour</string>
     <string name="alarm_snooze_default">Snooze 10 min</string>
 
+    <string name="alarm_scheduled_time">Scheduled for %1$s</string>
+    <string name="alarm_service_notification_message">Medication reminder is sounding</string>
+    <string name="alarm_service_notification_title">Active reminder</string>
+    <string name="alarm_title">Medication reminder</string>
+    <string name="cd_add_reminder_time">Add reminder time</string>
+    <string name="cd_remove_reminder_time">Remove time</string>
+    <string name="exact_alarm_permission_message">Exact alarm access helps schedule reminders at the requested time. Review this access in Settings. Android and device manufacturers may still restrict alerts.</string>
+    <string name="home_time_ago">%1$s ago</string>
+    <string name="home_time_in">In %1$s</string>
+    <string name="medication_dosage_hint">Example: 500</string>
+    <string name="medication_form_hint">Select a form</string>
+    <string name="medication_frequency_hint">Schedule instructions</string>
+    <string name="medication_name_hint">Medication name</string>
+    <string name="medication_notes_hint">Notes (optional)</string>
+    <string name="medication_skipped_message">You skipped %1$s</string>
+    <string name="medication_snoozed_message">%1$s · Reminder snoozed for 10 minutes</string>
+    <string name="medication_taken_message">You recorded taking %1$s</string>
+    <string name="medication_unit_hint">Example: mg</string>
+    <string name="medications_add">Add medication</string>
+    <string name="medications_deleted">Medication deleted</string>
+    <string name="missed_reminder_message">The dose of %1$s was not confirmed. Open the app to review your history.</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+    <string name="settings_alarm_sound">Reminder sound</string>
+    <string name="settings_alarm_sound_default">System default alarm sound</string>
+    <string name="settings_alarm_sound_subtitle">Choose the sound used for reminders</string>
+    <string name="success">Success</string>
+    <string name="time_days">%1$d d</string>
+    <string name="time_hours">%1$d h</string>
+    <string name="time_minutes">%1$d min</string>
+    <string name="alarm_subtitle">Choose an action for this dose</string>
+    <string name="disclaimer_title">Medical reminder</string>
+    <string name="exact_alarm_permission_title">Exact alarm access</string>
+    <string name="missed_reminder_title">Dose not confirmed</string>
+    <string name="notification_channel_description">Reminders for your scheduled medication doses</string>
+    <string name="notification_channel_name">Medication reminders</string>
 </resources>
 

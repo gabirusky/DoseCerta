@@ -21,6 +21,7 @@ class SettingsPreferences(private val context: Context) {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
         private val LANGUAGE_KEY = stringPreferencesKey("language")
         private val MISSED_REMINDER_HOURS_KEY = intPreferencesKey("missed_reminder_hours")
+        private val SHOW_MEDICATION_ON_LOCK_KEY = booleanPreferencesKey("show_medication_on_lock")
         private val ALARM_SOUND_URI_KEY = stringPreferencesKey("alarm_sound_uri")
         private val SETUP_COMPLETED_KEY = booleanPreferencesKey("setup_completed")
         private val TERMS_ACCEPTED_KEY = booleanPreferencesKey("terms_accepted")
@@ -33,6 +34,13 @@ class SettingsPreferences(private val context: Context) {
         const val MAX_MISSED_REMINDER_HOURS = 10
     }
     
+    /** Private by default. Explicitly enabling this reveals medicine identity over the keyguard. */
+    val showMedicationOnLockScreen: Flow<Boolean> = context.dataStore.data.map { it[SHOW_MEDICATION_ON_LOCK_KEY] ?: false }
+    suspend fun getShowMedicationOnLockScreenSync() = showMedicationOnLockScreen.first()
+    suspend fun saveShowMedicationOnLockScreen(show: Boolean) {
+        context.dataStore.edit { it[SHOW_MEDICATION_ON_LOCK_KEY] = show }
+    }
+
     /**
      * Get selected language preference.
      */

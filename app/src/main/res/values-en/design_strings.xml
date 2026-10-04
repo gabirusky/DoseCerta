@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="design_home_subtitle">A little care, every day.</string>
+    <string name="design_adherence_hint">Your records for this week.</string>
+    <string name="design_today_doses">Today</string>
+    <string name="design_register_extra">Log an extra dose</string>
+    <string name="design_as_needed_short">Manual logging, no reminders.</string>
+    <string name="design_due_short">Awaiting confirmation</string>
+    <string name="design_tomorrow">Tomorrow</string>
+    <string name="design_date_time">%1$s, %2$s</string>
+    <string name="design_pdf">PDF</string>
+    <string name="design_next_dose">Next: %1$s</string>
+    <string name="design_no_reminders">No reminders</string>
+    <string name="design_adherence">Adherence</string>
+    <string name="design_week_adherence_value">Adherence this week: %1$s</string>
+    <string name="design_nav_medications">Medicines</string>
+    <string name="design_nav_settings">Settings</string>
+    <string name="design_language_portuguese">Português</string>
+    <string name="design_extra_dose_hint">Log a dose outside your schedule.</string>
+    <string name="design_extra_dose_title">Extra dose</string>
+    <string name="design_edit">Edit</string>
+    <string name="design_back">Back</string>
+    <string name="design_medications_subtitle">Your care, in one place.</string>
+    <string name="design_medication_details">Medication details</string>
+    <string name="design_form_subtitle">Set your dose and reminder times.</string>
+    <string name="design_reminder_times">Reminder times</string>
+    <string name="design_add_time">Add a time</string>
+    <string name="design_settings_subtitle">Make your routine feel like you.</string>
+    <string name="design_preferences">Preferences</string>
+    <string name="design_reminders">Reminders</string>
+    <string name="design_privacy">Privacy and information</string>
+</resources>

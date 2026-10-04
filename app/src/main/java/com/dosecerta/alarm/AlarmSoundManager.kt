@@ -5,140 +5,53 @@ import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
-import android.util.Log
 
-/**
- * Manages the MediaPlayer for alarm sounds.
- * Configured to play with USAGE_ALARM to bypass silent/DND modes.
- */
+/** USAGE_ALARM follows the device alarm volume and DND policy. The service sets a finite lifetime. */
 class AlarmSoundManager {
-    
-    companion object {
-        private const val TAG = "AlarmSoundManager"
-    }
-    
-    private var mediaPlayer: MediaPlayer? = null
-    private var isPlaying = false
-    
-    /**
-     * Start playing the alarm sound.
-     * @param context Application context
-     * @param soundUri URI of the sound to play, or null for default system alarm
-     */
-    fun start(context: Context, soundUri: Uri?) {
-        if (isPlaying) {
-            Log.w(TAG, "Sound is already playing")
-            return
-        }
-        
-        try {
-            // Release any existing player
-            release()
-            
-            // Determine which sound to use
-            val actualUri = soundUri ?: getDefaultAlarmSound(context)
-            
-            // Create and configure MediaPlayer
-            mediaPlayer = MediaPlayer().apply {
-                setDataSource(context, actualUri)
-                
-                // Configure as ALARM to bypass silent/DND modes
-                val audioAttributes = AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build()
-                
-                setAudioAttributes(audioAttributes)
-                isLooping = true // Loop infinitely like a real alarm
-                
-                // Prepare asynchronously
-                setOnPreparedListener { mp ->
-                    mp.start()
-                    this@AlarmSoundManager.isPlaying = true
-                    Log.d(TAG, "Alarm sound started playing")
-                }
-                
-                setOnErrorListener { mp, what, extra ->
-                    Log.e(TAG, "MediaPlayer error: what=$what, extra=$extra")
-                    // Try fallback to default sound
-                    tryFallbackSound(context)
-                    true // Error handled
-                }
-                
-                prepareAsync()
-            }
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "Error starting alarm sound", e)
-            tryFallbackSound(context)
-        }
-    }
-    
-    /**
-     * Stop playing the alarm sound.
-     */
-    fun stop() {
-        try {
-            mediaPlayer?.let { mp ->
-                if (mp.isPlaying) {
-                    mp.stop()
-                    Log.d(TAG, "Alarm sound stopped")
-                }
-            }
-            isPlaying = false
-        } catch (e: Exception) {
-            Log.e(TAG, "Error stopping alarm sound", e)
-        }
-    }
-    
-    /**
-     * Release all resources.
-     */
-    fun release() {
-        try {
-            mediaPlayer?.release()
-            mediaPlayer = null
-            isPlaying = false
-            Log.d(TAG, "MediaPlayer released")
-        } catch (e: Exception) {
-            Log.e(TAG, "Error releasing MediaPlayer", e)
-        }
-    }
-    
-    /**
-     * Get the default system alarm sound.
-     */
-    private fun getDefaultAlarmSound(context: Context): Uri {
-        return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+    private var player: MediaPlayer? = null
+    private var generation = 0L
+
+    fun start(context: Context, requested: Uri?, onStarted: (() -> Unit)? = null) {
+        release()
+        val token = generation
+        val default = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
             ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-            ?: Uri.parse("android.resource://${context.packageName}/raw/default_alarm")
+            ?: return
+        prepare(context, requested ?: default, default, token, requested != null, onStarted)
     }
-    
-    /**
-     * Try to play fallback sound on error.
-     */
-    private fun tryFallbackSound(context: Context) {
+
+    private fun prepare(context: Context, uri: Uri, fallback: Uri, token: Long, mayFallback: Boolean, onStarted: (() -> Unit)?) {
+        if (token != generation) return
+        val media = MediaPlayer()
+        player = media
         try {
-            release()
-            val fallbackUri = getDefaultAlarmSound(context)
-            
-            mediaPlayer = MediaPlayer().apply {
-                setDataSource(context, fallbackUri)
-                
-                val audioAttributes = AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build()
-                
-                setAudioAttributes(audioAttributes)
-                isLooping = true
-                prepare()
-                start()
-                this@AlarmSoundManager.isPlaying = true
-                Log.d(TAG, "Fallback sound started")
+            media.setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build())
+            media.setDataSource(context, uri)
+            media.isLooping = true
+            media.setOnPreparedListener { prepared ->
+                if (token == generation && player === prepared) { prepared.start(); onStarted?.invoke() }
             }
-        } catch (e: Exception) {
-            Log.e(TAG, "Failed to start fallback sound", e)
+            media.setOnErrorListener { failed, _, _ ->
+                if (token == generation && player === failed) {
+                    failed.release(); player = null
+                    if (mayFallback) prepare(context, fallback, fallback, token, false, onStarted)
+                    else AlarmDiagnostics.record(context, "audio", result = "media_error")
+                }
+                true
+            }
+            media.prepareAsync()
+        } catch (error: Exception) {
+            media.release()
+            if (player === media) player = null
+            if (mayFallback && token == generation) prepare(context, fallback, fallback, token, false, onStarted)
+            else AlarmDiagnostics.record(context, "audio", result = error.javaClass.simpleName)
         }
+    }
+    fun stop() = release()
+    fun release() {
+        generation++
+        player?.let { media -> media.setOnPreparedListener(null); media.setOnErrorListener(null); media.release() }
+        player = null
     }
 }

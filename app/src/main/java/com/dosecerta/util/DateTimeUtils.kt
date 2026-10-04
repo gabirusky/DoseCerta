@@ -1,6 +1,7 @@
 package com.dosecerta.util
 
 import java.text.SimpleDateFormat
+import java.text.DateFormat
 import java.util.*
 import java.util.Calendar
 
@@ -33,7 +34,7 @@ object DateTimeUtils {
     fun formatTime(timeInMinutes: Int): String {
         val hours = timeInMinutes / 60
         val minutes = timeInMinutes % 60
-        return String.format("%02d:%02d", hours, minutes)
+        return String.format(Locale.getDefault(), "%02d:%02d", hours, minutes)
     }
     
     /**
@@ -63,9 +64,8 @@ object DateTimeUtils {
     /**
      * Format timestamp to date and time string.
      */
-    fun formatDateTime(timestamp: Long): String {
-        val sdf = SimpleDateFormat("dd/MM/yyyy, HH:mm", Locale("pt", "BR"))
-        return sdf.format(Date(timestamp))
+    fun formatDateTime(timestamp: Long, locale: Locale = Locale.getDefault()): String {
+        return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale).format(Date(timestamp))
     }
     
     /**

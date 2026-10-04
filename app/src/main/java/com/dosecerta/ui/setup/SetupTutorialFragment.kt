@@ -66,6 +66,7 @@ class SetupTutorialFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         settingsPreferences = SettingsPreferences(requireContext())
+        currentStep = savedInstanceState?.getInt("tutorial_step", 0)?.coerceIn(0, tutorialSteps.lastIndex) ?: requireActivity().getPreferences(android.content.Context.MODE_PRIVATE).getInt("tutorial_step", 0).coerceIn(0, tutorialSteps.lastIndex)
         
         // The included card layout is already bound
         cardBinding = binding.tutorialCard
@@ -79,7 +80,13 @@ class SetupTutorialFragment : Fragment() {
         
         cardBinding.textTitle.setText(step.titleRes)
         cardBinding.textDescription.setText(step.descriptionRes)
+        cardBinding.imageTutorialIcon.setImageResource(when (currentStep) {
+            0 -> R.drawable.ic_home
+            1 -> R.drawable.ic_medications
+            else -> R.drawable.ic_notifications
+        })
         
+        cardBinding.textProgress.text = getString(R.string.ui_setup_progress, currentStep + 1, tutorialSteps.size)
         updateIndicators()
         updateButtonText()
     }
@@ -93,9 +100,9 @@ class SetupTutorialFragment : Fragment() {
         indicators.forEachIndexed { index, view ->
             view.setBackgroundResource(
                 if (index == currentStep) {
-                    R.drawable.indicator_dot_white_selected
+                    R.drawable.indicator_dot_selected
                 } else {
-                    R.drawable.indicator_dot_white_unselected
+                    R.drawable.indicator_dot_unselected
                 }
             )
         }
@@ -118,13 +125,15 @@ class SetupTutorialFragment : Fragment() {
                 completeSetup()
             } else {
                 currentStep++
+                requireActivity().getPreferences(android.content.Context.MODE_PRIVATE).edit().putInt("tutorial_step", currentStep).apply()
                 updateCardContent()
             }
         }
     }
     
     private fun completeSetup() {
-        lifecycleScope.launch {
+        cardBinding.buttonAction.isEnabled = false
+        viewLifecycleOwner.lifecycleScope.launch {
             // Mark setup as completed
             settingsPreferences.setSetupCompleted()
             
@@ -136,6 +145,11 @@ class SetupTutorialFragment : Fragment() {
         }
     }
     
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt("tutorial_step", currentStep)
+        super.onSaveInstanceState(outState)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -1,0 +1,81 @@
+
+com.dosecerta.ui.FullJourneyInstrumentedTest:
+Error in firstUseFutureDoseRealAlarmAndPersistedOutcome(com.dosecerta.ui.FullJourneyInstrumentedTest):
+java.lang.RuntimeException: java.lang.NoSuchMethodException: android.hardware.input.InputManager.getInstance []
+	at androidx.test.espresso.base.InputManagerEventInjectionStrategy.initialize(InputManagerEventInjectionStrategy.java:28)
+	at androidx.test.espresso.base.BaseLayerModule.provideEventInjector(BaseLayerModule.java:4)
+	at androidx.test.espresso.base.BaseLayerModule_ProvideEventInjectorFactory.provideEventInjector(BaseLayerModule_ProvideEventInjectorFactory.java:1)
+	at androidx.test.espresso.base.BaseLayerModule_ProvideEventInjectorFactory.get(BaseLayerModule_ProvideEventInjectorFactory.java:1)
+	at androidx.test.espresso.base.BaseLayerModule_ProvideEventInjectorFactory.get(BaseLayerModule_ProvideEventInjectorFactory.java:2)
+	at androidx.test.espresso.core.internal.deps.dagger.internal.DoubleCheck.get(DoubleCheck.java:6)
+	at androidx.test.espresso.base.UiControllerImpl_Factory.get(UiControllerImpl_Factory.java:1)
+	at androidx.test.espresso.base.UiControllerImpl_Factory.get(UiControllerImpl_Factory.java:2)
+	at androidx.test.espresso.core.internal.deps.dagger.internal.DoubleCheck.get(DoubleCheck.java:6)
+	at androidx.test.espresso.base.UiControllerModule_ProvideUiControllerFactory.get(UiControllerModule_ProvideUiControllerFactory.java:1)
+	at androidx.test.espresso.base.UiControllerModule_ProvideUiControllerFactory.get(UiControllerModule_ProvideUiControllerFactory.java:2)
+	at androidx.test.espresso.core.internal.deps.dagger.internal.DoubleCheck.get(DoubleCheck.java:6)
+	at androidx.test.espresso.DaggerBaseLayerComponent$ViewInteractionComponentImpl.viewInteraction(DaggerBaseLayerComponent.java:1)
+	at androidx.test.espresso.Espresso.onView(Espresso.java:3)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.scrollTo(FullJourneyInstrumentedTest.kt:70)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.onboarding(FullJourneyInstrumentedTest.kt:94)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.onboarding$default(FullJourneyInstrumentedTest.kt:92)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest$firstUseFutureDoseRealAlarmAndPersistedOutcome$1.invokeSuspend(FullJourneyInstrumentedTest.kt:152)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.firstUseFutureDoseRealAlarmAndPersistedOutcome(FullJourneyInstrumentedTest.kt:142)
+	... 32 trimmed
+Caused by: java.lang.NoSuchMethodException: android.hardware.input.InputManager.getInstance []
+	at java.lang.Class.getMethod(Class.java:2934)
+	at java.lang.Class.getDeclaredMethod(Class.java:2913)
+	at androidx.test.espresso.base.InputManagerEventInjectionStrategy.initialize(InputManagerEventInjectionStrategy.java:5)
+	... 59 more
+
+
+Time: 3.836
+There was 1 failure:
+1) firstUseFutureDoseRealAlarmAndPersistedOutcome(com.dosecerta.ui.FullJourneyInstrumentedTest)
+java.lang.RuntimeException: java.lang.NoSuchMethodException: android.hardware.input.InputManager.getInstance []
+	at androidx.test.espresso.base.InputManagerEventInjectionStrategy.initialize(InputManagerEventInjectionStrategy.java:28)
+	at androidx.test.espresso.base.BaseLayerModule.provideEventInjector(BaseLayerModule.java:4)
+	at androidx.test.espresso.base.BaseLayerModule_ProvideEventInjectorFactory.provideEventInjector(BaseLayerModule_ProvideEventInjectorFactory.java:1)
+	at androidx.test.espresso.base.BaseLayerModule_ProvideEventInjectorFactory.get(BaseLayerModule_ProvideEventInjectorFactory.java:1)
+	at androidx.test.espresso.base.BaseLayerModule_ProvideEventInjectorFactory.get(BaseLayerModule_ProvideEventInjectorFactory.java:2)
+	at androidx.test.espresso.core.internal.deps.dagger.internal.DoubleCheck.get(DoubleCheck.java:6)
+	at androidx.test.espresso.base.UiControllerImpl_Factory.get(UiControllerImpl_Factory.java:1)
+	at androidx.test.espresso.base.UiControllerImpl_Factory.get(UiControllerImpl_Factory.java:2)
+	at androidx.test.espresso.core.internal.deps.dagger.internal.DoubleCheck.get(DoubleCheck.java:6)
+	at androidx.test.espresso.base.UiControllerModule_ProvideUiControllerFactory.get(UiControllerModule_ProvideUiControllerFactory.java:1)
+	at androidx.test.espresso.base.UiControllerModule_ProvideUiControllerFactory.get(UiControllerModule_ProvideUiControllerFactory.java:2)
+	at androidx.test.espresso.core.internal.deps.dagger.internal.DoubleCheck.get(DoubleCheck.java:6)
+	at androidx.test.espresso.DaggerBaseLayerComponent$ViewInteractionComponentImpl.viewInteraction(DaggerBaseLayerComponent.java:1)
+	at androidx.test.espresso.Espresso.onView(Espresso.java:3)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.scrollTo(FullJourneyInstrumentedTest.kt:70)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.onboarding(FullJourneyInstrumentedTest.kt:94)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.onboarding$default(FullJourneyInstrumentedTest.kt:92)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest$firstUseFutureDoseRealAlarmAndPersistedOutcome$1.invokeSuspend(FullJourneyInstrumentedTest.kt:152)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.firstUseFutureDoseRealAlarmAndPersistedOutcome(FullJourneyInstrumentedTest.kt:142)
+	... 32 trimmed
+Caused by: java.lang.NoSuchMethodException: android.hardware.input.InputManager.getInstance []
+	at java.lang.Class.getMethod(Class.java:2934)
+	at java.lang.Class.getDeclaredMethod(Class.java:2913)
+	at androidx.test.espresso.base.InputManagerEventInjectionStrategy.initialize(InputManagerEventInjectionStrategy.java:5)
+	... 59 more
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

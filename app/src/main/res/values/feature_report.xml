@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="report_no_data">Sem dados</string>
+    <string name="report_adherence">Adesão do período: %s</string>
+    <string name="report_action_failed">Não foi possível salvar. Tente novamente.</string>
+    <string name="report_taken_time">Hora da tomada</string>
+    <string name="report_taken_date">Data da tomada</string>
+    <string name="report_saved">Relatório salvo</string>
+    <string name="report_saved_destination">Arquivo: %1$s\nDestino: %2$s</string>
+    <string name="report_selected_destination">Local escolhido no seletor de arquivos</string>
+    <string name="report_share">Compartilhar</string>
+    <string name="report_retry">Tentar novamente</string>
+    <string name="report_interrupted">A exportação foi interrompida. Escolha o destino novamente.</string>
+    <string name="report_failed_cleanup">Não foi possível salvar. Se houver um arquivo parcial no destino, remova-o antes de tentar novamente.</string>
+    <string name="report_no_viewer">Nenhum leitor de PDF disponível. Você pode compartilhar o arquivo.</string>
+    <string name="report_access_lost">O provedor não permitiu abrir o arquivo. Escolha o destino novamente.</string>
+    <string name="report_edit_record">Editar registro</string>
+    <string name="report_status_pending">Pendente</string>
+    <string name="report_scheduled_time">Previsto: %s</string>
+    <string name="report_actual_time">Tomado: %s</string>
+</resources>

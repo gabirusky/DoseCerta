@@ -17,10 +17,13 @@ import com.dosecerta.data.local.entity.*
     entities = [
         Medication::class,
         Schedule::class,
-        MedicationLog::class
+        MedicationLog::class,
+        OccurrenceSuppression::class,
+        ReconciliationCheckpoint::class,
+        MedicationSaveReceipt::class
     ],
-    version = 3,
-    exportSchema = false
+    version = 4,
+    exportSchema = true
 )
 @TypeConverters(
     MedicationTypeConverters::class,
@@ -36,6 +39,9 @@ abstract class DoseCertaDatabase : RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: DoseCertaDatabase? = null
+
+        /** Compatibility for repository callers that already obtained this singleton's three DAOs. */
+        fun initializedInstance(): DoseCertaDatabase? = INSTANCE
         
         fun getDatabase(context: Context): DoseCertaDatabase {
             return INSTANCE ?: synchronized(this) {
@@ -44,7 +50,7 @@ abstract class DoseCertaDatabase : RoomDatabase() {
                     DoseCertaDatabase::class.java,
                     "dose_certa_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    .addMigrations(OccurrenceMigration.FROM_1_TO_2, OccurrenceMigration.FROM_2_TO_3, OccurrenceMigration.FROM_3_TO_4)
                     .build()
                 INSTANCE = instance
                 instance

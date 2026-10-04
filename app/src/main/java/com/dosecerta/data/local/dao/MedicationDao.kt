@@ -3,6 +3,7 @@ package com.dosecerta.data.local.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.dosecerta.data.local.entity.Medication
+import com.dosecerta.data.local.entity.MedicationSaveReceipt
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -13,6 +14,15 @@ interface MedicationDao {
     
     @Query("SELECT * FROM medications WHERE isActive = 1 ORDER BY name ASC")
     fun getAllActiveMedications(): Flow<List<Medication>>
+
+    @Query("SELECT * FROM medications WHERE isActive = 1 ORDER BY name ASC")
+    suspend fun getAllActiveMedicationsSync(): List<Medication>
+
+    @Query("SELECT medicationId FROM medication_save_receipts WHERE requestId = :requestId")
+    suspend fun getSavedMedicationId(requestId: String): Long?
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertSaveReceipt(receipt: MedicationSaveReceipt)
     
     @Query("SELECT * FROM medications WHERE id = :id")
     fun getMedicationById(id: Long): Flow<Medication?>
@@ -26,7 +36,7 @@ interface MedicationDao {
     @Query("SELECT COUNT(*) FROM medications WHERE isActive = 1")
     fun getActiveMedicationCount(): Flow<Int>
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(medication: Medication): Long
     
     @Update

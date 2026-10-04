@@ -1,0 +1,205 @@
+--------- beginning of main
+10-04 10:29:44.681  6123  6123 E Finsky  : [2] bvjl failed GRPC call!
+10-04 10:29:44.681  6123  6123 E Finsky  : java.lang.UnsupportedOperationException: Unauth not supported in gRPC BrowseService.
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at adny.c(PG:201)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at adnw.b(PG:309)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at adnw.a(PG:54)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at cihs.U(PG:15)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at chcd.g(PG:29)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at chcd.h(PG:12)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at adnx.b(PG:37)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at adnx.kJ(PG:23)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at tyi.b(PG:25)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at ciaq.x(PG:5)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at ciib.run(PG:109)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1154)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:652)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at ule.run(PG:414)
+10-04 10:29:44.681  6123  6123 E Finsky  : 	at java.lang.Thread.run(Thread.java:1563)
+10-04 10:29:44.703  6123  6192 E Finsky  : [58] ItemStore: getItems RPC failed for item com.dosecerta.test
+10-04 10:29:44.739  6810  7411 I FontLog : (REDACTED) Package %s has no metadata
+10-04 10:29:44.740   699  1839 V SafetySourceDataValidat: Package: com.android.vending has expected signature
+10-04 10:29:44.747   699  1839 V SafetySourceDataValidat: Package: com.android.vending has expected signature
+10-04 10:29:44.755  1221  1221 D SatelliteController: packageStateChanged: package:com.dosecerta.test defaultSmsPackageName: com.google.android.apps.messaging satelliteGatewayServicePackageName: 
+10-04 10:29:44.788  7383  7383 D nativeloader: Configuring clns-9 for other apk /data/app/~~sUiHpiqL7wf9cfBdY2aKiQ==/com.dosecerta-j-6gfWJjRh1Oa5VmZDbqjA==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~sUiHpiqL7wf9cfBdY2aKiQ==/com.dosecerta-j-6gfWJjRh1Oa5VmZDbqjA==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.dosecerta
+--------- beginning of system
+10-04 10:29:44.800   699   828 V AccessibilityManagerService: onUserStateChangedLocked for userId: 0, forceUpdate: false
+10-04 10:29:44.801   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_shortcut_target_service, current:{}, new:{}
+10-04 10:29:44.801   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_button_targets, current:{}, new:{}
+10-04 10:29:44.801   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_gesture_targets, current:{}, new:{}
+10-04 10:29:44.801   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_qs_targets, current:{}, new:{}
+10-04 10:29:44.801   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_key_gesture_targets, current:{}, new:{}
+10-04 10:29:44.801   699   828 W MagnificationConnectionManager: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-04 10:29:44.801   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_button_targets, current:{}, new:{}
+10-04 10:29:44.801   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_qs_targets, current:{}, new:{}
+10-04 10:29:44.802   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_shortcut_target_service, current:{}, new:{}
+10-04 10:29:44.802   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_qs_targets, current:{}, new:{}
+10-04 10:29:44.802   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_button_targets, current:{}, new:{}
+10-04 10:29:44.802   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_gesture_targets, current:{}, new:{}
+10-04 10:29:44.802   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_key_gesture_targets, current:{}, new:{}
+10-04 10:29:44.802   699   828 V AccessibilityManagerService: onUserStateChangedLocked for userId: 0, forceUpdate: false
+10-04 10:29:44.803   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_shortcut_target_service, current:{}, new:{}
+10-04 10:29:44.803   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_button_targets, current:{}, new:{}
+10-04 10:29:44.803   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_gesture_targets, current:{}, new:{}
+10-04 10:29:44.803   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_qs_targets, current:{}, new:{}
+10-04 10:29:44.803   699   828 V AccessibilityUserState: updateShortcutTargets: type:accessibility_key_gesture_targets, current:{}, new:{}
+10-04 10:29:44.803   699   828 W MagnificationConnectionManager: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+10-04 10:29:44.805   699   699 W libbinder.IPCThreadState: Sending oneway calls to frozen process.
+10-04 10:29:44.805   699   699 W libbinder.IPCThreadState: Sending oneway calls to frozen process.
+10-04 10:29:44.805   699   699 W libbinder.IPCThreadState: Sending oneway calls to frozen process.
+10-04 10:29:44.805   699   699 W libbinder.IPCThreadState: Sending oneway calls to frozen process.
+10-04 10:29:44.838  7454  7454 W libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: alarm
+10-04 10:29:44.839   699  1164 E RoleControllerServiceImpl: Default/fallback role holder package doesn't qualify for the role, package: com.google.android.gms, role: android.app.role.WALLET, user: 0
+10-04 10:29:44.841   699  1863 D FileUtils: Rounded bytes from 2062843904 to 4000000000
+10-04 10:29:44.845  7383  7383 V GraphicsEnvironment: Currently set values for:
+10-04 10:29:44.847  6810  6905 I Icing   : IndexChimeraService.getServiceInterface callingPackage=com.google.android.gms componentName=ContactsIndexer serviceId=33
+10-04 10:29:44.847  7383  7383 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+10-04 10:29:44.847  7383  7383 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+10-04 10:29:44.847  7383  7383 V GraphicsEnvironment: com.dosecerta is not listed in per-application setting
+10-04 10:29:44.847  7383  7383 V GraphicsEnvironment: ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+10-04 10:29:44.848  7383  7383 V GraphicsEnvironment: No special selections for ANGLE, returning default driver choice
+10-04 10:29:44.850  7383  7383 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+10-04 10:29:44.861  6810  7413 I Fitness : (REDACTED) FitCleanupIntentOperation received Intent %s
+10-04 10:29:44.885  1072  1088 W System  : A resource failed to call release. 
+10-04 10:29:44.885  1072  1088 W System  : A resource failed to call release. 
+10-04 10:29:44.885  1072  1088 W System  : A resource failed to call release. 
+10-04 10:29:44.885  1072  1088 W System  : A resource failed to call release. 
+10-04 10:29:44.885  1072  1088 W System  : A resource failed to call release. 
+10-04 10:29:44.885  1072  1088 W System  : A resource failed to call release. 
+10-04 10:29:44.887   699  1164 W SignedPackage: Cannot get ApplicationInfo for package: com.google.android.devicelockcontroller
+10-04 10:29:44.897  6810  7413 I ProximityAuth: [RecentAppsMediator] Package added: (user=UserHandle{0}) com.dosecerta.test
+10-04 10:29:44.941  6810  7436 I FontLog : (REDACTED) Package %s has no metadata
+10-04 10:29:44.970  6810  7407 I Icing   : Storage manager: low false usage 1.58MB avail 3.83GB capacity 5.80GB
+10-04 10:29:44.995  7468  7468 W libprocessgroup: A JoinCgroup action in the SystemMemoryProcess profile is used for controller memory in the cgroup v2 hierarchy and will be ignored
+10-04 10:29:44.995  7468  7468 W libprocessgroup: SetCgroup::ExecuteForTask: failed to open /dev/cpuctl/top-app/tasks: Permission denied
+10-04 10:29:44.995  7468  7468 W libprocessgroup: SetCgroup::ExecuteForTask: failed to open /dev/blkio/tasks: Permission denied
+10-04 10:29:44.995  7468  7468 E libprocessgroup: set_timerslack_ns write failed: Operation not permitted
+10-04 10:29:45.009  7383  7383 D WM-WrkMgrInitializer: Initializing WorkManager with default configuration.
+10-04 10:29:45.022  6810  7415 I gle.android.gms: Waiting for a blocking GC ClassLinker
+10-04 10:29:45.129  6810  6814 W gle.android.gms: Cleared Reference was only reachable from finalizer (only reported once)
+10-04 10:29:45.168  7383  7383 D WM-PackageManagerHelper: Skipping component enablement for androidx.work.impl.background.systemjob.SystemJobService
+10-04 10:29:45.168  7383  7383 D WM-Schedulers: Created SystemJobScheduler and enabled SystemJobService
+10-04 10:29:45.203  7467  7467 D AndroidRuntime: >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-04 10:29:45.216  5895  6883 W libbinder.Binder: Binder transaction to android.content.IContentProvider code 21 took 1440ms. Data bytes: 468 Reply bytes: 420 Flags: 18
+10-04 10:29:45.216  1342  1941 D WellbeingModel: ....actionId: pause, packages: com.dosecerta
+10-04 10:29:45.216  1342  1941 I WellbeingModel: retrieveActions(): finished
+10-04 10:29:45.217  1342  1941 D WellbeingModel: Changes in apps: intent = [Intent { act=android.intent.action.PACKAGE_REMOVED dat=package: flg=0x4000010 (has extras) }]
+10-04 10:29:45.217  1342  1941 D WellbeingModel: Changes in apps: intent = [Intent { act=android.intent.action.PACKAGE_ADDED dat=package: flg=0x4000010 (has extras) }]
+10-04 10:29:45.217  1342  1941 I WellbeingModel: updateActionsWithRetry(); retryCount: 0, package: com.dosecerta.test
+10-04 10:29:45.217  1342  1941 D WellbeingModel: retrieveActions() called with: packageNames = [com.dosecerta.test]
+10-04 10:29:45.241  7467  7467 I AndroidRuntime: Using default boot image
+10-04 10:29:45.241  7467  7467 I AndroidRuntime: Leaving lock profiling enabled
+10-04 10:29:45.251  7467  7467 I app_process: Using CollectorTypeCMC GC.
+10-04 10:29:45.274  6810  7415 I gle.android.gms: WaitForGcToComplete blocked ClassLinker on Background for 252.057ms
+10-04 10:29:45.287  1342  2251 W HWUI    : Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+10-04 10:29:45.287  1342  2251 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+10-04 10:29:45.293  1707  7471 I AiAiEcho: AppIndexer Package:[com.dosecerta] UserProfile:[0] Enabled:[true].
+10-04 10:29:45.293  1707  7471 I AiAiEcho: AppFetcherImplV2 updateApps package:[com.dosecerta], userId:[0], reason:[package is updated.].
+10-04 10:29:45.313  1342  1371 D AlphabeticIndexCompat: computeSectionName: cs: Dose Certa sectionName: D
+10-04 10:29:45.315  1342  1342 D AllAppsStore: setApps: apps.length=20
+10-04 10:29:45.315  1342  1342 D AllAppsStore: notifyUpdate: notifying listeners
+10-04 10:29:45.315  1342  1342 D ActivityAllAppsContainerView: onAppsUpdated; number of apps: 20
+10-04 10:29:45.315  1342  1342 D ActivityAllAppsContainerView: rebindAdapters: force: false
+10-04 10:29:45.315  1342  1342 D ActivityAllAppsContainerView: rebindAdapters: Not needed.
+10-04 10:29:45.315  1342  1342 D StatsLog: LAUNCHER_ALLAPPS_COUNT
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: Clearing FastScrollerSections.
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: Adding apps with sections. HasPrivateApps: false
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: C with appInfoTitle: Calendar
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: D with appInfoTitle: Dose Certa
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: F with appInfoTitle: Files
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: G with appInfoTitle: Gmail
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: M with appInfoTitle: Maps
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: P with appInfoTitle: Phone
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: S with appInfoTitle: Safety
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TMoble
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: Y with appInfoTitle: YouTube
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: Adding FastScrollSection duplicate to scroll to the bottom.
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: Clearing FastScrollerSections.
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: Adding apps with sections. HasPrivateApps: false
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: C with appInfoTitle: Calendar
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: D with appInfoTitle: Dose Certa
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: F with appInfoTitle: Files
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: G with appInfoTitle: Gmail
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: M with appInfoTitle: Maps
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: P with appInfoTitle: Phone
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: S with appInfoTitle: Safety
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TMoble
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: Y with appInfoTitle: YouTube
+10-04 10:29:45.316  1342  1342 D AlphabeticalAppsList: Adding FastScrollSection duplicate to scroll to the bottom.
+10-04 10:29:45.357   699  1863 E AppOps  : attributionTag VCN not declared in manifest of android
+10-04 10:29:45.359  1707  7472 I AiAiEcho: AppIndexer Package:[com.dosecerta.test] UserProfile:[0] Enabled:[true].
+10-04 10:29:45.359  1672  1999 W MediaProvider: isAppCloneUserPair for user 0: false
+10-04 10:29:45.363  1707  7472 I AiAiEcho: AppFetcherImplV2 updateApps package:[com.dosecerta.test], userId:[0], reason:[package is updated.].
+10-04 10:29:45.370  7383  7470 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+10-04 10:29:45.384  7460  7460 W SurfaceComposerClient: Invalid layer stack -1
+10-04 10:29:45.385  1342  1941 D WellbeingModel: ....actionId: pause, packages: com.dosecerta.test
+10-04 10:29:45.385  1342  1941 I WellbeingModel: retrieveActions(): finished
+10-04 10:29:45.385  7460  7460 D ScreenRecord: failed
+10-04 10:29:45.390  7383  7383 D ActivityThread: Package [com.dosecerta.test] reported as REPLACED, but missing application info. Assuming REMOVED.
+10-04 10:29:45.396  7383  7383 D ActivityThread: Package [com.dosecerta.test] reported as REPLACED, but missing application info. Assuming REMOVED.
+10-04 10:29:45.502  7383  7474 I DoseCertaAlarm: reconcile - begin
+10-04 10:29:45.508  7383  7476 I DoseCertaAlarm: reconcile - begin
+10-04 10:29:45.512  6810  7407 D nativeloader: Load /data/app/~~fRXbpWnfgdckYV8Yn221dw==/com.google.android.gms-HCiFhMiERAdbQmCt_ZYKMg==/base.apk!/lib/x86_64/libAppDataSearch.so using class loader ns clns-10 (caller=/data/app/~~fRXbpWnfgdckYV8Yn221dw==/com.google.android.gms-HCiFhMiERAdbQmCt_ZYKMg==/base.apk): ok
+10-04 10:29:45.542   699  1141 I ActivityManager: Force stopping com.dosecerta appid=10227 user=0: from pid 7488
+10-04 10:29:45.546  6810  7415 I GmsModuleInitializer: Using ContainerGservicesDelegate
+10-04 10:29:45.553   699  1141 E ActivityManager: Unable to freeze binder for 7383: -11
+10-04 10:29:45.560   699  1141 I ActivityManager: Killing 7383:com.dosecerta/u0a227 (adj 0): stop com.dosecerta due to from pid 7488
+10-04 10:29:45.571   699  1141 I AppsFilter: interaction: PackageSetting{fd41c2b com.android.microdroid.empty_payload/10209} -> PackageSetting{38a83fa com.dosecerta/10227} BLOCKED
+10-04 10:29:45.581   497   497 I Zygote  : Process 7383 exited due to signal 9 (Killed)
+10-04 10:29:45.581  1359  1359 I adbd    : Remote process closed the socket (on MSG_PEEK)
+10-04 10:29:45.585   699   715 V ActivityManager: Got obituary of 7383:com.dosecerta
+10-04 10:29:45.585  1221  1221 D CarrierSvcBindHelper: onHandleForceStop: [com.dosecerta]
+10-04 10:29:45.591  1221  1221 D CarrierSvcBindHelper: No carrier app for: 0
+10-04 10:29:45.615  7493  7493 W libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: alarm
+10-04 10:29:45.622   699   732 I libprocessgroup: Removed cgroup /sys/fs/cgroup/apps/uid_10227/pid_7383
+10-04 10:29:45.622  6810  7407 W native  : W0000 00:00:1791120585.622513    7407 model-utils.cc:17] No CRC32, most likely an old model; skip CRC32 check
+10-04 10:29:45.626  6810  7407 I native  : I0000 00:00:1791120585.626275    7407 permission-checker.cc:82] Creating PermissionChecker based on ACL with config_version 1 having 9 permissions defined.
+10-04 10:29:45.644  6810  7407 W native  : W0000 00:00:1791120585.644562    7407 words-map.cc:34] INVALID_ARGUMENT: Empty URI
+10-04 10:29:45.646  6810  7407 W native  : W0000 00:00:1791120585.646788    7407 words-map.cc:38] WordsMap was not properly initialized
+10-04 10:29:45.662  6810  7417 I Auth    : (REDACTED) [SupervisedAccountIntentOperation] onHandleIntent: %s
+10-04 10:29:45.665  7496  7496 W libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: notification
+10-04 10:29:45.673  6810  6823 W gle.android.gms: Verification of boolean m58.awn.handleMessage(android.os.Message) took 146.491ms (7167.67 bytecodes/s) (0B arena alloc)
+10-04 10:29:45.706  6810  7417 I FraudProtectUtils: Not in testing population, skipping local test bank apps. [CONTEXT service_id=469 ]
+10-04 10:29:45.708  6810  7417 I FraudProtectUtils: (REDACTED) Latest bank app list size: %d, %s isBankApp: false
+10-04 10:29:45.709  6810  7500 W AppInstallOperation: FDL Migration::InstallIntentOperation by FDL Module [CONTEXT service_id=77 ]
+10-04 10:29:45.710  6810  7417 I PackageInstallIntentOp: (REDACTED) Package %s is not a bank app. Skipping updates.
+10-04 10:29:45.719  1707  1715 W ogle.android.as: Suspending all threads took: 5.426ms
+10-04 10:29:45.725  6810  6810 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS xflg=0x4 pkg=com.google.android.gms }
+10-04 10:29:45.725  6810  6810 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS xflg=0x4 pkg=com.google.android.gms }
+10-04 10:29:45.748  6810  7418 I NearbyDiscovery: (REDACTED) processGrantSlicePermission: %s
+10-04 10:29:45.761  7502  7502 W libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: activity
+10-04 10:29:45.800  6810  7504 W SQLiteLog: (28) double-quoted string literal: "com.dosecerta"
+10-04 10:29:45.832  6810  7418 I AppBackupStateCleanupIO: Backup state cleanup on uninstall is disabled. [CONTEXT service_id=229 ]
+10-04 10:29:45.833  6810  7511 I FraudProtectUtils: Not in testing population, skipping local test bank apps. [CONTEXT service_id=469 ]
+10-04 10:29:45.844  6810  7511 I FraudProtectUtils: (REDACTED) Latest bank app list size: %d, %s isBankApp: false
+10-04 10:29:45.847  6810  7511 I PackageInstallIntentOp: (REDACTED) Package %s is not a bank app. Skipping updates.
+10-04 10:29:45.848  6810  7451 I GmscoreIpa: (REDACTED) Using %s flags by method %d
+10-04 10:29:45.860  6810  6814 W gle.android.gms: Suspending all threads took: 6.732ms
+10-04 10:29:45.878  7515  7515 W libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: audio
+10-04 10:29:45.927  6810  7416 I Auth    : (REDACTED) [SupervisedAccountIntentOperation] onHandleIntent: %s
+10-04 10:29:45.933  6810  7500 W AppInstallOperation: FDL Migration::InstallIntentOperation by FDL Module [CONTEXT service_id=77 ]
+10-04 10:29:45.934  6810  7426 I FraudProtectUtils: Not in testing population, skipping local test bank apps. [CONTEXT service_id=469 ]
+10-04 10:29:45.934  6810  7426 I FraudProtectUtils: (REDACTED) Latest bank app list size: %d, %s isBankApp: false
+10-04 10:29:45.934  6810  7426 I PackageInstallIntentOp: (REDACTED) Package %s is not a bank app. Skipping updates.
+10-04 10:29:45.944  6810  7510 I NearbyDiscovery: (REDACTED) processGrantSlicePermission: %s
+10-04 10:29:45.968  6810  6810 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.icing.LIGHTWEIGHT_INDEX_SERVICE dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.PersistentApiService }
+10-04 10:29:45.968  6810  6810 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.icing.LIGHTWEIGHT_INDEX_SERVICE dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.PersistentApiService }
+10-04 10:29:45.976  6810  7407 I Icing   : updateResources: need to parse ctak{com.google.android.gms}
+10-04 10:29:45.980  6810  7426 W SQLiteLog: (28) double-quoted string literal: "com.dosecerta.test"
+10-04 10:29:45.986   699   711 I system_server: Background young concurrent mark compact GC freed 17MB AllocSpace bytes, 21(724KB) LOS objects, 41% free, 32MB/56MB, paused 1.400ms,16.344ms total 230.561ms
+10-04 10:29:46.051  6810  6810 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.feedback.internal.IFeedbackService dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+10-04 10:29:46.051  6810  6810 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.feedback.internal.IFeedbackService dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+10-04 10:29:46.134  6810  7407 I Icing   : Internal init done: storage state 0
+10-04 10:29:46.137  6810  7407 I Icing   : Post-init done
+10-04 10:29:46.141  6810  6902 I Icing   : IndexChimeraService.getServiceInterface callingPackage=com.google.android.gms componentName=null serviceId=30
+10-04 10:29:46.158  1683  1683 D ActivityThread: Package [com.dosecerta] reported as REPLACED, but missing application info. Assuming REMOVED.
+10-04 10:29:46.159  1683  1683 D ActivityThread: Package [com.dosecerta] reported as REPLACED, but missing application info. Assuming REMOVED.
+10-04 10:29:46.159  1683  1683 D ActivityThread: Package [com.dosecerta.test] reported as REPLACED, but missing application info. Assuming REMOVED.
+10-04 10:29:46.159  1683  1683 D ActivityThread: Package [com.dosecerta.test] reported as REPLACED, but missing application info. Assuming REMOVED.
+10-04 10:29:46.160   699  1260 D ActivityManager: sync unfroze 1683 android.process.acore for 7
+10-04 10:29:46.161   699  1026 D BackgroundInstallControlService: Package event received: 0
+10-04 10:29:46.161   699  1026 D BackgroundInstallControlService: Package event received: 0
+10-04 10:29:46.161   699  1026 D BackgroundInstallControlService: Package event received: 0
+10-04 10:29:46.169   699  1026 D BackgroundInstallControlService: Package event received: 0
+10-04 10:29:46.192  6810  7136 I Icing   : IndexChimeraService.getServiceInterface callingPackage=com.google.android.gms componentName=null serviceId=36
+10-04 10:29:46.209  6810  7407 I Icing   : Usage reports ok 0, Failed Usage reports 0, indexed 0, rejected 0

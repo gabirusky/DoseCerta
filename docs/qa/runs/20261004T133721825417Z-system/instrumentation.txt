@@ -1,0 +1,101 @@
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SystemUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.ui.SystemUiInstrumentedTest:
+INSTRUMENTATION_STATUS: test=documentPickerCancellationAndSaveProduceOneReadableGrantedPdf
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SystemUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.SecurityException: No permission grants found for UID 10227 and Uri content://com.android.providers.downloads.documents/...
+	at android.os.Parcel.createExceptionOrNull(Parcel.java:3373)
+	at android.os.Parcel.createException(Parcel.java:3357)
+	at android.os.Parcel.readException(Parcel.java:3340)
+	at android.os.Parcel.readException(Parcel.java:3282)
+	at android.app.IUriGrantsManager$Stub$Proxy.releasePersistableUriPermission(IUriGrantsManager.java:295)
+	at android.content.ContentResolver.releasePersistableUriPermission(ContentResolver.java:2991)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(SystemUiInstrumentedTest.kt:142)
+	... 34 trimmed
+Caused by: android.os.RemoteException: Remote stack trace:
+	at com.android.server.uri.UriGrantsManagerService.releasePersistableUriPermission(UriGrantsManagerService.java:483)
+	at android.app.IUriGrantsManager$Stub.onTransact(IUriGrantsManager.java:164)
+	at android.os.Binder.execTransactInternal(Binder.java:1473)
+	at android.os.Binder.execTransact(Binder.java:1418)
+
+
+INSTRUMENTATION_STATUS: stream=
+Error in documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(com.dosecerta.ui.SystemUiInstrumentedTest):
+java.lang.SecurityException: No permission grants found for UID 10227 and Uri content://com.android.providers.downloads.documents/...
+	at android.os.Parcel.createExceptionOrNull(Parcel.java:3373)
+	at android.os.Parcel.createException(Parcel.java:3357)
+	at android.os.Parcel.readException(Parcel.java:3340)
+	at android.os.Parcel.readException(Parcel.java:3282)
+	at android.app.IUriGrantsManager$Stub$Proxy.releasePersistableUriPermission(IUriGrantsManager.java:295)
+	at android.content.ContentResolver.releasePersistableUriPermission(ContentResolver.java:2991)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(SystemUiInstrumentedTest.kt:142)
+	... 34 trimmed
+Caused by: android.os.RemoteException: Remote stack trace:
+	at com.android.server.uri.UriGrantsManagerService.releasePersistableUriPermission(UriGrantsManagerService.java:483)
+	at android.app.IUriGrantsManager$Stub.onTransact(IUriGrantsManager.java:164)
+	at android.os.Binder.execTransactInternal(Binder.java:1473)
+	at android.os.Binder.execTransact(Binder.java:1418)
+
+
+INSTRUMENTATION_STATUS: test=documentPickerCancellationAndSaveProduceOneReadableGrantedPdf
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SystemUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=backKeyboardRecentsAndRotationKeepDraftAndSafeInsets
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SystemUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Missing app control: edit_name
+	at com.dosecerta.ui.SystemUiInstrumentedTest.find(SystemUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.backKeyboardRecentsAndRotationKeepDraftAndSafeInsets(SystemUiInstrumentedTest.kt:71)
+
+INSTRUMENTATION_STATUS: stream=
+Error in backKeyboardRecentsAndRotationKeepDraftAndSafeInsets(com.dosecerta.ui.SystemUiInstrumentedTest):
+java.lang.AssertionError: Missing app control: edit_name
+	at com.dosecerta.ui.SystemUiInstrumentedTest.find(SystemUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.backKeyboardRecentsAndRotationKeepDraftAndSafeInsets(SystemUiInstrumentedTest.kt:71)
+
+INSTRUMENTATION_STATUS: test=backKeyboardRecentsAndRotationKeepDraftAndSafeInsets
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 36.699
+There were 2 failures:
+1) documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(com.dosecerta.ui.SystemUiInstrumentedTest)
+java.lang.SecurityException: No permission grants found for UID 10227 and Uri content://com.android.providers.downloads.documents/...
+	at android.os.Parcel.createExceptionOrNull(Parcel.java:3373)
+	at android.os.Parcel.createException(Parcel.java:3357)
+	at android.os.Parcel.readException(Parcel.java:3340)
+	at android.os.Parcel.readException(Parcel.java:3282)
+	at android.app.IUriGrantsManager$Stub$Proxy.releasePersistableUriPermission(IUriGrantsManager.java:295)
+	at android.content.ContentResolver.releasePersistableUriPermission(ContentResolver.java:2991)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(SystemUiInstrumentedTest.kt:142)
+	... 34 trimmed
+Caused by: android.os.RemoteException: Remote stack trace:
+	at com.android.server.uri.UriGrantsManagerService.releasePersistableUriPermission(UriGrantsManagerService.java:483)
+	at android.app.IUriGrantsManager$Stub.onTransact(IUriGrantsManager.java:164)
+	at android.os.Binder.execTransactInternal(Binder.java:1473)
+	at android.os.Binder.execTransact(Binder.java:1418)
+
+2) backKeyboardRecentsAndRotationKeepDraftAndSafeInsets(com.dosecerta.ui.SystemUiInstrumentedTest)
+java.lang.AssertionError: Missing app control: edit_name
+	at com.dosecerta.ui.SystemUiInstrumentedTest.find(SystemUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.backKeyboardRecentsAndRotationKeepDraftAndSafeInsets(SystemUiInstrumentedTest.kt:71)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

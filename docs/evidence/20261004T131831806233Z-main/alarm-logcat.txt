@@ -1,0 +1,3 @@
+--------- beginning of main
+10-04 10:17:47.144  5866  6009 I DoseCertaAlarm: reconcile - begin
+10-04 10:17:47.254  5866  6010 I DoseCertaAlarm: reconcile - done

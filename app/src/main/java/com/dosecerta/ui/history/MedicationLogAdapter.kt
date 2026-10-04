@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dosecerta.R
+import com.dosecerta.ui.stackForReadingSize
 import com.dosecerta.data.local.dao.MedicationLogWithDetails
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.databinding.ItemMedicationLogBinding
@@ -40,6 +41,10 @@ class MedicationLogAdapter(
         private var currentItem: MedicationLogWithDetails? = null
         
         init {
+            binding.logDetails.stackForReadingSize()
+            binding.root.setOnClickListener { view -> currentItem?.let { onLongClick(view, it) } }
+            binding.root.isFocusable = true
+            binding.root.contentDescription = binding.root.context.getString(R.string.report_edit_record)
             binding.root.setOnLongClickListener { view ->
                 currentItem?.let { onLongClick(view, it) }
                 true
@@ -55,35 +60,42 @@ class MedicationLogAdapter(
             val displayName = if (log.customMedicationName != null) {
                 log.customMedicationName
             } else {
-                "${logWithDetails.medicationName} (${logWithDetails.dosage} ${logWithDetails.unit})"
+                listOfNotNull(logWithDetails.medicationName, listOfNotNull(logWithDetails.dosage, logWithDetails.unit).joinToString(" ").takeIf { it.isNotBlank() }).joinToString(" • ")
             }
             binding.textMedicationName.text = displayName
             
             // Show actual time taken, or scheduled time if not taken yet
-            val displayTime = log.actualTime ?: log.scheduledTime
-            binding.textDateTime.text = DateTimeUtils.formatDateTime(displayTime)
+            val displayTime = if (log.status == MedicationStatus.TAKEN) log.actualTime ?: log.originalDueAt else log.originalDueAt
+            binding.textDateTime.text = binding.root.context.getString(
+                if (log.status == MedicationStatus.TAKEN) R.string.report_actual_time else R.string.report_scheduled_time,
+                DateTimeUtils.formatDateTime(displayTime, binding.root.resources.configuration.locales[0]))
             
             // Set medication icon color (use default color for custom medications)
             val iconColor = logWithDetails.color ?: 0xFF757575.toInt() // Default gray
-            binding.imageStatusIcon.backgroundTintList = 
-                android.content.res.ColorStateList.valueOf(iconColor)
+            binding.imageStatusIcon.setColorFilter(com.dosecerta.ui.MedicationIcon.color(binding.root.context, iconColor))
+            binding.textStatus.setTextColor(androidx.core.content.ContextCompat.getColor(binding.root.context, when (log.status) {
+                MedicationStatus.TAKEN -> R.color.ui_success
+                MedicationStatus.MISSED -> R.color.ui_error
+                MedicationStatus.SKIPPED -> R.color.ui_warning
+                else -> R.color.ui_on_secondary_container
+            }))
             
             // Status badge
             when (log.status) {
                 MedicationStatus.TAKEN -> {
-                    binding.textStatus.text = "TOMADO"
+                    binding.textStatus.setText(R.string.history_taken)
                     binding.textStatus.setBackgroundResource(R.drawable.status_badge_taken)
                 }
                 MedicationStatus.MISSED -> {
-                    binding.textStatus.text = "PERDIDO"
+                    binding.textStatus.setText(R.string.history_missed)
                     binding.textStatus.setBackgroundResource(R.drawable.status_badge_missed)
                 }
                 MedicationStatus.SKIPPED -> {
-                    binding.textStatus.text = "PULADO"
+                    binding.textStatus.setText(R.string.history_skipped)
                     binding.textStatus.setBackgroundResource(R.drawable.status_badge_skipped)
                 }
                 else -> {
-                    binding.textStatus.text = "PENDENTE"
+                    binding.textStatus.setText(R.string.report_status_pending)
                     binding.textStatus.setBackgroundResource(R.drawable.status_badge_pending)
                 }
             }
@@ -106,4 +118,3 @@ class MedicationLogAdapter(
         }
     }
 }
-

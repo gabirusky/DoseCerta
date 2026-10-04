@@ -15,6 +15,9 @@ interface ScheduleDao {
     
     @Query("SELECT * FROM schedules WHERE medicationId = :medicationId AND isActive = 1")
     suspend fun getSchedulesForMedicationSync(medicationId: Long): List<Schedule>
+
+    @Query("SELECT * FROM schedules WHERE medicationId = :medicationId ORDER BY version DESC, id DESC")
+    suspend fun getScheduleVersionsForMedication(medicationId: Long): List<Schedule>
     
     @Query("SELECT * FROM schedules WHERE id = :id")
     suspend fun getScheduleById(id: Long): Schedule?
@@ -25,10 +28,10 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedules WHERE isActive = 1")
     suspend fun getAllActiveSchedulesSync(): List<Schedule>
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(schedule: Schedule): Long
     
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertAll(schedules: List<Schedule>)
     
     @Update

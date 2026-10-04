@@ -1,0 +1,16 @@
+ M .gitignore
+ M BUILD.md
+ M CONTEXT.md
+ M README.md
+ M build.gradle.kts
+ M gradle/wrapper/gradle-wrapper.properties
+?? PLAN.md
+?? TASKS.md
+?? app/src/main/java/com/dosecerta/domain/
+?? app/src/main/res/values-en/feature_ui.xml
+?? app/src/main/res/values-sw600dp/
+?? app/src/main/res/values/feature_ui.xml
+?? app/src/main/res/values/feature_ui_tokens.xml
+?? docs/
+?? gradle/wrapper/gradle-wrapper.jar
+?? gradlew

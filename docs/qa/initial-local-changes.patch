@@ -1,0 +1,961 @@
+diff --git a/.gitignore b/.gitignore
+index 65d6a84..6d827d1 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -105,6 +105,4 @@ tmp/
+ temp/
+ conversations/
+ SKILL.md
+-PLAN.md
+-TASKS.md
+-RELATORIO.md
+\ No newline at end of file
++RELATORIO.md
+diff --git a/BUILD.md b/BUILD.md
+index d934173..e55fc30 100644
+--- a/BUILD.md
++++ b/BUILD.md
+@@ -1,153 +1,143 @@
+-# Build Instructions for Dose Certa
++# Compilar e executar o Dose Certa
+ 
+-## Prerequisites
++Este guia mostra como abrir o projeto no Android Studio e como compilar,
++instalar e iniciar o aplicativo pelo terminal. O projeto usa Kotlin, Gradle
++8.14, Android Gradle Plugin 8.2.2 e Android SDK API 34. O APK de debug roda em
++Android 8.0 (API 26) ou superior.
+ 
+-You need either:
+-- **Option A**: Android Studio (Recommended)
+-- **Option B**: Command line with JDK 17+
++## Pré-requisitos
+ 
+-## Option A: Build with Android Studio (Recommended)
++- Android Studio com Android SDK Platform 34 e Android SDK Build-Tools instalados.
++- Um emulador Android configurado no Device Manager ou um celular Android com
++  depuração USB ativada.
++- Um JDK compatível com o Gradle 8.14. Os comandos Linux abaixo usam o JDK 21
++  incluído na instalação local do Android Studio.
++- Acesso à internet na primeira compilação para baixar o Gradle e as
++  dependências. Depois, elas ficam no cache local.
+ 
+-This is the easiest method and handles all dependencies automatically.
++O repositório inclui `gradlew` (Linux/macOS), `gradlew.bat` (Windows) e o JAR
++do Gradle Wrapper. Não é necessário instalar o Gradle separadamente.
+ 
+-### Steps:
++Se ainda não tiver o projeto, obtenha-o e entre na pasta:
+ 
+-1. **Install Android Studio**
+-   - Download from: https://developer.android.com/studio
+-   - Install with default settings
+-   - Launch Android Studio
+-
+-2. **Open Project**
+-   ```
+-   File → Open → Select d:\Code\DoseCerta folder
+-   ```
++```bash
++git clone https://github.com/gabirusky/DoseCerta.git
++cd DoseCerta
++```
+ 
+-3. **Wait for Sync**
+-   - Android Studio will automatically:
+-     - Download Gradle wrapper JAR
+-     - Download all dependencies
+-     - Build the project
+-   - This takes 2-5 minutes on first run
++## Abrir no Android Studio
++
++1. Abra a pasta raiz do projeto pelo menu **File → Open**. Nesta máquina Linux,
++   o comando `studio .`, executado dentro da pasta do projeto, faz o mesmo.
++2. Aguarde o Gradle Sync. Em **Settings → Languages & Frameworks → Android SDK**,
++   instale a plataforma Android 34, o SDK Build-Tools e o Emulator se estiverem
++   faltando. Se o Studio pedir a localização do SDK, selecione a pasta onde ele
++   foi instalado; nesta máquina é `$HOME/Android/Sdk`.
++3. Confira em **Settings → Build, Execution, Deployment → Build Tools → Gradle**
++   se o **Gradle JDK** aponta para o JDK incluído no Studio ou outro JDK
++   compatível.
++4. Abra o **Device Manager**. Crie um dispositivo virtual com uma imagem Android
++   se ainda não houver um, então inicie-o. Como alternativa, conecte um celular
++   com depuração USB e autorize a conexão na tela do aparelho.
++5. Selecione o módulo **app** e o dispositivo na barra superior. Clique em
++   **Run** para compilar, instalar e iniciar o aplicativo.
++
++## Linux: compilar pelo Bash
++
++Na raiz do projeto, configure o Java usado pelo Gradle. O caminho abaixo é o
++da instalação do Android Studio nesta máquina; ajuste-o se necessário.
++
++```bash
++cd /home/gabirusky/Code/DoseCerta
++export JAVA_HOME="$HOME/Programs/android-studio/jbr"
++export PATH="$HOME/Android/Sdk/platform-tools:$PATH"
++./gradlew assembleDebug
++```
+ 
+-4. **Build Project**
+-   ```
+-   Build → Make Project (or Ctrl+F9)
+-   ```
++O APK gerado fica em `app/build/outputs/apk/debug/app-debug.apk`. Para apenas
++conferir a versão do Java selecionada, execute `"$JAVA_HOME/bin/java" -version`.
++O Java padrão deste terminal é 25; por isso, mantenha `JAVA_HOME` apontando
++para o JDK do Studio ao usar o wrapper.
+ 
+-5. **Run on Emulator/Device**
+-   ```
+-   Run → Run 'app' (or Shift+F10)
+-   ```
++### Configurar o Android SDK
+ 
+-### Troubleshooting Android Studio
++O Android Studio costuma criar `local.properties` automaticamente. Se o
++Gradle informar que não encontrou o SDK, crie esse arquivo na raiz do projeto
++com o caminho da sua instalação. Exemplo para esta máquina:
+ 
+-**"Gradle sync failed"**
+-- Click "Try Again" button
+-- Or: File → Invalidate Caches → Invalidate and Restart
++```properties
++sdk.dir=/home/gabirusky/Android/Sdk
++```
+ 
+-**"SDK not found"**
+-- File → Settings → Appearance & Behavior → System Settings → Android SDK
+-- Install Android 13.0 (API 33) and Android 14.0 (API 34)
++Esse caminho é local e deve ser ajustado em outros computadores.
+ 
+-**"Build failed"**
+-- Check build output for specific errors
+-- Verify Java 17+ is installed
++## Linux: iniciar um dispositivo e executar
+ 
+----
++Para listar os emuladores disponíveis:
+ 
+-## Option B: Build from Command Line
++```bash
++$HOME/Android/Sdk/emulator/emulator -list-avds
++```
+ 
+-Requires Java Development Kit (JDK) 17 or newer.
++Nesta máquina, o emulador configurado se chama `Medium_Phone_API_36.1`.
++Inicie-o em outro terminal e aguarde a tela inicial do Android:
+ 
+-### 1. Check Java Version
+-```powershell
+-java -version
++```bash
++$HOME/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36.1
+ ```
+-Should show version 17 or higher. If not, install from: https://adoptium.net/
+ 
+-### 2. Download Gradle Wrapper JAR
++Como alternativa, conecte um celular com depuração USB ativada. No terminal
++do projeto, verifique se o dispositivo aparece, instale o APK e abra a
++atividade principal:
+ 
+-The gradle-wrapper.jar file is missing (it's a binary file). You need to either:
+-
+-**A. Get it from another Gradle project:**
+-```powershell
+-# Copy from another Android project
+-copy "C:\path\to\another\project\gradle\wrapper\gradle-wrapper.jar" "d:\Code\DoseCerta\gradle\wrapper\"
++```bash
++adb devices
++adb install -r app/build/outputs/apk/debug/app-debug.apk
++adb shell am start -n com.dosecerta/.ui.MainActivity
+ ```
+ 
+-**B. Or download directly:**
+-1. Download from: https://raw.githubusercontent.com/gradle/gradle/master/gradle/wrapper/gradle-wrapper.jar
+-2. Save to: `d:\Code\DoseCerta\gradle\wrapper\gradle-wrapper.jar`
++O `-r` reinstala o aplicativo preservando seus dados locais. Se houver mais
++de um dispositivo na saída de `adb devices`, adicione `-s SERIAL` a cada
++comando `adb`, usando o número exibido na primeira coluna.
+ 
+-### 3. Build the Project
+-```powershell
+-cd d:\Code\DoseCerta
++Para compilar e instalar em um único passo, com um dispositivo conectado,
++também é possível usar `./gradlew installDebug`. Depois, execute o comando
++`adb shell am start` acima.
+ 
+-# Build debug APK
+-.\gradlew.bat assembleDebug
++## Windows
+ 
+-# Build release APK
+-.\gradlew.bat assembleRelease
+-```
++Abra a pasta no Android Studio, configure o SDK e um emulador ou celular como
++descrito acima. No PowerShell, na raiz do projeto, selecione o JDK do Studio
++(ajuste o caminho para sua instalação) e execute:
+ 
+-### 4. Find the APK
+-```
+-app\build\outputs\apk\debug\app-debug.apk
+-```
+-
+-### 5. Install on Device
+ ```powershell
+-# If you have ADB installed
+-adb install app\build\outputs\apk\debug\app-debug.apk
++$env:JAVA_HOME = "C:\Program Files\Android\Android Studio\jbr"
++$env:Path = "$env:LOCALAPPDATA\Android\Sdk\platform-tools;$env:Path"
++.\gradlew.bat assembleDebug
++adb devices
++adb install -r app\build\outputs\apk\debug\app-debug.apk
++adb shell am start -n com.dosecerta/.ui.MainActivity
+ ```
+ 
+----
+-
+-## Common Issues
+-
+-### Issue: "gradlew.bat is not recognized"
+-**Solution**: Make sure you're in the `d:\Code\DoseCerta` directory
++Se o SDK não for localizado automaticamente, configure `local.properties` com
++o caminho do SDK do seu usuário, por exemplo:
+ 
+-### Issue: "Could not find or load main class org.gradle.wrapper.GradleWrapperMain"
+-**Solution**: The gradle-wrapper.jar is missing. Download it (see Option B, step 2)
+-
+-### Issue: "SDK location not found"
+-**Solution**: Create `local.properties` file:
+ ```properties
+-sdk.dir=C\:\\Users\\YOUR_USERNAME\\AppData\\Local\\Android\\Sdk
++sdk.dir=C\:\\Users\\SEU_USUARIO\\AppData\\Local\\Android\\Sdk
+ ```
+-Replace YOUR_USERNAME with your Windows username.
+-
+-### Issue: "Execution failed for task ':app:compileDebugKotlin'"
+-**Solution**: 
+-1. Clean the project: `.\gradlew.bat clean`
+-2. Rebuild: `.\gradlew.bat assembleDebug`
+-
+----
+-
+-## Recommended: Use Android Studio
+-
+-Building Android apps from command line can be complex. **Android Studio is strongly recommended** because it:
+-- ✅ Handles all Gradle setup automatically
+-- ✅ Provides visual debugging tools
+-- ✅ Shows build errors clearly
+-- ✅ Includes Android emulator
+-- ✅ Has code completion and refactoring
+-- ✅ Manages SDK versions automatically
+-
+----
+-
+-## Next Steps After Building
+-
+-1. **Test the App**: Run on emulator or device
+-2. **Check All Screens**: Navigate through Início, Histórico, Medicamentos
+-3. **Test Dark Mode**: Change system theme to dark mode
+-4. **Load Test Data**: Add sample medications to test the UI
+-5. **Review Code**: Explore the codebase in Android Studio
+-
+----
+ 
+-**Need Help?**
+-- Android Studio docs: https://developer.android.com/studio/intro
+-- Gradle docs: https://docs.gradle.org/
+-- Kotlin docs: https://kotlinlang.org/docs/
++## Problemas comuns
++
++| Mensagem ou sintoma | O que verificar |
++| --- | --- |
++| `SDK location not found` | Confira o caminho `sdk.dir` em `local.properties` e a instalação da plataforma Android 34. |
++| `JAVA_HOME is set to an invalid directory` | Ajuste `JAVA_HOME` para a pasta do JDK, sem `/bin` no final. |
++| Erro de versão do Java ou do Gradle | Use o JDK configurado no Android Studio; nesta máquina, `~/Programs/android-studio/jbr`. |
++| `adb devices` mostra `unauthorized` | Desbloqueie o celular e aceite a autorização de depuração USB. |
++| `adb devices` não mostra nenhum dispositivo | Inicie o emulador ou confira o cabo USB e a depuração USB do celular. |
++| `more than one device/emulator` | Escolha um dispositivo com `adb -s SERIAL ...`. |
++| O primeiro build falha ao baixar dependências | Verifique a conexão com a internet e repita `./gradlew assembleDebug` (ou `gradlew.bat` no Windows). |
++
++Para ver detalhes de uma falha de compilação, execute
++`./gradlew assembleDebug --stacktrace` no Linux ou
++`.\gradlew.bat assembleDebug --stacktrace` no Windows.
+diff --git a/CONTEXT.md b/CONTEXT.md
+index 65c4357..93c4350 100644
+--- a/CONTEXT.md
++++ b/CONTEXT.md
+@@ -1,410 +1,243 @@
+-# DoseCerta — Agent Context
++# DoseCerta — contexto para execução da v1.0
+ 
+-> Last updated: 2026-06-09  
+-> Purpose: Comprehensive orientation document for coding agents. Read this before touching any file.
++Atualizado em **2026-09-29**. Ler junto de [PLAN.md](PLAN.md), [TASKS.md](TASKS.md) e requisitos em `docs/` antes de implementar.
+ 
+----
++Este contexto substitui orientações antigas que tratavam detalhes de implementação como garantias. O trabalho desta etapa foi auditoria estática e planejamento. Não houve correção do código do app, execução de testes do candidato ou gravação do fluxo. Distinga fatos do repositório, hipóteses sobre o aparelho e decisões propostas.
+ 
+-## 1. What is DoseCerta?
++## 1. Produto e documentos de referência
+ 
+-**DoseCerta** is an Android (Kotlin) medication-reminder app. It is a **100% offline, privacy-first** application — all data is stored locally in a Room SQLite database. No backend, no network calls, no analytics. It is aimed at Brazilian users (primary locale: `pt-BR`), with English locale support (`values-en/`).
++DoseCerta é um app Android nativo para cadastrar medicamentos e posologia, apresentar alarmes, registrar tomadas/pulos/doses avulsas e consultar histórico. Público principal brasileiro, inclusive idosos, pacientes com múltiplos medicamentos e cuidadores. Produto gratuito, offline, sem backend/analytics/anúncios no escopo da v1.0. pt-BR é obrigatório; inglês já existe e deve continuar funcional.
+ 
+-The app helps users:
+-- Register medications with dosage, form, and frequency
+-- Set reminders/alarms (exact alarms via `AlarmManager`)
+-- Log when they took, skipped, or missed a dose
+-- Review their medication history with statistics
+-
+----
+-
+-## 2. Tech Stack
+-
+-| Layer | Technology |
++| Documento existente | Como usar |
+ |---|---|
+-| Language | Kotlin (JVM 17) |
+-| Min SDK | 26 (Android 8.0) |
+-| Target SDK | 34 |
+-| UI | XML layouts + ViewBinding, Material Design 3 |
+-| Architecture | MVVM (Fragment → ViewModel → Repository → DAO) |
+-| Database | Room 2.6.1 |
+-| Async | Kotlin Coroutines + Flow (StateFlow) |
+-| Navigation | Jetpack Navigation Component (single-activity) |
+-| Alarms | `AlarmManager` + `BroadcastReceiver` + `ForegroundService` |
+-| DI | Manual (factory classes, no Hilt/Dagger) |
+-| Preferences | DataStore (`SettingsPreferences`) |
+-| Build | Gradle Kotlin DSL, KSP for Room |
+-
+----
+-
+-## 3. Project Structure
+-
+-```
+-app/src/main/java/com/dosecerta/
+-├── DoseCertaApplication.kt          # Application class
+-├── alarm/
+-│   ├── AlarmActivity.kt             # Full-screen alarm UI
+-│   ├── AlarmScheduler.kt            # Scheduling helper
+-│   ├── AlarmService.kt              # Foreground service for alarm sound
+-│   ├── AlarmSoundManager.kt         # Sound/vibration control
+-│   ├── BootCompletedReceiver.kt     # Re-schedules alarms after reboot
+-│   └── MedicationAlarmReceiver.kt   # BroadcastReceiver for alarm trigger
+-├── data/
+-│   ├── local/
+-│   │   ├── DoseCertaDatabase.kt     # Room database singleton (v1)
+-│   │   ├── dao/
+-│   │   │   ├── MedicationDao.kt
+-│   │   │   ├── MedicationLogDao.kt  # ⚠️ Recently modified — see §6
+-│   │   │   └── ScheduleDao.kt
+-│   │   └── entity/
+-│   │       ├── Medication.kt
+-│   │       ├── MedicationLog.kt
+-│   │       └── Schedule.kt
+-│   ├── model/
+-│   │   ├── Enums.kt                 # PharmaceuticalForm, Frequency, MedicationStatus
+-│   │   ├── MedicationLogWithDetails.kt  # Joined query result
+-│   │   └── Models.kt
+-│   └── repository/
+-│       └── MedicationRepository.kt  # ⚠️ Recently modified — see §6
+-├── notification/
+-│   ├── MarkMissedReceiver.kt
+-│   ├── MissedReminderReceiver.kt
+-│   ├── NotificationActionReceiver.kt
+-│   └── NotificationHelper.kt
+-└── ui/
+-    ├── MainActivity.kt              # Single Activity, NavHost
+-    ├── addmedication/
+-    │   ├── AddMedicationFragment.kt
+-    │   ├── AddMedicationViewModel.kt
+-    │   └── ScheduleTimeAdapter.kt
+-    ├── history/
+-    │   ├── HistoryFragment.kt       # ⚠️ Recently modified — see §6
+-    │   ├── HistoryViewModel.kt      # ⚠️ Recently modified — see §6
+-    │   └── MedicationLogAdapter.kt
+-    ├── home/
+-    │   ├── HomeFragment.kt
+-    │   ├── HomeViewModel.kt
+-    │   ├── ScheduleAdapter.kt
+-    │   └── ExtraDoseMedicationAdapter.kt
+-    ├── medications/
+-    │   ├── MedicationsFragment.kt
+-    │   ├── MedicationsViewModel.kt
+-    │   └── MedicationAdapter.kt
+-    ├── privacy/
+-    │   └── PrivacyPolicyFragment.kt
+-    ├── settings/
+-    │   └── SettingsFragment.kt
+-    └── setup/
+-        ├── SetupActivity.kt         # First-run onboarding flow
+-        ├── SetupNotificationsFragment.kt
+-        ├── SetupTermsFragment.kt
+-        └── SetupTutorialFragment.kt
+-```
++| `docs/REQUISITOS - DOSE CERTA.md` | Fonte de RF-001–007, RNF e RD-001–003; contém semanal/mensal/dias específicos, Android 8, resposta <2 s e aviso no primeiro uso/Sobre |
++| `docs/JUSTIFICATIVA - DOSE CERTA.md` | Público, gratuidade, controle/privacidade e proteção de dados; sintomas/informações gerais identificados como futuro |
++| `docs/RELATORIO Dose Certa v0.5.0.md` | Histórico de intenção técnica, datado 12/12/2025; algumas alegações não correspondem ao código atual ou às regras atuais |
++| Relatório de curricularização `.docx` em `docs/` | Texto extraído localmente para análise; cita capturas/vídeo antigos. Evidências embutidas não foram validadas nesta etapa |
++| `README.md` / `BUILD.md` | Funcionalidades anunciadas e execução; conferir versões no Gradle antes de repetir instruções |
+ 
+----
+-
+-## 4. Database Schema
+-
+-### `medications`
+-| Column | Type | Notes |
+-|---|---|---|
+-| `id` | Long PK | auto-generated |
+-| `name` | String | e.g. "Paracetamol" |
+-| `dosage` | String | e.g. "500" |
+-| `unit` | String | e.g. "mg", "ml" |
+-| `pharmaceuticalForm` | Enum | TABLET, CAPSULE, SYRUP, DROPS, INJECTION, CREAM, SPRAY, OTHER |
+-| `frequency` | Enum | DAILY, EVERY\_4\_HOURS, EVERY\_6\_HOURS, EVERY\_8\_HOURS, EVERY\_12\_HOURS, AS\_NEEDED |
+-| `notes` | String? | optional |
+-| `color` | Int | ARGB color int for icon |
+-| `isActive` | Boolean | soft-delete flag |
+-| `createdAt` | Long | epoch ms |
+-
+-### `schedules`
+-| Column | Type | Notes |
+-|---|---|---|
+-| `id` | Long PK | auto-generated |
+-| `medicationId` | Long FK | → medications.id (CASCADE delete) |
+-| `timeInMinutes` | Int | minutes since midnight (0–1439) |
+-| `daysOfWeek` | List\<Int\> | 1=Sun … 7=Sat; empty = every day |
+-| `isActive` | Boolean | |
+-
+-### `medication_logs`
+-| Column | Type | Notes |
+-|---|---|---|
+-| `id` | Long PK | auto-generated |
+-| `medicationId` | Long? FK | nullable = custom/ad-hoc dose |
+-| `scheduleId` | Long? FK | nullable = extra dose |
+-| `scheduledTime` | Long | epoch ms — indexed |
+-| `actualTime` | Long? | epoch ms when actually taken |
+-| `status` | Enum | TAKEN, SKIPPED, MISSED, PENDING |
+-| `notes` | String? | optional |
+-| `isExtraDose` | Boolean | true = unscheduled extra dose |
+-| `customMedicationName` | String? | for ad-hoc meds not in DB |
+-
+-### Joined Query: `MedicationLogWithDetails`
+-Used by the History screen. Combines `medication_logs` + `medications`:
+-```kotlin
+-data class MedicationLogWithDetails(
+-    @Embedded val log: MedicationLog,
+-    val medicationName: String?,
+-    val dosage: String?,
+-    val unit: String?,
+-    val color: Int?
+-)
+-```
+-
+----
+-
+-## 5. Repository Pattern
+-
+-`MedicationRepository` is the single source of truth for UI layers. It wraps the three DAOs and is instantiated manually via `HistoryViewModelFactory` (no Hilt). It exposes Flow-based reactive queries and suspend functions for mutations.
+-
+-Key pattern used across the app:
+-```
+-Fragment → ViewModelFactory → ViewModel → Repository → DAO → Room → Flow → StateFlow → UI
+-```
++O relatório antigo registra mudança para intervalos; não existe revogação formal de RF-002 semanal/mensal/dias específicos. Plano contempla ambas as famílias. Não omitir requisitos por já haver outra enumeração no código. Histórico em lista satisfaz RF-005 (lista ou calendário); calendário é opcional.
+ 
+----
++Aviso de responsabilidade deve existir no primeiro uso **e** em Sobre (RD-002). Não usar estatísticas médicas da justificativa em texto de loja sem verificar fonte e adequação. Não transformar lembrete em recomendação de prescrição, compensação de dose ou prova de adesão clínica.
+ 
+-## 6. Recent Changes (2026-03-23)
++## 2. Repositório, convenções e ambiente
+ 
+-### Feature: "Todo o Período" — All-Time History Filter
++Há orientação ancestral em `/home/gabirusky/Code/AGENTS.md`, voltada a análise arquitetural. Nesta etapa, a instrução explícita do usuário autoriza os três documentos. Respeitar convenções aplicáveis durante implementação e escopo efetivamente autorizado.
+ 
+-**Files modified:**
++O workspace já tinha modificações em README/BUILD/Gradle e arquivos do wrapper não rastreados. `docs/` foi adicionado pelo usuário durante o planejamento. Não executar reset/clean, substituir mudanças alheias ou atribuir seu build ao agente. `PLAN.md`/`TASKS.md` estavam ignorados no `.gitignore`; as entradas foram removidas para que os documentos possam ser versionados. Nenhum commit foi criado nesta etapa.
+ 
+-#### `MedicationLogDao.kt`
+-Added two new unbounded queries (no `startTime`/`endTime`):
+-```kotlin
+-fun getAllLogsByStatusWithDetails(status: MedicationStatus): Flow<List<MedicationLogWithDetails>>
+-// Note: getAllLogsWithDetails() already existed — returns ALL logs with no time filter
++| Item | Estado auditado |
++|---|---|
++| Namespace/applicationId | `com.dosecerta` |
++| Linguagem/UI | Kotlin, XML, ViewBinding, Material Components 1.11.0 |
++| Arquitetura | MVVM, Repository/DAO, Flow/StateFlow, DI manual |
++| SDK | min 26, compile 34/target 34; objetivo de submissão atual API 36 |
++| Versão declarada | versionCode 1 / versionName 1.0; não significa release validada |
++| Toolchain | AGP 8.13.2 no root Gradle, wrapper 8.14, Kotlin 1.9.20, KSP 1.9.20-1.0.14, bytecode JVM 17 |
++| Persistência | Room 2.6.1, schema v3, DataStore Preferences 1.0.0 |
++| Outras dependências | Navigation 2.7.6, Lifecycle 2.7.0, Coroutines 1.7.3, WorkManager 2.9.0 |
++| Testes declarados | JUnit4, AndroidX/Espresso, Room testing; nenhuma suíte de source encontrada no inventário inicial |
++| SDK local | `/home/gabirusky/Android/Sdk`, plataformas34/35/36/36.1 instaladas no inventário |
++| JDK local | `/home/gabirusky/Programs/android-studio/jbr` (JDK 21 observado); conferir antes de usar |
++| AVD existente | `Medium_Phone_API_36.1`; criar AVD QA próprio antes de limpar dados |
++
++Android SDK/adb/emulator podem não estar no PATH. Preferir variável como `DOSECERTA_SDK` ou caminhos absolutos; não sobrescrever HOME/CODEX_HOME. `local.properties` e assinaturas são locais; não versionar segredos. Um APK debug já existia no diretório de build; sua presença não comprova que este agente compilou ou testou o app.
++
++O sandbox falhou no início com `mountinfo path is not absolute`, exigindo execução aprovada fora dele. O ambiente depois voltou a aceitar execução normal. Isso é falha da ferramenta, não do projeto. Não contornar rejeição de aprovação; registrar bloqueio real e continuar trabalho permitido.
++
++## 3. Arquitetura e caminhos críticos atuais
++
++```text
++app/src/main/java/com/dosecerta/
++  DoseCertaApplication.kt
++  data/local/DoseCertaDatabase.kt
++  data/local/entity/{Medication,Schedule,MedicationLog}.kt
++  data/local/dao/{MedicationDao,ScheduleDao,MedicationLogDao}.kt
++  data/model/{Enums,Models,MedicationLogWithDetails}.kt
++  data/repository/MedicationRepository.kt
++  alarm/{AlarmScheduler,MedicationAlarmReceiver,BootCompletedReceiver,
++         AlarmService,AlarmSoundManager,AlarmActivity,SwipeToConfirmView}.kt
++  notification/{NotificationHelper,NotificationActionReceiver,
++                MarkMissedReceiver,MissedReminderReceiver}.kt
++  ui/MainActivity.kt
++  ui/{setup,home,medications,addmedication,history,settings,privacy}/
++  ui/history/PdfReportGenerator.kt
++  util/{SettingsPreferences,Constants,DateTimeUtils,SampleDataProvider}.kt
+ ```
+ 
+-#### `MedicationRepository.kt`
+-Exposed the new `getAllLogsByStatusWithDetails()` method.
+-
+-#### `HistoryViewModel.kt`
+-- `_daysBack` changed from `MutableStateFlow<Int>` → `MutableStateFlow<Int?>` where **`null` = all time**
+-- Added `cyclePeriod()` replacing the old `updateDaysBack()`:
+-  ```kotlin
+-  fun cyclePeriod() {
+-      _daysBack.value = when (_daysBack.value) {
+-          7 -> 30
+-          30 -> null   // all time
+-          else -> 7
+-      }
+-  }
+-  ```
+-- `logs` flow branches: when `days == null`, calls the no-bounds repository methods
+-
+-#### `HistoryFragment.kt`
+-- `setupDateRange()` now calls `viewModel.cyclePeriod()` on tap
+-- Observer maps `daysBack` int? to string resource:
+-  - `7` → `R.string.history_last_7_days`
+-  - `30` → `R.string.history_last_30_days`
+-  - `null` → `R.string.history_all_period`
++Fluxo de UI: Fragment → ViewModelFactory → ViewModel → MedicationRepository → DAO → Room → Flow → StateFlow → UI. Factories são manuais; não introduzir Hilt/Dagger por hábito. A liberação do binding segue `onDestroyView`; coletar dados com lifecycle adequado, preferencialmente `repeatOnLifecycle`, para não atualizar view destruída.
+ 
+-#### String Resources
+-- `values/strings.xml` (pt-BR): added `<string name="history_all_period">Todo o Período</string>`
+-- `values-en/strings.xml` (en): added `<string name="history_all_period">All Time</string>`
++Fluxo de alarme: `AlarmScheduler` → AlarmManager/PendingIntent → `MedicationAlarmReceiver` → `AlarmService` → notificação/FSI → `AlarmActivity`. Ações também vêm da Home e `NotificationActionReceiver`. Boot e `DoseCertaApplication.onCreate` reagendam horários ativos; esse caminho atual não reconcilia todos os eventos duráveis.
+ 
+----
++Primeiro uso: MainActivity consulta `hasAcceptedTerms`; redireciona para SetupActivity quando falso. Após termos/permissões, SetupNotifications segue direto para MainActivity. Tutorial ativo é overlay na MainActivity; SetupTutorialFragment continua registrado no grafo legado. Não redesenhar apenas o fragment legado e assumir que usuário verá a alteração.
+ 
+-## 7. Locale Strategy
++Navegação: `res/navigation/nav_graph.xml`, `nav_graph_setup.xml` e `res/menu/bottom_nav_menu.xml`. Principais destinos: Home, Medicamentos, Histórico, Configurações; Add/Edit e Privacidade são destinos adicionais. Incluir diálogos e superfícies do sistema no inventário de jornada.
+ 
+-- **Default locale** (`values/strings.xml`): Brazilian Portuguese (pt-BR)
+-- **English override** (`values-en/strings.xml`): only strings that differ from pt-BR are needed; Room uses default if key is missing in the locale file
+-- Always add new strings to BOTH files
++## 4. Modelos, dados e semântica
+ 
+----
++| Entidade atual | Campos e cuidados |
++|---|---|
++| Medication | ID Long auto, nome/dose/unidade/forma/frequência/notas/cor/isActive/createdAt; `@Parcelize` usado em extras |
++| Schedule | ID Long, medicationId, timeInMinutes 0–1439, daysOfWeek 1=domingo…7=sábado, isActive; dias vazios significam todo dia |
++| MedicationLog | ID Long, medicationId/scheduleId nullable, scheduledTime, actualTime nullable, status, notes, isExtraDose, customMedicationName |
+ 
+-## 8. Alarm Architecture
++Room atual é **v3**, não v1. `exportSchema=false` e `fallbackToDestructiveMigration()` devem ser tratados antes de ampliar o modelo. Schema compilado não comprova migração nem retenção. Logs têm CASCADE do medicamento **e** horário, índices sem unicidade de ocorrência. `@Insert(REPLACE)` não torna query-then-insert atômico nem deduplica uma chave lógica não indexada.
+ 
+-- `AlarmScheduler` uses `AlarmManager.setExactAndAllowWhileIdle()`
+-- `MedicationAlarmReceiver` receives the broadcast and starts `AlarmService` (ForegroundService)
+-- `AlarmActivity` is shown as a full-screen locked-screen UI
+-- `BootCompletedReceiver` re-schedules all active alarms on device restart
+-- Notification actions (Take / Skip / Snooze) are handled by `NotificationActionReceiver`
++Existem **duas classes MedicationLogWithDetails**: a usada nas queries está em `data/local/dao/MedicationLogDao.kt`; há outra em `data/model/MedicationLogWithDetails.kt`. Conferir imports; não criar terceira classe equivalente sem contrato explícito. Query atual faz LEFT JOIN com medicamento atual, incluindo avulsos sem medicamento, mas reescreve metadados históricos se nome/dose atual mudar.
+ 
+-### Missed Dose Flow
+-1. When alarm fires, `AlarmService.loadMedicationAndUpdateAlarm()` creates a MISSED log immediately and schedules a `MissedReminderReceiver` alarm (line 249–272)
+-2. `MarkMissedReceiver` fires 30 minutes after the alarm if no user action — creates MISSED log and schedules `MissedReminderReceiver`
+-3. `MissedReminderReceiver` fires N hours later (user-configurable in settings) — shows a notification
+-4. When user takes action (Take/Skip/Snooze), `NotificationActionReceiver` cancels the missed reminder alarm
++Regras alvo no PLAN:
+ 
+----
++- Identidade persistente por ocorrência e horário original imutável; snooze é próximo alerta da mesma dose.
++- Snapshot de nome/dose/unidade/posologia; histórico de versões para reconciliação. Dados antigos reconstruídos precisam origem distinguível.
++- Resultado único/transacional; comandos duplicados idempotentes; comandos atrasados não substituem conclusão.
++- TAKEN tem horário efetivo de tomada; SKIPPED/MISSED não têm horário de tomada. Dismiss/silenciar não confirmam tratamento.
++- Proposta de tolerância 30 min e som 60 s é decisão UX revisável, não regra médica; persistir prazo, estender após snooze aceito.
++- Dose pulada não deve receber mensagem automática incentivando reconsideração/tomada. Relembrete de não confirmação não recomenda compensação.
++- Arquivar/remove da rotina preserva histórico. Exclusão permanente é explícita, com escolha sobre histórico. Reconciliação respeita exclusão manual.
++- Adesão usa tomadas programadas/ocorrências programadas encerradas; PRN/avulsas/pendentes fora do denominador; vazio é Sem dados.
+ 
+-## 9. First-Run Setup Flow
++Frequências atuais: DAILY e intervalos 4/6/8/12 h geram 1/6/4/3/2 horários; AS_NEEDED tem intervalo 0 e nenhum horário. O save de AS_NEEDED já aceita lista vazia; não repetir a correção antiga como se faltasse. Conversão atual remove horários e pode apagar logs por CASCADE. Semanal/mensal/dias escolhidos exigem implementação adicional.
+ 
+-`SetupActivity` (separate from `MainActivity`) shows a 3-screen onboarding:
+-1. **Terms** (`SetupTermsFragment`) — user must accept privacy policy
+-2. **Notifications** (`SetupNotificationsFragment`) — request notification permission
+-3. **Tutorial** (`SetupTutorialFragment`) — 3-step swipeable carousel
++Calendário mensal não é intervalo 30 dias. Dia 29/30/31 ausente exige regra explícita mostrada ao usuário. Tempo local versus duração decorrida, DST, viagens, meia-noite, clock jump e dias de semana precisam testes com relógio/fuso injetáveis. Não usar timestamp “hoje” para recuperar ocorrência de ontem.
+ 
+-After completing setup, `SettingsPreferences` marks setup as done and redirects to `MainActivity`.
++## 5. Achados de alarmes e permissões com evidência
+ 
+----
++Referências relativas a `app/src/main/java/com/dosecerta/`; linhas são as do snapshot auditado e podem mudar.
+ 
+-## 10. Common Agent Errors & Gotchas
++| Achado confirmado | Referência |
++|---|---|
++| Serviço cria MISSED assim que dispara | `alarm/AlarmService.kt:249`; Home também deriva MISSED ao passar horário, `ui/home/HomeViewModel.kt:56` |
++| Verificador 30 min definido, sem chamadas no inventário | `alarm/AlarmScheduler.kt:248` (`scheduleMissedCheckAlarm`) |
++| Snooze e recorrência têm mesma identidade de PendingIntent | `alarm/AlarmScheduler.kt:32,160,238`; próxima recorrência agendada em `AlarmService.kt:274` |
++| Foreground ID 1001 e parada global misturam doses | `alarm/AlarmService.kt:39,110,239,546`; receiver para serviço antes da ação |
++| Activity singleTop sem onNewIntent | Manifest Activity do alarme; extraído apenas em `AlarmActivity.onCreate` |
++| Dismiss do relembrete cancela ID diferente e para outro alarme | `notification/NotificationHelper.kt:135,206,259`; `NotificationActionReceiver.kt:44–51,96` |
++| Criação/ação via múltiplas leituras+inserts sem transação comum | `AlarmService.kt:249`, `AlarmActivity.kt:315`, `NotificationActionReceiver.kt:128`, `HomeViewModel.kt:118` |
++| Falha de persistência ainda fecha card | `alarm/AlarmActivity.kt:325–327,358–360,377–379` |
++| Gesture ACTION_CANCEL confirma snooze | `alarm/AlarmActivity.kt:237–242` |
++| Callbacks/scope não cancelados podem republicar após stop | `alarm/AlarmService.kt:213,233,240,303,337` |
++| Edição altera scheduledTime de log do dia | `ui/addmedication/AddMedicationViewModel.kt:228–234` |
+ 
+-### ❌ Using Hilt/Dagger annotations
+-This project uses **manual DI**. Every ViewModel has a matching `*ViewModelFactory` class at the bottom of the Fragment file. Do NOT add `@Inject`, `@HiltViewModel`, or any DI framework annotations.
++Validar estado ativo/terminal antes do som/card. Confirmação na Home/Histórico deve encerrar o alerta correspondente. Serviço deve possuir scopes/timers canceláveis e parar callbacks em destroy/stop; IO tardio não pode reabrir card. Conservar outras ocorrências ativas na fila.
+ 
+-### ❌ Forgetting to add strings to BOTH locale files
+-Every new string resource MUST go in:
+-- `res/values/strings.xml` (pt-BR — the default)
+-- `res/values-en/strings.xml` (English)
++### Inventário de acessos
+ 
+-### ❌ Using `context` directly in ViewModel
+-ViewModels should NOT hold `Context`. If you need context for `AlarmScheduler` or `SettingsPreferences`, pass them through the Factory constructor. The `HomeViewModelFactory` already receives `alarmScheduler` which was created with context in the Fragment.
++Manifesto declara POST_NOTIFICATIONS, VIBRATE, SCHEDULE_EXACT_ALARM, USE_EXACT_ALARM, RECEIVE_BOOT_COMPLETED, WRITE_EXTERNAL_STORAGE(max28), FOREGROUND_SERVICE, FOREGROUND_SERVICE_MEDIA_PLAYBACK, USE_FULL_SCREEN_INTENT, WAKE_LOCK, SYSTEM_ALERT_WINDOW e REQUEST_IGNORE_BATTERY_OPTIMIZATIONS.
+ 
+-### ❌ Using `lifecycleScope.launch {}` for DB queries that should be reactive
+-Use `Flow.collect {}` for data that should auto-update the UI. Use `suspend` functions only for one-shot mutations (insert/update/delete). The pattern is:
+-```kotlin
+-viewLifecycleOwner.lifecycleScope.launch {
+-    viewModel.someFlow.collect { data ->
+-        // update UI
+-    }
+-}
+-```
++POST solicitado em setup e MainActivity. Exact verificado no scheduler/MainActivity, com fallback inexato. FSI verificado só no setup; retorno de Settings não valida concessão. Serviço monta FSI indiscriminadamente, tenta startActivity com delay e apaga/recria canal. Overlay e pedido direto de isenção de bateria não têm uso correspondente encontrado. DND policy access não está implementado: não adicionar permissão por reflexo.
+ 
+-### ❌ Forgetting `runBlocking` is intentional in BroadcastReceivers
+-`MarkMissedReceiver`, `MissedReminderReceiver`, and `NotificationActionReceiver` all use `runBlocking { ... }` because `BroadcastReceiver.onReceive()` must complete synchronously. This is the correct pattern — do NOT replace with coroutine launches.
++Canais atuais: `medication_reminders` e `medication_alarm_channel`. Importância gravada e escolha do usuário importam; alterar constante não modifica automaticamente canal existente. Não apagar/recriar para forçar configuração. FSI, exact scheduling, notificações e canal habilitado são gates separados.
+ 
+-### ❌ Breaking the request code formula for PendingIntents
+-Alarm PendingIntents use specific request code formulas:
+-- Main alarm: `(medicationId * 1000 + scheduleId).toInt()`
+-- Missed check: `(medicationId * 1000000 + scheduleId * 1000 + 999).toInt()`
+-- Missed reminder: `(medicationId * 1000000 + scheduleId * 1000 + 998).toInt()`
+-- Notification actions: `notificationId * 10 + (1|2|3)`
++Identidades legacy a migrar/cancelar deliberadamente:
+ 
+-Changing these formulas will break alarm cancellation — existing alarms won't be found by their PendingIntent.
++| Uso | Fórmula atual |
++|---|---|
++| Main/snooze | `(medicationId * 1000 + scheduleId).toInt()` |
++| Missed check | `(medicationId * 1000000 + scheduleId * 1000 + 999).toInt()` |
++| Missed reminder alarm | `(medicationId * 1000000 + scheduleId * 1000 + 998).toInt()` |
++| Missed reminder notification | `(medicationId * 1000000 + scheduleId * 1000 + 997).toInt()` |
++| Actions | notificationId multiplicado por 10 com sufixo da ação |
++| Foreground | ID fixo 1001 |
+ 
+-### ❌ Not rescheduling alarms after save in edit mode
+-When editing a medication, you MUST:
+-1. Cancel ALL existing alarms first
+-2. Delete/update/insert schedules
+-3. Fetch fresh schedules from DB
+-4. Schedule NEW alarms with the fresh schedule IDs
++Essas fórmulas não são invariantes desejáveis: podem colidir/truncar Long→Int e não incluem ocorrência. Mudar sem cancelar/migrar mantém alarmes antigos vivos. Usar identidade explícita de Intent/action/data e ID persistido coerente com cancelamento.
+ 
+-### ❌ Using hardcoded notification IDs
+-`showMissedReminderNotification()` currently uses hardcoded `888888` — this means only one missed reminder notification can exist at a time. If fixing this, generate unique IDs per medication.
++### Hipóteses que exigem aparelho
+ 
+-### ❌ Forgetting Parcelable for Medication
+-`Medication` is `@Parcelize` and passed via Intent extras to `AlarmActivity` and `AlarmService`. If you add fields to `Medication`, they must be `Parcelable`-compatible.
++Canal bloqueado/baixo, POST negado, FSI negado, background activity launch, timing da primeira notificação sem FSI, FGS recusado, Doze/OEM e estado da tela são hipóteses separadas. Duas permissões exact no manifesto não comprovam conflito. Capturar causa real, incluindo `SecurityException` e `ForegroundServiceStartNotAllowedException`.
+ 
+----
++Exact alarm pode permitir início de FGS em background em situações documentadas; **fallback inexato não herda automaticamente essa exceção**. Se FGS for recusado, degradar para notificação permitida e mostrar saúde do lembrete; não reportar toque/tela cheia como sucesso.
+ 
+-## 11. Key Frequencies & Their Behavior
++## 6. Tela bloqueada e interação do paciente
+ 
+-| Frequency | `intervalHours` | `defaultReminderCount` | Behavior |
+-|---|---|---|---|
+-| DAILY | 24 | 1 | One alarm per day |
+-| EVERY_4_HOURS | 4 | 6 | 6 alarms spaced 4h apart |
+-| EVERY_6_HOURS | 6 | 4 | 4 alarms spaced 6h apart |
+-| EVERY_8_HOURS | 8 | 3 | 3 alarms spaced 8h apart |
+-| EVERY_12_HOURS | 12 | 2 | 2 alarms spaced 12h apart |
+-| **AS_NEEDED** | **0** | **0** | **No schedules, no alarms, user-initiated doses only** |
++A presença de FSI e showWhenLocked não autoriza contornar PIN/biometria. Em dispositivo desbloqueado, heads-up pode ser comportamento normal; em bloqueado/apagado, testar FSI concedido. Se POST/canal também bloqueados, nem heads-up é garantido: mostrar estado degradado dentro do app.
+ 
+-When `AS_NEEDED` is selected in `generateDefaultReminders()`:
+-- `_scheduleTimes.value = emptyList()` — all reminders are cleared
+-- `saveMedication()` then fails validation because it requires at least one time
++Proposta de privacidade: ocultar nome/dose por padrão em notificação **e Activity**. Card genérico pode oferecer Silenciar/Adiar; “Tomei/Pular” exige identificar a ocorrência por desbloqueio ou escolha explícita de mostrar detalhes bloqueados. Ações que abrem histórico/configurações exigem desbloqueio. Não registrar tomada de um medicamento cuja identidade o usuário não pôde confirmar, principalmente com alarmes simultâneos.
+ 
+----
++Não afirmar que ongoing é irremovível em qualquer Android/OEM. Oferecer ação explícita de silêncio porque swipe pode estar limitado no bloqueio. Não inferir TAKEN/SKIPPED de deleteIntent, back, fechamento ou tela apagada. Gesto cancelado não comita; leitor de tela precisa alternativa a arraste/hold/timeout. Não aprisionar o usuário numa Activity.
+ 
+-## 12. Home Screen Architecture
++## 7. PDF e histórico: pontos de atenção
+ 
+-The home screen (`HomeFragment`) has two main sections:
++`ui/history/PdfReportGenerator.kt` usa PdfDocument nativo e mistura layout/storage/Intent. `HistoryViewModel.exportPdf` lê `logs.value` (status filtrado) em coroutine IO; o cabeçalho recebe somente período. Histórico alterna 7/30/todo período; null significa todo período. O filtro todo período e PDF já têm código; sua existência não comprova correção.
+ 
+-1. **Welcome Card** — Greeting, weekly progress ring, adherence %
+-2. **Today's Schedule** — `RecyclerView` with `ScheduleAdapter` showing medications due today
++| Defeito estático | Referência |
++|---|---|
++| Paginação de dia inteiro não divide dia denso | `PdfReportGenerator.kt:107–117` |
++| Resumo encerra sem continuar medicamentos | `PdfReportGenerator.kt:191–199` |
++| Texto sem wrapping/altura medida | `PdfReportGenerator.kt:194–197,262–282,306` |
++| Forma/frequência retornam vazio | `PdfReportGenerator.kt:397,402` |
++| Adesão baseada em lista filtrada/avulsas/vazio 100% | `PdfReportGenerator.kt:143–147`; `HistoryViewModel.kt:140` |
++| API 26–28 salva file URI; erro de viewer engolido | `PdfReportGenerator.kt:426–438`; `HistoryFragment.kt:232` |
++| document fecha só após sucesso; MediaStore!!/pending sem cleanup | `PdfReportGenerator.kt:126–127,412–423` |
+ 
+-The schedule list is built in `HomeViewModel.todaySchedule` by:
+-1. Combining `getAllActiveSchedules()` + `getAllLogs()` via `combine()`
+-2. Filtering to today's day of week (`DateTimeUtils.shouldScheduleToday()`)
+-3. Looking up medication details via `getMedicationByIdSync()`
+-4. Finding the matching log for today's scheduled time
+-5. Determining status: log exists? → use log status. No log + time passed? → MISSED. No log + future? → PENDING.
++Usar snapshot consultado a partir de request capturado, parâmetros de período explícitos, fuso/idioma, resumo completo e recorte indicado. Separar gerador, renderizador e destino. SAF `CreateDocument` em API 26+ elimina permissão storage ampla; cancelamento normal, cleanup e URI content obrigatórios. FileProvider de cache deve ter paths restritos e grants temporários; não abrir file URI fora do app.
+ 
+-**AS_NEEDED medications have no schedules**, so they never appear in `todaySchedule`. They need a separate display mechanism.
++Paginar resumo e linhas de dias, quebrar texto, numerar todas as páginas, preservar todos os registros e status. Locale real aplica-se ao PDF. “Medicamentos ativos” não pode ser inferido da presença de logs. Relatório contém registros informados pelo usuário e não possui validação médica automática.
+ 
+-3. **Extra Dose Card** — Button opening a dialog to record extra/custom doses
++Matriz mínima: vazio/um/muitos, 30+ doses no dia, 50 medicamentos, 10.000 registros, texto extenso/acentos, avulsa/PRN, alteração/arquivo/exclusão, filtro recente, limites de datas, cancelamento, sem leitor/sem espaço/provider falhando. Verificar conteúdo extraído, renderização e abertura real.
+ 
+----
++## 8. UI, localização e preferências
+ 
+-## 13. Notification Channels
++Todas as páginas e diálogos estão no inventário do PLAN. Não tratar card do alarme ou primeira página de onboarding como único redesenho. Capturar matriz de tamanhos/fontes/temas/idiomas e estados antes/depois.
+ 
+-| Channel ID | Name | Usage |
+-|---|---|---|
+-| `medication_reminders` | Lembretes de Medicação | Standard notification reminders |
+-| `medication_alarm_channel` | Alarmes de Medicação | Full-screen alarm notifications (high importance, DND bypass) |
++Achados estáticos úteis:
+ 
+----
++- Add/Edit: seis cores 48 dp + gaps + padding exigem 396 dp (`fragment_add_medication.xml:181–258`); implementar wrap/scroll/adaptação. Três colunas dose/unidade/forma frágeis; título central pode sobrepor ações.
++- Seção solicitada chama-se atualmente **Lembretes** (`add_med_reminders`, PTstrings:53; layout:273). Trocar a seção para **Posologia**, explicar Como e quando tomar. Não substituir todas as ocorrências de “alarme” no app.
++- `SwipeToConfirmView` é touch-only; em `:91` substitui texto escalado por `height*0.30` em px. Corrigir escala e semântica/acessibilidade.
++- Histórico: texto branco 12 sp em verde/vermelho/laranja tem contrastes calculados 2,26/4,17/2,63:1; revisar cores/estilos. Editar log só por long press é pouco descobrível.
++- Tutorial ativo e legado duplicados; alguns botões 40/44 dp. Permissões e overlay podem competir no primeiro uso.
++- Settings: save do slider aguarda 4 s e cancela no destroy; usuário pode perder preferência ao navegar. Persistir na conclusão de interação.
++- Código/UI ainda têm PT hardcoded e 36 chaves PT ausentes no EN no inventário. Pharmaceutical forms às vezes exibem enum name. Corrigir formatadores e recursos.
++- `home_button_snooze` é ID legado de botão que exibe Pular/Skip e executa skip. Não mudar comportamento pelo nome do ID.
+ 
+-## 14. Feature Backlog
++Recursos default `res/values/strings.xml` são pt-BR; `values-en/strings.xml` é inglês. Adicionar strings novas a ambos. Fallback é mecanismo de recursos Android, não Room. Datas e saudações também precisam locale; não basta traduzir XML.
+ 
+-### ✅ Feature 1 — Histórico: Filtro "Todo o Período"
+-**Status:** Implemented (2026-03-23)
++SettingsPreferences usa DataStore `settings`, chaves language, missed_reminder_hours, alarm_sound_uri, setup_completed e terms_accepted. Relembrete configurável 1–10 h, padrão 2 h, é diferente da tolerância inicial 30 min. Som inválido/removido exige fallback. Não reusar tutorial-completed como permissão concedida.
+ 
+-### ✅ Feature 2 — Histórico: Relatório PDF
+-**Status:** Implemented (2026-03-23)
++## 9. Correções de orientações antigas e erros comuns
+ 
+-### ✅ Feature 3 — AS_NEEDED Frequency Fix
+-**Status:** Implemented (2026-06-09)
++| Erro recorrente | Orientação correta |
++|---|---|
++| “runBlocking é correto porque receiver deve ser síncrono” | Trabalho bloqueante longo em onReceive pode causar ANR. Usar lifetime-aware trabalho limitado, goAsync/finish em finally e mecanismo durável quando necessário |
++| “Manter todos os flags legacy de janela” | Preservar comportamento validado, modernizar APIs/insets/keyguard; flags obsoletos não são requisito |
++| “USAGE_ALARM ignora DND/volume sempre” | Atributo e política de canal não anulam escolhas do usuário em todos os aparelhos |
++| “FGS + delay permite startActivity” | Serviço foreground não é autorização universal de background activity launch |
++| “Permissão no manifesto significa concedida” | Runtime e special access/canais têm estados independentes e podem ser revogados |
++| “setOngoing torna impossível cancelar” | Dismissibilidade varia; implementar silêncio explícito com semântica correta |
++| “Inserir MISSED no disparo simplifica histórico” | Corrompe janela de confirmação; seguir máquina de estados |
++| “cancelar serviço globalmente depois de qualquer botão” | Pode silenciar outro medicamento; ações precisam ocorrência |
++| “Room ou sandbox comprova criptografia/LGPD” | Room padrão não criptografa; auditar ameaças/proteção/backup e documentação |
++| “Compilar comprova migrations/alarme” | Compilar valida estrutura; execução específica comprova comportamento |
++| “logs.value serve para exportar filtro recém-selecionado” | StateFlow pode estar vazio/antigo; consultar request/snapshot consistente |
++| “Mudar horários deve atualizar log passado” | Horário original é fato histórico; editar só vigência futura |
++| “Mudar fórmula de PendingIntent é refatoração inocente” | Cancelar/migrar identities antigas para evitar órfãos |
++| “Passar Context do Fragment ao ViewModel sem cuidado” | Injetar abstração/application context quando necessário; não reter tela |
++| “Se um teste não pôde rodar, resultado implícito aprovado” | Marcar pendente e manter gate afetado aberto |
+ 
+-### ✅ Feature 4 — Missed Dose Reminder Expansion
+-**Status:** Implemented (2026-06-09)
++## 10. Backup, proteção e Play
+ 
+-### 🔧 Feature 5 — Alarm Card Redesign (Swipe/Two-Step/Hold-Slide)
+-**Status:** In Progress (2026-06-09) — see PLAN.md, TASKS.md
++Manifesto atual `allowBackup=true`; `backup_rules.xml` contém `<paths>` de FileProvider, não regra adequada de backup. `data_extraction_rules.xml` exclui sharedpref/database de cloud, mas DataStore está em arquivos e transferência precisa decisão. Não afirmar que desinstalar remove PDFs fora do sandbox ou que nenhum backup existe sem ensaio.
+ 
+----
++A justificativa exige medidas de criptografia/controle. P03 especifica ameaça e proteção verificável; se necessário, executar tarefas condicionais de criptografia com biblioteca mantida/chave Keystore/migração/16KB. Não exigir autenticação biométrica a cada consulta usada por receiver; acesso a dados antes do primeiro desbloqueio após reboot exige tratamento explícito. Não migrar segredos do usuário para logs/JSON de teste.
+ 
+-## 15. Alarm Card Architecture (Feature 5)
++Políticas oficiais verificadas em 2026-09-29; revalidar no envio:
+ 
+-### Current alarm flow
+-```
+-MedicationAlarmReceiver → AlarmService (ForegroundService) → AlarmActivity
+-```
++- Telefone novo/update: targetAPI 36 desde 31/08/2026. [Target API](https://support.google.com/googleplay/android-developer/answer/11926878?hl=en-gb).
++- Health apps abrangidos precisam Organization; confirmar enquadramento Medication and Treatment Management e requisitos reais da conta. [Console](https://support.google.com/googleplay/android-developer/answer/10788890?hl=en), [categorias de saúde](https://support.google.com/googleplay/android-developer/answer/14738291?hl=en).
++- Brasil: marco de identidade/registro 30/09/2026, conferir pacote no Console. [Verificação](https://developer.android.com/developer-verification).
++- USE_EXACT_ALARM tem elegibilidade restrita distinta de SCHEDULE_EXACT_ALARM. FSI e FGS têm declaração/avaliação próprias. [Permissões restritas](https://support.google.com/googleplay/android-developer/answer/16558241?hl=en), [FSI/FGS](https://support.google.com/googleplay/android-developer/answer/13392821?hl=en).
++- Suporte 16 KB verificar no binário/transitivas; página vigente informa bloqueio de updates incompatíveis 01/02/2027. [Page sizes](https://developer.android.com/guide/practices/page-sizes).
++- Offline ainda exige Data safety e política pública coerentes. Conta de usuário não existe, exclusão de conta é condicional. [Data safety](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en).
++- Regra 12 testers/14 dias é para contas pessoais novas abrangidas, não universal nem substituto de Organization quando exigida. [Testes](https://support.google.com/googleplay/android-developer/answer/14151465?hl=en).
+ 
+-### AlarmActivity responsibilities
+-- Extracts `Medication`, `medicationId`, `scheduleId`, `scheduledTime` from Intent extras
+-- Calls `setupWindowFlags()` for lockscreen display (see §15.1)
+-- Displays medication info
+-- Routes button actions to `handleTakeAction()`, `handleSkipAction()`, `handleSnoozeAction()`
+-
+-### 15.1 Lockscreen window flags (DO NOT REMOVE)
+-These flags are critical and must be preserved in any refactor:
+-```kotlin
+-window.addFlags(
+-    FLAG_SHOW_WHEN_LOCKED or FLAG_DISMISS_KEYGUARD or
+-    FLAG_TURN_SCREEN_ON or FLAG_KEEP_SCREEN_ON or
+-    FLAG_FULLSCREEN or FLAG_ALLOW_LOCK_WHILE_SCREEN_ON or
+-    FLAG_LAYOUT_IN_SCREEN or FLAG_LAYOUT_NO_LIMITS
+-)
+-// API 27+:
+-setShowWhenLocked(true)
+-setTurnScreenOn(true)
+-keyguardManager.requestDismissKeyguard(...)
+-```
++Preparar AAB/Play App Signing, proteger chave de upload, versionCode monotônico, release instalada pela faixa de teste, ficha/locales/contato/privacidade/saúde/conteúdo/FSI/FGS e instruções reais ao revisor. Não criar conta ou adicionar Health Connect apenas por ser app de saúde. README anuncia GPL-3.0; LICENSE não foi encontrado no inventário: confirmar antes da distribuição.
+ 
+-### 15.2 New interaction components (Feature 5)
++## 11. Gravação e verificação para o próximo agente
+ 
+-| Component | Class/ID | Responsibility |
+-|---|---|---|
+-| Swipe track | `SwipeToConfirmView` | Custom View, drag to take |
+-| Skip state machine | `AlarmActivity` fields | 2-tap with 4s timeout |
+-| Snooze slider | `OnTouchListener` on `btn_alarm_snooze` | Hold to expand, drag to select minutes |
++Criar AVD de QA separado. Somente dados sintéticos; serial explícito em adb. Roteiro obrigatório usa UI real desde instalação limpa, concessões visíveis, cadastro com horário ≥2 min futuro, bloqueio e disparo AlarmManager. Não usar am broadcast/startActivity como evidência do fluxo que está quebrado. Vídeo deve mostrar ação e histórico durável, acompanhado de logs/dumps/asserções.
+ 
+-### 15.3 Snooze options
+-`Constants.SNOOZE_OPTIONS_MINUTES = [5, 10, 15, 30, 60]`
+-Label: "5 min", "10 min", "15 min", "30 min", "1h"
+-Default remains 10 min.
++screenrecord não grava áudio e tem limite de duração; preservar segmentos originais e timestamps quando necessário. Captura bloqueada pode ter restrições; usar evidência externa se exigida sem desligar proteção só para filmar. Não marcar vídeo citado pelo DOCX como vídeo atual da v1.0.
+ 
+-### 15.4 Key gotchas for Feature 5
+-- **`SwipeToConfirmView` must call `invalidate()` in every `ACTION_MOVE`** — not `postInvalidate()` — since it runs on the main thread
+-- **Skip timeout handler must be cancelled in `stopAlarmAndFinish()`** to avoid calling `handleSkipAction()` after the activity is already closing
+-- **Snooze `ACTION_DOWN` must return `true`** to prevent the touch from being consumed by `onClick` instead
+-- **Haptic feedback requires `View.performHapticFeedback()`** not `Vibrator` directly — works on all API levels and respects system haptic settings
+-- **`snoozeAlarm()` new parameter must have a default** (`= Constants.SNOOZE_DURATION_MINUTES`) so `NotificationActionReceiver` doesn't need to be updated
+-- **`SwipeToConfirmView` thumb hit area**: accept touch within `thumbX ± thumbRadius * 1.5` for comfortable usability — not pixel-perfect
+-- **Full-screen intent on Android 14**: `USE_FULL_SCREEN_INTENT` permission required in manifest; `notificationManager.canUseFullScreenIntent()` check needed before setting full-screen intent
++Check de implementação: assemble/lint/testes locais; Room instrumentado e migrations; Espresso/UI Automator e aparelho; bundleRelease e instalação Play. Tests apropriados devem focar riscos de dados/concorrência/tempo, não espelhar cada troca de string.
+ 
++Atualizar docs com decisões executadas, caminhos de evidência e limitações reais. Ao retomar: ler TASKS, escolher tarefa desbloqueada, inspecionar git status e concluir mudança+validação; não repetir auditoria inteira nem alegar lançamento antes de concluir gates externos.
+diff --git a/README.md b/README.md
+index a1521b4..ea05125 100644
+--- a/README.md
++++ b/README.md
+@@ -94,7 +94,7 @@ DoseCerta/
+ - **Linguagem**: Kotlin 1.9.20
+ - **Min SDK**: API 26 (Android 8.0)
+ - **Target SDK**: API 34 (Android 14)
+-- **Build System**: Gradle 8.2.1 com Kotlin DSL
++- **Build System**: Gradle 8.14 com Kotlin DSL
+ 
+ ### Arquitetura
+ - **Pattern**: MVVM (Model-View-ViewModel)
+@@ -134,38 +134,23 @@ DoseCerta/
+ - **Tipografia**: Sans-serif com hierarquia clara
+ - **Componentes**: Cards elevados, botões arredondados, gradientes suaves
+ 
+-## 🚀 Como Compilar
++## 🚀 Como executar
+ 
+-### Pré-requisitos
+-- Android Studio Hedgehog | 2023.1.1 ou superior
+-- JDK 17 (incluído no Android Studio)
+-- Android SDK API 34
++Instale o Android Studio com o Android SDK API 34, abra a pasta do projeto e
++inicie um emulador ou conecte um celular com depuração USB. No Linux, execute
++na raiz do projeto (ajuste o caminho do JDK se o Android Studio estiver em
++outro local):
+ 
+-### Passos
+-
+-1. **Clone o repositório**
+-   ```bash
+-   git clone https://github.com/gabirusky/DoseCerta.git
+-   cd DoseCerta
+-   ```
+-
+-2. **Abra no Android Studio**
+-   - File → Open → Selecione a pasta do projeto
+-   - Aguarde o Gradle Sync completar
+-
+-3. **Build do Projeto**
+-   - Build → Make Project (Ctrl+F9)
+-
+-4. **Gerar APK**
+-   - **Debug APK**: Build → Build Bundle(s) / APK(s) → Build APK(s)
+-     - Localização: `app/build/outputs/apk/debug/app-debug.apk`
+-   
+-   - **Release APK**: Build → Generate Signed Bundle / APK
+-     - Siga o wizard para criar/usar signing key
+-     - Localização: `app/build/outputs/apk/release/app-release.apk`
++```bash
++export JAVA_HOME="$HOME/Programs/android-studio/jbr"
++./gradlew assembleDebug
++adb install -r app/build/outputs/apk/debug/app-debug.apk
++adb shell am start -n com.dosecerta/.ui.MainActivity
++```
+ 
+-5. **Executar no Emulador/Dispositivo**
+-   - Run → Run 'app' (Shift+F10)
++Também é possível executar pelo botão **Run** do Android Studio. Consulte
++[BUILD.md](BUILD.md) para o passo a passo completo, incluindo configuração do
++SDK, emulador, Windows e solução de problemas.
+ 
+ ## 📋 Funcionalidades Implementadas
+ 
+diff --git a/build.gradle.kts b/build.gradle.kts
+index 58ba4f3..0d18e26 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -1,6 +1,6 @@
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+-    id("com.android.application") version "8.2.2" apply false
++    id("com.android.application") version "8.13.2" apply false
+     id("org.jetbrains.kotlin.android") version "1.9.20" apply false
+     id("com.google.devtools.ksp") version "1.9.20-1.0.14" apply false
+ }
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+index 9f4197d..6514f91 100644
+--- a/gradle/wrapper/gradle-wrapper.properties
++++ b/gradle/wrapper/gradle-wrapper.properties
+@@ -1,6 +1,6 @@
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-8.2.1-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.14-all.zip
+ networkTimeout=10000
+ validateDistributionUrl=true
+ zipStoreBase=GRADLE_USER_HOME

@@ -1,223 +1,87 @@
-<div align="center">
+# Dose Certa
 
-![App Icon](https://github.com/user-attachments/assets/fa460868-fc87-4dfb-8efc-f493d6d77341)
-<h3>Dose Certa</h3>
+> **04/10/2026 — TASKS retomado:** checks locais e evidências anteriores reconciliados. Resultados, limites e gates restantes em [task-completion](docs/qa/task-completion-20261004.md). Não há release assinada ou aprovação Play.
 
-</div>
+Aplicativo Android nativo para organizar medicamentos, posologias, lembretes e registros de doses. Não substitui orientação profissional; siga a prescrição recebida.
 
-## Sobre o Projeto
+## Estado da v1.0
 
-**Dose Certa** é um aplicativo Android nativo desenvolvido para ajudar usuários a gerenciar seus medicamentos de forma simples e eficaz. Com uma interface moderna e intuitiva, o app permite cadastrar medicamentos, configurar lembretes personalizados e acompanhar o histórico completo de administração.
+A interface usa Material 3 nativo, com um destaque compacto de gradiente e percentual circular na Home. As listas agrupam dose, horário, estado e ações para mostrar mais informações de primeira; o Histórico mantém a exportação no cabeçalho, sem sobrepor os registros. [Capturas e validação da UI](docs/qa/ui-polish-20261003.md).
 
-O objetivo é promover maior adesão ao tratamento médico, garantindo que você tome seus medicamentos corretamente e no horário certo, contribuindo para seu bem-estar e saúde.
+[CONTEXT.md](CONTEXT.md) guarda o estado de retomada, [TASKS.md](TASKS.md) mantém os 121 critérios e [PLAN.md](PLAN.md) registra o plano. Testes e validações locais foram retomados por autorização em 03/10/2026. [Resultados locais dessa sessão](docs/qa/local-validation-20261003.md) são evidência de escopo específico; não equivalem a lançamento aprovado.
 
-## ✨ Principais Funcionalidades
+Conta Play, assinatura/versionCode e contato/URL pública ainda precisam ser definidos; [gates externos](docs/release/external-gates.md) abertos. O usuário escolheu emuladores; ensaios Xiaomi/Samsung não realizados.
 
-- ✅ **Cadastro Completo de Medicamentos** - Nome, dosagem, unidade, frequência e anotações
-- ⏰ **Alarmes Estilo Despertador** - Lembretes com tela fullscreen, vibração e som personalizado
-- 📊 **Painel de Estatísticas** - Acompanhe sua adesão semanal com gráficos visuais  
-- 📅 **Histórico Detalhado** - Visualize doses tomadas, perdidas e puladas
-- 🔔 **Notificações Personalizadas** - Alertas com ações rápidas (Tomei, Pular, Adiar)
-- 🔄 **Relembretes Automáticos** - Notifica novamente doses não tomadas após intervalo configurável
-- 🎨 **Interface Moderna** - Design Material 3 com tema claro e escuro
-- 🌐 **Suporte Multilíngue** - Português (BR) e Inglês
-- 🔒 **Privacidade Total** - Todos os dados são armazenados localmente (LGPD)
+## Funcionalidades presentes no código
 
-## 🏗️ Estrutura do Projeto
+- Cadastro/edição com horários, dias da semana, dia mensal, prévia de próximas datas e rascunho restaurável.
+- Regras diárias, intervalos por horários explícitos, semanais, mensais, dias específicos e conforme necessário.
+- Ocorrências com identidade persistente, snapshots históricos, tomada/pulo/silêncio/snooze distintos e transações idempotentes.
+- Home hoje/próximas doses/PRN, busca, arquivamento e exclusão informada de medicamentos/histórico.
+- AlarmManager, áudio finito e FSI condicionado a acessos/canais do Android. Sistema/aparelho determinam apresentação; sem promessa de contornar DND ou restrições OEM.
+- Histórico/adesão com cálculo comum; PDF por destino SAF escolhido pelo usuário e abertura/compartilhamento com content URI.
+- Português/inglês, temas claro/escuro, layouts roláveis e ações explícitas equivalentes aos gestos.
 
-```
-DoseCerta/
-├── app/src/main/java/com/dosecerta/
-│   ├── data/                          # Camada de dados
-│   │   ├── local/
-│   │   │   ├── entity/               # Entidades Room (Medication, Schedule, MedicationLog)
-│   │   │   ├── dao/                  # Data Access Objects
-│   │   │   └── DoseCertaDatabase.kt  # Configuração do banco de dados
-│   │   ├── model/                    # Modelos de domínio
-│   │   └── repository/               # Repositórios (abstração de dados)
-│   │       └── MedicationRepository.kt
-│   ├── ui/                           # Camada de apresentação
-│   │   ├── home/                     # Tela inicial com medicações do dia
-│   │   │   ├── HomeFragment.kt
-│   │   │   ├── HomeViewModel.kt
-│   │   │   └── ScheduleAdapter.kt
-│   │   ├── medications/              # Lista e gerenciamento de medicamentos
-│   │   │   ├── MedicationsFragment.kt
-│   │   │   ├── MedicationsViewModel.kt
-│   │   │   └── MedicationAdapter.kt
-│   │   ├── addmedication/            # Adicionar/editar medicamento
-│   │   │   ├── AddMedicationFragment.kt
-│   │   │   ├── AddMedicationViewModel.kt
-│   │   │   └── ScheduleTimeAdapter.kt
-│   │   ├── history/                  # Histórico e estatísticas
-│   │   │   ├── HistoryFragment.kt
-│   │   │   ├── HistoryViewModel.kt
-│   │   │   └── LogAdapter.kt
-│   │   ├── settings/                 # Configurações
-│   │   │   └── SettingsFragment.kt
-│   │   ├── privacy/                  # Política de privacidade
-│   │   │   └── PrivacyFragment.kt
-│   │   └── setup/                    # Wizard de configuração inicial
-│   │       ├── SetupActivity.kt
-│   │       ├── SetupNotificationsFragment.kt
-│   │       ├── SetupTermsFragment.kt
-│   │       └── SetupTutorialFragment.kt
-│   ├── alarm/                        # Sistema de alarmes (estilo despertador)
-│   │   ├── AlarmScheduler.kt         # Agendamento de alarmes
-│   │   ├── AlarmService.kt           # Serviço de foreground para alarmes
-│   │   ├── AlarmActivity.kt          # Activity fullscreen de alarme
-│   │   ├── AlarmSoundManager.kt      # Gerenciamento de áudio do alarme
-│   │   ├── MedicationAlarmReceiver.kt
-│   │   └── BootCompletedReceiver.kt
-│   ├── notification/                 # Gerenciamento de notificações
-│   │   ├── NotificationHelper.kt
-│   │   ├── NotificationActionReceiver.kt
-│   │   ├── MarkMissedReceiver.kt     # Marcação automática de doses perdidas
-│   │   └── MissedReminderReceiver.kt # Lembrete de doses não tomadas
-│   ├── util/                         # Utilitários
-│   │   ├── DateTimeUtils.kt
-│   │   └── SampleDataProvider.kt
-│   └── DoseCertaApplication.kt       # Application class
-├── app/src/main/res/
-│   ├── layout/                       # Layouts XML
-│   ├── drawable/                     # Recursos gráficos e gradientes
-│   ├── navigation/                   # Navigation graph
-│   ├── values/                       # Strings, cores, temas, dimensões
-│   ├── values-en/                    # Suporte a inglês
-│   └── mipmap/                       # Ícones do app
-└── gradle/                           # Configuração Gradle
+Essa lista descreve implementação. Aceite em runtime fica registrado por tarefa.
+
+## Build
+
+| Configuração | Versão |
+| --- | --- |
+| Android min / compile / target | 26 / 36 / 36 |
+| Gradle / AGP | 8.14 / 8.13.2 |
+| Kotlin / KSP | 1.9.20 / 1.9.20-1.0.14 |
+| Room / Material | 2.6.1 / 1.11.0 |
+| Java | JVM 17; local JDK 21 do Studio; CI JDK 17 |
+
+Abra a raiz no Android Studio, instale SDK Platform 36 e configure o JDK. Nesta máquina:
+
+```bash
+env JAVA_HOME=/home/gabirusky/Programs/android-studio/jbr ./gradlew assembleDebug
+adb devices
+adb -s SERIAL install -r app/build/outputs/apk/debug/app-debug.apk
+adb -s SERIAL shell am start -n com.dosecerta/.ui.MainActivity
 ```
 
-## 🛠️ Tecnologias e Bibliotecas
+Substitua SERIAL pelo dispositivo escolhido. Não execute limpeza de dados em AVD pessoal. [BUILD.md](BUILD.md) cobre SDK, Windows, QA e assinatura.
 
-### Core
-- **Linguagem**: Kotlin 1.9.20
-- **Min SDK**: API 26 (Android 8.0)
-- **Target SDK**: API 34 (Android 14)
-- **Build System**: Gradle 8.2.1 com Kotlin DSL
+## QA e evidências
 
-### Arquitetura
-- **Pattern**: MVVM (Model-View-ViewModel)
-- **Princípios**: Clean Architecture, Single Responsibility, Separation of Concerns
+Comandos de validação local:
 
-### Android Jetpack
-- **Room Database** 2.6.1 - Persistência de dados local com TypeConverters
-- **Navigation Component** 2.7.6 - Navegação declarativa entre telas
-- **ViewModel** 2.7.0 - Gerenciamento de estado consciente do ciclo de vida
-- **Lifecycle** 2.7.0 - Observação do ciclo de vida
-- **DataStore Preferences** 1.0.0 - Armazenamento de preferências
-- **Work Manager** 2.9.0 - Tarefas em background confiáveis
+```bash
+env JAVA_HOME=/home/gabirusky/Programs/android-studio/jbr ./gradlew assembleDebug lintDebug testDebugUnitTest assembleDebugAndroidTest
+bash scripts/qa/device-checks.sh SERIAL
+```
 
-### UI/UX
-- **Material Components** 1.11.0 - Material Design 3
-- **RecyclerView** 1.3.2 - Listas eficientes e performáticas
-- **View Binding** - Type-safe view references
-- **Circular Progress Indicator** - Visualização de progresso
+Testes JVM em `app/src/test`; instrumentação em `app/src/androidTest`; Room schema 4 em `app/schemas`. Resultados em `app/build/test-results`, `app/build/reports` e `docs/qa/`. Checks locais/CI em `scripts/qa/checks.sh` e `.github/workflows/android-checks.yml`; CI remoto não executado.
 
-### Programação Assíncrona
-- **Kotlin Coroutines** 1.7.3 - Gerenciamento de operações assíncronas
-- **Flow & StateFlow** - Streams reativos de dados
+[Runbook de dispositivo](docs/qa/device-runbook.md), [gravação](docs/qa/evidence-runbook.md) e [estado do emulador](docs/qa/emulator-validation.md) distinguem ambiente sintético/permissões reais/evidência. O AVD dedicado `DoseCerta_QA`/API 26 executou a validação visual; a matriz completa de APIs e aparelhos continua separada. Imagem 4 KB não comprova runtime 16 KB.
 
-### Processamento de Anotações
-- **KSP** 1.9.20-1.0.14 - Kotlin Symbol Processing para Room
+## Dados e privacidade
 
-### Sistema de Alarmes
-- **AlarmManager** - Agendamento preciso com alarmes exatos
-- **Foreground Service** - AlarmService com notificação persistente
-- **Full-Screen Intent** - Activity de alarme sobre lock screen
-- **NotificationCompat** - Notificações ricas com ações
+Banco e preferências ficam no armazenamento privado do Android. Manifesto observado sem INTERNET; não há implementação de upload/analytics. Room/SQLite não é criptografado independentemente: proteção depende do sandbox, criptografia efetiva e bloqueio do aparelho, conforme [ADR](docs/adr/data-protection.md). Backup/transfer excluídos na configuração; validação real pendente. PDFs são cópias no destino do usuário.
 
-## 🎨 Design System
+A [política em preparação](docs/release/privacy-policy.md) explica retenção/exclusão/permissões/exportação. Contato/URL pública não definidos. Armazenamento local não comprova conformidade legal automática.
 
-- **Paleta de Cores**: Tons oceânicos (Baltic Blue, Teal, Verdigris, Mint Leaf, Cream)
-- **Temas**: Suporte completo a Light e Dark mode
-- **Tipografia**: Sans-serif com hierarquia clara
-- **Componentes**: Cards elevados, botões arredondados, gradientes suaves
+## Estrutura
 
-## 🚀 Como Compilar
+```text
+app/src/main/java/com/dosecerta/
+  data/          Room, migrações, snapshots e repositório
+  domain/        recorrência, estados, ações e adesão
+  alarm/         capacidades, agendamento, serviço e card
+  notification/  canais, ações, timeout e follow-up
+  ui/            setup, Home, cadastro, lista, Histórico/PDF e Settings
+app/src/test/          testes JVM
+app/src/androidTest/   migrações, escala, UI, PDF, alarmes e jornada
+app/schemas/           schema Room exportado
+docs/                  requisitos, ADRs, design, QA e release
+scripts/qa/            checks, auditoria e gravação
+```
 
-### Pré-requisitos
-- Android Studio Hedgehog | 2023.1.1 ou superior
-- JDK 17 (incluído no Android Studio)
-- Android SDK API 34
+## Release e licença
 
-### Passos
+`./gradlew bundleRelease -PreleaseVersionCode=N` prepara bundle sem assinatura quando não há configuração externa de upload. N e certificado devem ser conferidos no Console. Variáveis DOSECERTA_UPLOAD_* fora de Git/logs; nenhum segredo em CLI/docs. [Go/no-go](docs/release/go-no-go.md), [notas v1.0](docs/release/release-notes-v1.0.md) e [hotfix](docs/release/hotfix.md) registram critérios; publicação depende do responsável e das validações.
 
-1. **Clone o repositório**
-   ```bash
-   git clone https://github.com/gabirusky/DoseCerta.git
-   cd DoseCerta
-   ```
-
-2. **Abra no Android Studio**
-   - File → Open → Selecione a pasta do projeto
-   - Aguarde o Gradle Sync completar
-
-3. **Build do Projeto**
-   - Build → Make Project (Ctrl+F9)
-
-4. **Gerar APK**
-   - **Debug APK**: Build → Build Bundle(s) / APK(s) → Build APK(s)
-     - Localização: `app/build/outputs/apk/debug/app-debug.apk`
-   
-   - **Release APK**: Build → Generate Signed Bundle / APK
-     - Siga o wizard para criar/usar signing key
-     - Localização: `app/build/outputs/apk/release/app-release.apk`
-
-5. **Executar no Emulador/Dispositivo**
-   - Run → Run 'app' (Shift+F10)
-
-## 📋 Funcionalidades Implementadas
-
-- [x] Tela inicial com medicações do dia e status em tempo real
-- [x] Cadastro e edição de medicamentos com unidades personalizadas
-- [x] Configuração de múltiplos horários por medicamento
-- [x] Sistema de alarmes estilo despertador (fullscreen, som, vibração)
-- [x] Ações rápidas: Tomar, Pular, Adiar (snooze configurável)
-- [x] Marcação automática de doses perdidas
-- [x] Relembretes para doses não tomadas (intervalo configurável)
-- [x] Histórico completo com filtros por status
-- [x] Edição/exclusão de logs no histórico
-- [x] Estatísticas de adesão semanal
-- [x] Tema claro e escuro
-- [x] Suporte a Português (BR) e Inglês
-- [x] Wizard de configuração inicial (tutorial + permissões)
-- [x] Política de privacidade LGPD
-- [x] Persistência local com Room Database
-- [x] Reagendamento de alarmes após reinício do dispositivo
-
-## 🔒 Privacidade e Segurança
-
-O **Dose Certa** foi desenvolvido com foco total na privacidade do usuário:
-
-- ✅ Todos os dados são armazenados **localmente** no dispositivo
-- ✅ **Nenhuma informação** é enviada para servidores externos
-- ✅ **Sem rastreamento** de atividades ou analytics
-- ✅ **Sem requisição de permissões** desnecessárias
-- ✅ Conformidade com a **LGPD** (Lei Geral de Proteção de Dados)
-
-## 🤝 Contribuindo
-
-Contribuições são muito bem-vindas! Para contribuir:
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/NovaFuncionalidade`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Push para a branch (`git push origin feature/NovaFuncionalidade`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está licenciado sob a **GNU General Public License v3.0 (GPL-3.0)**.
-
-Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 👨‍💻 Autor
-
-**Gabriel Pereira**
-
-- GitHub: [@gabirusky](https://github.com/gabirusky)
-
----
-
-⭐ Se este projeto foi útil para você, considere dar uma estrela!
+Licença anunciada: [GNU GPL v3](LICENSE). Autor: **Gabriel Pereira**, [@gabirusky](https://github.com/gabirusky). Inventário transitivo/avisos em `docs/release/`.

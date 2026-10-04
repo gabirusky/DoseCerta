@@ -1,0 +1,24 @@
+{
+  "packages": [
+    {
+      "source": "https://dl.google.com/android/repository/repository2-3.xml",
+      "url": "https://dl.google.com/android/repository/commandlinetools-linux-16111833_latest.zip",
+      "size": 181052239,
+      "sha1": "e025545c62a8e64c7559119566a569fb1dec5f60",
+      "sha256": "0877a1d048fe4a24efe2eff536ca4223f7adeb58648bb81909d33c446918cfa8",
+      "verified": true,
+      "package": "cmdline-tools;latest",
+      "version": "23.0"
+    },
+    {
+      "source": "https://dl.google.com/android/repository/repository2-3.xml",
+      "url": "https://dl.google.com/android/repository/emulator-linux_x64-15917651.zip",
+      "size": 334378080,
+      "sha1": "1b1f78891abf8ec268264356e1365c25519e8379",
+      "sha256": "95771e0ae431897b2a4bd2d97fa095f29a8b0624a7b216baf529f9306161c266",
+      "verified": true,
+      "package": "emulator",
+      "version": "37.1.11"
+    }
+  ]
+}

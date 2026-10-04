@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="ui_regimen">Regimen</string>
+  <string name="ui_regimen_hint">Use the dose and frequency advised by your clinician.</string>
+  <string name="ui_weekly">Weekly</string>
+  <string name="ui_monthly">Monthly</string>
+  <string name="ui_specific_days">Selected days</string>
+  <string name="ui_weekdays">Days of the week</string>
+  <string name="ui_month_day">Day of month (1 to 31)</string>
+  <string name="ui_month_policy">If the month does not have this day, no dose is scheduled that month. Check your clinician’s instructions.</string>
+  <string name="ui_next_dates">Upcoming doses</string>
+  <string name="ui_preview_empty">Add a time to see upcoming dates.</string>
+  <string name="ui_save">Save</string>
+  <string name="ui_saving">Saving…</string>
+  <string name="ui_error_save">Could not save. Your draft was kept. Try again.</string>
+  <string name="ui_name_required">Enter the medication name.</string>
+  <string name="ui_dosage_required">Enter the dose you were instructed to use.</string>
+  <string name="ui_unit_required">Enter a unit. You may also type a custom unit.</string>
+  <string name="ui_time_required">Add at least one time.</string>
+  <string name="ui_days_required">Choose at least one day.</string>
+  <string name="ui_month_day_error">Choose a day between 1 and 31.</string>
+  <string name="ui_duplicate_time">This time is already in the list.</string>
+  <string name="ui_selected">Selected</string>
+  <string name="ui_not_selected">Not selected</string>
+  <string name="ui_color_teal">Teal</string>
+  <string name="ui_color_blue">Blue</string>
+  <string name="ui_color_purple">Purple</string>
+  <string name="ui_color_red">Red</string>
+  <string name="ui_color_orange">Orange</string>
+  <string name="ui_color_green">Green</string>
+  <string name="ui_remove_time">Remove time %1$s</string>
+  <string name="ui_generate_times">Suggest times for this interval</string>
+  <string name="ui_interval_hint">Times are fixed clock times. Adjust the list to follow your instructions. Changing frequency keeps your times.</string>
+  <string name="ui_no_data">No data</string>
+  <string name="ui_week_adherence">Adherence this week</string>
+  <string name="ui_today">Today’s doses</string>
+  <string name="ui_today_empty">No doses scheduled today. Upcoming doses appear above.</string>
+  <string name="ui_upcoming_empty">No upcoming scheduled dose.</string>
+  <string name="ui_pending">Pending</string>
+  <string name="ui_taken">Taken</string>
+  <string name="ui_skipped">Skipped</string>
+  <string name="ui_missed">Not confirmed</string>
+  <string name="ui_take">I took it</string>
+  <string name="ui_skip">Skip</string>
+  <string name="ui_due">Due · awaiting confirmation</string>
+  <string name="ui_action_error">Could not record. Try again.</string>
+  <string name="ui_take_for">Record taking %1$s</string>
+  <string name="ui_skip_for">Skip dose of %1$s</string>
+  <string name="ui_extra_confirm">Record an unscheduled dose of %1$s?</string>
+  <string name="ui_extra_hint">Record only a dose you already took. Unscheduled doses do not count toward adherence.</string>
+  <string name="ui_no_results">No medication matches your search or filter.</string>
+  <string name="ui_manage_medication">Manage %1$s</string>
+  <string name="ui_archive">Archive medication</string>
+  <string name="ui_archive_hint">Stops reminders and keeps history. You can view previous doses in History.</string>
+  <string name="ui_delete_permanent">Delete permanently</string>
+  <string name="ui_delete_keep">Delete medication and keep history</string>
+  <string name="ui_delete_all">Delete medication and its history</string>
+  <string name="ui_delete_warning">Choose what to delete for %1$s. This action is permanent. PDFs already saved or shared remain outside the app.</string>
+  <string name="ui_archive_success">Medication archived. History kept.</string>
+  <string name="ui_delete_success">Selected data deleted.</string>
+  <string name="ui_edit_for">Edit %1$s</string>
+  <string name="ui_next_for">Next dose: %1$s</string>
+  <string name="ui_medical_disclaimer">DoseCerta helps organize reminders and records. It does not replace medical advice, prescribe treatments, or provide emergency services. Do not change a dose on your own.</string>
+  <string name="ui_privacy_text">Names, doses, schedules, and records are stored in this app on this device. There is no account registration or automatic upload of this data. Protection also depends on the device’s lock and security.
+
+You can archive medications while keeping history, permanently delete a medication while keeping history, or delete both the medication and its records. Exported PDFs are copies outside the app: deleting local data does not remove copies already saved or shared.
+
+Sensitive details are hidden on the lock screen by default. Review your privacy choice in Settings. Notification and alarm access enable reminders; denying access limits delivery. Android and device manufacturers may restrict alerts.
+
+This text describes local behavior. The product owner must provide a public contact and published policy before distribution.</string>
+  <string name="ui_setup_summary">Read before starting</string>
+  <string name="ui_setup_progress">Step %1$d of %2$d</string>
+  <string name="ui_draft_discard_title">Leave the form?</string>
+  <string name="ui_draft_discard_hint">Your draft is kept when this screen rotates or is restored. Leaving discards unsaved changes.</string>
+  <string name="ui_leave">Leave without saving</string>
+  <string name="ui_stay">Keep editing</string>
+  <string name="ui_next_dose_summary">%1$s · %2$s</string>
+  <string name="ui_as_needed_preview">No automatic reminders. Record doses in the As needed section on Home.</string>
+<string name="ui_dst_adjusted"> · adjusted for a clock change</string><string name="ui_manage_actions">Archive or delete</string><string name="ui_reload">Reload</string><string name="ui_load_error">Could not open this medication. Reload or return to the list.</string><string name="ui_saved_reminder_warning">The medication was saved. Reminders are limited or may arrive after the scheduled time. Review access in Settings.</string></resources>

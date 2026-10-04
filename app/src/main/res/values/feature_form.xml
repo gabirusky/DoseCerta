@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ui_edit_reminder_time">Editar horário</string>
+    <string name="ui_edit_time">Editar horário %1$s</string>
+    <string name="ui_more_details">Mais detalhes</string>
+    <string name="ui_hide_details">Ocultar detalhes</string>
+    <string name="ui_expanded">Expandido</string>
+    <string name="ui_collapsed">Recolhido</string>
+    <string name="ui_hide_next_dates">Ocultar próximas doses</string>
+    <string name="ui_next_reminder">Próximo lembrete: %1$s</string>
+</resources>

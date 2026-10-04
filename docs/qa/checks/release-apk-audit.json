@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-10-04T13:47:32.146108+00:00",
+  "artifact": "app/build/outputs/apk/release/app-release-unsigned.apk",
+  "artifact_kind": "apk",
+  "size_bytes": 6157502,
+  "sha256": "ebf1c433a394d41bef6b1c8804d66739233a5328ac5da78f24878669592a3f95",
+  "native_libraries": [],
+  "bundled_license_notice_entries": [],
+  "agp_app_metadata": "appMetadataVersion=1.1\nandroidGradlePluginVersion=8.13.2\n",
+  "native_alignment_verification": "not applicable: no bundled .so",
+  "native_alignment_pass": true,
+  "generated_apk_zip_alignment": "checked for uncompressed .so",
+  "runtime_16kb": "pending: getconf PAGE_SIZE must return 16384, then install this artifact and run smoke/journey/PDF evidence",
+  "scope": "Packaging/ELF checks only. No proof of runtime, signatures, manifest policy, or Play acceptance."
+}

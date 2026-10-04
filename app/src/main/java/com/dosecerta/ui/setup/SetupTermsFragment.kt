@@ -36,6 +36,7 @@ class SetupTermsFragment : Fragment() {
         
         settingsPreferences = SettingsPreferences(requireContext())
         
+        binding.buttonContinue.isEnabled = binding.checkboxAccept.isChecked
         setupCheckbox()
         setupContinueButton()
     }
@@ -48,7 +49,8 @@ class SetupTermsFragment : Fragment() {
     
     private fun setupContinueButton() {
         binding.buttonContinue.setOnClickListener {
-            lifecycleScope.launch {
+            binding.buttonContinue.isEnabled = false
+            viewLifecycleOwner.lifecycleScope.launch {
                 // Save that terms have been accepted
                 settingsPreferences.acceptTerms()
                 

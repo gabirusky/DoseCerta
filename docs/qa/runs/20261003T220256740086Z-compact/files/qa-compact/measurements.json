@@ -1,0 +1,92 @@
+[
+  {
+    "screen": "light-pt-home",
+    "cardHeightsDp": [
+      103.5,
+      103.5,
+      103.5
+    ],
+    "fullyVisibleCards": 3,
+    "fontScale": 1,
+    "screenWidthDp": 360
+  },
+  {
+    "screen": "light-pt-medications",
+    "cardHeightsDp": [
+      96.5,
+      96.5,
+      96.5,
+      96.5
+    ],
+    "fullyVisibleCards": 3,
+    "fontScale": 1,
+    "screenWidthDp": 360
+  },
+  {
+    "screen": "dark-pt-home",
+    "cardHeightsDp": [
+      103.5,
+      103.5,
+      103.5
+    ],
+    "fullyVisibleCards": 3,
+    "fontScale": 1,
+    "screenWidthDp": 360
+  },
+  {
+    "screen": "dark-pt-medications",
+    "cardHeightsDp": [
+      96.5,
+      96.5,
+      96.5,
+      96.5
+    ],
+    "fullyVisibleCards": 3,
+    "fontScale": 1,
+    "screenWidthDp": 360
+  },
+  {
+    "screen": "light-en-home",
+    "cardHeightsDp": [
+      103.5,
+      103.5,
+      103.5
+    ],
+    "fullyVisibleCards": 3,
+    "fontScale": 1,
+    "screenWidthDp": 360
+  },
+  {
+    "screen": "light-en-medications",
+    "cardHeightsDp": [
+      96.5,
+      96.5,
+      96.5,
+      96.5
+    ],
+    "fullyVisibleCards": 3,
+    "fontScale": 1,
+    "screenWidthDp": 360
+  },
+  {
+    "screen": "large-pt-home",
+    "cardHeightsDp": [
+      198.5,
+      198.5,
+      198.5
+    ],
+    "fullyVisibleCards": 1,
+    "fontScale": 2,
+    "screenWidthDp": 360
+  },
+  {
+    "screen": "large-pt-medications",
+    "cardHeightsDp": [
+      279,
+      279
+    ],
+    "fullyVisibleCards": 1,
+    "fontScale": 2,
+    "screenWidthDp": 360
+  }
+]

@@ -3,80 +3,24 @@ package com.dosecerta.notification
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import com.dosecerta.alarm.AlarmIdentity
+import com.dosecerta.alarm.AlarmScheduler
+import com.dosecerta.alarm.runAlarmWork
 import com.dosecerta.data.local.DoseCertaDatabase
-import com.dosecerta.data.local.entity.MedicationLog
-import com.dosecerta.data.model.MedicationStatus
-import com.dosecerta.util.Constants
-import com.dosecerta.util.SettingsPreferences
-import kotlinx.coroutines.runBlocking
+import com.dosecerta.data.repository.MedicationRepository
+import com.dosecerta.domain.DoseActionCoordinator
+import com.dosecerta.domain.DoseActionResult
 
-/**
- * Receiver for marking medications as MISSED when not acted upon.
- */
 class MarkMissedReceiver : BroadcastReceiver() {
-    
-    companion object {
-        private const val TAG = "MarkMissedReceiver"
-    }
-    
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "onReceive called with action: ${intent.action}")
-        
-        val medicationId = intent.getLongExtra(Constants.EXTRA_MEDICATION_ID, -1L)
-        val scheduleId = intent.getLongExtra(Constants.EXTRA_SCHEDULE_ID, -1L)
-        val scheduledTime = intent.getLongExtra(Constants.EXTRA_SCHEDULED_TIME, 0L)
-        
-        Log.d(TAG, "Medication ID: $medicationId, Schedule ID: $scheduleId, Time: $scheduledTime")
-        
-        if (medicationId == -1L || scheduleId == -1L) {
-            Log.e(TAG, "Invalid medication or schedule ID")
-            return
-        }
-        
-        runBlocking {
-            try {
-                val database = DoseCertaDatabase.getDatabase(context)
-                val logDao = database.medicationLogDao()
-                val settingsPreferences = SettingsPreferences(context)
-                
-                // Check if a log already exists (user may have acted before timeout)
-                val existingLog = logDao.getLog(medicationId, scheduleId, scheduledTime)
-                
-                if (existingLog == null) {
-                    // No action was taken - mark as MISSED
-                    val insertedId = logDao.insert(
-                        MedicationLog(
-                            medicationId = medicationId,
-                            scheduleId = scheduleId,
-                            scheduledTime = scheduledTime,
-                            actualTime = null,
-                            status = MedicationStatus.MISSED
-                        )
-                    )
-                    Log.d(TAG, "Marked as MISSED with log ID: $insertedId")
-                    
-                    // Get user's preferred reminder hours from settings
-                    val reminderHours = settingsPreferences.getMissedReminderHoursSync()
-                    
-                    // Schedule reminder notification based on user preference
-                    val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(context)
-                    alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
-                    Log.d(TAG, "Scheduled missed reminder for $reminderHours hours from now")
-                } else {
-                    // B8: If user previously skipped, schedule a missed reminder even though log exists
-                    if (existingLog.status == MedicationStatus.SKIPPED) {
-                        val reminderHours = settingsPreferences.getMissedReminderHoursSync()
-                        val alarmScheduler = com.dosecerta.alarm.AlarmScheduler(context)
-                        alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
-                        Log.d(TAG, "Log is SKIPPED — scheduled missed reminder for $reminderHours hours from now")
-                    } else {
-                        Log.d(TAG, "Log already exists with status: ${existingLog.status}, skipping")
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error marking as missed", e)
-                e.printStackTrace()
+        val id = intent.getStringExtra(AlarmIdentity.EXTRA_OCCURRENCE_ID) ?: return
+        runAlarmWork(context, id) {
+            val repository = MedicationRepository(DoseCertaDatabase.getDatabase(context))
+            val result = DoseActionCoordinator(repository).timeout(id, com.dosecerta.util.SettingsPreferences(context).getMissedReminderHoursSync() * 3_600_000L)
+            if (result is DoseActionResult.Success) {
+                val scheduler = AlarmScheduler(context)
+                scheduler.cancelOccurrence(id)
+                if (repository.isOccurrenceCurrent(result.occurrence)) scheduler.scheduleFollowUp(result.occurrence)
             }
         }
     }

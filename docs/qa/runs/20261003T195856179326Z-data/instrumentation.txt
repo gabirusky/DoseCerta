@@ -1,0 +1,9 @@
+
+com.dosecerta.data.SyntheticScaleTest:.
+com.dosecerta.data.OccurrencePersistenceTest:............
+
+Time: 7.846
+
+OK (13 tests)
+
+

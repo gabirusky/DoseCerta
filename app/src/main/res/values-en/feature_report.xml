@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="report_no_data">No data</string>
+    <string name="report_adherence">Period adherence: %s</string>
+    <string name="report_action_failed">Could not save. Try again.</string>
+    <string name="report_taken_time">Time taken</string>
+    <string name="report_taken_date">Date taken</string>
+    <string name="report_saved">Report saved</string>
+    <string name="report_saved_destination">File: %1$s\nLocation: %2$s</string>
+    <string name="report_selected_destination">Location chosen in the file picker</string>
+    <string name="report_share">Share</string>
+    <string name="report_retry">Retry</string>
+    <string name="report_interrupted">Export was interrupted. Choose the destination again.</string>
+    <string name="report_failed_cleanup">Could not save. If a partial file remains at the destination, remove it before retrying.</string>
+    <string name="report_no_viewer">No PDF reader available. You can share the file.</string>
+    <string name="report_access_lost">The provider denied access. Choose the destination again.</string>
+    <string name="report_edit_record">Edit record</string>
+    <string name="report_status_pending">Pending</string>
+    <string name="report_scheduled_time">Scheduled: %s</string>
+    <string name="report_actual_time">Taken: %s</string>
+</resources>

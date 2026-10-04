@@ -1,0 +1,708 @@
+--- a/app/src/main/res/drawable/gradient_welcome_card.xml
++++ b/app/src/main/res/drawable/gradient_welcome_card.xml
+@@ -1,10 +1,10 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <shape xmlns:android="http://schemas.android.com/apk/res/android">
+     <gradient
+-        android:angle="135"
+-        android:startColor="#05668D"
+-        android:centerColor="#028090"
+-        android:endColor="#00A896"
++        android:angle="0"
++        android:startColor="@color/ui_hero_start"
++        android:centerColor="@color/ui_hero_center"
++        android:endColor="@color/ui_hero_end"
+         android:type="linear" />
+     <corners android:radius="20dp" />
+ </shape>
+--- a/app/src/main/res/drawable/home_adherence_halo.xml
++++ b/app/src/main/res/drawable/home_adherence_halo.xml
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="utf-8"?>
++<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
++    <solid android:color="#0DFFFFFF" />
++</shape>
+--- a/app/src/main/res/layout/fragment_medications.xml
++++ b/app/src/main/res/layout/fragment_medications.xml
+@@ -3,7 +3,7 @@
+     android:layout_width="match_parent" android:layout_height="match_parent" android:background="?android:attr/colorBackground">
+     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
+         android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="8dp">
+-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="8dp">
++        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="4dp">
+             <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/nav_medications"
+                 android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:maxLines="1" android:ellipsize="end" android:accessibilityHeading="true" />
+             <com.google.android.material.button.MaterialButton android:id="@+id/fab_add" style="@style/Widget.DoseCerta.IconButton"
+@@ -11,7 +11,7 @@
+         </LinearLayout>
+         <androidx.appcompat.widget.SearchView android:id="@+id/search_view" android:layout_width="match_parent" android:layout_height="wrap_content"
+             android:minHeight="48dp" android:background="@drawable/search_background" app:iconifiedByDefault="false" app:queryHint="@string/medications_search_hint" />
+-        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="8dp"
++        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+             android:scrollbars="none" android:clipToPadding="false">
+             <com.google.android.material.chip.ChipGroup android:layout_width="wrap_content" android:layout_height="wrap_content" app:singleSelection="true" app:singleLine="true"
+                 app:selectionRequired="true" app:chipSpacingHorizontal="8dp">
+--- a/app/src/main/res/layout/fragment_settings.xml
++++ b/app/src/main/res/layout/fragment_settings.xml
+@@ -5,16 +5,12 @@
+         android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="16dp" android:paddingBottom="28dp">
+         <TextView android:id="@+id/text_settings_title" android:layout_width="match_parent" android:layout_height="wrap_content"
+             android:text="@string/settings_title" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:accessibilityHeading="true" />
+-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:layout_marginBottom="16dp"
+-            android:text="@string/design_settings_subtitle" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp"
+-            android:text="@string/design_preferences" android:textAppearance="@style/TextAppearance.DoseCerta.Section" android:accessibilityHeading="true" />
+-        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content">
++        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/settings_language" android:textAppearance="@style/TextAppearance.DoseCerta.Title" />
+-                <RadioGroup android:orientation="horizontal" android:id="@+id/radio_group_language" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp">
++                <RadioGroup android:orientation="horizontal" android:id="@+id/radio_group_language" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="0dp">
+                     <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/radio_portuguese" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+-                        android:minHeight="48dp" android:text="@string/settings_language_portuguese" android:checked="true" android:textSize="14sp" android:buttonTint="?attr/colorPrimary" />
++                        android:minHeight="48dp" android:text="@string/design_language_portuguese" android:checked="true" android:textSize="14sp" android:buttonTint="?attr/colorPrimary" />
+                     <com.google.android.material.radiobutton.MaterialRadioButton android:id="@+id/radio_english" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                         android:minHeight="48dp" android:text="@string/settings_language_english" android:textSize="14sp" android:buttonTint="?attr/colorPrimary" />
+                 </RadioGroup>
+--- a/app/src/main/res/layout/item_medication.xml
++++ b/app/src/main/res/layout/item_medication.xml
+@@ -1,17 +1,23 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:clickable="true" android:focusable="true">
+-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingStart="12dp" android:paddingEnd="4dp" android:paddingVertical="10dp">
+-        <ImageView android:id="@+id/image_medication_icon" android:layout_width="24dp" android:layout_height="24dp" android:layout_marginTop="2dp"
+-            android:src="@drawable/ic_pill" android:importantForAccessibility="no" />
+-        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:orientation="vertical">
+-            <TextView android:id="@+id/text_medication_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.DoseCerta.Title" />
+-            <TextView android:id="@+id/text_dosage_info" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" />
+-            <TextView android:id="@+id/text_frequency" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
+-                android:textAppearance="@style/TextAppearance.DoseCerta.Label" android:textColor="?attr/colorPrimary" />
+-            <TextView android:id="@+id/text_next_dose" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="12sp" />
+-        </LinearLayout>
++    style="@style/Widget.DoseCerta.CardView.Compact"
++    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp" android:clickable="true" android:focusable="true">
++    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="12dp" android:paddingVertical="8dp">
++        <ImageView android:id="@+id/image_medication_icon" android:layout_width="20dp" android:layout_height="20dp"
++            android:src="@drawable/ic_pill" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
++        <TextView android:id="@+id/text_medication_name" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp"
++            android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Title"
++            app:layout_constraintStart_toEndOf="@id/image_medication_icon" app:layout_constraintEnd_toStartOf="@id/button_delete" app:layout_constraintTop_toTopOf="parent" />
++        <TextView android:id="@+id/text_dosage_info" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="2dp"
++            android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp"
++            app:layout_constraintStart_toStartOf="@id/text_medication_name" app:layout_constraintEnd_toStartOf="@id/button_delete" app:layout_constraintTop_toBottomOf="@id/text_medication_name" />
+         <com.google.android.material.button.MaterialButton android:id="@+id/button_delete" style="@style/Widget.DoseCerta.IconButton"
+-            android:layout_width="48dp" android:layout_height="48dp" app:icon="@drawable/ic_more_vert" android:contentDescription="@string/ui_manage_actions" />
+-    </LinearLayout>
++            android:layout_width="48dp" android:layout_height="48dp" app:icon="@drawable/ic_more_vert" android:contentDescription="@string/ui_manage_actions"
++            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
++        <androidx.constraintlayout.widget.Barrier android:id="@+id/medication_details_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content"
++            app:barrierDirection="bottom" app:constraint_referenced_ids="text_dosage_info,button_delete" />
++        <TextView android:id="@+id/text_next_dose" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="0dp"
++            android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp"
++            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/medication_details_bottom" app:layout_constraintBottom_toBottomOf="parent" />
++    </androidx.constraintlayout.widget.ConstraintLayout>
+ </com.google.android.material.card.MaterialCardView>
+--- a/app/src/main/res/layout/item_medication_log.xml
++++ b/app/src/main/res/layout/item_medication_log.xml
+@@ -1,12 +1,12 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp">
+-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="12dp" android:gravity="top">
++    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp" style="@style/Widget.DoseCerta.CardView.Compact">
++    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:paddingHorizontal="12dp" android:paddingVertical="8dp" android:gravity="top">
+         <ImageView android:id="@+id/image_status_icon" android:layout_width="24dp" android:layout_height="24dp"
+             android:src="@drawable/ic_pill" android:importantForAccessibility="no" />
+         <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:orientation="vertical">
+             <TextView android:id="@+id/text_medication_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.DoseCerta.Title" />
+-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="4dp">
++            <LinearLayout android:id="@+id/log_details" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="4dp">
+                 <TextView android:id="@+id/text_date_time" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginEnd="8dp"
+                     android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="12sp" />
+                 <TextView android:id="@+id/text_status" android:layout_width="wrap_content" android:layout_height="wrap_content"
+--- a/app/src/main/res/layout/item_schedule.xml
++++ b/app/src/main/res/layout/item_schedule.xml
+@@ -1,26 +1,32 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp">
+-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="12dp" android:paddingVertical="8dp">
+-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+-            <ImageView android:id="@+id/image_medication_icon" android:layout_width="24dp" android:layout_height="24dp"
+-                android:src="@drawable/ic_pill" android:importantForAccessibility="no" />
+-            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="10dp" android:layout_marginEnd="8dp" android:orientation="vertical">
+-                <TextView android:id="@+id/text_medication_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.DoseCerta.Title" />
+-                <TextView android:id="@+id/text_dosage" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" />
++    style="@style/Widget.DoseCerta.CardView.Compact"
++    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp">
++    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="12dp" android:paddingVertical="6dp">
++        <LinearLayout android:id="@+id/schedule_heading" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
++            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="8dp">
++                <ImageView android:id="@+id/image_medication_icon" android:layout_width="20dp" android:layout_height="20dp"
++                    android:src="@drawable/ic_pill" android:importantForAccessibility="no" />
++                <TextView android:id="@+id/text_medication_name" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp"
++                    android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Title" />
+             </LinearLayout>
+-            <TextView android:id="@+id/text_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="top"
+-                android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:textColor="?attr/colorPrimary" />
++            <TextView android:id="@+id/text_time" android:layout_width="wrap_content" android:layout_height="wrap_content"
++                android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:textColor="?attr/colorPrimary" />
+         </LinearLayout>
+-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+-            <TextView android:id="@+id/text_time_until" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+-                android:layout_marginEnd="4dp" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+-            <com.google.android.material.button.MaterialButton android:id="@+id/button_snooze" style="@style/Widget.DoseCerta.Button.Text"
+-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="48dp" android:paddingHorizontal="12dp"
+-                android:text="@string/ui_skip" />
+-            <com.google.android.material.button.MaterialButton android:id="@+id/button_take" style="@style/Widget.DoseCerta.Button.Tonal"
+-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:paddingHorizontal="12dp"
+-                android:minWidth="64dp" android:text="@string/ui_take" app:icon="@drawable/ic_check" app:iconSize="16dp" app:iconPadding="4dp" app:iconGravity="textStart" />
++        <LinearLayout android:id="@+id/schedule_details" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
++            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginEnd="4dp">
++                <TextView android:id="@+id/text_dosage" android:layout_width="match_parent" android:layout_height="wrap_content"
++                    android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" />
++                <TextView android:id="@+id/text_time_until" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp"
++                    android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
++            </LinearLayout>
++            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_gravity="end">
++                <com.google.android.material.button.MaterialButton android:id="@+id/button_snooze" style="@style/Widget.DoseCerta.Button.Text"
++                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="48dp" android:paddingHorizontal="8dp" android:text="@string/ui_skip" />
++                <com.google.android.material.button.MaterialButton android:id="@+id/button_take" style="@style/Widget.DoseCerta.Button.Tonal"
++                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:paddingHorizontal="12dp"
++                    android:minWidth="64dp" android:text="@string/ui_take" />
++            </LinearLayout>
+         </LinearLayout>
+     </LinearLayout>
+ </com.google.android.material.card.MaterialCardView>
+--- a/app/src/main/res/layout/fragment_home.xml
++++ b/app/src/main/res/layout/fragment_home.xml
+@@ -4,38 +4,49 @@
+     android:background="?android:attr/colorBackground" android:fillViewport="true" android:clipToPadding="false">
+     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+         android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="8dp" android:paddingBottom="16dp">
+-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+-            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+-                <TextView android:id="@+id/text_greeting" android:layout_width="match_parent" android:layout_height="wrap_content"
+-                    android:text="@string/home_greeting_morning" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:accessibilityHeading="true" />
+-                <TextView android:id="@+id/text_date" android:layout_width="match_parent" android:layout_height="wrap_content"
+-                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" />
+-            </LinearLayout>
++        <com.google.android.material.card.MaterialCardView android:id="@+id/card_weekly_adherence"
++            android:layout_width="match_parent" android:layout_height="wrap_content"
++            app:cardCornerRadius="20dp" app:strokeWidth="0dp" app:cardElevation="0dp">
++            <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/hero_content" android:layout_width="match_parent" android:layout_height="wrap_content"
++                android:paddingHorizontal="16dp" android:paddingVertical="12dp" android:background="@drawable/gradient_welcome_card">
++                <TextView android:id="@+id/text_greeting" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="16dp"
++                    android:text="@string/home_greeting_morning" android:textAppearance="@style/TextAppearance.DoseCerta.Headline"
++                    android:textSize="22sp" android:textColor="@color/ui_on_hero" android:includeFontPadding="false" android:accessibilityHeading="true"
++                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/adherence_graph" app:layout_constraintTop_toTopOf="parent" />
++                <TextView android:id="@+id/text_date" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:layout_marginEnd="16dp"
++                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" android:textColor="@color/ui_on_hero_secondary" android:includeFontPadding="false"
++                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/adherence_graph" app:layout_constraintTop_toBottomOf="@id/text_greeting" />
++                <TextView android:id="@+id/text_week_adherence" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:layout_marginEnd="16dp"
++                    android:text="@string/ui_week_adherence" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp"
++                    android:textColor="@color/ui_on_hero" android:includeFontPadding="false"
++                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/adherence_graph" app:layout_constraintTop_toBottomOf="@id/text_date" />
++                <FrameLayout android:id="@+id/adherence_graph" android:layout_width="72dp" android:layout_height="72dp"
++                    android:importantForAccessibility="yes" android:background="@drawable/home_adherence_halo"
++                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent">
++                    <com.google.android.material.progressindicator.CircularProgressIndicator android:id="@+id/progress_adherence"
++                        android:layout_width="match_parent" android:layout_height="match_parent" android:indeterminate="false"
++                        android:importantForAccessibility="no" app:indicatorSize="72dp" app:indicatorInset="0dp"
++                        app:trackThickness="5dp" app:trackCornerRadius="3dp"
++                        app:indicatorColor="@color/ui_hero_indicator" app:trackColor="@color/ui_hero_track" />
++                    <TextView android:id="@+id/text_adherence_percentage_card" android:layout_width="match_parent" android:layout_height="wrap_content"
++                        android:layout_gravity="center" android:layout_marginHorizontal="8dp" android:gravity="center" android:includeFontPadding="false"
++                        android:text="@string/ui_no_data" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:textSize="22sp"
++                        android:textColor="@color/ui_on_hero" android:importantForAccessibility="no" />
++                </FrameLayout>
++            </androidx.constraintlayout.widget.ConstraintLayout>
++        </com.google.android.material.card.MaterialCardView>
++        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
++            android:orientation="horizontal" android:gravity="center_vertical">
++            <TextView android:id="@+id/text_medications_header" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
++                android:text="@string/design_today_doses" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+             <com.google.android.material.button.MaterialButton android:id="@+id/button_add_medication" style="@style/Widget.DoseCerta.IconButton"
+                 android:layout_width="48dp" android:layout_height="48dp" app:icon="@drawable/ic_add" android:contentDescription="@string/cd_add_medication" />
+         </LinearLayout>
+-        <com.google.android.material.card.MaterialCardView style="@style/Widget.DoseCerta.CardView.Tonal"
+-            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp">
+-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
+-                android:gravity="center_vertical" android:paddingHorizontal="12dp" android:paddingVertical="8dp">
+-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/ui_week_adherence"
+-                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textColor="?attr/colorOnPrimaryContainer" />
+-                <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@+id/progress_adherence"
+-                    android:layout_width="48dp" android:layout_height="4dp" android:layout_marginHorizontal="12dp" android:indeterminate="false"
+-                    android:importantForAccessibility="no" app:trackThickness="4dp" app:trackCornerRadius="2dp"
+-                    app:indicatorColor="?attr/colorPrimary" app:trackColor="@color/ui_adherence_track" />
+-                <TextView android:id="@+id/text_adherence_percentage_card" android:layout_width="wrap_content" android:layout_height="wrap_content"
+-                    android:text="@string/ui_no_data" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:textColor="?attr/colorOnPrimaryContainer" />
+-            </LinearLayout>
+-        </com.google.android.material.card.MaterialCardView>
+-        <TextView android:id="@+id/text_medications_header" android:layout_width="match_parent" android:layout_height="wrap_content"
+-            android:layout_marginTop="16dp" android:layout_marginBottom="8dp" android:text="@string/design_today_doses"
+-            android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+         <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_medications" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" />
+         <TextView android:id="@+id/text_no_medications" android:layout_width="match_parent" android:layout_height="wrap_content"
+             android:background="@drawable/ui_empty_container" android:padding="12dp"
+             android:text="@string/home_no_medications" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:layout_marginBottom="8dp"
++        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:layout_marginBottom="6dp"
+             android:text="@string/ui_next_dates" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+         <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content">
+             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+@@ -45,7 +56,7 @@
+             </LinearLayout>
+         </com.google.android.material.card.MaterialCardView>
+         <LinearLayout android:id="@+id/section_as_needed" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:layout_marginBottom="8dp"
++            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:layout_marginBottom="6dp"
+                 android:text="@string/home_as_needed_title" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+             <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_as_needed" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" />
+         </LinearLayout>
+--- a/app/src/main/res/layout/item_as_needed.xml
++++ b/app/src/main/res/layout/item_as_needed.xml
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp">
+-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingHorizontal="12dp" android:paddingVertical="4dp">
++    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp">
++    <LinearLayout android:id="@+id/as_needed_content" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingHorizontal="12dp" android:paddingVertical="4dp">
+         <ImageView android:id="@+id/image_medication_icon" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_pill" android:importantForAccessibility="no" />
+         <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:orientation="vertical">
+             <TextView android:id="@+id/text_medication_name" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.DoseCerta.Title" />
+--- a/app/src/main/res/layout/item_history_header.xml
++++ b/app/src/main/res/layout/item_history_header.xml
+@@ -1,29 +1,33 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="0dp" android:paddingBottom="12dp">
++    android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="0dp" android:paddingBottom="4dp">
+     <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp">
+-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+-                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+-                    <TextView android:id="@+id/text_taken_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_success" />
++        <LinearLayout android:id="@+id/summary_metrics" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="12dp">
++            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="horizontal">
++                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:paddingVertical="2dp">
++                    <TextView android:id="@+id/text_taken_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:includeFontPadding="false" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_success" />
+                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/history_taken" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+                 </LinearLayout>
+-                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+-                    <TextView android:id="@+id/text_missed_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_error" />
++                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:paddingVertical="2dp">
++                    <TextView android:id="@+id/text_missed_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:includeFontPadding="false" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_error" />
+                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/history_missed" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+                 </LinearLayout>
+-                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+-                    <TextView android:id="@+id/text_skipped_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_warning" />
++            </LinearLayout>
++            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="horizontal">
++                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:paddingVertical="2dp">
++                    <TextView android:id="@+id/text_skipped_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:includeFontPadding="false" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_warning" />
+                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/history_skipped" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+                 </LinearLayout>
++                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:paddingVertical="2dp">
++                    <TextView android:id="@+id/text_adherence" android:layout_width="match_parent" android:layout_height="wrap_content" android:includeFontPadding="false" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="?attr/colorPrimary" />
++                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/design_adherence" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
++                </LinearLayout>
+             </LinearLayout>
+-            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginVertical="8dp" android:background="?attr/colorOutlineVariant" />
+-            <TextView android:id="@+id/text_adherence" android:layout_width="match_parent" android:layout_height="wrap_content" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+         </LinearLayout>
+     </com.google.android.material.card.MaterialCardView>
+     <com.google.android.material.button.MaterialButton android:id="@+id/text_date_range" style="@style/Widget.DoseCerta.Button.Outlined"
+         android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/history_last_7_days" app:icon="@drawable/ic_schedule" app:iconSize="18dp" />
+-    <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="0dp" android:layout_marginBottom="8dp" android:scrollbars="none">
++    <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="0dp" android:layout_marginBottom="4dp" android:scrollbars="none">
+         <com.google.android.material.chip.ChipGroup android:layout_width="wrap_content" android:layout_height="wrap_content" app:singleLine="true" app:singleSelection="true"
+             app:selectionRequired="true" app:chipSpacingHorizontal="8dp">
+             <com.google.android.material.chip.Chip android:id="@+id/chip_all" style="@style/Widget.DoseCerta.Chip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:text="@string/history_filter_all" />
+--- a/app/src/main/res/menu/bottom_nav_menu.xml
++++ b/app/src/main/res/menu/bottom_nav_menu.xml
+@@ -13,10 +13,10 @@
+     <item
+         android:id="@+id/nav_medications"
+         android:icon="@drawable/ic_pill"
+-        android:title="@string/nav_medications" />
++        android:title="@string/design_nav_medications" android:contentDescription="@string/nav_medications" />
+     
+     <item
+         android:id="@+id/nav_settings"
+         android:icon="@drawable/ic_settings"
+-        android:title="@string/nav_settings" />
++        android:title="@string/design_nav_settings" android:contentDescription="@string/nav_settings" />
+ </menu>
+--- a/app/src/main/res/values-en/design_strings.xml
++++ b/app/src/main/res/values-en/design_strings.xml
+@@ -9,6 +9,13 @@
+     <string name="design_tomorrow">Tomorrow</string>
+     <string name="design_date_time">%1$s, %2$s</string>
+     <string name="design_pdf">PDF</string>
++    <string name="design_next_dose">Next: %1$s</string>
++    <string name="design_no_reminders">No reminders</string>
++    <string name="design_adherence">Adherence</string>
++    <string name="design_week_adherence_value">Adherence this week: %1$s</string>
++    <string name="design_nav_medications">Medicines</string>
++    <string name="design_nav_settings">Settings</string>
++    <string name="design_language_portuguese">Português</string>
+     <string name="design_extra_dose_hint">Log a dose outside your schedule.</string>
+     <string name="design_extra_dose_title">Extra dose</string>
+     <string name="design_edit">Edit</string>
+--- a/app/src/main/res/values-night/design_colors.xml
++++ b/app/src/main/res/values-night/design_colors.xml
+@@ -1,6 +1,9 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <color name="ui_primary">#A2D3BC</color>
++    <color name="ui_hero_start">#173D33</color>
++    <color name="ui_hero_center">#204B3F</color>
++    <color name="ui_hero_end">#28594B</color>
+     <color name="ui_on_primary">#12382A</color>
+     <color name="ui_primary_container">#254A3C</color>
+     <color name="ui_adherence_track">#456656</color>
+--- a/app/src/main/res/values/themes.xml
++++ b/app/src/main/res/values/themes.xml
+@@ -106,6 +106,9 @@
+         <item name="cardBackgroundColor">?attr/colorPrimaryContainer</item>
+         <item name="strokeWidth">0dp</item>
+     </style>
++    <style name="Widget.DoseCerta.CardView.Compact" parent="Widget.DoseCerta.CardView">
++        <item name="cardCornerRadius">12dp</item>
++    </style>
+     <style name="Widget.DoseCerta.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+         <item name="boxCornerRadiusTopStart">12dp</item>
+         <item name="boxCornerRadiusTopEnd">12dp</item>
+@@ -133,6 +136,9 @@
+         <item name="elevation">3dp</item>
+     </style>
+     <style name="Widget.DoseCerta.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
++        <item name="android:minHeight">64dp</item>
++        <item name="itemPaddingTop">8dp</item>
++        <item name="itemPaddingBottom">8dp</item>
+         <item name="android:background">?attr/colorSurface</item>
+         <item name="elevation">0dp</item>
+         <item name="itemIconSize">24dp</item>
+--- a/app/src/main/res/values/design_colors.xml
++++ b/app/src/main/res/values/design_colors.xml
+@@ -1,6 +1,13 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <color name="ui_primary">#25685B</color>
++    <color name="ui_hero_start">#164A42</color>
++    <color name="ui_hero_center">#236556</color>
++    <color name="ui_hero_end">#2D7967</color>
++    <color name="ui_on_hero">#FFFFFF</color>
++    <color name="ui_on_hero_secondary">#E5F3EA</color>
++    <color name="ui_hero_indicator">#D8F8E7</color>
++    <color name="ui_hero_track">#38FFFFFF</color>
+     <color name="ui_on_primary">#FFFFFF</color>
+     <color name="ui_primary_container">#DCEEE5</color>
+     <color name="ui_adherence_track">#BCCFC1</color>
+--- a/app/src/main/res/values/design_strings.xml
++++ b/app/src/main/res/values/design_strings.xml
+@@ -9,6 +9,13 @@
+     <string name="design_tomorrow">Amanhã</string>
+     <string name="design_date_time">%1$s, %2$s</string>
+     <string name="design_pdf">PDF</string>
++    <string name="design_next_dose">Próxima: %1$s</string>
++    <string name="design_no_reminders">Sem lembretes</string>
++    <string name="design_adherence">Adesão</string>
++    <string name="design_week_adherence_value">Adesão nesta semana: %1$s</string>
++    <string name="design_nav_medications">Remédios</string>
++    <string name="design_nav_settings">Ajustes</string>
++    <string name="design_language_portuguese">Português</string>
+     <string name="design_extra_dose_hint">Registre uma dose fora da sua agenda.</string>
+     <string name="design_extra_dose_title">Dose avulsa</string>
+     <string name="design_edit">Editar</string>
+--- a/app/src/main/java/com/dosecerta/ui/ReadingLayout.kt
++++ b/app/src/main/java/com/dosecerta/ui/ReadingLayout.kt
+@@ -0,0 +1,22 @@
++package com.dosecerta.ui
++
++import android.view.Gravity
++import android.view.ViewGroup
++import android.widget.LinearLayout
++import androidx.core.view.children
++
++/** Give text its own row when horizontal density would compete with large type. */
++fun LinearLayout.stackForReadingSize() {
++    val config = resources.configuration
++    if (config.fontScale <= 1.3f && config.screenWidthDp >= 350) return
++    orientation = LinearLayout.VERTICAL
++    gravity = Gravity.START
++    children.forEach { child ->
++        child.layoutParams = (child.layoutParams as LinearLayout.LayoutParams).apply {
++            if (weight > 0f) width = ViewGroup.LayoutParams.MATCH_PARENT
++            weight = 0f
++            marginStart = 0
++            marginEnd = 0
++        }
++    }
++}
+--- a/app/src/main/java/com/dosecerta/ui/history/HistoryFragment.kt
++++ b/app/src/main/java/com/dosecerta/ui/history/HistoryFragment.kt
+@@ -21,6 +21,7 @@
+ import androidx.lifecycle.repeatOnLifecycle
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import com.dosecerta.R
++import com.dosecerta.ui.stackForReadingSize
+ import com.dosecerta.data.local.DoseCertaDatabase
+ import com.dosecerta.data.local.dao.MedicationLogWithDetails
+ import com.dosecerta.data.model.MedicationStatus
+@@ -70,6 +71,7 @@
+             chip.isChecked = viewModel.selectedFilter.value == status
+             chip.setOnCheckedChangeListener { _, checked -> if (checked) viewModel.updateFilter(status) }
+         }
++        header.summaryMetrics.stackForReadingSize()
+         header.textDateRange.setOnClickListener { viewModel.cyclePeriod() }
+         binding.fabExportPdf.setOnClickListener {
+             if (viewModel.beginExport(resources.configuration.locales[0].toLanguageTag(), ZoneId.systemDefault().id)) {
+@@ -82,7 +84,10 @@
+                     header.textTakenCount.text = s.taken.toString()
+                     header.textMissedCount.text = s.missed.toString()
+                     header.textSkippedCount.text = s.skipped.toString()
+-                    header.textAdherence.text = getString(R.string.report_adherence, s.percentage?.let { "$it%" } ?: getString(R.string.report_no_data))
++                    val adherence = s.percentage?.let { "$it%" } ?: getString(R.string.report_no_data)
++                    header.textAdherence.text = adherence
++                    header.textAdherence.textSize = if (s.percentage == null) 13f else 22f
++                    header.textAdherence.contentDescription = getString(R.string.report_adherence, adherence)
+                 } }
+                 launch { viewModel.logs.collect { rows ->
+                     adapter.submitList(rows)
+--- a/app/src/main/java/com/dosecerta/ui/history/MedicationLogAdapter.kt
++++ b/app/src/main/java/com/dosecerta/ui/history/MedicationLogAdapter.kt
+@@ -7,6 +7,7 @@
+ import androidx.recyclerview.widget.ListAdapter
+ import androidx.recyclerview.widget.RecyclerView
+ import com.dosecerta.R
++import com.dosecerta.ui.stackForReadingSize
+ import com.dosecerta.data.local.dao.MedicationLogWithDetails
+ import com.dosecerta.data.model.MedicationStatus
+ import com.dosecerta.databinding.ItemMedicationLogBinding
+@@ -40,6 +41,7 @@
+         private var currentItem: MedicationLogWithDetails? = null
+         
+         init {
++            binding.logDetails.stackForReadingSize()
+             binding.root.setOnClickListener { view -> currentItem?.let { onLongClick(view, it) } }
+             binding.root.isFocusable = true
+             binding.root.contentDescription = binding.root.context.getString(R.string.report_edit_record)
+--- a/app/src/main/java/com/dosecerta/ui/home/ScheduleAdapter.kt
++++ b/app/src/main/java/com/dosecerta/ui/home/ScheduleAdapter.kt
+@@ -11,12 +11,17 @@
+ import com.dosecerta.data.model.ScheduleItem
+ import com.dosecerta.databinding.ItemScheduleBinding
+ import com.dosecerta.ui.UiLabels
++import com.dosecerta.ui.stackForReadingSize
+ 
+ class ScheduleAdapter(private val onTakeClick: (ScheduleItem) -> Unit, private val onSkipClick: (ScheduleItem) -> Unit) :
+     ListAdapter<ScheduleItem, ScheduleAdapter.ViewHolder>(DiffCallback()) {
+     override fun onCreateViewHolder(parent: ViewGroup, type: Int) = ViewHolder(ItemScheduleBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
+     inner class ViewHolder(private val binding: ItemScheduleBinding) : RecyclerView.ViewHolder(binding.root) {
++        init {
++            binding.scheduleHeading.stackForReadingSize()
++            binding.scheduleDetails.stackForReadingSize()
++        }
+         fun bind(item: ScheduleItem) {
+             val ctx = binding.root.context
+             binding.imageMedicationIcon.setColorFilter(com.dosecerta.ui.MedicationIcon.color(ctx, item.medication.color))
+--- a/app/src/main/java/com/dosecerta/ui/home/HomeFragment.kt
++++ b/app/src/main/java/com/dosecerta/ui/home/HomeFragment.kt
+@@ -17,6 +17,7 @@
+ import androidx.navigation.fragment.findNavController
+ import androidx.recyclerview.widget.LinearLayoutManager
+ import com.dosecerta.R
++import androidx.constraintlayout.widget.ConstraintSet
+ import com.dosecerta.data.local.DoseCertaDatabase
+ import com.dosecerta.data.local.entity.Medication
+ import com.dosecerta.data.repository.MedicationRepository
+@@ -45,7 +46,28 @@
+         _binding = FragmentHomeBinding.inflate(inflater, container, false); return binding.root
+     }
+     override fun onViewCreated(view: View, state: Bundle?) {
+-        if (resources.configuration.fontScale > 1.3f) binding.progressAdherence.visibility = View.GONE
++        // Keep the number inside the ring at the user's font size, including 100%.
++        val density = resources.displayMetrics.density
++        val ringSize = maxOf((72 * density).toInt(), kotlin.math.ceil(
++            binding.textAdherencePercentageCard.paint.measureText("100%") + 16 * density
++        ).toInt())
++        binding.adherenceGraph.layoutParams = binding.adherenceGraph.layoutParams.apply {
++            width = ringSize
++            height = ringSize
++        }
++        binding.progressAdherence.indicatorSize = ringSize
++        if (resources.configuration.fontScale > 1.3f || resources.configuration.screenWidthDp < 350) {
++            // Let the greeting span the card; put the large ring beside its label below it.
++            ConstraintSet().apply {
++                clone(binding.heroContent)
++                connect(R.id.text_greeting, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
++                connect(R.id.text_date, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
++                connect(R.id.adherence_graph, ConstraintSet.TOP, R.id.text_date, ConstraintSet.BOTTOM, (4 * density).toInt())
++                connect(R.id.text_week_adherence, ConstraintSet.TOP, R.id.adherence_graph, ConstraintSet.TOP)
++                connect(R.id.text_week_adherence, ConstraintSet.BOTTOM, R.id.adherence_graph, ConstraintSet.BOTTOM)
++                applyTo(binding.heroContent)
++            }
++        }
+         adapter = ScheduleAdapter(onTakeClick = { action(it, true) }, onSkipClick = { action(it, false) })
+         binding.recyclerMedications.layoutManager = LinearLayoutManager(requireContext())
+         binding.recyclerMedications.adapter = adapter
+@@ -70,7 +92,9 @@
+                 } }
+                 launch { viewModel.statistics.collect { stats ->
+                     binding.textAdherencePercentageCard.text = stats.percentage?.let { "$it%" } ?: getString(R.string.ui_no_data)
+-                    binding.textAdherencePercentageCard.textSize = if (stats.percentage == null) 13f else 18f
++                    binding.textAdherencePercentageCard.textSize = if (stats.percentage == null) 13f else 22f
++                    binding.adherenceGraph.contentDescription = getString(R.string.design_week_adherence_value,
++                        binding.textAdherencePercentageCard.text)
+                     binding.progressAdherence.setProgressCompat(stats.percentage ?: 0, true)
+                 } }
+                 launch { viewModel.asNeededMedications.collect { meds -> asNeededAdapter.submitList(meds)
+--- a/app/src/main/java/com/dosecerta/ui/medications/MedicationAdapter.kt
++++ b/app/src/main/java/com/dosecerta/ui/medications/MedicationAdapter.kt
+@@ -24,10 +24,12 @@
+             binding.imageMedicationIcon.setColorFilter(com.dosecerta.ui.MedicationIcon.color(context, medication.color))
+             binding.textMedicationName.text = medication.name
+             binding.textDosageInfo.text = "${medication.dosage} ${medication.unit} · ${UiLabels.form(context, medication.pharmaceuticalForm)}"
+-            binding.textFrequency.text = UiLabels.frequency(context, medication.frequency)
+-            binding.textNextDose.text = if (medication.frequency == Frequency.AS_NEEDED) context.getString(R.string.design_as_needed_short)
+-                else upcoming[medication.id]?.let { context.getString(R.string.ui_next_for, com.dosecerta.ui.UiDateTime.upcoming(context, it)) }
++            val frequency = if (medication.frequency == Frequency.DAILY) context.getString(R.string.medications_filter_daily)
++                else UiLabels.frequency(context, medication.frequency)
++            val next = if (medication.frequency == Frequency.AS_NEEDED) context.getString(R.string.design_no_reminders)
++                else upcoming[medication.id]?.let { context.getString(R.string.design_next_dose, com.dosecerta.ui.UiDateTime.upcoming(context, it)) }
+                     ?: context.getString(R.string.ui_upcoming_empty)
++            binding.textNextDose.text = context.getString(R.string.ui_next_dose_summary, frequency, next)
+             binding.buttonDelete.contentDescription = context.getString(R.string.ui_manage_medication, medication.name)
+             binding.root.setOnClickListener { onEditClick(medication) }
+             binding.buttonDelete.setOnClickListener { onDeleteClick(medication) }
+--- a/app/src/androidTest/java/com/dosecerta/ui/CompactUiInstrumentedTest.kt
++++ b/app/src/androidTest/java/com/dosecerta/ui/CompactUiInstrumentedTest.kt
+@@ -82,7 +82,7 @@
+                 .put("screenWidthDp", activity.resources.configuration.screenWidthDp))
+             if (compact && activity.resources.configuration.screenWidthDp >= 360 &&
+                 activity.resources.configuration.screenHeightDp >= 550) {
+-                assertTrue("$screen should show at least three complete cards; got $fullyVisible", fullyVisible >= 3)
++                assertTrue("$screen should show at least four complete cards; got $fullyVisible", fullyVisible >= 4)
+             }
+         }
+     }
+@@ -97,18 +97,22 @@
+         val oldScale = device.executeShellCommand("settings get system font_scale").trim()
+         val ids = mutableListOf<Long>()
+         val now = LocalTime.now()
+-        val firstMinute = (now.hour * 60 + now.minute + 30).coerceAtMost(1370)
++        val currentMinute = now.hour * 60 + now.minute
++        assumeTrue("Visual fixtures need a three-minute window before midnight", currentMinute < 1437)
++        val firstMinute = (currentMinute + 30).coerceAtMost(1439)
+         val today = LocalDate.now()
+         val zone = ZoneId.systemDefault()
+         try {
+             preferences.setSetupCompleted()
+-            listOf("Vitamina D", "Vitamina C", "Ômega 3").forEachIndexed { index, name ->
+-                val medication = Medication(name = name, dosage = listOf("2000", "500", "1000")[index],
++            listOf("Vitamina D", "Vitamina C", "Ômega 3", "Vitamina B12").forEachIndexed { index, name ->
++                val medication = Medication(name = name, dosage = listOf("2000", "500", "1000", "1000")[index],
+                     unit = if (index == 0) "UI" else "mg", pharmaceuticalForm = PharmaceuticalForm.TABLET,
+                     frequency = Frequency.DAILY, notes = "Fixture sintética para revisão visual",
+-                    color = listOf(0xFF25685B.toInt(), 0xFF8A6430.toInt(), 0xFF486580.toInt())[index])
++                    color = listOf(0xFF25685B.toInt(), 0xFF8A6430.toInt(), 0xFF486580.toInt(), 0xFF80648D.toInt())[index])
+                 val id = repo.insertMedication(medication); ids += id
+-                val minute = firstMinute + index * 20
++                // Keep every fixture in the future, even late in the evening. An alarm
++                // opening over the app invalidates both screenshots and visibility checks.
++                val minute = (firstMinute + index * 5).coerceAtMost(1439)
+                 val schedule = Schedule(medicationId = id, timeInMinutes = minute, daysOfWeek = emptyList(),
+                     validFrom = today.minusDays(1).atStartOfDay(zone).toInstant().toEpochMilli())
+                 val scheduleId = repo.insertSchedule(schedule)
+--- a/docs/design/ui-spec.md
++++ b/docs/design/ui-spec.md
+@@ -12,7 +12,7 @@
+ 
+ O rascunho usa SavedStateHandle com valores primitivos e listas de horários/IDs. Texto é atualizado enquanto digitado. Salvar altera o estado sincronamente antes da coroutine para prevenir dois commits; erros mantêm os campos e são anunciados. O repositório grava medicamento e posologia em uma transação e aposenta versões antigas. Fechar/voltar explica descarte de alterações não salvas. O teclado redimensiona a janela com padding pelo helper comum de insets.
+ 
+-Home tem saudação/data em cabeçalho curto e adesão em faixa horizontal. A agenda de hoje aparece primeiro, com pendentes antes das doses encerradas; próximas doses e Conforme necessário vêm em seguida. Cards agrupam nome/dose/horário na linha principal, status e ações na linha inferior, sem alturas fixas que cortem nomes longos. A referência de densidade é três cards completos em 360 dp, com fonte normal. Fontes ampliadas aumentam a altura e preservam a rolagem. Data e saudação atualizam sem criar logs; ausência de confirmação continua pendente até a política de tolerância, não vira “não tomado” pela simples passagem do minuto. Adesão usa a calculadora compartilhada: tomadas programadas encerradas / doses programadas encerradas; avulsas, PRN, pendentes e canceladas ficam fora do denominador. Período vazio mostra “Sem dados”.
++Home reúne saudação, data e adesão semanal em um card com gradiente e indicador circular nativo, com percentual central. O destaque tem cerca de 96 dp com fonte normal; com fonte ampliada, saudação e data ocupam a largura do card, e o círculo cresce ao lado do rótulo abaixo delas. A agenda de hoje aparece primeiro, com pendentes antes das doses encerradas; próximas doses e Conforme necessário vêm em seguida. Cards agrupam nome e horário na primeira linha; dose e status compartilham a segunda faixa com as ações. Não há altura fixa que corte nomes longos. A referência de densidade é quatro cards completos em uma tela de 360 × 640 dp, com fonte normal. Fontes ampliadas aumentam a altura e preservam a rolagem. Data e saudação atualizam sem criar logs; ausência de confirmação continua pendente até a política de tolerância, não vira “não tomado” pela simples passagem do minuto. Adesão usa a calculadora compartilhada: tomadas programadas encerradas / doses programadas encerradas; avulsas, PRN, pendentes e canceladas ficam fora do denominador. Período vazio mostra “Sem dados”.
+ 
+ A lista de medicamentos mantém busca e filtro restauráveis, diferencia cadastro vazio de busca sem resultado e exibe próxima data para recorrência semanal/mensal. Tocar no card abre a edição. O menu de três pontos inclui Editar, Arquivar e Excluir; arquivamento preserva o histórico e exclusão permanente mantém escolha explícita sobre os registros. Nome, dose/forma, frequência e próxima dose ficam no próprio card. Adicionar e exportar PDF ficam no cabeçalho, sem cobrir itens das listas. Uma confirmação final explica que PDFs fora do app permanecem disponíveis. Diálogo avulso exige nome não vazio, explica o efeito sobre adesão, confirma o medicamento, limita a altura da lista e mantém retry em erro. O comando de tomada avulsa inclui token idempotente restaurável.
+ 
+@@ -22,6 +22,6 @@
+ 
+ ## Direção confirmada em 03/10/2026
+ 
+-O responsável priorizou proporção e quantidade de informação visível de primeira. A nova interface usa Material 3 nativo (Views), cards de raio 16 dp sem sombra, margens de 16 dp, interiores de 8–12 dp e hierarquia de 24/16/13/12 sp. O bloco com gradiente e o anel de 80–112 dp foram substituídos por uma faixa de adesão. Não reintroduzir cards promocionais grandes ou uma linha inteira de botões por medicamento. Estado clínico continua textual; cores não substituem rótulos. Ícones de medicamentos são clareados no modo escuro mantendo a cor escolhida como referência.
++O responsável priorizou proporção e quantidade de informação visível de primeira. A interface usa Material 3 nativo (Views), cards de lista com raio 12 dp sem sombra, margens de página de 16 dp, interiores de 6–12 dp e hierarquia de 24/16/13/12 sp. Depois da compactação, o responsável pediu explicitamente restaurar o gráfico circular da Home. O gradiente e o anel de 72 dp voltaram em um único destaque compacto com saudação e data; não retornar à antiga composição alta. Ações de doses compartilham espaço com os detalhes do medicamento. Estado clínico continua textual; cores não substituem rótulos. Ícones de medicamentos são clareados no modo escuro mantendo a cor escolhida como referência.
+ 
+ A validação local e as imagens finais estão em [polimento da UI](../qa/ui-polish-20261003.md); a matriz completa de dispositivos e leitores de tela continua sendo um aceite separado.
+--- a/CONTEXT.md
++++ b/CONTEXT.md
+@@ -1,6 +1,16 @@
+ # DoseCerta — contexto completo para retomada
+ 
+-## Atualização mais recente — correção urgente da Home
++## Atualização vigente — polimento da UI em 03/10/2026
++
++A solicitação atual é terminar o polimento visual, priorizando proporção e informação visível de primeira. Depois de compactar as listas, o responsável pediu **restaurar o gráfico circular de percentual na Home**. A direção vigente combina Material 3 nativo, card de boas-vindas com gradiente e anel compacto, cards de doses com cerca de 80 dp e cards de medicamentos com cerca de 79 dp. Não voltar aos cards altos nem remover novamente o gráfico circular sem pedido do responsável.
++
++O usuário autorizou retomar testes e validações locais na sessão de 03/10, às 19:47 UTC; as instruções de suspensão abaixo são históricas. O AVD dedicado `DoseCerta_QA` está disponível em `emulator-5580`, API 26, 360 × 640 dp. Testes inserem e removem somente suas próprias fixtures; registros preexistentes e AVD pessoal devem ser preservados.
++
++Resumo, capturas, APK e limites da validação atual em [ui-polish-20261003](docs/qa/ui-polish-20261003.md). Resultados de outras frentes da sessão anterior estão em [local-validation-20261003](docs/qa/local-validation-20261003.md). O objetivo de polimento é distinto da conclusão dos 121 itens de TASKS e da publicação. Nenhum commit, reset ou publicação nesta etapa.
++
++O restante deste documento preserva checkpoints anteriores; não usar o estado de build, emulador ou preferências desses checkpoints como estado atual.
++
++## Histórico de 30/09 — correção urgente da Home
+ 
+ Em 30/09/2026, o responsável pediu corrigir imediatamente a regressão visual da tela principal. A Home recuperou o card com gradiente, indicador circular, hierarquia dos títulos e cards compactos de medicamentos, preservando os flows e as ações atuais. Build/lint passaram e o APK foi atualizado e inspecionado no `emulator-5554`/API36, com `install -r`, sem limpar dados ou registrar doses. Evidência e limites em [home-view-restoration](docs/qa/home-view-restoration.md). Preservar essa estrutura visual; a versão anterior com todos os textos e ações empilhados foi rejeitada pelo responsável.
+ 
+--- a/README.md
++++ b/README.md
+@@ -4,13 +4,11 @@
+ 
+ ## Estado da v1.0
+ 
+-A regressão visual da Home foi corrigida: card com gradiente, indicador circular e cards de medicamentos restaurados, mantendo próximas doses e ações atuais. Build/lint passaram e o APK foi atualizado e inspecionado no emulador sem apagar dados. Ver [registro da correção](docs/qa/home-view-restoration.md). A retomada recente também aprovou 20 testes JVM e build/lint debug/release; instrumentação Android e lançamento seguem pendentes. O estado abaixo documenta o checkpoint anterior.
++A interface usa Material 3 nativo, com um destaque compacto de gradiente e percentual circular na Home. As listas agrupam dose, horário, estado e ações para mostrar mais informações de primeira; o Histórico mantém a exportação no cabeçalho, sem sobrepor os registros. [Capturas e validação da UI](docs/qa/ui-polish-20261003.md).
+ 
+-O código está em integração. [CONTEXT.md](CONTEXT.md) guarda o estado completo de retomada, [TASKS.md](TASKS.md) mantém os 121 critérios e [PLAN.md](PLAN.md) registra o plano. O pedido atual é continuar o trabalho e **pular testes por enquanto**.
++[CONTEXT.md](CONTEXT.md) guarda o estado de retomada, [TASKS.md](TASKS.md) mantém os 121 critérios e [PLAN.md](PLAN.md) registra o plano. Testes e validações locais foram retomados por autorização em 03/10/2026. [Resultados locais dessa sessão](docs/qa/local-validation-20261003.md) são evidência de escopo específico; não equivalem a lançamento aprovado.
+ 
+-Na execução anterior, assembleDebug e assembleDebugAndroidTest passaram e **19 testes JVM passaram**. lintDebug falhou com 43 erros/228 warnings; fixes foram aplicados e rerun permanece pendente. Um novo teste mensal foi escrito, sem execução. Os APKs anteriores antecedem mudanças recentes. Não há resultado aprovado de instrumentação Android, entrega real de alarmes, PDF renderizado, gravação ou candidato assinado. Evidências: [baseline](docs/qa/baseline.md), [dados](docs/qa/workstream-data.md), [UI](docs/qa/workstream-ui.md) e [alarmes](docs/qa/workstream-alarm.md).
+-
+-Conta Play, assinatura/versionCode existentes e contato/URL pública ainda precisam ser definidos; [gates externos](docs/release/external-gates.md) abertos. O usuário escolheu emuladores; ensaios Xiaomi/Samsung não realizados.
++Conta Play, assinatura/versionCode e contato/URL pública ainda precisam ser definidos; [gates externos](docs/release/external-gates.md) abertos. O usuário escolheu emuladores; ensaios Xiaomi/Samsung não realizados.
+ 
+ ## Funcionalidades presentes no código
+ 
+@@ -47,7 +45,7 @@
+ 
+ ## QA e evidências
+ 
+-Comandos preparados para **quando os testes forem retomados**:
++Comandos de validação local:
+ 
+ ```bash
+ env JAVA_HOME=/home/gabirusky/Programs/android-studio/jbr ./gradlew assembleDebug lintDebug testDebugUnitTest assembleDebugAndroidTest
+@@ -56,7 +54,7 @@
+ 
+ Testes JVM em `app/src/test`; instrumentação em `app/src/androidTest`; Room schema 4 em `app/schemas`. Resultados em `app/build/test-results`, `app/build/reports` e `docs/qa/`. Checks locais/CI em `scripts/qa/checks.sh` e `.github/workflows/android-checks.yml`; CI remoto não executado.
+ 
+-[Runbook de dispositivo](docs/qa/device-runbook.md), [gravação](docs/qa/evidence-runbook.md) e [estado do emulador](docs/qa/emulator-validation.md) distinguem ambiente sintético/permissões reais/evidência. AVD dedicado ainda não iniciou com sucesso; diagnóstico não equivale a teste do app. Imagem 4 KB não comprova runtime 16 KB.
++[Runbook de dispositivo](docs/qa/device-runbook.md), [gravação](docs/qa/evidence-runbook.md) e [estado do emulador](docs/qa/emulator-validation.md) distinguem ambiente sintético/permissões reais/evidência. O AVD dedicado `DoseCerta_QA`/API 26 executou a validação visual; a matriz completa de APIs e aparelhos continua separada. Imagem 4 KB não comprova runtime 16 KB.
+ 
+ ## Dados e privacidade
+ 
+--- a/TASKS.md
++++ b/TASKS.md
+@@ -2,7 +2,7 @@
+ 
+ Data: 2026-09-29. Base: [PLAN.md](PLAN.md), [CONTEXT.md](CONTEXT.md) e requisitos em `docs/`.
+ 
+-Atualização mais recente, 30/09: a regressão visual da Home foi corrigida por solicitação urgente do responsável; [build/lint e inspeção visual](docs/qa/home-view-restoration.md) registrados, sem fechar a matriz completa U19/V02. A retomada anterior desta sessão aprovou 20 testes JVM e build/lint debug e release; o inventário de release tem 90 componentes binários com licenças resolvidas. Instrumentação e gates externos continuam pendentes. O objetivo TASKS está `paused` na ferramenta de goal, sem declaração de conclusão. O checkpoint seguinte é histórico.
++Atualização em 03/10: foco atual em polimento da UI e proporção dos cards. O usuário autorizou retomar testes locais e, depois da compactação, pediu o retorno do gráfico circular na Home. Implementação e evidências em [ui-polish-20261003](docs/qa/ui-polish-20261003.md). Resultados das outras frentes estão em [local-validation-20261003](docs/qa/local-validation-20261003.md). A matriz completa U19/V02, leitores de tela, aparelhos físicos e gates de publicação não são encerrados pela validação visual local. O checkpoint seguinte é histórico.
+ 
+ Checkpoint de 30/09/2026: código e documentos foram implementados em múltiplos workstreams; somente aceites comprovados são marcados. **O usuário pediu pular testes por enquanto.** Testes novos, ensaios de dispositivo e gravações ficam pendentes, sem impedir edição, documentação ou build sem execução de testes. A auditoria documental não valida runtime. **P0** bloqueia dados, alarmes, relatórios ou submissão; **P1** integra o aceite da v1.0. **EXT** depende de conta, aparelho ou pessoas reais; continuar tarefas locais independentes quando uma dependência externa faltar.
+ 

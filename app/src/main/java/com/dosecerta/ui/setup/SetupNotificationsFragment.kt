@@ -1,164 +1,73 @@
 package com.dosecerta.ui.setup
 
 import android.Manifest
-import android.app.NotificationManager
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.dosecerta.R
+import com.dosecerta.alarm.ReminderCapabilityChecker
+import com.dosecerta.alarm.ReminderChannels
+import com.dosecerta.alarm.ReminderSettingsNavigator
 import com.dosecerta.databinding.FragmentSetupNotificationsBinding
-import com.dosecerta.ui.MainActivity
 
-/**
- * Step 2 of setup: Request notification permission.
- * Also handles full-screen intent permission for Android 14+.
- * After this step, go directly to MainActivity (tutorial shown as overlay there).
- */
+/** Grants are independent explicit choices. Returning from Settings only refreshes effective state. */
 class SetupNotificationsFragment : Fragment() {
-    
     private var _binding: FragmentSetupNotificationsBinding? = null
     private val binding get() = _binding!!
-    
-    // Flag to track if we need to check full-screen intent permission after returning from settings
-    private var pendingFullScreenIntentCheck = false
-    
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            showPermissionGranted()
-            // On Android 14+, also request full-screen intent permission
-            checkAndRequestFullScreenIntentPermission()
-        } else {
-            // Even if denied, still check full-screen intent permission
-            checkAndRequestFullScreenIntentPermission()
-        }
+    private var requested = false
+    private var requesting = false
+    private val requestNotification = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+        requesting = false
+        if (_binding != null) refresh()
     }
-    
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSetupNotificationsBinding.inflate(inflater, container, false)
+        requested = savedInstanceState?.getBoolean("notification_requested") ?: false
         return binding.root
     }
-    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        
-        checkExistingPermission()
-        setupButtons()
-    }
-    
-    private fun checkExistingPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                showPermissionGranted()
-            }
-        } else {
-            // Pre-Android 13: Notifications are enabled by default
-            showPermissionGranted()
-        }
-    }
-    
-    private fun showPermissionGranted() {
-        binding.layoutPermissionGranted.visibility = View.VISIBLE
-        binding.buttonAllow.text = getString(R.string.setup_notifications_continue)
-    }
-    
-    private fun setupButtons() {
         binding.buttonAllow.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.POST_NOTIFICATIONS
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                } else {
-                    // Permission already granted, check full-screen intent
-                    checkAndRequestFullScreenIntentPermission()
-                }
-            } else {
-                // Pre-Android 13, check full-screen intent permission
-                checkAndRequestFullScreenIntentPermission()
-            }
+            if (requesting) return@setOnClickListener
+            val checker = ReminderCapabilityChecker(requireContext())
+            val state = checker.check()
+            if (state.canNotifyAlarm) next()
+            else if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED && (!requested || shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS))) {
+                requested = true; requesting = true; refresh()
+                requestNotification.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else open(checker.notificationsSettings(if (state.notificationPermission && state.notificationsEnabled) ReminderChannels.ALARM else null))
         }
-        
-        binding.buttonSkip.setOnClickListener {
-            navigateToMainApp()
-        }
+        binding.buttonSkip.setOnClickListener { if (!requesting) next() }
+        binding.buttonExact.setOnClickListener { if (!requesting) open(ReminderCapabilityChecker(requireContext()).exactAlarmSettings()) }
+        binding.buttonFullScreen.setOnClickListener { if (!requesting) open(ReminderCapabilityChecker(requireContext()).fullScreenSettings()) }
+        refresh()
     }
-    
-    override fun onResume() {
-        super.onResume()
-        // If returning from full-screen intent settings, navigate to main app
-        if (pendingFullScreenIntentCheck) {
-            pendingFullScreenIntentCheck = false
-            navigateToMainApp()
-        }
+    override fun onResume() { super.onResume(); if (_binding != null) refresh() }
+    private fun refresh() {
+        val state = ReminderCapabilityChecker(requireContext()).check()
+        binding.textCapabilityStatus.text = listOf(
+            getString(if (state.canNotifyAlarm) R.string.reminder_notifications_ready else R.string.reminder_notifications_blocked),
+            getString(if (state.exactAlarms) R.string.reminder_exact_ready else R.string.reminder_exact_degraded),
+            getString(if (state.fullScreenIntent) R.string.reminder_fullscreen_ready else R.string.reminder_fullscreen_blocked)
+        ).joinToString("\n\n")
+        binding.buttonAllow.setText(if (state.canNotifyAlarm) R.string.setup_notifications_continue else R.string.setup_notifications_button)
+        listOf(binding.buttonAllow, binding.buttonSkip, binding.buttonExact, binding.buttonFullScreen).forEach { it.isEnabled = !requesting }
+        binding.buttonExact.visibility = if (Build.VERSION.SDK_INT >= 31) View.VISIBLE else View.GONE
+        binding.buttonFullScreen.visibility = if (Build.VERSION.SDK_INT >= 34) View.VISIBLE else View.GONE
     }
-    
-    /**
-     * Check if full-screen intent permission is granted on Android 14+.
-     * If not, open system settings to let user enable it.
-     */
-    private fun checkAndRequestFullScreenIntentPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            if (!notificationManager.canUseFullScreenIntent()) {
-                // Permission not granted, open settings
-                pendingFullScreenIntentCheck = true
-                try {
-                    val intent = Intent(Settings.ACTION_MANAGE_APP_USE_FULL_SCREEN_INTENT).apply {
-                        data = Uri.parse("package:${requireContext().packageName}")
-                    }
-                    startActivity(intent)
-                } catch (e: Exception) {
-                    // Fallback to app notification settings if specific intent fails
-                    try {
-                        val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                            putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
-                        }
-                        startActivity(intent)
-                    } catch (e2: Exception) {
-                        // If all else fails, just navigate to main app
-                        pendingFullScreenIntentCheck = false
-                        navigateToMainApp()
-                    }
-                }
-                return
-            }
-        }
-        // Permission granted or not needed, navigate to main app
-        navigateToMainApp()
+    private fun open(intent: android.content.Intent) {
+        if (!ReminderSettingsNavigator.open(this, intent)) Toast.makeText(requireContext(), R.string.reminder_settings_unavailable, Toast.LENGTH_LONG).show()
     }
-    
-    private fun navigateToMainApp() {
-        // Go directly to MainActivity, tutorial will be shown as overlay there
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        requireActivity().finish()
+    private fun next() {
+        if (findNavController().currentDestination?.id == R.id.setupNotificationsFragment) findNavController().navigate(R.id.action_notifications_to_tutorial)
     }
-    
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+    override fun onSaveInstanceState(outState: Bundle) { outState.putBoolean("notification_requested", requested); super.onSaveInstanceState(outState) }
+    override fun onDestroyView() { _binding = null; super.onDestroyView() }
 }

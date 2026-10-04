@@ -101,10 +101,14 @@ Thumbs.db
 
 # Misc
 .cache/
+__pycache__/
+*.py[cod]
 tmp/
 temp/
 conversations/
 SKILL.md
-PLAN.md
-TASKS.md
 RELATORIO.md
+
+# Release documentation is source material, not a generated release directory.
+!docs/release/
+!docs/release/**

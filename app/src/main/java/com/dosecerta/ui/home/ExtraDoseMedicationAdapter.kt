@@ -1,5 +1,6 @@
 package com.dosecerta.ui.home
 
+import com.dosecerta.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -37,9 +38,9 @@ class ExtraDoseMedicationAdapter(
             binding.textMedicationName.text = medication.name
             binding.textMedicationDosage.text = "${medication.dosage} ${medication.unit}"
             
+            binding.buttonAddDose.contentDescription = binding.root.context.getString(R.string.ui_take_for, medication.name)
             // Set medication color
-            binding.imageMedicationIcon.backgroundTintList = 
-                android.content.res.ColorStateList.valueOf(medication.color)
+            binding.imageMedicationIcon.setColorFilter(com.dosecerta.ui.MedicationIcon.color(binding.root.context, medication.color))
             
             // Handle +1 button click
             binding.buttonAddDose.setOnClickListener {

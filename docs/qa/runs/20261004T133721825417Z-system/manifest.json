@@ -1,0 +1,41 @@
+{
+  "runId": "20261004T133721825417Z-system",
+  "serial": "emulator-5580",
+  "avd": "DoseCerta_QA",
+  "suite": "system",
+  "api": "36",
+  "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE4B.251210.005/14574095:user/release-keys",
+  "timezone": "America/Sao_Paulo",
+  "syntheticOnly": true,
+  "cryptoState": "encrypted",
+  "cryptoType": "file",
+  "startedAt": "2026-10-04T13:37:21.931839+00:00",
+  "passed": false,
+  "apkSha256": {
+    "app-debug.apk": "20667ba884b4519ee279276987a158a7c8566f013f2b5bad2ae6bf95da177366",
+    "app-debug-androidTest.apk": "3f2782218a6064de779fcd6e7ef2a471afd103c4da4ac116b56a0f1e1ab57384"
+  },
+  "collectionErrors": [],
+  "kernelPageSizesBytes": [
+    4096
+  ],
+  "pageSizeSource": "KernelPageSize of /proc/self/smaps (getconf is absent on API 26)",
+  "command": [
+    "adb",
+    "-s",
+    "emulator-5580",
+    "shell",
+    "am",
+    "instrument",
+    "-w",
+    "-r",
+    "-e",
+    "class",
+    "com.dosecerta.ui.SystemUiInstrumentedTest",
+    "com.dosecerta.test/androidx.test.runner.AndroidJUnitRunner"
+  ],
+  "returnCode": 0,
+  "skipped": 0,
+  "tests": 0,
+  "finishedAt": "2026-10-04T13:38:01.576448+00:00"
+}

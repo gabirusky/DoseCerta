@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ui_page_padding">16dp</dimen>
+    <dimen name="ui_section_gap">16dp</dimen>
+    <dimen name="ui_control_min">48dp</dimen>
+    <style name="TextAppearance.DoseCerta.AccessibleTitle" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="TextAppearance.DoseCerta.AccessibleBody" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    <style name="Widget.DoseCerta.AccessibleButton" parent="Widget.Material3.Button">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+</resources>

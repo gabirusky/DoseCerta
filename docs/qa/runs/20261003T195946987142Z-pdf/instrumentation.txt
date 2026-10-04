@@ -1,0 +1,19 @@
+
+com.dosecerta.ui.history.PdfReportInstrumentedTest:....
+Error in failedStreamDoesNotPoisonSubsequentRender(com.dosecerta.ui.history.PdfReportInstrumentedTest):
+java.lang.AssertionError: Expected provider failure
+	at org.junit.Assert.fail(Assert.java:89)
+	at com.dosecerta.ui.history.PdfReportInstrumentedTest.failedStreamDoesNotPoisonSubsequentRender(PdfReportInstrumentedTest.kt:53)
+.
+
+Time: 4.548
+There was 1 failure:
+1) failedStreamDoesNotPoisonSubsequentRender(com.dosecerta.ui.history.PdfReportInstrumentedTest)
+java.lang.AssertionError: Expected provider failure
+	at org.junit.Assert.fail(Assert.java:89)
+	at com.dosecerta.ui.history.PdfReportInstrumentedTest.failedStreamDoesNotPoisonSubsequentRender(PdfReportInstrumentedTest.kt:53)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+

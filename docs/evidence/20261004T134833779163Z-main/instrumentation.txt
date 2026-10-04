@@ -1,0 +1,41 @@
+
+com.dosecerta.ui.FullJourneyInstrumentedTest:
+Error in firstUseFutureDoseRealAlarmAndPersistedOutcome(com.dosecerta.ui.FullJourneyInstrumentedTest):
+java.lang.AssertionError: System access switch not found; inspect captured hierarchy
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.allowSpecialAccess(FullJourneyInstrumentedTest.kt:98)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.onboarding(FullJourneyInstrumentedTest.kt:125)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.onboarding$default(FullJourneyInstrumentedTest.kt:109)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest$firstUseFutureDoseRealAlarmAndPersistedOutcome$1.invokeSuspend(FullJourneyInstrumentedTest.kt:172)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(dex-id-595ab14d137bae7b85eff98840fcd32a8d66fd61:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(dex-id-595ab14d137bae7b85eff98840fcd32a8d66fd61:1)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.firstUseFutureDoseRealAlarmAndPersistedOutcome(FullJourneyInstrumentedTest.kt:162)
+
+
+Time: 9.984
+There was 1 failure:
+1) firstUseFutureDoseRealAlarmAndPersistedOutcome(com.dosecerta.ui.FullJourneyInstrumentedTest)
+java.lang.AssertionError: System access switch not found; inspect captured hierarchy
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.allowSpecialAccess(FullJourneyInstrumentedTest.kt:98)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.onboarding(FullJourneyInstrumentedTest.kt:125)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.onboarding$default(FullJourneyInstrumentedTest.kt:109)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest$firstUseFutureDoseRealAlarmAndPersistedOutcome$1.invokeSuspend(FullJourneyInstrumentedTest.kt:172)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(dex-id-595ab14d137bae7b85eff98840fcd32a8d66fd61:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(dex-id-595ab14d137bae7b85eff98840fcd32a8d66fd61:1)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.firstUseFutureDoseRealAlarmAndPersistedOutcome(FullJourneyInstrumentedTest.kt:162)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

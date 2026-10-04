@@ -13,18 +13,9 @@
     <!-- Required for: All devices                     -->
     <!-- ============================================= -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     
-    <!-- ============================================= -->
-    <!-- STORAGE - PDF Export to Downloads             -->
-    <!-- maxSdkVersion="28": not needed on API 29+     -->
-    <!-- API 29+ uses MediaStore (no permission req.)  -->
-    <!-- ============================================= -->
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28" />
-
+    <!-- PDF export uses the system document picker on every supported API. -->
     <!-- ============================================= -->
     <!-- FOREGROUND SERVICE PERMISSIONS                -->
     <!-- Required for: Android 8+ (Oreo)               -->
@@ -39,26 +30,9 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     
-    <!-- ============================================= -->
-    <!-- MANUFACTURER-SPECIFIC COMPATIBILITY           -->
-    <!-- ============================================= -->
-    
-    <!-- Xiaomi (MIUI / HyperOS) -->
-    <!-- Requires: Autostart, Battery restrictions off, Show on lock screen -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    
-    <!-- Samsung (One UI) -->
-    <!-- Requires: Sleeping apps whitelist, Battery optimization off -->
-    <!-- Uses standard permissions above -->
-    
-    <!-- Huawei (EMUI / HarmonyOS) -->
-    <!-- Requires: App Launch settings, Ignore battery optimization -->
-    <!-- Uses standard permissions above -->
-
     <application
         android:name=".DoseCertaApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -72,7 +46,6 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.DoseCerta">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -84,14 +57,12 @@
         <activity
             android:name=".ui.setup.SetupActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.DoseCerta" />
         
         <!-- Alarm Activity -->
         <activity
             android:name=".alarm.AlarmActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:showWhenLocked="true"
             android:turnScreenOn="true"
             android:excludeFromRecents="true"
@@ -119,6 +90,10 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
             </intent-filter>
         </receiver>
         

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "empty.pdf",
+    "pages": 1,
+    "expectedRows": 0,
+    "rowCount": 0,
+    "uniqueRows": 0,
+    "rowsOnce": true,
+    "wordsOutsideHorizontalMargins": [],
+    "emptyHasNoData": true
+  },
+  {
+    "file": "many.pdf",
+    "pages": 15,
+    "expectedRows": 150,
+    "rowCount": 150,
+    "uniqueRows": 150,
+    "rowsOnce": true,
+    "wordsOutsideHorizontalMargins": [],
+    "emptyHasNoData": null
+  },
+  {
+    "file": "10000.pdf",
+    "pages": 911,
+    "expectedRows": 10000,
+    "rowCount": 10000,
+    "uniqueRows": 10000,
+    "rowsOnce": true,
+    "wordsOutsideHorizontalMargins": [],
+    "emptyHasNoData": null
+  },
+  {
+    "file": "long.pdf",
+    "pages": 63,
+    "expectedRows": 30,
+    "rowCount": 30,
+    "uniqueRows": 30,
+    "rowsOnce": true,
+    "wordsOutsideHorizontalMargins": [],
+    "emptyHasNoData": null
+  }
+]

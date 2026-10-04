@@ -1,432 +1,185 @@
 package com.dosecerta.alarm
 
-import android.animation.ValueAnimator
 import android.app.KeyguardManager
-import android.app.NotificationManager
-import android.content.Context
-import android.graphics.PorterDuff
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.DecelerateInterpolator
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.dosecerta.R
 import com.dosecerta.data.local.DoseCertaDatabase
-import com.dosecerta.data.local.entity.Medication
 import com.dosecerta.data.local.entity.MedicationLog
-import com.dosecerta.data.model.MedicationStatus
+import com.dosecerta.data.repository.MedicationRepository
 import com.dosecerta.databinding.ActivityAlarmBinding
+import com.dosecerta.domain.DoseActionCoordinator
+import com.dosecerta.domain.DoseActionResult
+import com.dosecerta.domain.DoseState
+import com.dosecerta.ui.WindowInsetsHelper
 import com.dosecerta.util.Constants
 import com.dosecerta.util.SettingsPreferences
-import kotlinx.coroutines.CoroutineScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
+import java.text.DateFormat
 import java.util.Date
-import java.util.Locale
 
-/**
- * Full-screen activity shown when alarm rings.
- *
- * Interaction model (Feature 5):
- * - Take → SwipeToConfirmView (horizontal drag to right edge)
- * - Skip → Two-step inline tap with 4s revert timeout
- * - Snooze → Hold-and-slide: press to expand, drag to select minutes, release to confirm
- */
+/** Reloads persisted identity on every intent/restoration; actions never trust medicine extras. */
 class AlarmActivity : AppCompatActivity() {
-
-    companion object {
-        private const val TAG = "AlarmActivity"
-        private const val SKIP_CONFIRM_TIMEOUT_MS = 4000L
-    }
-
     private lateinit var binding: ActivityAlarmBinding
-    private var medication: Medication? = null
-    private var medicationId: Long = -1L
-    private var scheduleId: Long = -1L
-    private var scheduledTime: Long = 0L
-
-    // ─── Skip two-step state ─────────────────────────────────────────────────
-    private var skipStep = 0
-    private val skipTimeoutHandler = Handler(Looper.getMainLooper())
-    private val skipRevertRunnable = Runnable { revertSkipButton() }
-
-    // ─── Snooze hold-and-slide state ────────────────────────────────────────
-    private var snoozeMinutes = Constants.SNOOZE_DURATION_MINUTES
-    private var isHoldingSnooze = false
-    private var snoozeStartRawX = 0f
-    private var snoozeSliderExpanded = false
+    private val repository by lazy { MedicationRepository(DoseCertaDatabase.getDatabase(this)) }
+    private var occurrenceId: String? = null
+    private var occurrence: MedicationLog? = null
+    private var generation = 0L
+    private var identityVisible = false
+    private var observer: Job? = null
+    private var action: Job? = null
+    private var dialog: androidx.appcompat.app.AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setupWindowFlags()
-
-        binding = ActivityAlarmBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        extractIntentData()
-        displayMedicationInfo()
-        setupInteractions()
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Window / lockscreen setup
-    // ─────────────────────────────────────────────────────────────────────────
-
-    /**
-     * Setup window flags to show over lockscreen.
-     * Uses aggressive flags for Xiaomi/MIUI/HyperOS compatibility.
-     * DO NOT REMOVE ANY FLAG — each one is required for a subset of devices.
-     */
-    @Suppress("DEPRECATION")
-    private fun setupWindowFlags() {
-        window.addFlags(
-            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON or
-            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-            WindowManager.LayoutParams.FLAG_FULLSCREEN or
-            WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON or
-            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            setShowWhenLocked(true)
-            setTurnScreenOn(true)
-
-            val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-            keyguardManager.requestDismissKeyguard(this, object : KeyguardManager.KeyguardDismissCallback() {
-                override fun onDismissSucceeded() { Log.d(TAG, "Keyguard dismissed") }
-                override fun onDismissError() { Log.e(TAG, "Keyguard dismiss error") }
-                override fun onDismissCancelled() { Log.w(TAG, "Keyguard dismiss cancelled") }
-            })
-        }
-
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        )
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Data
-    // ─────────────────────────────────────────────────────────────────────────
-
-    private fun extractIntentData() {
-        medication = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(AlarmService.EXTRA_MEDICATION, Medication::class.java)
+        if (Build.VERSION.SDK_INT >= 27) {
+            setShowWhenLocked(true); setTurnScreenOn(true)
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra(AlarmService.EXTRA_MEDICATION)
+            window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
         }
-        medicationId = intent.getLongExtra(AlarmService.EXTRA_MEDICATION_ID, -1L)
-        scheduleId = intent.getLongExtra(AlarmService.EXTRA_SCHEDULE_ID, -1L)
-        scheduledTime = intent.getLongExtra(AlarmService.EXTRA_SCHEDULED_TIME, 0L)
-        Log.d(TAG, "Alarm opened for: ${medication?.name}")
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        binding = ActivityAlarmBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        WindowInsetsHelper.apply(binding.root)
+        binding.buttonTake.setOnClickListener { confirmOutcome(take = true) }
+        binding.swipeTake.onConfirmed = { confirmOutcome(take = true) }
+        binding.buttonSkip.setOnClickListener { confirmOutcome(take = false) }
+        binding.buttonSnooze.setOnClickListener { chooseSnooze() }
+        binding.buttonSilence.setOnClickListener { silence() }
+        binding.buttonUnlock.setOnClickListener { unlock() }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) { override fun handleOnBackPressed() = silence() })
+        switchOccurrence(savedInstanceState?.getString(AlarmIdentity.EXTRA_OCCURRENCE_ID) ?: intent.getStringExtra(AlarmIdentity.EXTRA_OCCURRENCE_ID))
     }
 
-    private fun displayMedicationInfo() {
-        medication?.let { med ->
-            binding.textMedicationName.text = med.name
-            binding.textDosageInfo.text = "${med.dosage} ${med.unit} · ${getFormString(med.pharmaceuticalForm.name)}"
-
-            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-            binding.textScheduledTime.text = timeFormat.format(Date(scheduledTime))
-
-            // C10: Tint the pill icon with the medication's stored color
-            binding.imageMedIcon.setColorFilter(med.color, PorterDuff.Mode.SRC_IN)
-        }
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        switchOccurrence(intent.getStringExtra(AlarmIdentity.EXTRA_OCCURRENCE_ID))
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Interactions setup
-    // ─────────────────────────────────────────────────────────────────────────
-
-    private fun setupInteractions() {
-        // C7: Swipe-to-confirm → Take
-        binding.swipeTake.onConfirmed = {
-            handleTakeAction()
-        }
-
-        // C8: Two-step skip
-        binding.btnAlarmSkip.setOnClickListener {
-            when (skipStep) {
-                0 -> {
-                    // First tap → morph to confirmation state
-                    skipStep = 1
-                    animateSkipToConfirmState()
-                    skipTimeoutHandler.postDelayed(skipRevertRunnable, SKIP_CONFIRM_TIMEOUT_MS)
-                }
-                1 -> {
-                    // Second tap → execute skip
-                    skipTimeoutHandler.removeCallbacks(skipRevertRunnable)
-                    handleSkipAction()
-                }
-            }
-        }
-
-        // C9: Hold-and-slide snooze
-        setupSnoozeHoldSlide()
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(AlarmIdentity.EXTRA_OCCURRENCE_ID, occurrenceId)
+        super.onSaveInstanceState(outState)
     }
+    override fun onResume() { super.onResume(); occurrence?.let { lifecycleScope.launch { render(it) } } }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Skip two-step animation
-    // ─────────────────────────────────────────────────────────────────────────
-
-    private fun animateSkipToConfirmState() {
-        binding.btnAlarmSkip.text = getString(R.string.alarm_skip_confirm)
-        binding.btnAlarmSkip.animate()
-            .alpha(0f)
-            .setDuration(100)
-            .withEndAction {
-                binding.btnAlarmSkip.setBackgroundColor(
-                    getColor(R.color.skip_confirm_bg)
-                )
-                binding.btnAlarmSkip.animate().alpha(1f).setDuration(150).start()
-            }
-            .start()
-    }
-
-    private fun revertSkipButton() {
-        skipStep = 0
-        binding.btnAlarmSkip.animate()
-            .alpha(0f)
-            .setDuration(120)
-            .withEndAction {
-                binding.btnAlarmSkip.text = getString(R.string.notification_action_skip)
-                // Reset background by re-applying the outlined button style programmatically
-                binding.btnAlarmSkip.setBackgroundColor(
-                    android.graphics.Color.TRANSPARENT
-                )
-                binding.btnAlarmSkip.animate().alpha(1f).setDuration(150).start()
-            }
-            .start()
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Snooze hold-and-slide
-    // ─────────────────────────────────────────────────────────────────────────
-
-    private fun setupSnoozeHoldSlide() {
-        binding.btnAlarmSnooze.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    isHoldingSnooze = true
-                    snoozeStartRawX = event.rawX
-                    snoozeMinutes = Constants.SNOOZE_DURATION_MINUTES
-                    expandSnoozeSlider()
-                    true
+    private fun switchOccurrence(id: String?) {
+        generation++
+        observer?.cancel(); action?.cancel(); dialog?.dismiss(); dialog = null
+        binding.swipeTake.reset(); occurrence = null; occurrenceId = id
+        binding.textActionError.visibility = View.GONE
+        setBusy(true)
+        if (id == null) { finish(); return }
+        AlarmDiagnostics.record(this, "card", id, "opened")
+        val token = generation
+        observer = lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                repository.getAllLogs().collect { logs ->
+                    val log = logs.firstOrNull { it.occurrenceId == id }
+                    val valid = withContext(Dispatchers.IO) { log != null && repository.isOccurrenceCurrent(log) }
+                    if (token != generation) return@collect
+                    if (!valid || log == null || log.state !in setOf(DoseState.PENDING, DoseState.ALERTING, DoseState.DISMISSED)) {
+                        AlarmService.stopAlarm(this@AlarmActivity, id)
+                        finish()
+                    } else { occurrence = log; render(log); setBusy(action?.isActive == true) }
                 }
-                MotionEvent.ACTION_MOVE -> {
-                    if (isHoldingSnooze) {
-                        val deltaX = event.rawX - snoozeStartRawX
-                        updateSnoozeFromDrag(deltaX)
-                    }
-                    true
-                }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    if (isHoldingSnooze) {
-                        isHoldingSnooze = false
-                        collapseSnoozeSlider {
-                            handleSnoozeAction(snoozeMinutes)
-                        }
-                    }
-                    true
-                }
-                else -> false
             }
         }
     }
 
-    private fun expandSnoozeSlider() {
-        updateSnoozeLabel()
-        binding.snoozeSliderOverlay.visibility = View.VISIBLE
-        binding.snoozeSliderOverlay.animate()
-            .alpha(1f)
-            .setDuration(200)
-            .start()
-        snoozeSliderExpanded = true
+    private suspend fun render(log: MedicationLog) {
+        val token = generation
+        val detailsOnLock = SettingsPreferences(this).getShowMedicationOnLockScreenSync()
+        if (token != generation) return
+        identityVisible = detailsOnLock || !getSystemService(KeyguardManager::class.java).isKeyguardLocked
+        binding.buttonUnlock.visibility = if (identityVisible) View.GONE else View.VISIBLE
+        binding.layoutIdentityActions.visibility = if (identityVisible) View.VISIBLE else View.GONE
+        binding.textMedicationName.text = if (identityVisible) log.snapshotName ?: getString(R.string.reminder_private_title) else getString(R.string.reminder_private_title)
+        binding.textDosageInfo.text = if (identityVisible) listOfNotNull(log.snapshotDosage, log.snapshotUnit).joinToString(" ") else getString(R.string.reminder_private_message)
+        binding.textScheduledTime.text = if (identityVisible) getString(R.string.reminder_scheduled_at, DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(log.originalDueAt))) else ""
     }
 
-    private fun collapseSnoozeSlider(onEnd: () -> Unit) {
-        binding.snoozeSliderOverlay.animate()
-            .alpha(0f)
-            .setDuration(150)
-            .withEndAction {
-                binding.snoozeSliderOverlay.visibility = View.GONE
-                snoozeSliderExpanded = false
-                onEnd()
-            }
-            .start()
+    private fun confirmOutcome(take: Boolean) {
+        val log = occurrence ?: return
+        if (!identityVisible || action?.isActive == true) { binding.swipeTake.reset(); return }
+        val token = generation
+        dialog?.dismiss()
+        dialog = MaterialAlertDialogBuilder(this)
+            .setTitle(if (take) R.string.reminder_confirm_take else R.string.reminder_confirm_skip)
+            .setMessage(getString(R.string.reminder_confirm_dose, log.snapshotName, listOfNotNull(log.snapshotDosage, log.snapshotUnit).joinToString(" ")))
+            .setNegativeButton(R.string.cancel) { _, _ -> binding.swipeTake.reset() }
+            .setPositiveButton(if (take) R.string.notification_action_take else R.string.notification_action_skip) { _, _ ->
+                if (token == generation) perform { coordinator, id -> if (take) coordinator.take(id) else coordinator.skip(id) }
+            }.setOnCancelListener { binding.swipeTake.reset() }.show()
     }
 
-    /**
-     * Map horizontal drag delta to snooze options array index.
-     * Full left = index 0 (5 min), full right = last index (60 min).
-     * Slider range is the width of the snooze FrameLayout.
-     */
-    private fun updateSnoozeFromDrag(deltaX: Float) {
+    private fun chooseSnooze() {
+        if (occurrence == null || action?.isActive == true) return
+        val token = generation
         val options = Constants.SNOOZE_OPTIONS_MINUTES
-        val sliderWidth = binding.frameSnooze.width.toFloat().coerceAtLeast(1f)
-        // Normalize delta to [-0.5, +0.5] around center, then map to options
-        val normalized = (deltaX / sliderWidth + 0.5f).coerceIn(0f, 1f)
-        val index = (normalized * (options.size - 1)).toInt().coerceIn(0, options.size - 1)
-        snoozeMinutes = options[index]
-        updateSnoozeLabel()
+        val labels = options.map { getString(R.string.reminder_minutes, it) }.toTypedArray()
+        var selected = options.indexOf(10)
+        dialog?.dismiss()
+        dialog = MaterialAlertDialogBuilder(this).setTitle(R.string.reminder_snooze)
+            .setSingleChoiceItems(labels, selected) { _, index -> selected = index }
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.reminder_snooze) { _, _ ->
+                if (token == generation) perform { _, id -> AlarmScheduler(this).snoozeOccurrence(id, options[selected]) }
+            }.show()
     }
 
-    private fun updateSnoozeLabel() {
-        binding.textSnoozeValue.text = if (snoozeMinutes == 60) {
-            getString(R.string.alarm_snooze_1h)
-        } else {
-            getString(R.string.alarm_snooze_format, snoozeMinutes)
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Action handlers (DB writes — same logic as before, preserved exactly)
-    // ─────────────────────────────────────────────────────────────────────────
-
-    /**
-     * Handle Take action — called by SwipeToConfirmView.onConfirmed.
-     */
-    private fun handleTakeAction() {
-        Log.d(TAG, "Take confirmed via swipe")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val database = DoseCertaDatabase.getDatabase(this@AlarmActivity)
-                val logDao = database.medicationLogDao()
-                val alarmScheduler = AlarmScheduler(this@AlarmActivity)
-
-                // Cancel missed reminder — user confirmed they took it
-                alarmScheduler.cancelMissedReminderAlarm(medicationId, scheduleId, scheduledTime)
-
-                val existingLog = logDao.getLog(medicationId, scheduleId, scheduledTime)
-                val currentTime = System.currentTimeMillis()
-
-                if (existingLog != null) {
-                    logDao.update(existingLog.copy(status = MedicationStatus.TAKEN, actualTime = currentTime))
-                } else {
-                    logDao.insert(MedicationLog(medicationId = medicationId, scheduleId = scheduleId, scheduledTime = scheduledTime, actualTime = currentTime, status = MedicationStatus.TAKEN))
+    private fun silence() { perform { coordinator, id -> coordinator.dismiss(id) } }
+    private fun perform(operation: suspend (DoseActionCoordinator, String) -> DoseActionResult) {
+        val id = occurrenceId ?: return
+        if (action?.isActive == true) return
+        val token = generation
+        setBusy(true)
+        action = lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                val result = operation(DoseActionCoordinator(repository), id)
+                if (result is DoseActionResult.Success) {
+                    if (result.occurrence.state in setOf(DoseState.TAKEN, DoseState.SKIPPED)) AlarmScheduler(this@AlarmActivity).cancelOccurrence(id)
+                    else AlarmService.stopAlarm(this@AlarmActivity, id)
                 }
-
-                withContext(Dispatchers.Main) { stopAlarmAndFinish() }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error handling take action", e)
-                withContext(Dispatchers.Main) { stopAlarmAndFinish() }
+                result
             }
-        }
-    }
-
-    /**
-     * Handle Skip action — called after two-step confirmation.
-     */
-    private fun handleSkipAction() {
-        Log.d(TAG, "Skip confirmed (two-step)")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val database = DoseCertaDatabase.getDatabase(this@AlarmActivity)
-                val logDao = database.medicationLogDao()
-                val alarmScheduler = AlarmScheduler(this@AlarmActivity)
-
-                // B2: Schedule missed reminder — deliberate skip still warrants a follow-up
-                val reminderHours = SettingsPreferences(this@AlarmActivity).getMissedReminderHoursSync()
-                alarmScheduler.scheduleMissedReminderAlarm(medicationId, scheduleId, scheduledTime, reminderHours)
-
-                val existingLog = logDao.getLog(medicationId, scheduleId, scheduledTime)
-                val currentTime = System.currentTimeMillis()
-
-                if (existingLog != null) {
-                    logDao.update(existingLog.copy(status = MedicationStatus.SKIPPED, actualTime = currentTime))
-                } else {
-                    logDao.insert(MedicationLog(medicationId = medicationId, scheduleId = scheduleId, scheduledTime = scheduledTime, actualTime = currentTime, status = MedicationStatus.SKIPPED))
+            if (token != generation) return@launch
+            when (result) {
+                is DoseActionResult.Success -> finish()
+                is DoseActionResult.Rejected -> {
+                    binding.textActionError.setText(R.string.reminder_action_expired)
+                    binding.textActionError.visibility = View.VISIBLE
+                    setBusy(false); binding.swipeTake.reset()
                 }
-
-                withContext(Dispatchers.Main) { stopAlarmAndFinish() }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error handling skip action", e)
-                withContext(Dispatchers.Main) { stopAlarmAndFinish() }
+                is DoseActionResult.Failure -> {
+                    binding.textActionError.setText(R.string.reminder_action_failed)
+                    binding.textActionError.visibility = View.VISIBLE
+                    setBusy(false); binding.swipeTake.reset()
+                }
             }
         }
     }
-
-    /**
-     * Handle Snooze action with variable minutes from hold-and-slide.
-     */
-    private fun handleSnoozeAction(minutes: Int) {
-        Log.d(TAG, "Snooze for $minutes minutes")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val alarmScheduler = AlarmScheduler(this@AlarmActivity)
-                // C2: Pass selected minutes instead of hardcoded constant
-                alarmScheduler.snoozeAlarm(medicationId, scheduleId, scheduledTime, minutes)
-                withContext(Dispatchers.Main) { stopAlarmAndFinish() }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error handling snooze action", e)
-                withContext(Dispatchers.Main) { stopAlarmAndFinish() }
-            }
-        }
+    private fun setBusy(busy: Boolean) {
+        listOf(binding.buttonTake, binding.buttonSkip, binding.buttonSnooze, binding.buttonSilence, binding.swipeTake).forEach { it.isEnabled = !busy }
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Lifecycle
-    // ─────────────────────────────────────────────────────────────────────────
-
-    /**
-     * Stop alarm service and finish activity.
-     */
-    private fun stopAlarmAndFinish() {
-        // Cancel pending skip timeout to prevent post-dismiss callback
-        skipTimeoutHandler.removeCallbacksAndMessages(null)
-
-        AlarmService.stopAlarm(this)
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notificationId = (medicationId * 1000 + scheduleId).toInt()
-        notificationManager.cancel(notificationId)
-        notificationManager.cancel(AlarmService.FOREGROUND_NOTIFICATION_ID)
-
-        finish()
+    private fun unlock() {
+        getSystemService(KeyguardManager::class.java).requestDismissKeyguard(this, object : KeyguardManager.KeyguardDismissCallback() {
+            override fun onDismissSucceeded() { occurrence?.let { lifecycleScope.launch { render(it) } } }
+            override fun onDismissCancelled() { binding.textActionError.setText(R.string.reminder_unlock_cancelled); binding.textActionError.visibility = View.VISIBLE }
+            override fun onDismissError() { binding.textActionError.setText(R.string.reminder_unlock_cancelled); binding.textActionError.visibility = View.VISIBLE }
+        })
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // C12: Clean up handler to prevent memory leaks
-        skipTimeoutHandler.removeCallbacksAndMessages(null)
-    }
-
-    override fun onBackPressed() {
-        // Prevent back button from dismissing alarm
-        Log.d(TAG, "Back button pressed — ignored")
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Helpers
-    // ─────────────────────────────────────────────────────────────────────────
-
-    private fun getFormString(form: String): String {
-        return when (form) {
-            "TABLET"    -> getString(R.string.form_tablet)
-            "CAPSULE"   -> getString(R.string.form_capsule)
-            "SYRUP"     -> getString(R.string.form_syrup)
-            "DROPS"     -> getString(R.string.form_drops)
-            "INJECTION" -> getString(R.string.form_injection)
-            "CREAM"     -> getString(R.string.form_cream)
-            "SPRAY"     -> getString(R.string.form_spray)
-            else        -> getString(R.string.form_other)
-        }
-    }
+    override fun onDestroy() { generation++; dialog?.dismiss(); binding.swipeTake.reset(); super.onDestroy() }
 }

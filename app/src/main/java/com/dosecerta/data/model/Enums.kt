@@ -25,7 +25,10 @@ enum class Frequency(val intervalHours: Int, val defaultReminderCount: Int) {
     EVERY_6_HOURS(6, 4),    // A cada 6 horas (4x ao dia)
     EVERY_8_HOURS(8, 3),    // A cada 8 horas (3x ao dia)
     EVERY_12_HOURS(12, 2),  // A cada 12 horas (2x ao dia)
-    AS_NEEDED(0, 0)         // Conforme necessário
+    AS_NEEDED(0, 0),        // Conforme necessário
+    WEEKLY(0, 1),
+    MONTHLY(0, 1),
+    SELECTED_DAYS(0, 1)
 }
 
 /**

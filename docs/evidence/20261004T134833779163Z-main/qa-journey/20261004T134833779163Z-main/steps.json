@@ -1,0 +1,27 @@
+[
+  {
+    "stage": "01-terms",
+    "timestampMillis": 1791121701226,
+    "screenshot": "01-terms.png"
+  },
+  {
+    "stage": "02-access-before",
+    "timestampMillis": 1791121702863,
+    "screenshot": "02-access-before.png"
+  },
+  {
+    "stage": "03-system-notification-choice",
+    "timestampMillis": 1791121705076,
+    "screenshot": "03-system-notification-choice.png"
+  },
+  {
+    "stage": "settings-button_exact-before",
+    "timestampMillis": 1791121706615,
+    "screenshot": "settings-button_exact-before.png"
+  },
+  {
+    "stage": "failure",
+    "timestampMillis": 1791121706789,
+    "screenshot": "failure.png"
+  }
+]

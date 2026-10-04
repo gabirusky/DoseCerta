@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <string name="ui_regimen">Posologia</string>
+  <string name="ui_regimen_hint">Use a dose e a frequência orientadas pelo profissional.</string>
+  <string name="ui_weekly">Semanal</string>
+  <string name="ui_monthly">Mensal</string>
+  <string name="ui_specific_days">Dias específicos</string>
+  <string name="ui_weekdays">Dias da semana</string>
+  <string name="ui_month_day">Dia do mês (1 a 31)</string>
+  <string name="ui_month_policy">Se o mês não tiver esse dia, não haverá dose programada nesse mês. Confira a orientação recebida.</string>
+  <string name="ui_next_dates">Próximas doses</string>
+  <string name="ui_preview_empty">Adicione um horário para ver as próximas datas.</string>
+  <string name="ui_save">Salvar</string>
+  <string name="ui_saving">Salvando…</string>
+  <string name="ui_error_save">Não foi possível salvar. Seu rascunho foi mantido. Tente novamente.</string>
+  <string name="ui_name_required">Informe o nome do medicamento.</string>
+  <string name="ui_dosage_required">Informe a dose conforme a orientação recebida.</string>
+  <string name="ui_unit_required">Informe a unidade. Você também pode digitar uma unidade personalizada.</string>
+  <string name="ui_time_required">Adicione pelo menos um horário.</string>
+  <string name="ui_days_required">Escolha pelo menos um dia.</string>
+  <string name="ui_month_day_error">Escolha um dia entre 1 e 31.</string>
+  <string name="ui_duplicate_time">Esse horário já está na lista.</string>
+  <string name="ui_selected">Selecionado</string>
+  <string name="ui_not_selected">Não selecionado</string>
+  <string name="ui_color_teal">Azul esverdeado</string>
+  <string name="ui_color_blue">Azul</string>
+  <string name="ui_color_purple">Roxo</string>
+  <string name="ui_color_red">Vermelho</string>
+  <string name="ui_color_orange">Laranja</string>
+  <string name="ui_color_green">Verde</string>
+  <string name="ui_remove_time">Remover horário %1$s</string>
+  <string name="ui_generate_times">Sugerir horários para este intervalo</string>
+  <string name="ui_interval_hint">Os horários são fixos no relógio. Ajuste a lista para seguir a orientação recebida. Trocar a frequência mantém seus horários.</string>
+  <string name="ui_no_data">Sem dados</string>
+  <string name="ui_week_adherence">Adesão nesta semana</string>
+  <string name="ui_today">Doses de hoje</string>
+  <string name="ui_today_empty">Nenhuma dose programada para hoje. As próximas doses aparecem acima.</string>
+  <string name="ui_upcoming_empty">Nenhuma próxima dose programada.</string>
+  <string name="ui_pending">Pendente</string>
+  <string name="ui_taken">Tomado</string>
+  <string name="ui_skipped">Pulado</string>
+  <string name="ui_missed">Não confirmado</string>
+  <string name="ui_take">Tomei</string>
+  <string name="ui_skip">Pular</string>
+  <string name="ui_due">Horário chegou · aguardando confirmação</string>
+  <string name="ui_action_error">Não foi possível registrar. Tente novamente.</string>
+  <string name="ui_take_for">Registrar tomada de %1$s</string>
+  <string name="ui_skip_for">Pular dose de %1$s</string>
+  <string name="ui_extra_confirm">Registrar tomada avulsa de %1$s?</string>
+  <string name="ui_extra_hint">Registre apenas uma tomada que já ocorreu. Doses avulsas não entram no cálculo de adesão.</string>
+  <string name="ui_no_results">Nenhum medicamento corresponde à busca ou ao filtro.</string>
+  <string name="ui_manage_medication">Gerenciar %1$s</string>
+  <string name="ui_archive">Arquivar medicamento</string>
+  <string name="ui_archive_hint">Interrompe os lembretes e preserva o histórico. Você pode consultar as doses anteriores no Histórico.</string>
+  <string name="ui_delete_permanent">Excluir permanentemente</string>
+  <string name="ui_delete_keep">Excluir cadastro e manter histórico</string>
+  <string name="ui_delete_all">Excluir cadastro e seu histórico</string>
+  <string name="ui_delete_warning">Escolha o que excluir de %1$s. Esta ação é permanente. PDFs já salvos ou compartilhados continuam fora do app.</string>
+  <string name="ui_archive_success">Medicamento arquivado. Histórico preservado.</string>
+  <string name="ui_delete_success">Dados selecionados excluídos.</string>
+  <string name="ui_edit_for">Editar %1$s</string>
+  <string name="ui_next_for">Próxima dose: %1$s</string>
+  <string name="ui_medical_disclaimer">DoseCerta ajuda a organizar lembretes e registros. Não substitui orientação médica, não prescreve tratamentos e não é um serviço de emergência. Não mude uma dose por conta própria.</string>
+  <string name="ui_privacy_text">Os nomes, doses, horários e registros são armazenados no app neste dispositivo. Não há cadastro de conta nem envio automático desses dados. A proteção também depende do bloqueio e da segurança do dispositivo.
+
+Você pode arquivar medicamentos mantendo o histórico, excluir permanentemente o cadastro mantendo o histórico, ou excluir o cadastro e seus registros. PDFs exportados são cópias fora do app: excluir dados locais não remove cópias já salvas ou compartilhadas.
+
+Por padrão, o conteúdo sensível fica oculto na tela bloqueada. Confira a escolha de privacidade nas Configurações. Os acessos de notificação e alarme permitem lembretes; recusar um acesso limita a entrega. O Android e o fabricante podem restringir alertas.
+
+Este texto descreve o funcionamento local. O contato público e a política publicada serão disponibilizados pelo responsável pelo produto antes da distribuição.</string>
+  <string name="ui_setup_summary">Leia antes de começar</string>
+  <string name="ui_setup_progress">Etapa %1$d de %2$d</string>
+  <string name="ui_draft_discard_title">Sair do cadastro?</string>
+  <string name="ui_draft_discard_hint">O rascunho é mantido durante rotação e restauração desta tela. Ao sair, alterações não salvas serão descartadas.</string>
+  <string name="ui_leave">Sair sem salvar</string>
+  <string name="ui_stay">Continuar editando</string>
+  <string name="ui_next_dose_summary">%1$s · %2$s</string>
+  <string name="ui_as_needed_preview">Sem horários automáticos. Registre as tomadas na seção Conforme necessário da Home.</string>
+<string name="ui_dst_adjusted"> · ajustado pela mudança de horário</string><string name="ui_manage_actions">Arquivar ou excluir</string><string name="ui_reload">Recarregar</string><string name="ui_load_error">Não foi possível abrir este medicamento. Tente recarregar ou volte para a lista.</string><string name="ui_saved_reminder_warning">O cadastro foi salvo. Os lembretes estão limitados ou podem chegar depois do horário. Confira os acessos em Configurações.</string></resources>

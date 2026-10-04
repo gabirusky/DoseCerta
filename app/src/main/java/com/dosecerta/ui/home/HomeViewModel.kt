@@ -1,230 +1,93 @@
 package com.dosecerta.ui.home
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dosecerta.alarm.AlarmScheduler
-import com.dosecerta.data.local.entity.MedicationLog
 import com.dosecerta.data.model.Frequency
 import com.dosecerta.data.model.MedicationStatus
 import com.dosecerta.data.model.ScheduleItem
-import com.dosecerta.data.model.MedicationStatistics
 import com.dosecerta.data.repository.MedicationRepository
-import com.dosecerta.util.DateTimeUtils
-import com.dosecerta.util.SettingsPreferences
+import com.dosecerta.domain.AdherenceCalculator
+import com.dosecerta.domain.AdherenceSummary
+import com.dosecerta.domain.DoseActionCoordinator
+import com.dosecerta.domain.DoseActionResult
+import com.dosecerta.domain.DoseState
+import com.dosecerta.domain.RecurrenceCalculator
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import java.time.Instant
+import java.time.ZoneId
 
-/**
- * ViewModel for the Home screen.
- */
-class HomeViewModel(
-    private val repository: MedicationRepository,
-    private val alarmScheduler: AlarmScheduler,
-    private val context: Context
-) : ViewModel() {
-
-    private val settingsPreferences = SettingsPreferences(context)
-
-    // Today's medication schedule — reactively observes both schedules and logs.
-    // A11: AS_NEEDED medications are excluded here (they have no schedules, guard is safety-first).
-    val todaySchedule: StateFlow<List<ScheduleItem>> = combine(
-        repository.getAllActiveSchedules(),
-        repository.getAllLogs()
-    ) { schedules, allLogs ->
-        // Build schedule items for today
-        val items = mutableListOf<ScheduleItem>()
-
-        for (schedule in schedules) {
-            // Check if this schedule should trigger today
-            if (!DateTimeUtils.shouldScheduleToday(schedule.daysOfWeek)) continue
-
-            val medication = repository.getMedicationByIdSync(schedule.medicationId) ?: continue
-
-            // A11: Safety guard — AS_NEEDED medications should never appear here
-            if (medication.frequency == Frequency.AS_NEEDED) continue
-
-            val scheduledTime = DateTimeUtils.getTimestampForToday(schedule.timeInMinutes)
-
-            // Find log for this schedule today from the allLogs list
-            val log = allLogs.find {
-                it.medicationId == medication.id &&
-                it.scheduleId == schedule.id &&
-                it.scheduledTime == scheduledTime
-            }
-
-            val status = log?.status ?: if (scheduledTime < System.currentTimeMillis()) {
-                MedicationStatus.MISSED
-            } else {
-                MedicationStatus.PENDING
-            }
-
-            items.add(
-                ScheduleItem(
-                    medication = medication,
-                    schedule = schedule,
-                    scheduledTime = scheduledTime,
-                    status = status,
-                    isPastDue = scheduledTime < System.currentTimeMillis() && status == MedicationStatus.PENDING
-                )
-            )
-        }
-
-        // Sort by time
-        items.sortedBy { it.scheduledTime }
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = emptyList()
-    )
-
-    // Statistics - reactively observes logs
-    val statistics: StateFlow<MedicationStatistics> = repository.getAllLogs().map { allLogs ->
-        val startOfWeek = DateTimeUtils.getStartOfWeek()
-        val now = System.currentTimeMillis()
-
-        // Filter logs within the week range
-        val logsThisWeek = allLogs.filter { it.scheduledTime >= startOfWeek && it.scheduledTime <= now }
-
-        val takenCount = logsThisWeek.count { it.status == MedicationStatus.TAKEN }
-        val missedCount = logsThisWeek.count { it.status == MedicationStatus.MISSED }
-        val skippedCount = logsThisWeek.count { it.status == MedicationStatus.SKIPPED }
-        val totalCount = logsThisWeek.size
-
-        val adherence = if (totalCount > 0) {
-            ((takenCount.toFloat() / totalCount) * 100).toInt()
-        } else {
-            100 // Default to 100% if no logs
-        }
-
-        MedicationStatistics(
-            takenCount = takenCount,
-            missedCount = missedCount,
-            skippedCount = skippedCount,
-            adherencePercentage = adherence
-        )
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = MedicationStatistics(0, 0, 0, 100)
-    )
-
-    /**
-     * Mark medication as taken.
-     * B4: Cancel any pending missed-reminder alarm when user takes the medication.
-     */
-    suspend fun markAsTaken(scheduleItem: ScheduleItem) {
-        // Check if log already exists
-        val existingLog = repository.getLog(
-            scheduleItem.medication.id,
-            scheduleItem.schedule.id,
-            scheduleItem.scheduledTime
-        )
-
-        if (existingLog != null) {
-            // Update existing log
-            repository.updateLog(
-                existingLog.copy(
-                    status = MedicationStatus.TAKEN,
-                    actualTime = System.currentTimeMillis()
-                )
-            )
-        } else {
-            // Create new log
-            repository.insertLog(
-                MedicationLog(
-                    medicationId = scheduleItem.medication.id,
-                    scheduleId = scheduleItem.schedule.id,
-                    scheduledTime = scheduleItem.scheduledTime,
-                    actualTime = System.currentTimeMillis(),
-                    status = MedicationStatus.TAKEN
-                )
-            )
-        }
-
-        // B4: Cancel missed reminder — user already took it
-        alarmScheduler.cancelMissedReminderAlarm(
-            scheduleItem.medication.id,
-            scheduleItem.schedule.id,
-            scheduleItem.scheduledTime
-        )
-    }
-
-    /**
-     * Skip medication — mark as skipped.
-     * B3: Schedule a missed-reminder alarm so user gets a follow-up notification.
-     */
-    suspend fun skipMedication(scheduleItem: ScheduleItem) {
-        // Check if log already exists
-        val existingLog = repository.getLog(
-            scheduleItem.medication.id,
-            scheduleItem.schedule.id,
-            scheduleItem.scheduledTime
-        )
-
-        if (existingLog != null) {
-            // Update existing log to mark as skipped
-            repository.updateLog(
-                existingLog.copy(
-                    status = MedicationStatus.SKIPPED,
-                    actualTime = System.currentTimeMillis()
-                )
-            )
-        } else {
-            // Create new log as skipped
-            repository.insertLog(
-                MedicationLog(
-                    medicationId = scheduleItem.medication.id,
-                    scheduleId = scheduleItem.schedule.id,
-                    scheduledTime = scheduleItem.scheduledTime,
-                    actualTime = System.currentTimeMillis(),
-                    status = MedicationStatus.SKIPPED
-                )
-            )
-        }
-
-        // B3: Schedule missed reminder — even a deliberate skip deserves a follow-up nudge
-        val reminderHours = settingsPreferences.getMissedReminderHoursSync()
-        alarmScheduler.scheduleMissedReminderAlarm(
-            scheduleItem.medication.id,
-            scheduleItem.schedule.id,
-            scheduleItem.scheduledTime,
-            reminderHours
-        )
-    }
-
-    /**
-     * Get all active medications for extra dose dialog.
-     */
+class HomeViewModel(private val repository: MedicationRepository, private val alarmScheduler: AlarmScheduler,
+    private val savedState: androidx.lifecycle.SavedStateHandle = androidx.lifecycle.SavedStateHandle()) : ViewModel() {
+    private val calculator = RecurrenceCalculator()
+    private val coordinator = DoseActionCoordinator(repository)
+    /** Time changes redraw dates and relative labels without creating dose records. */
+    val clock = flow { while (true) { emit(System.currentTimeMillis()); delay(30_000) } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), System.currentTimeMillis())
     val activeMedications = repository.getAllActiveMedications()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
-
-    /**
-     * A6: AS_NEEDED medications — shown on home screen as tappable dose cards.
-     */
-    val asNeededMedications = repository.getAllActiveMedications()
-        .map { meds -> meds.filter { it.frequency == Frequency.AS_NEEDED } }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
-
-    /**
-     * Record an extra dose for an existing medication.
-     */
-    suspend fun recordExtraDose(medicationId: Long) {
-        repository.recordExtraDose(medicationId)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val asNeededMedications = activeMedications.map { meds -> meds.filter { it.frequency == Frequency.AS_NEEDED } }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val todaySchedule = combine(repository.getAllActiveSchedules(), repository.getAllLogs(), activeMedications, clock) { schedules, logs, medications, now ->
+        val today = Instant.ofEpochMilli(now).atZone(ZoneId.systemDefault()).toLocalDate()
+        val start = today.atStartOfDay(ZoneId.systemDefault()).toInstant()
+        val end = today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()
+        schedules.flatMap { schedule ->
+            val med = medications.find { it.id == schedule.medicationId && it.frequency != Frequency.AS_NEEDED } ?: return@flatMap emptyList()
+            val captured = logs.filter { it.scheduleId == schedule.id && it.scheduleVersion == schedule.version }
+            val todayCaptured = captured.filter { it.state != DoseState.CANCELLED && it.originalDueAt >= start.toEpochMilli() && it.originalDueAt < end.toEpochMilli() }
+            val items = todayCaptured.map { log -> ScheduleItem(med, schedule, log.originalDueAt, log.status,
+                log.originalDueAt < now && log.status == MedicationStatus.PENDING) }.toMutableList()
+            calculator.occurrencesBetween(schedule, start, end).forEach { due ->
+                // One local slot has one identity even if a timezone change moves the calculated instant.
+                val log = captured.find { it.originalLocalDateTime == due.requestedLocalDateTime.toString() }
+                if (log == null && !repository.isOccurrenceSuppressed(schedule, due.requestedLocalDateTime)) {
+                    items += ScheduleItem(med, schedule, due.originalDueAt, MedicationStatus.PENDING, due.originalDueAt < now)
+                }
+            }
+            items
+        }.sortedBy { it.scheduledTime }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val upcoming = combine(repository.getAllActiveSchedules(), activeMedications, clock) { schedules, medications, now ->
+        schedules.mapNotNull { schedule ->
+            val med = medications.find { it.id == schedule.medicationId && it.frequency != Frequency.AS_NEEDED } ?: return@mapNotNull null
+            repository.previewOccurrences(schedule, 1, Instant.ofEpochMilli(now)).firstOrNull()?.let { med.name to it.originalDueAt }
+        }.sortedBy { it.second }.take(5)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    val statistics = combine(repository.getAllLogs(), clock) { logs, now ->
+        val zone = ZoneId.systemDefault()
+        val today = Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
+        val start = today.minusDays((today.dayOfWeek.value - 1).toLong()).atStartOfDay(zone).toInstant().toEpochMilli()
+        AdherenceCalculator.calculate(logs.filter { it.originalDueAt in start..now })
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), AdherenceSummary(0, 0, 0, 0))
+    private val actionMutex = Mutex()
+    suspend fun markAsTaken(item: ScheduleItem): Boolean = actionMutex.withLock {
+        val occurrence = repository.getLog(item.medication.id, item.schedule.id, item.scheduledTime)
+            ?: repository.ensureOccurrence(item.schedule.id, item.scheduledTime) ?: return@withLock false
+        val result = coordinator.take(occurrence.occurrenceId)
+        if (result is DoseActionResult.Success) { alarmScheduler.cancelOccurrence(occurrence.occurrenceId); true } else false
     }
-
-    /**
-     * Record an extra dose for a custom medication.
-     */
-    suspend fun recordCustomExtraDose(medicationName: String) {
-        repository.recordCustomExtraDose(medicationName)
+    suspend fun skipMedication(item: ScheduleItem): Boolean = actionMutex.withLock {
+        val occurrence = repository.getLog(item.medication.id, item.schedule.id, item.scheduledTime)
+            ?: repository.ensureOccurrence(item.schedule.id, item.scheduledTime) ?: return@withLock false
+        val result = coordinator.skip(occurrence.occurrenceId)
+        if (result is DoseActionResult.Success) { alarmScheduler.cancelOccurrence(occurrence.occurrenceId); true } else false
+    }
+    private val extraMutex = Mutex()
+    private fun request(key: String): String {
+        val pendingKey = savedState.get<String>("extra_key")
+        if (pendingKey != key) { savedState["extra_key"] = key; savedState["extra_request"] = java.util.UUID.randomUUID().toString() }
+        return savedState.get<String>("extra_request") ?: java.util.UUID.randomUUID().toString().also { savedState["extra_request"] = it }
+    }
+    suspend fun recordExtraDose(medicationId: Long) = extraMutex.withLock {
+        repository.recordExtraDose(medicationId, request("id:$medicationId"))
+        savedState["extra_key"] = null; savedState["extra_request"] = null
+    }
+    suspend fun recordCustomExtraDose(name: String) = extraMutex.withLock {
+        require(name.isNotBlank()); repository.recordCustomExtraDose(name.trim(), request("name:${name.trim()}"))
+        savedState["extra_key"] = null; savedState["extra_request"] = null
     }
 }

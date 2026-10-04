@@ -1,0 +1,12 @@
+[
+  {
+    "stage": "01-terms",
+    "timestampMillis": 1791121590146,
+    "screenshot": "01-terms.png"
+  },
+  {
+    "stage": "failure",
+    "timestampMillis": 1791121593241,
+    "screenshot": "failure.png"
+  }
+]

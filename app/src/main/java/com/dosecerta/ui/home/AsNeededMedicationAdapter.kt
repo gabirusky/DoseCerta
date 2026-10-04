@@ -1,5 +1,6 @@
 package com.dosecerta.ui.home
 
+import com.dosecerta.R
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -38,9 +39,10 @@ class AsNeededMedicationAdapter(
             binding.textMedicationName.text = medication.name
             binding.textMedicationDosage.text = "${medication.dosage} ${medication.unit}"
 
+            binding.buttonTakeAsNeeded.contentDescription = binding.root.context.getString(R.string.ui_take_for, medication.name)
             // Apply medication color to the pill icon
             binding.imageMedicationIcon.setColorFilter(
-                medication.color,
+                com.dosecerta.ui.MedicationIcon.color(binding.root.context, medication.color),
                 android.graphics.PorterDuff.Mode.SRC_IN
             )
 
@@ -48,9 +50,7 @@ class AsNeededMedicationAdapter(
             binding.buttonTakeAsNeeded.setOnClickListener {
                 onTakeClick(medication)
             }
-            binding.root.setOnClickListener {
-                onTakeClick(medication)
-            }
+
         }
     }
 

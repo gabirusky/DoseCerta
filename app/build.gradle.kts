@@ -7,13 +7,13 @@ plugins {
 
 android {
     namespace = "com.dosecerta"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.dosecerta"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
+        targetSdk = 36
+        versionCode = providers.gradleProperty("releaseVersionCode").orElse("1").get().toInt()
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -23,8 +23,21 @@ android {
         }
     }
 
+    signingConfigs {
+        val keyPath = providers.environmentVariable("DOSECERTA_UPLOAD_KEYSTORE").orNull
+        if (keyPath != null) {
+            create("upload") {
+                storeFile = file(keyPath)
+                storePassword = providers.environmentVariable("DOSECERTA_UPLOAD_STORE_PASSWORD").get()
+                keyAlias = providers.environmentVariable("DOSECERTA_UPLOAD_KEY_ALIAS").get()
+                keyPassword = providers.environmentVariable("DOSECERTA_UPLOAD_KEY_PASSWORD").get()
+            }
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.findByName("upload")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -46,6 +59,11 @@ android {
         viewBinding = true
         buildConfig = true
     }
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
 }
 
 dependencies {
@@ -83,7 +101,8 @@ dependencies {
     
     // Testing
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.ext:junit:1.3.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
     androidTestImplementation("androidx.room:room-testing:2.6.1")
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0")
 }

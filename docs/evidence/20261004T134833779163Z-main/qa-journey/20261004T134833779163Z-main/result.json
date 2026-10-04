@@ -1,0 +1,11 @@
+{
+  "runId": "20261004T134833779163Z-main",
+  "scenario": "take",
+  "count": 1,
+  "medicine": "Medicamento fictício QA 1791121698025",
+  "passed": false,
+  "failure": "AssertionError",
+  "message": "System access switch not found; inspect captured hierarchy",
+  "events": [],
+  "completedAt": 1791121706789
+}

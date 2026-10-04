@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261004T133032717232Z-main",
+  "scenario": "main",
+  "startedAt": "2026-10-04T13:30:32.896442+00:00",
+  "serial": "emulator-5580",
+  "avd": "DoseCerta_QA",
+  "timezone": "America/Sao_Paulo",
+  "api": "36",
+  "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE4B.251210.005/14574095:user/release-keys",
+  "pageSize": "4096",
+  "pageSizeSource": "getconf PAGE_SIZE",
+  "gitCommit": "cc2ca144e10c720345ed6924c7b7e7ef27c2cfbe",
+  "workingTree": " M .gitignore\n M BUILD.md\n M CONTEXT.md\n M README.md\n M app/build.gradle.kts\n M app/src/main/AndroidManifest.xml\n M app/src/main/java/com/dosecerta/DoseCertaApplication.kt\n M app/src/main/java/com/dosecerta/alarm/AlarmActivity.kt\n M app/src/main/java/com/dosecerta/alarm/AlarmScheduler.kt\n M app/src/main/java/com/dosecerta/alarm/AlarmService.kt\n M app/src/main/java/com/dosecerta/alarm/AlarmSoundManager.kt\n M app/src/main/java/com/dosecerta/alarm/BootCompletedReceiver.kt\n M app/src/main/java/com/dosecerta/alarm/MedicationAlarmReceiver.kt\n M app/src/main/java/com/dosecerta/alarm/SwipeToConfirmView.kt\n M app/src/main/java/com/dosecerta/data/local/DoseCertaDatabase.kt\n M app/src/main/java/com/dosecerta/data/local/dao/MedicationDao.kt\n M app/src/main/java/com/dosecerta/data/local/dao/MedicationLogDao.kt\n M app/src/main/java/com/dosecerta/data/local/dao/ScheduleDao.kt\n M app/src/main/java/com/dosecerta/data/local/entity/MedicationLog.kt\n M app/src/main/java/com/dosecerta/data/local/entity/Schedule.kt\n M app/src/main/java/com/dosecerta/data/model/Enums.kt\n M app/src/main/java/com/dosecerta/data/repository/MedicationRepository.kt\n M app/src/main/java/com/dosecerta/notification/MarkMissedReceiver.kt\n M app/src/main/java/com/dosecerta/notification/MissedReminderReceiver.kt\n M app/src/main/java/com/dosecerta/notification/NotificationActionReceiver.kt\n M app/src/main/java/com/dosecerta/notification/NotificationHelper.kt\n M app/src/main/java/com/dosecerta/ui/MainActivity.kt\n M app/src/main/java/com/dosecerta/ui/addmedication/AddMedicationFragment.kt\n M app/src/main/java/com/dosecerta/ui/addmedication/AddMedicationViewModel.kt\n M app/src/main/java/com/dosecerta/ui/addmedication/ScheduleTimeAdapter.kt\n M app/src/main/java/com/dosecerta/ui/history/HistoryFragment.kt\n M app/src/main/java/com/dosecerta/ui/history/HistoryViewModel.kt\n M app/src/main/java/com/dosecerta/ui/history/MedicationLogAdapter.kt\n M app/src/main/java/com/dosecerta/ui/history/PdfReportGenerator.kt\n M app/src/main/java/com/dosecerta/ui/home/AsNeededMedicationAdapter.kt\n M app/src/main/java/com/dosecerta/ui/home/ExtraDoseMedicationAdapter.kt\n M app/src/main/java/com/dosecerta/ui/home/HomeFragment.kt\n M app/src/main/java/com/dosecerta/ui/home/HomeViewModel.kt\n M app/src/main/java/com/dosecerta/ui/home/ScheduleAdapter.kt\n M app/src/main/java/com/dosecerta/ui/medications/MedicationAdapter.kt\n M app/src/main/java/com/dosecerta/ui/medications/MedicationsFragment.kt\n M app/src/main/java/com/dosecerta/ui/medications/MedicationsViewModel.kt\n M app/src/main/java/com/dosecerta/ui/privacy/PrivacyPolicyFragment.kt\n M app/src/main/java/com/dosecerta/ui/settings/SettingsFragment.kt\n M app/src/main/java/com/dosecerta/ui/setup/SetupActivity.kt\n M app/src/main/java/com/dosecerta/ui/setup/SetupNotificationsFragment.kt\n M app/src/main/java/com/dosecerta/ui/setup/SetupTermsFragment.kt\n M app/src/main/java/com/dosecerta/ui/setup/SetupTutorialFragment.kt\n M app/src/main/java/com/dosecerta/util/DateTimeUtils.kt\n M app/src/main/java/com/dosecerta/util/SettingsPreferences.kt\n M app/src/main/res/drawable/gradient_welcome_card.xml\n M app/src/main/res/drawable/ic_check.xml\n M app/src/main/res/drawable/search_background.xml\n M app/src/main/res/drawable/status_badge_missed.xml\n M app/src/main/res/drawable/status_badge_pending.xml\n M app/src/main/res/drawable/status_badge_skipped.xml\n M app/src/main/res/drawable/status_badge_taken.xml\n M app/src/main/res/layout/activity_alarm.xml\n M app/src/main/res/layout/activity_main.xml\n M app/src/main/res/layout/dialog_extra_dose.xml\n M app/src/main/res/layout/fragment_add_medication.xml\n M app/src/main/res/layout/fragment_history.xml\n M app/src/main/res/layout/fragment_home.xml\n M app/src/main/res/layout/fragment_medications.xml\n M app/src/main/res/layout/fragment_privacy_policy.xml\n M app/src/main/res/layout/fragment_settings.xml\n M app/src/main/res/layout/fragment_setup_notifications.xml\n M app/src/main/res/layout/fragment_setup_terms.xml\n M app/src/main/res/layout/fragment_setup_tutorial.xml\n M app/src/main/res/layout/item_as_needed.xml\n M app/src/main/res/layout/item_extra_dose_medication.xml\n M app/src/main/res/layout/item_medication.xml\n M app/src/main/res/layout/item_medication_log.xml\n M app/src/main/res/layout/item_schedule.xml\n M app/src/main/res/layout/item_tutorial_card.xml\n M app/src/main/res/layout/list_item_schedule_time.xml\n M app/src/main/res/menu/bottom_nav_menu.xml\n M app/src/main/res/values-en/strings.xml\n M app/src/main/res/values-night/themes.xml\n M app/src/main/res/values/dimens.xml\n M app/src/main/res/values/strings.xml\n M app/src/main/res/values/themes.xml\n M app/src/main/res/xml/backup_rules.xml\n M app/src/main/res/xml/data_extraction_rules.xml\n M build.gradle.kts\n M gradle/wrapper/gradle-wrapper.properties\n?? .github/\n?? LICENSE\n?? PLAN.md\n?? TASKS.md\n?? app/schemas/\n?? app/src/androidTest/\n?? app/src/main/assets/\n?? app/src/main/java/com/dosecerta/alarm/AlarmDiagnostics.kt\n?? app/src/main/java/com/dosecerta/alarm/AlarmIdentity.kt\n?? app/src/main/java/com/dosecerta/alarm/AlarmReceiverWork.kt\n?? app/src/main/java/com/dosecerta/alarm/ReminderCapabilityChecker.kt\n?? app/src/main/java/com/dosecerta/alarm/ReminderChannels.kt\n?? app/src/main/java/com/dosecerta/alarm/ReminderSettingsNavigator.kt\n?? app/src/main/java/com/dosecerta/data/local/OccurrenceMigration.kt\n?? app/src/main/java/com/dosecerta/data/local/entity/MedicationSaveReceipt.kt\n?? app/src/main/java/com/dosecerta/data/local/entity/OccurrenceSuppression.kt\n?? app/src/main/java/com/dosecerta/data/local/entity/ReconciliationCheckpoint.kt\n?? app/src/main/java/com/dosecerta/domain/\n?? app/src/main/java/com/dosecerta/ui/MedicationIcon.kt\n?? app/src/main/java/com/dosecerta/ui/ReadingLayout.kt\n?? app/src/main/java/com/dosecerta/ui/UiDateTime.kt\n?? app/src/main/java/com/dosecerta/ui/UiLabels.kt\n?? app/src/main/java/com/dosecerta/ui/WindowInsetsHelper.kt\n?? app/src/main/java/com/dosecerta/ui/history/ReportDocuments.kt\n?? app/src/main/java/com/dosecerta/ui/history/ReportModels.kt\n?? app/src/main/java/com/dosecerta/ui/home/UpcomingDoseAdapter.kt\n?? app/src/main/res/color/ui_input_stroke.xml\n?? app/src/main/res/drawable/home_adherence_halo.xml\n?? app/src/main/res/drawable/ic_arrow_back.xml\n?? app/src/main/res/drawable/ic_chevron_right.xml\n?? app/src/main/res/drawable/ic_more_vert.xml\n?? app/src/main/res/drawable/ui_empty_container.xml\n?? app/src/main/res/drawable/ui_icon_container.xml\n?? app/src/main/res/layout/item_history_header.xml\n?? app/src/main/res/layout/item_upcoming.xml\n?? app/src/main/res/values-en/design_strings.xml\n?? app/src/main/res/values-en/feature_alarm.xml\n?? app/src/main/res/values-en/feature_form.xml\n?? app/src/main/res/values-en/feature_home.xml\n?? app/src/main/res/values-en/feature_report.xml\n?? app/src/main/res/values-en/feature_ui.xml\n?? app/src/main/res/values-night/design_colors.xml\n?? app/src/main/res/values-sw600dp/\n?? app/src/main/res/values/design_colors.xml\n?? app/src/main/res/values/design_strings.xml\n?? app/src/main/res/values/feature_alarm.xml\n?? app/src/main/res/values/feature_form.xml\n?? app/src/main/res/values/feature_home.xml\n?? app/src/main/res/values/feature_report.xml\n?? app/src/main/res/values/feature_ui.xml\n?? app/src/main/res/values/feature_ui_tokens.xml\n?? app/src/test/\n?? docs/\n?? gradle/wrapper/gradle-wrapper.jar\n?? gradlew\n?? scripts/\n",
+  "apk": {
+    "path": "/home/gabirusky/Code/DoseCerta/app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "20667ba884b4519ee279276987a158a7c8566f013f2b5bad2ae6bf95da177366"
+  },
+  "testApk": {
+    "path": "/home/gabirusky/Code/DoseCerta/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+    "sha256": "77adfcf23ea0740d1033682e51a4160f75a1eff7d33c414335cdea9fb5030175"
+  },
+  "command": [
+    "adb",
+    "-s",
+    "emulator-5580",
+    "shell",
+    "am",
+    "instrument",
+    "-w",
+    "-e",
+    "class",
+    "com.dosecerta.ui.FullJourneyInstrumentedTest#firstUseFutureDoseRealAlarmAndPersistedOutcome",
+    "-e",
+    "fullJourney",
+    "1",
+    "-e",
+    "journeyAction",
+    "take",
+    "-e",
+    "journeyCount",
+    "1",
+    "-e",
+    "evidenceRunId",
+    "20261004T133032717232Z-main",
+    "com.dosecerta.test/androidx.test.runner.AndroidJUnitRunner"
+  ],
+  "cleanInstall": false,
+  "videoSegments": [
+    {
+      "file": "screen-001.mp4",
+      "remote": "/sdcard/Download/dosecerta-evidence-20261004T133032717232Z-main-001.mp4",
+      "startedAt": "2026-10-04T13:30:34.815628+00:00",
+      "available": false,
+      "remotePid": "7460",
+      "completedAt": "2026-10-04T13:30:35.372300+00:00",
+      "returnCode": 218,
+      "pullError": "/sdcard/Download/dosecerta-evidence-20261004T133032717232Z-main-001.mp4: 1 file pulled, 0 skipped."
+    }
+  ],
+  "collectionErrors": [
+    {
+      "stage": "app_artifacts",
+      "error": "ReadError",
+      "message": "file could not be opened successfully:\n- method gz: ReadError('not a gzip file')\n- method bz2: ReadError('not a bzip2 file')\n- method xz: ReadError('not an lzma file')\n- method zst: ReadError('not a zstd file')\n- method tar: ReadError('bad checksum')"
+    },
+    {
+      "stage": "journey_result",
+      "error": "FileNotFoundError",
+      "message": "[Errno 2] No such file or directory: '/home/gabirusky/Code/DoseCerta/docs/evidence/20261004T133032717232Z-main/qa-journey/20261004T133032717232Z-main/result.json'"
+    }
+  ],
+  "controlActions": [
+    "Stopped the synthetic target package after incomplete instrumentation"
+  ],
+  "audio": "Android screenrecord does not capture internal alarm audio. Observe audio separately; this video cannot prove sound.",
+  "videoReviewed": false,
+  "syntheticDataOnly": true,
+  "instrumentationPassed": false,
+  "scope": "Visible UI onboarding, grants, future medicine creation, real scheduled delivery and outcome",
+  "instrumentationStartedAt": "2026-10-04T13:30:34.870291+00:00",
+  "instrumentationReturnCode": -15,
+  "completedAt": "2026-10-04T13:30:36.278523+00:00",
+  "elapsedSeconds": 3.33,
+  "failure": "RuntimeError: Screenrecord segment missing; preserving the failed run",
+  "videoAvailable": false,
+  "evidenceCollected": false
+}

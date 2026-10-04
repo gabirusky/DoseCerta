@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-10-04T13:47:32.292064+00:00",
+  "artifact": "app/build/outputs/bundle/release/app-release.aab",
+  "artifact_kind": "aab",
+  "size_bytes": 5432640,
+  "sha256": "8c45bb1cad06634389c5b1470e8f56a73b20806e4f17b6d591f2b5cf3a2cddbc",
+  "native_libraries": [],
+  "bundled_license_notice_entries": [],
+  "agp_app_metadata": null,
+  "native_alignment_verification": "not applicable: no bundled .so",
+  "native_alignment_pass": true,
+  "generated_apk_zip_alignment": "pending: inspect APKs generated from this AAB",
+  "runtime_16kb": "pending: getconf PAGE_SIZE must return 16384, then install this artifact and run smoke/journey/PDF evidence",
+  "scope": "Packaging/ELF checks only. No proof of runtime, signatures, manifest policy, or Play acceptance."
+}

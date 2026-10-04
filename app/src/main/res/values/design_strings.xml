@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="design_home_subtitle">Um cuidado de cada vez.</string>
+    <string name="design_adherence_hint">Seus registros desta semana.</string>
+    <string name="design_today_doses">Hoje</string>
+    <string name="design_register_extra">Registrar dose avulsa</string>
+    <string name="design_as_needed_short">Registro manual, sem lembretes.</string>
+    <string name="design_due_short">Aguardando confirmação</string>
+    <string name="design_tomorrow">Amanhã</string>
+    <string name="design_date_time">%1$s, %2$s</string>
+    <string name="design_pdf">PDF</string>
+    <string name="design_next_dose">Próxima: %1$s</string>
+    <string name="design_no_reminders">Sem lembretes</string>
+    <string name="design_adherence">Adesão</string>
+    <string name="design_week_adherence_value">Adesão nesta semana: %1$s</string>
+    <string name="design_nav_medications">Remédios</string>
+    <string name="design_nav_settings">Ajustes</string>
+    <string name="design_language_portuguese">Português</string>
+    <string name="design_extra_dose_hint">Registre uma dose fora da sua agenda.</string>
+    <string name="design_extra_dose_title">Dose avulsa</string>
+    <string name="design_edit">Editar</string>
+    <string name="design_back">Voltar</string>
+    <string name="design_medications_subtitle">Seus cuidados, organizados.</string>
+    <string name="design_medication_details">Sobre o medicamento</string>
+    <string name="design_form_subtitle">Organize sua dose e os horários de lembrete.</string>
+    <string name="design_reminder_times">Horários de lembrete</string>
+    <string name="design_add_time">Adicionar horário</string>
+    <string name="design_settings_subtitle">Do seu jeito, no seu ritmo.</string>
+    <string name="design_preferences">Preferências</string>
+    <string name="design_reminders">Lembretes</string>
+    <string name="design_privacy">Privacidade e informações</string>
+</resources>

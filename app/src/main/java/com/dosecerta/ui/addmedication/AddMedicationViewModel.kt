@@ -1,5 +1,6 @@
 package com.dosecerta.ui.addmedication
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dosecerta.alarm.AlarmScheduler
@@ -9,291 +10,158 @@ import com.dosecerta.data.model.Frequency
 import com.dosecerta.data.model.PharmaceuticalForm
 import com.dosecerta.data.model.ScheduleTime
 import com.dosecerta.data.repository.MedicationRepository
-import com.dosecerta.util.DateTimeUtils
+import com.dosecerta.domain.RecurrenceCalculator
+import com.dosecerta.domain.RecurrenceKind
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-/**
- * ViewModel for adding/editing medications.
- */
+/** Draft values are primitive SavedStateHandle entries, safe across process recreation. */
 class AddMedicationViewModel(
     private val repository: MedicationRepository,
     private val alarmScheduler: AlarmScheduler,
-    private val medicationId: Long = -1L
+    private val medicationId: Long = -1L,
+    private val savedState: SavedStateHandle = SavedStateHandle()
 ) : ViewModel() {
-    
     val isEditMode = medicationId != -1L
-    
-    init {
-        if (isEditMode) {
-            loadMedication()
-        }
-    }
-    
-    private fun loadMedication() {
-        viewModelScope.launch {
-            val medication = repository.getMedicationByIdSync(medicationId) ?: return@launch
-            _medicationName.value = medication.name
-            _dosage.value = medication.dosage
-            _unit.value = medication.unit
-            _form.value = medication.pharmaceuticalForm
-            _frequency.value = medication.frequency
-            _notes.value = medication.notes ?: ""
-            _color.value = medication.color
-            
-            // Load existing schedules
-            val schedules = repository.getSchedulesForMedicationSync(medicationId)
-            _scheduleTimes.value = schedules.map { ScheduleTime(it.id, it.timeInMinutes) }
-        }
-    }
-    
-    // Form state
-    private val _medicationName = MutableStateFlow("")
-    val medicationName: StateFlow<String> = _medicationName.asStateFlow()
-    
-    private val _dosage = MutableStateFlow("")
-    val dosage: StateFlow<String> = _dosage.asStateFlow()
-    
-    private val _unit = MutableStateFlow("mg")
-    val unit: StateFlow<String> = _unit.asStateFlow()
-    
-    private val _form = MutableStateFlow<PharmaceuticalForm>(PharmaceuticalForm.TABLET)
-    val form: StateFlow<PharmaceuticalForm> = _form.asStateFlow()
-    
-    private val _frequency = MutableStateFlow<Frequency>(Frequency.DAILY)
-    val frequency: StateFlow<Frequency> = _frequency.asStateFlow()
-    
-    private val _notes = MutableStateFlow("")
-    val notes: StateFlow<String> = _notes.asStateFlow()
-    
-    private val _color = MutableStateFlow(0xFF00897B.toInt())
-    val color: StateFlow<Int> = _color.asStateFlow()
-    
-    private val _scheduleTimes = MutableStateFlow<List<ScheduleTime>>(emptyList())
-    val scheduleTimes: StateFlow<List<ScheduleTime>> = _scheduleTimes.asStateFlow()
-    
-    // UI state
-    private val _saveState = MutableStateFlow<SaveState>(SaveState.Idle)
-    val saveState: StateFlow<SaveState> = _saveState.asStateFlow()
-    
-    fun updateName(name: String) {
-        _medicationName.value = name
-    }
-    
-    fun updateDosage(dosage: String) {
-        _dosage.value = dosage
-    }
-    
-    fun updateUnit(unit: String) {
-        _unit.value = unit
-    }
-    
-    fun updateForm(form: PharmaceuticalForm) {
-        _form.value = form
-    }
-    
-    fun updateFrequency(frequency: Frequency) {
-        _frequency.value = frequency
-    }
-    
-    fun updateNotes(notes: String) {
-        _notes.value = notes
-    }
-    
-    fun updateColor(color: Int) {
-        _color.value = color
-    }
-    
-    fun addScheduleTime(timeInMinutes: Int) {
-        // Add new time with ID 0
-        _scheduleTimes.value = _scheduleTimes.value + ScheduleTime(0, timeInMinutes)
-    }
-    
-    fun removeScheduleTime(scheduleTime: ScheduleTime) {
-        _scheduleTimes.value = _scheduleTimes.value - scheduleTime
-    }
-    
-    /**
-     * Generate default reminder times based on frequency.
-     * Replaces existing reminders with new times based on selected frequency.
-     */
-    fun generateDefaultReminders(frequency: Frequency) {
-        // Don't generate for AS_NEEDED - clear reminders instead
-        if (frequency == Frequency.AS_NEEDED) {
-            _scheduleTimes.value = emptyList()
-            return
-        }
-        
-        val reminderCount = frequency.defaultReminderCount
-        val intervalHours = frequency.intervalHours
-        
-        // Start at 8:00 AM (480 minutes from midnight)
-        val startTimeMinutes = 8 * 60
-        
-        val newReminders = mutableListOf<ScheduleTime>()
-        
-        for (i in 0 until reminderCount) {
-            // Calculate time: start from 8 AM and add interval * i hours
-            val timeInMinutes = (startTimeMinutes + (intervalHours * i * 60)) % (24 * 60)
-            newReminders.add(ScheduleTime(0, timeInMinutes))
-        }
-        
-        _scheduleTimes.value = newReminders
-    }
-    
-    /**
-     * Validate and save medication.
-     */
-    fun saveMedication() {
+    private val saveRequestId = savedState.get<String>("saveRequestId") ?: java.util.UUID.randomUUID().toString().also { savedState["saveRequestId"] = it }
+    private var original: Medication? = null
+    private val _medicationName = MutableStateFlow(savedState.get<String>("name") ?: "")
+    val medicationName = _medicationName.asStateFlow()
+    private val _dosage = MutableStateFlow(savedState.get<String>("dosage") ?: "")
+    val dosage = _dosage.asStateFlow()
+    private val _unit = MutableStateFlow(savedState.get<String>("unit") ?: "mg")
+    val unit = _unit.asStateFlow()
+    private val _form = MutableStateFlow(PharmaceuticalForm.valueOf(savedState.get<String>("form") ?: "TABLET"))
+    val form = _form.asStateFlow()
+    private val _frequency = MutableStateFlow(Frequency.valueOf(savedState.get<String>("frequency") ?: "DAILY"))
+    val frequency = _frequency.asStateFlow()
+    private val _notes = MutableStateFlow(savedState.get<String>("notes") ?: "")
+    val notes = _notes.asStateFlow()
+    private val _color = MutableStateFlow(savedState.get<Int>("color") ?: 0xFF00897B.toInt())
+    val color = _color.asStateFlow()
+    private val _days = MutableStateFlow(savedState.get<ArrayList<Int>>("days")?.toSet() ?: setOf(2))
+    val days = _days.asStateFlow()
+    private val _monthDay = MutableStateFlow(savedState.get<String>("monthDay") ?: "1")
+    val monthDay = _monthDay.asStateFlow()
+    private val _scheduleTimes = MutableStateFlow((savedState.get<ArrayList<Int>>("times") ?: arrayListOf()).mapIndexed { index, time ->
+        ScheduleTime(savedState.get<ArrayList<Long>>("timeIds")?.getOrNull(index) ?: 0, time)
+    })
+    val scheduleTimes = _scheduleTimes.asStateFlow()
+    private val _saveState = MutableStateFlow<SaveState>(if (savedState.get<Boolean>("saved") == true) SaveState.Success else SaveState.Idle)
+    val saveState = _saveState.asStateFlow()
+    private val _reminderWarning = MutableStateFlow(savedState.get<Boolean>("reminderWarning") ?: false)
+    val reminderWarning = _reminderWarning.asStateFlow()
+    private val _loaded = MutableStateFlow(!isEditMode)
+    val loaded = _loaded.asStateFlow()
+    private val _errors = MutableStateFlow<Set<Field>>(emptySet())
+    val errors = _errors.asStateFlow()
+    enum class Field { NAME, DOSAGE, UNIT, TIMES, DAYS, MONTH_DAY }
+
+    init { if (isEditMode) loadMedication() }
+    fun loadMedication() {
+        _saveState.value = SaveState.Idle
         viewModelScope.launch {
             try {
-                _saveState.value = SaveState.Saving
-                
-                // Validation
-                if (_medicationName.value.isBlank()) {
-                    _saveState.value = SaveState.Error("Por favor, insira o nome do medicamento")
-                    return@launch
+                original = repository.getMedicationByIdSync(medicationId)
+                val med = original ?: error("Medication unavailable")
+                if (savedState.get<Boolean>("draft") != true) {
+                    updateName(med.name); updateDosage(med.dosage); updateUnit(med.unit)
+                    updateForm(med.pharmaceuticalForm); updateFrequency(med.frequency)
+                    updateNotes(med.notes.orEmpty()); updateColor(med.color)
+                    val schedules = repository.getSchedulesForMedicationSync(medicationId).filter { it.isActive }
+                    setTimes(schedules.map { ScheduleTime(it.id, it.timeInMinutes) })
+                    schedules.firstOrNull()?.let { updateDays(it.daysOfWeek.toSet()); updateMonthDay(it.monthDay.toString()) }
+                    savedState["draft"] = false
                 }
-                
-                if (_dosage.value.isBlank()) {
-                    _saveState.value = SaveState.Error("Por favor, insira a dosagem")
-                    return@launch
-                }
-                
-                // AS_NEEDED medications don't require a schedule time
-                if (_frequency.value != Frequency.AS_NEEDED && _scheduleTimes.value.isEmpty()) {
-                    _saveState.value = SaveState.Error("Adicione pelo menos um horário")
-                    return@launch
-                }
-                
-                if (isEditMode) {
-                    // Update existing medication
-                    val medication = Medication(
-                        id = medicationId,
-                        name = _medicationName.value.trim(),
-                        dosage = _dosage.value.trim(),
-                        unit = _unit.value.trim(),
-                        pharmaceuticalForm = _form.value,
-                        frequency = _frequency.value,
-                        notes = _notes.value.trim(),
-                        color = _color.value,
-                        isActive = true
-                    )
-                    
-                    repository.updateMedication(medication)
-                    
-                    if (_frequency.value == Frequency.AS_NEEDED) {
-                        // A3: AS_NEEDED — cancel all existing alarms and delete all schedules
-                        val currentSchedules = repository.getSchedulesForMedicationSync(medicationId)
-                        alarmScheduler.cancelAlarmsForMedication(medicationId, currentSchedules)
-                        for (schedule in currentSchedules) {
-                            repository.deleteSchedule(schedule)
-                        }
-                    } else {
-                        // Smart update of schedules to preserve logs
-                        val currentSchedules = repository.getSchedulesForMedicationSync(medicationId)
-                        val newScheduleTimes = _scheduleTimes.value
-                        
-                        // 1. Cancel ALL existing alarms first to prevent duplicates
-                        alarmScheduler.cancelAlarmsForMedication(medicationId, currentSchedules)
-                        
-                        // 2. Delete removed schedules (alarm already cancelled above)
-                        val newIds = newScheduleTimes.map { it.id }.filter { it != 0L }
-                        val schedulesToDelete = currentSchedules.filter { it.id !in newIds }
-                        
-                        for (schedule in schedulesToDelete) {
-                            repository.deleteSchedule(schedule)
-                        }
-                        
-                        // 3. Update or Insert schedules
-                        for (scheduleTime in newScheduleTimes) {
-                            if (scheduleTime.id == 0L) {
-                                // Insert new
-                                val newSchedule = Schedule(
-                                    medicationId = medicationId,
-                                    timeInMinutes = scheduleTime.timeInMinutes,
-                                    daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
-                                    isActive = true
-                                )
-                                repository.insertSchedule(newSchedule)
-                            } else {
-                                // Update existing
-                                val existingSchedule = currentSchedules.find { it.id == scheduleTime.id }
-                                if (existingSchedule != null && existingSchedule.timeInMinutes != scheduleTime.timeInMinutes) {
-                                    // Time changed - update schedule
-                                    repository.updateSchedule(existingSchedule.copy(timeInMinutes = scheduleTime.timeInMinutes))
-                                    
-                                    // Fix: Update log for today if it exists, so status is preserved
-                                    val oldScheduledTime = DateTimeUtils.getTimestampForToday(existingSchedule.timeInMinutes)
-                                    val log = repository.getLog(medicationId, existingSchedule.id, oldScheduledTime)
-                                    
-                                    if (log != null) {
-                                        val newScheduledTime = DateTimeUtils.getTimestampForToday(scheduleTime.timeInMinutes)
-                                        repository.updateLog(log.copy(scheduledTime = newScheduledTime))
-                                    }
-                                }
-                            }
-                        }
-                        
-                        // 4. Fetch final schedules and schedule fresh alarms
-                        val finalSchedules = repository.getSchedulesForMedicationSync(medicationId)
-                        alarmScheduler.scheduleAlarmsForMedication(medicationId, finalSchedules)
-                    }
-                    
-                } else {
-                    // Create new medication
-                    val medication = Medication(
-                        name = _medicationName.value.trim(),
-                        dosage = _dosage.value.trim(),
-                        unit = _unit.value.trim(),
-                        pharmaceuticalForm = _form.value,
-                        frequency = _frequency.value,
-                        notes = _notes.value.trim(),
-                        color = _color.value,
-                        isActive = true
-                    )
-                    
-                    val newMedicationId = repository.insertMedication(medication)
-                    
-                    // A2: AS_NEEDED medications don't get schedules or alarms
-                    if (_frequency.value != Frequency.AS_NEEDED) {
-                        // Create schedules
-                        val schedules = _scheduleTimes.value.map { scheduleTime ->
-                            Schedule(
-                                medicationId = newMedicationId,
-                                timeInMinutes = scheduleTime.timeInMinutes,
-                                daysOfWeek = listOf(1, 2, 3, 4, 5, 6, 7),
-                                isActive = true
-                            )
-                        }
-                        
-                        repository.insertSchedules(schedules)
-                        
-                        // Fetch schedules from database to get their generated IDs
-                        val insertedSchedules = repository.getSchedulesForMedicationSync(newMedicationId)
-                        
-                        // Schedule alarms with the actual schedule IDs from database
-                        alarmScheduler.scheduleAlarmsForMedication(newMedicationId, insertedSchedules)
-                    }
-                }
-                
-                _saveState.value = SaveState.Success
-            } catch (e: Exception) {
-                _saveState.value = SaveState.Error(e.message ?: "Erro ao salvar medicamento")
-            }
+                _loaded.value = true
+            } catch (e: Exception) { _saveState.value = SaveState.LoadError; }
         }
     }
-    
-    fun resetSaveState() {
-        _saveState.value = SaveState.Idle
+    private fun draft() { savedState["draft"] = true; _errors.value = emptySet() }
+    fun updateName(value: String) { _medicationName.value = value; savedState["name"] = value; draft() }
+    fun updateDosage(value: String) { _dosage.value = value; savedState["dosage"] = value; draft() }
+    fun updateUnit(value: String) { _unit.value = value; savedState["unit"] = value; draft() }
+    fun updateForm(value: PharmaceuticalForm) { _form.value = value; savedState["form"] = value.name; draft() }
+    fun updateFrequency(value: Frequency) { _frequency.value = value; savedState["frequency"] = value.name; draft() }
+    fun updateNotes(value: String) { _notes.value = value; savedState["notes"] = value; draft() }
+    fun updateColor(value: Int) { _color.value = value; savedState["color"] = value; draft() }
+    fun updateDays(value: Set<Int>) { _days.value = value; savedState["days"] = ArrayList(value); draft() }
+    fun updateMonthDay(value: String) { _monthDay.value = value; savedState["monthDay"] = value; draft() }
+    private fun setTimes(value: List<ScheduleTime>) {
+        _scheduleTimes.value = value.sortedBy { it.timeInMinutes }
+        savedState["times"] = ArrayList(_scheduleTimes.value.map { it.timeInMinutes })
+        savedState["timeIds"] = ArrayList(_scheduleTimes.value.map { it.id }); draft()
     }
-    
-    sealed class SaveState {
-        object Idle : SaveState()
-        object Saving : SaveState()
-        object Success : SaveState()
-        data class Error(val message: String) : SaveState()
+    fun addScheduleTime(value: Int): Boolean {
+        if (value !in 0..1439) return false
+        if (_scheduleTimes.value.any { it.timeInMinutes == value }) return false
+        setTimes(_scheduleTimes.value + ScheduleTime(0, value)); return true
     }
+    fun editScheduleTime(originalTime: ScheduleTime, value: Int): Boolean {
+        val current = _scheduleTimes.value
+        val index = current.indexOf(originalTime)
+        if (index == -1 || value !in 0..1439 || current.any { it != originalTime && it.timeInMinutes == value }) return false
+        setTimes(current.toMutableList().apply { set(index, originalTime.copy(timeInMinutes = value)) })
+        return true
+    }
+    fun removeScheduleTime(value: ScheduleTime) = setTimes(_scheduleTimes.value - value)
+    /** Suggestions only append absent slots; a frequency change itself never removes a user's slots. */
+    fun generateDefaultReminders(value: Frequency) {
+        if (value.intervalHours <= 0) return
+        val existing = _scheduleTimes.value
+        val slots = (0 until value.defaultReminderCount).map { (480 + value.intervalHours * it * 60) % 1440 }
+        setTimes(existing + slots.filter { time -> existing.none { it.timeInMinutes == time } }.map { ScheduleTime(0, it) })
+    }
+    private fun kind() = when (_frequency.value) {
+        Frequency.AS_NEEDED -> RecurrenceKind.AS_NEEDED
+        Frequency.WEEKLY -> RecurrenceKind.WEEKLY
+        Frequency.MONTHLY -> RecurrenceKind.MONTHLY
+        Frequency.SELECTED_DAYS -> RecurrenceKind.SELECTED_DAYS
+        Frequency.DAILY -> RecurrenceKind.DAILY
+        else -> RecurrenceKind.INTERVAL
+    }
+    fun schedules(): List<Schedule> = if (_frequency.value == Frequency.AS_NEEDED) emptyList() else _scheduleTimes.value.map {
+        Schedule(id = it.id, medicationId = medicationId.coerceAtLeast(0), timeInMinutes = it.timeInMinutes,
+            daysOfWeek = if (kind() in listOf(RecurrenceKind.WEEKLY, RecurrenceKind.SELECTED_DAYS)) _days.value.sorted() else emptyList(),
+            recurrenceKind = kind(), monthDay = _monthDay.value.toIntOrNull() ?: 1)
+    }
+    fun preview() = if (validate().none { it in setOf(Field.TIMES, Field.DAYS, Field.MONTH_DAY) }) schedules().flatMap { RecurrenceCalculator().preview(it, 5) }
+        .distinctBy { it.originalDueAt }.sortedBy { it.originalDueAt }.take(5) else emptyList()
+    private fun validate(): Set<Field> = buildSet {
+        if (_medicationName.value.isBlank()) add(Field.NAME)
+        if (_dosage.value.isBlank()) add(Field.DOSAGE)
+        if (_unit.value.isBlank()) add(Field.UNIT)
+        if (_frequency.value != Frequency.AS_NEEDED && _scheduleTimes.value.isEmpty()) add(Field.TIMES)
+        if (kind() in listOf(RecurrenceKind.WEEKLY, RecurrenceKind.SELECTED_DAYS) && _days.value.isEmpty()) add(Field.DAYS)
+        if (kind() == RecurrenceKind.MONTHLY && _monthDay.value.toIntOrNull() !in 1..31) add(Field.MONTH_DAY)
+    }
+    fun saveMedication() {
+        if (!_loaded.value || _saveState.value is SaveState.Saving || _saveState.value is SaveState.Success) return
+        _errors.value = validate()
+        if (_errors.value.isNotEmpty()) return
+        _saveState.value = SaveState.Saving // synchronously prevents two taps launching two transactions
+        viewModelScope.launch {
+            try {
+                val medication = (original ?: Medication(name = "", dosage = "", unit = "mg", pharmaceuticalForm = PharmaceuticalForm.TABLET, frequency = Frequency.DAILY)).copy(
+                    name = _medicationName.value.trim(), dosage = _dosage.value.trim(), unit = _unit.value.trim(),
+                    pharmaceuticalForm = _form.value, frequency = _frequency.value, notes = _notes.value.trim(), color = _color.value)
+                val saved = repository.saveMedicationWithSchedules(medication, schedules(), saveRequestId)
+                // Commit succeeded; an alarm-capability failure must not invite a duplicate new save.
+                original = medication.copy(id = saved.id)
+                savedState["saved"] = true
+                var limited = false
+                saved.retiredScheduleIds.forEach { runCatching { alarmScheduler.cancelAlarm(saved.id, it) }.onFailure { limited = true } }
+                val scheduled = runCatching { alarmScheduler.scheduleAlarmsForMedication(saved.id, saved.activeSchedules) }
+                limited = limited || scheduled.isFailure || scheduled.getOrDefault(emptyList()).any {
+                    it !is com.dosecerta.alarm.ScheduleResult.Scheduled || !it.exact
+                }
+                _reminderWarning.value = limited
+                savedState["reminderWarning"] = limited
+                _saveState.value = SaveState.Success
+            } catch (e: Exception) { _saveState.value = SaveState.Error() }
+        }
+    }
+    fun resetSaveState() { if (_saveState.value !is SaveState.Success) _saveState.value = SaveState.Idle }
+    sealed class SaveState { data object Idle : SaveState(); data object Saving : SaveState(); data object Success : SaveState(); data object LoadError : SaveState(); class Error : SaveState() }
 }

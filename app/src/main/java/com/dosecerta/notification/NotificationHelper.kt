@@ -1,287 +1,120 @@
 package com.dosecerta.notification
 
+import android.app.Notification
+import android.app.ActivityOptions
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.dosecerta.R
-import com.dosecerta.data.local.entity.Medication
+import com.dosecerta.alarm.AlarmActivity
+import com.dosecerta.alarm.AlarmDiagnostics
+import com.dosecerta.alarm.AlarmIdentity
+import com.dosecerta.alarm.ReminderCapabilityChecker
+import com.dosecerta.alarm.ReminderChannels
+import com.dosecerta.data.local.entity.MedicationLog
 import com.dosecerta.ui.MainActivity
 import com.dosecerta.util.Constants
+import com.dosecerta.util.SettingsPreferences
 
-/**
- * Helper class to build and display medication notifications.
- */
+/** Tagged notifications have a full occurrence identity; integer truncation cannot cancel another dose. */
 class NotificationHelper(private val context: Context) {
+    private val manager = context.getSystemService(NotificationManager::class.java)
 
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    fun foregroundPlaceholder(): Notification {
+        ReminderChannels.ensure(context)
+        return NotificationCompat.Builder(context, ReminderChannels.SERVICE)
+            .setSmallIcon(R.drawable.ic_notifications)
+            .setContentTitle(context.getString(R.string.reminder_active))
+            .setContentText(context.getString(R.string.reminder_active_summary))
+            .setSilent(true).setOngoing(true).setCategory(NotificationCompat.CATEGORY_SERVICE).build()
+    }
 
-    /**
-     * Show a medication reminder notification with action buttons.
-     */
-    fun showMedicationReminder(
-        medication: Medication,
-        scheduleId: Long,
-        scheduledTime: Long
-    ) {
-        val notificationId = generateNotificationId(medication.id, scheduleId)
-
-        // Intent to open the app when notification is tapped
-        val contentIntent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val contentPendingIntent = PendingIntent.getActivity(
-            context,
-            notificationId,
-            contentIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // Action: Take medication
-        val takeIntent = Intent(context, NotificationActionReceiver::class.java).apply {
-            action = Constants.ACTION_TAKE_MEDICATION
-            putExtra(Constants.EXTRA_MEDICATION_ID, medication.id)
-            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
-            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
-        }
-        val takePendingIntent = PendingIntent.getBroadcast(
-            context,
-            notificationId * 10 + 1,
-            takeIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // Action: Skip medication
-        val skipIntent = Intent(context, NotificationActionReceiver::class.java).apply {
-            action = Constants.ACTION_SKIP_MEDICATION
-            putExtra(Constants.EXTRA_MEDICATION_ID, medication.id)
-            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
-            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
-        }
-        val skipPendingIntent = PendingIntent.getBroadcast(
-            context,
-            notificationId * 10 + 2,
-            skipIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // Action: Snooze medication (10 minutes)
-        val snoozeIntent = Intent(context, NotificationActionReceiver::class.java).apply {
-            action = Constants.ACTION_SNOOZE_MEDICATION
-            putExtra(Constants.EXTRA_MEDICATION_ID, medication.id)
-            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
-            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
-        }
-        val snoozePendingIntent = PendingIntent.getBroadcast(
-            context,
-            notificationId * 10 + 3,
-            snoozeIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // Build notification
-        val notification = NotificationCompat.Builder(context, Constants.NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(context.getString(R.string.notification_title, medication.name))
-            .setContentText(context.getString(
-                R.string.notification_message,
-                medication.dosage + " " + medication.unit,
-                getFormString(medication.pharmaceuticalForm.name)
-            ))
-            .setContentIntent(contentPendingIntent)
+    suspend fun buildAlarm(occurrence: MedicationLog, audibleService: Boolean, allowFullScreen: Boolean): Notification {
+        val capabilities = ReminderCapabilityChecker(context).check()
+        val detailsOnLock = SettingsPreferences(context).getShowMedicationOnLockScreenSync()
+        val channel = if (audibleService) ReminderChannels.ALARM else ReminderChannels.REMINDER
+        val card = cardIntent(occurrence.occurrenceId)
+        val builder = NotificationCompat.Builder(context, channel)
+            .setSmallIcon(R.drawable.ic_notifications)
+            .setContentTitle(occurrence.snapshotName)
+            .setContentText(context.getString(if (audibleService) R.string.reminder_due else R.string.reminder_notification_only))
+            .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setCategory(NotificationCompat.CATEGORY_REMINDER)
-            .setAutoCancel(true)
-            .setVibrate(longArrayOf(0, 500, 250, 500))
-            .addAction(
-                R.drawable.ic_pill,
-                context.getString(R.string.notification_action_take),
-                takePendingIntent
-            )
-            .addAction(
-                0,
-                context.getString(R.string.notification_action_skip),
-                skipPendingIntent
-            )
-            .addAction(
-                0,
-                context.getString(R.string.notification_action_snooze),
-                snoozePendingIntent
-            )
+            .setVisibility(if (detailsOnLock) NotificationCompat.VISIBILITY_PUBLIC else NotificationCompat.VISIBILITY_PRIVATE)
+            .setContentIntent(card).setOnlyAlertOnce(true).setOngoing(audibleService)
+            .setDeleteIntent(actionIntent(occurrence.occurrenceId, AlarmIdentity.SILENCE))
+            .addAction(0, context.getString(R.string.reminder_silence), actionIntent(occurrence.occurrenceId, AlarmIdentity.SILENCE))
+            .addAction(0, context.getString(R.string.reminder_snooze_ten), actionIntent(occurrence.occurrenceId, Constants.ACTION_SNOOZE_MEDICATION))
+        // The alarm channel has no sound: AlarmService owns audio. setSilent(true)
+        // also suppresses visual interruption and groups the dose as a silent child.
+        // Private lock-screen notifications expose only silence/snooze. Reviewing a dose opens the card.
+        if (detailsOnLock) {
+            builder.addAction(R.drawable.ic_check, context.getString(R.string.notification_action_take), actionIntent(occurrence.occurrenceId, Constants.ACTION_TAKE_MEDICATION))
+            builder.addAction(0, context.getString(R.string.notification_action_skip), actionIntent(occurrence.occurrenceId, Constants.ACTION_SKIP_MEDICATION))
+        }
+        val publicVersion = NotificationCompat.Builder(context, channel).setSmallIcon(R.drawable.ic_notifications)
+            .setContentTitle(context.getString(R.string.reminder_private_title))
+            .setContentText(context.getString(R.string.reminder_private_message)).setContentIntent(card)
+            .addAction(0, context.getString(R.string.reminder_silence), actionIntent(occurrence.occurrenceId, AlarmIdentity.SILENCE))
+            .addAction(0, context.getString(R.string.reminder_snooze_ten), actionIntent(occurrence.occurrenceId, Constants.ACTION_SNOOZE_MEDICATION))
+            .setSilent(true).build()
+        builder.setPublicVersion(publicVersion)
+        if (allowFullScreen && capabilities.fullScreenIntent && capabilities.canNotifyAlarm) builder.setFullScreenIntent(card, true)
+        AlarmDiagnostics.record(context, "notification_build", occurrence.occurrenceId,
+            if (allowFullScreen && capabilities.fullScreenIntent) "fsi_attached" else "no_fsi")
+        return builder.build()
+    }
+
+    suspend fun showAlarm(occurrence: MedicationLog, audibleService: Boolean, allowFullScreen: Boolean): Boolean {
+        val state = ReminderCapabilityChecker(context).check()
+        if (!(if (audibleService) state.canNotifyAlarm else state.canNotifyReminder)) return false
+        return try {
+            manager.notify(tag(occurrence.occurrenceId), 1, buildAlarm(occurrence, audibleService, allowFullScreen))
+            AlarmDiagnostics.record(context, "notification", occurrence.occurrenceId, "published")
+            true
+        } catch (error: RuntimeException) {
+            AlarmDiagnostics.record(context, "notification", occurrence.occurrenceId, error.javaClass.simpleName)
+            false
+        }
+    }
+
+    suspend fun showMissedReminder(occurrence: MedicationLog): Boolean {
+        if (!ReminderCapabilityChecker(context).check().canNotifyReminder) return false
+        val details = SettingsPreferences(context).getShowMedicationOnLockScreenSync()
+        val open = PendingIntent.getActivity(context, 0,
+            AlarmIdentity.intent(context, MainActivity::class.java, occurrence.occurrenceId, "history").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val public = NotificationCompat.Builder(context, ReminderChannels.REMINDER).setSmallIcon(R.drawable.ic_notifications)
+            .setContentTitle(context.getString(R.string.reminder_private_title)).setContentText(context.getString(R.string.reminder_missed_message)).build()
+        val notification = NotificationCompat.Builder(context, ReminderChannels.REMINDER).setSmallIcon(R.drawable.ic_notifications)
+            .setContentTitle(if (details) occurrence.snapshotName else context.getString(R.string.reminder_private_title))
+            .setContentText(context.getString(R.string.reminder_missed_message)).setContentIntent(open).setPublicVersion(public)
+            .setVisibility(if (details) NotificationCompat.VISIBILITY_PUBLIC else NotificationCompat.VISIBILITY_PRIVATE)
+            .setAutoCancel(true).setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .addAction(0, context.getString(R.string.reminder_action_dismiss), actionIntent(occurrence.occurrenceId, Constants.ACTION_DISMISS_REMINDER))
             .build()
-
-        notificationManager.notify(notificationId, notification)
+        return try { manager.notify(tag(occurrence.occurrenceId), 1, notification); true }
+        catch (error: RuntimeException) { AlarmDiagnostics.record(context, "follow_up", occurrence.occurrenceId, error.javaClass.simpleName); false }
     }
 
-    /**
-     * Cancel a specific notification.
-     */
-    fun cancelNotification(medicationId: Long, scheduleId: Long) {
-        val notificationId = generateNotificationId(medicationId, scheduleId)
-        notificationManager.cancel(notificationId)
-    }
-
-    /**
-     * Generate a unique notification ID from medication ID and schedule ID.
-     */
-    private fun generateNotificationId(medicationId: Long, scheduleId: Long): Int {
-        return (medicationId * 1000 + scheduleId).toInt()
-    }
-
-    /**
-     * B7: Unique reminder notification ID — one per medication (avoids the old hardcoded 888888).
-     */
-    private fun generateReminderNotificationId(medicationId: Long, scheduleId: Long): Int {
-        return (medicationId * 1000000 + scheduleId * 1000 + 997).toInt()
-    }
-
-    /**
-     * Get localized pharmaceutical form string.
-     */
-    private fun getFormString(form: String): String {
-        return when (form) {
-            "TABLET" -> context.getString(R.string.form_tablet)
-            "CAPSULE" -> context.getString(R.string.form_capsule)
-            "SYRUP" -> context.getString(R.string.form_syrup)
-            "DROPS" -> context.getString(R.string.form_drops)
-            "INJECTION" -> context.getString(R.string.form_injection)
-            "CREAM" -> context.getString(R.string.form_cream)
-            "SPRAY" -> context.getString(R.string.form_spray)
-            else -> context.getString(R.string.form_other)
-        }
-    }
-
-    /**
-     * B7: Show a reminder notification for a MISSED medication, with actionable buttons.
-     * Replaces the old signature; medicationId/scheduleId/scheduledTime needed for action buttons.
-     */
-    fun showMissedReminderNotification(
-        medicationName: String,
-        medicationId: Long = -1L,
-        scheduleId: Long = -1L,
-        scheduledTime: Long = 0L
-    ) {
-        val notificationId = if (medicationId != -1L && scheduleId != -1L) {
-            generateReminderNotificationId(medicationId, scheduleId)
-        } else {
-            888888 // Legacy fallback
-        }
-
-        val contentIntent = Intent(context, com.dosecerta.ui.MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val contentPendingIntent = PendingIntent.getActivity(
-            context,
-            notificationId,
-            contentIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val builder = NotificationCompat.Builder(context, Constants.NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(context.getString(R.string.missed_reminder_title))
-            .setContentText(context.getString(R.string.missed_reminder_message, medicationName))
-            .setContentIntent(contentPendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setCategory(NotificationCompat.CATEGORY_REMINDER)
-            .setAutoCancel(true)
-
-        // B7: Add action buttons only when we have valid IDs to route them
-        if (medicationId != -1L && scheduleId != -1L) {
-            val takeNowIntent = Intent(context, NotificationActionReceiver::class.java).apply {
-                action = Constants.ACTION_TAKE_MEDICATION
-                putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
-                putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
-                putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
-            }
-            val takeNowPendingIntent = PendingIntent.getBroadcast(
-                context,
-                notificationId * 10 + 1,
-                takeNowIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    fun cancel(id: String) { manager.cancel(tag(id), 1) }
+    private fun tag(id: String) = AlarmIdentity.uri(id, "notification").toString()
+    private fun cardIntent(id: String): PendingIntent {
+        val options = if (Build.VERSION.SDK_INT >= 35) ActivityOptions.makeBasic().apply {
+            setPendingIntentCreatorBackgroundActivityStartMode(
+                if (Build.VERSION.SDK_INT >= 36) ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOW_ALWAYS
+                else ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED
             )
-            builder.addAction(R.drawable.ic_check, context.getString(R.string.reminder_action_take_now), takeNowPendingIntent)
-
-            val dismissIntent = Intent(context, NotificationActionReceiver::class.java).apply {
-                action = Constants.ACTION_DISMISS_REMINDER
-                putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
-                putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
-                putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
-            }
-            val dismissPendingIntent = PendingIntent.getBroadcast(
-                context,
-                notificationId * 10 + 4,
-                dismissIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            )
-            builder.addAction(0, context.getString(R.string.reminder_action_dismiss), dismissPendingIntent)
-        }
-
-        notificationManager.notify(notificationId, builder.build())
+        }.toBundle() else null
+        return PendingIntent.getActivity(context, 0,
+            AlarmIdentity.intent(context, AlarmActivity::class.java, id, "card")
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE, options)
     }
-
-    /**
-     * B6: Show a "skipped dose" reminder — softer tone, asking user to reconsider.
-     */
-    fun showSkippedReminderNotification(
-        medicationName: String,
-        medicationId: Long,
-        scheduleId: Long,
-        scheduledTime: Long
-    ) {
-        val notificationId = generateReminderNotificationId(medicationId, scheduleId)
-
-        val contentIntent = Intent(context, com.dosecerta.ui.MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val contentPendingIntent = PendingIntent.getActivity(
-            context,
-            notificationId,
-            contentIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // "Took it now" action
-        val takeNowIntent = Intent(context, NotificationActionReceiver::class.java).apply {
-            action = Constants.ACTION_TAKE_MEDICATION
-            putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
-            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
-            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
-        }
-        val takeNowPendingIntent = PendingIntent.getBroadcast(
-            context,
-            notificationId * 10 + 1,
-            takeNowIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        // "Dismiss" action
-        val dismissIntent = Intent(context, NotificationActionReceiver::class.java).apply {
-            action = Constants.ACTION_DISMISS_REMINDER
-            putExtra(Constants.EXTRA_MEDICATION_ID, medicationId)
-            putExtra(Constants.EXTRA_SCHEDULE_ID, scheduleId)
-            putExtra(Constants.EXTRA_SCHEDULED_TIME, scheduledTime)
-        }
-        val dismissPendingIntent = PendingIntent.getBroadcast(
-            context,
-            notificationId * 10 + 4,
-            dismissIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val notification = NotificationCompat.Builder(context, Constants.NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(context.getString(R.string.skipped_reminder_title))
-            .setContentText(context.getString(R.string.skipped_reminder_message, medicationName))
-            .setContentIntent(contentPendingIntent)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setCategory(NotificationCompat.CATEGORY_REMINDER)
-            .setAutoCancel(true)
-            .addAction(R.drawable.ic_check, context.getString(R.string.reminder_action_take_now), takeNowPendingIntent)
-            .addAction(0, context.getString(R.string.reminder_action_dismiss), dismissPendingIntent)
-            .build()
-
-        notificationManager.notify(notificationId, notification)
-    }
+    private fun actionIntent(id: String, action: String) = PendingIntent.getBroadcast(context, 0,
+        AlarmIdentity.intent(context, NotificationActionReceiver::class.java, id, action).setAction(action),
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 }

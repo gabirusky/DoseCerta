@@ -141,7 +141,7 @@
     <string name="disclaimer_title">Aviso Importante</string>
     <string name="disclaimer_message">Este aplicativo não substitui a orientação de um profissional de saúde. Sempre siga a prescrição médica. Em caso de dúvidas, consulte seu médico ou farmacêutico.</string>
     <string name="privacy_policy_title">Política de Privacidade</string>
-    <string name="privacy_policy_message">Seus dados são armazenados apenas no seu dispositivo e não são compartilhados com terceiros. O Dose Certa respeita sua privacidade conforme a Lei Geral de Proteção de Dados (LGPD).</string>
+    <string name="privacy_policy_message">@string/ui_privacy_text</string>
     
     <!-- Settings Screen -->
     <string name="settings_title">Configurações</string>
@@ -161,7 +161,7 @@
     <string name="settings_alarm_sound_default">Alarme Padrão do Sistema</string>
     
     <!-- Privacy Policy Full Text -->
-    <string name="privacy_policy_full_text">Nossa Política de Privacidade\n\nÚltima atualização: 30 de junho de 2025\n\nA sua privacidade é a nossa maior prioridade. Criamos o Dose Certa com um princípio fundamental: nós não coletamos, não armazenamos e não compartilhamos suas informações pessoais de saúde.\n\n1. O Essencial: Seus Dados são Apenas Seus\n\nPara ser o mais transparente possível, aqui está o que você precisa saber:\n\n• Nenhum dado é enviado para nós: Todas as informações que você insere no aplicativo (nomes de medicamentos, horários, histórico de doses) ficam salvas exclusivamente no seu celular.\n\n• Ninguém mais tem acesso: Nós, desenvolvedores do Dose Certa, não temos como ver, acessar ou analisar suas informações.\n\n• O controle é 100% seu: Você pode adicionar, editar e apagar seus dados a qualquer momento, diretamente no aplicativo.\n\n2. Que Dados o Aplicativo Utiliza (e Onde Ficam)?\n\nO Dose Certa precisa salvar algumas informações no seu próprio aparelho para funcionar corretamente. São elas:\n\n• Informações dos Medicamentos: Nome, dosagem e anotações que você cadastra.\n\n• Configuração de Alarmes: Os horários e a frequência que você define para seus lembretes.\n\n• Histórico de Uso: O registro de quando você confirma que tomou ou pulou uma dose.\n\nRepetindo: Todas essas informações ficam guardadas de forma segura apenas na memória interna do seu dispositivo. Se você desinstalar o aplicativo, todos esses dados serão permanentemente apagados.\n\n3. O Que Nós NÃO Fazemos\n\nPara não deixar nenhuma dúvida, nossa política é clara:\n\n• NÃO vendemos suas informações.\n\n• NÃO compartilhamos seus dados com terceiros (empresas, anunciantes, etc.).\n\n• NÃO utilizamos seus dados para fins de marketing ou publicidade.\n\n• NÃO rastreamos sua localização ou outras atividades no seu celular.\n\n4. Seus Direitos como Titular dos Dados (LGPD)\n\nA Lei Geral de Proteção de Dados (LGPD) garante a você direitos sobre suas informações. Com o Dose Certa, exercê-los é simples:\n\n• Direito de Acesso: Você pode ver todos os seus dados a qualquer momento, simplesmente navegando pelo aplicativo.\n\n• Direito de Correção: Você pode editar qualquer informação incorreta diretamente nas telas de edição de medicamentos.\n\n• Direito de Eliminação (Esquecimento): Você pode apagar um medicamento específico ou todas as suas informações ao desinstalar o aplicativo do seu celular.\n\n5. Permissões do Aplicativo\n\nPara funcionar, o Dose Certa solicitará a permissão de Notificações. Essa permissão é essencial para que possamos te lembrar dos seus medicamentos com alarmes, mesmo que o aplicativo esteja fechado. Nós não solicitaremos nenhuma outra permissão que não seja estritamente necessária para o funcionamento do app.\n\n6. Consentimento\n\nAo clicar em "Concordo e Continuar", você declara que leu, compreendeu e concorda com esta Política de Privacidade, e entende que seus dados serão armazenados de forma segura e local apenas no seu dispositivo.</string>
+    <string name="privacy_policy_full_text">@string/ui_privacy_text</string>
     
     <!-- Content Descriptions (Accessibility) -->
     <string name="cd_medication_icon">Ícone do medicamento</string>
@@ -173,7 +173,7 @@
     
     <!-- Permissions -->
     <string name="exact_alarm_permission_title">Permissão de Alarme Necessária</string>
-    <string name="exact_alarm_permission_message">Para que os lembretes funcionem na hora certa, o Dose Certa precisa de permissão para definir alarmes exatos. Por favor, ative essa permissão nas configurações.</string>
+    <string name="exact_alarm_permission_message">O acesso a alarmes exatos ajuda a programar lembretes para o horário escolhido. Confira esse acesso em Configurações. O Android e o fabricante ainda podem restringir alertas.</string>
     <string name="settings">Configurações</string>
     
     <!-- Medication Action Feedback -->
@@ -221,11 +221,11 @@
     <string name="setup_notifications_continue">Continuar</string>
     
     <string name="setup_tutorial_title_1">Seu Assistente de Medicamentos</string>
-    <string name="setup_tutorial_desc_1">O Dose Certa ajuda você a nunca esquecer de tomar seus medicamentos. Organize todos os seus remédios em um só lugar.</string>
+    <string name="setup_tutorial_desc_1">DoseCerta organiza lembretes e registros. Siga a orientação recebida e confira nome, dose e horários antes de salvar.</string>
     <string name="setup_tutorial_title_2">Adicione Seus Medicamentos</string>
     <string name="setup_tutorial_desc_2">Na aba Medicamentos, toque no botão + para adicionar um novo medicamento. Informe o nome, dosagem e os horários que você precisa tomar.</string>
     <string name="setup_tutorial_title_3">Alarme Inteligente</string>
-    <string name="setup_tutorial_desc_3">No horário da dose, um alarme com tela cheia será exibido, mesmo com a tela bloqueada. Toque em Tomar, Adiar ou Pular para registrar sua ação.</string>
+    <string name="setup_tutorial_desc_3">No horário programado, o Android entrega o lembrete conforme os acessos disponíveis. Tomei confirma uma tomada; Pular registra uma decisão; Adiar mantém a dose pendente. Silenciar não confirma nenhuma dose.</string>
     <string name="setup_tutorial_button_next">Próximo</string>
     <string name="setup_tutorial_button_start">Começar</string>
     <!-- AS_NEEDED Frequency -->

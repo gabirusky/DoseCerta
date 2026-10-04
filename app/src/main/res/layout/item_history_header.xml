@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingTop="0dp" android:paddingBottom="4dp">
+    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp">
+        <LinearLayout android:id="@+id/summary_metrics" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="12dp">
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="horizontal">
+                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:paddingVertical="2dp">
+                    <TextView android:id="@+id/text_taken_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:includeFontPadding="false" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_success" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/history_taken" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:paddingVertical="2dp">
+                    <TextView android:id="@+id/text_missed_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:includeFontPadding="false" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_error" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/history_missed" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="horizontal">
+                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:paddingVertical="2dp">
+                    <TextView android:id="@+id/text_skipped_count" android:layout_width="match_parent" android:layout_height="wrap_content" android:includeFontPadding="false" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="@color/ui_warning" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/history_skipped" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:paddingVertical="2dp">
+                    <TextView android:id="@+id/text_adherence" android:layout_width="match_parent" android:layout_height="wrap_content" android:includeFontPadding="false" android:text="0" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:textSize="22sp" android:textColor="?attr/colorPrimary" />
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="@string/design_adherence" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.button.MaterialButton android:id="@+id/text_date_range" style="@style/Widget.DoseCerta.Button.Outlined"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/history_last_7_days" app:icon="@drawable/ic_schedule" app:iconSize="18dp" />
+    <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="0dp" android:layout_marginBottom="4dp" android:scrollbars="none">
+        <com.google.android.material.chip.ChipGroup android:layout_width="wrap_content" android:layout_height="wrap_content" app:singleLine="true" app:singleSelection="true"
+            app:selectionRequired="true" app:chipSpacingHorizontal="8dp">
+            <com.google.android.material.chip.Chip android:id="@+id/chip_all" style="@style/Widget.DoseCerta.Chip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:text="@string/history_filter_all" />
+            <com.google.android.material.chip.Chip android:id="@+id/chip_taken" style="@style/Widget.DoseCerta.Chip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/history_taken" />
+            <com.google.android.material.chip.Chip android:id="@+id/chip_missed" style="@style/Widget.DoseCerta.Chip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/history_missed" />
+            <com.google.android.material.chip.Chip android:id="@+id/chip_skipped" style="@style/Widget.DoseCerta.Chip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/history_skipped" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+    <TextView android:id="@+id/text_empty" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="144dp"
+        android:gravity="center" android:padding="24dp" android:background="@drawable/ui_empty_container" android:text="@string/history_empty"
+        android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:visibility="gone" />
+</LinearLayout>
