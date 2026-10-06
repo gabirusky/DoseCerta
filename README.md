@@ -4,6 +4,16 @@
 
 Aplicativo Android nativo para organizar medicamentos, posologias, lembretes e registros de doses. Não substitui orientação profissional; siga a prescrição recebida.
 
+## Capturas de tela
+
+<div align="center">
+
+<img width="250" height="513" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/480cc15c-3665-4f4f-8e53-52805dc1ac85" />
+<img width="250" height="513" alt="Screenshot (4)" src="https://github.com/user-attachments/assets/9d93750c-60e0-4158-abcd-f654c2b4f776" />
+<img width="250" height="513" alt="Screenshot (3)" src="https://github.com/user-attachments/assets/16887194-0aeb-4dc8-88ae-8ce607fe7de0" />
+
+</div>
+
 ## Estado da v1.0
 
 A interface usa Material 3 nativo, com um destaque compacto de gradiente e percentual circular na Home. As listas agrupam dose, horário, estado e ações para mostrar mais informações de primeira; o Histórico mantém a exportação no cabeçalho, sem sobrepor os registros. [Capturas e validação da UI](docs/qa/ui-polish-20261003.md).
