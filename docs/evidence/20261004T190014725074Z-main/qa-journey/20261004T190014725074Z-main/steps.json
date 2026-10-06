@@ -1,0 +1,67 @@
+[
+  {
+    "stage": "01-terms",
+    "timestampMillis": 1791140423467,
+    "screenshot": "01-terms.png"
+  },
+  {
+    "stage": "02-access-before",
+    "timestampMillis": 1791140424964,
+    "screenshot": "02-access-before.png"
+  },
+  {
+    "stage": "03-system-notification-choice",
+    "timestampMillis": 1791140426495,
+    "screenshot": "03-system-notification-choice.png"
+  },
+  {
+    "stage": "settings-button_exact-before",
+    "timestampMillis": 1791140429370,
+    "screenshot": "settings-button_exact-before.png"
+  },
+  {
+    "stage": "settings-button_exact-after",
+    "timestampMillis": 1791140430284,
+    "screenshot": "settings-button_exact-after.png"
+  },
+  {
+    "stage": "04-access-effective",
+    "timestampMillis": 1791140431635,
+    "screenshot": "04-access-effective.png"
+  },
+  {
+    "stage": "05-tutorial-1",
+    "timestampMillis": 1791140432399,
+    "screenshot": "05-tutorial-1.png"
+  },
+  {
+    "stage": "05-tutorial-2",
+    "timestampMillis": 1791140433192,
+    "screenshot": "05-tutorial-2.png"
+  },
+  {
+    "stage": "05-tutorial-3",
+    "timestampMillis": 1791140434027,
+    "screenshot": "05-tutorial-3.png"
+  },
+  {
+    "stage": "06-home-empty",
+    "timestampMillis": 1791140435741,
+    "screenshot": "06-home-empty.png"
+  },
+  {
+    "stage": "07-form-preview",
+    "timestampMillis": 1791140443500,
+    "screenshot": "07-form-preview.png"
+  },
+  {
+    "stage": "08-home-future-dose",
+    "timestampMillis": 1791140447292,
+    "screenshot": "08-home-future-dose.png"
+  },
+  {
+    "stage": "failure",
+    "timestampMillis": 1791140452475,
+    "screenshot": "failure.png"
+  }
+]

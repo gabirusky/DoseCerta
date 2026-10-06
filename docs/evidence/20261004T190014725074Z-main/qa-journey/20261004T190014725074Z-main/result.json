@@ -1,0 +1,10 @@
+{
+  "runId": "20261004T190014725074Z-main",
+  "scenario": "take",
+  "count": 1,
+  "medicine": "Medicamento fictício QA 1791140420521",
+  "passed": false,
+  "failure": "AssertionError",
+  "events": [],
+  "completedAt": 1791140452475
+}

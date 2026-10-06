@@ -1,0 +1,52 @@
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.ui.SystemUiInstrumentedTest:
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=documentPickerCancellationAndSaveProduceOneReadableGrantedPdf
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SystemUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+Error in documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(com.dosecerta.ui.SystemUiInstrumentedTest):
+java.lang.AssertionError: Missing app control: fab_export_pdf
+	at com.dosecerta.ui.SystemUiInstrumentedTest.find(SystemUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(SystemUiInstrumentedTest.kt:167)
+
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=documentPickerCancellationAndSaveProduceOneReadableGrantedPdf
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SystemUiInstrumentedTest
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Missing app control: fab_export_pdf
+	at com.dosecerta.ui.SystemUiInstrumentedTest.find(SystemUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(SystemUiInstrumentedTest.kt:167)
+
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=backKeyboardRecentsAndRotationKeepDraftAndSafeInsets
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SystemUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: test=backKeyboardRecentsAndRotationKeepDraftAndSafeInsets
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SystemUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 33.468
+There was 1 failure:
+1) documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(com.dosecerta.ui.SystemUiInstrumentedTest)
+java.lang.AssertionError: Missing app control: fab_export_pdf
+	at com.dosecerta.ui.SystemUiInstrumentedTest.find(SystemUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SystemUiInstrumentedTest.documentPickerCancellationAndSaveProduceOneReadableGrantedPdf(SystemUiInstrumentedTest.kt:167)
+
+FAILURES!!!
+Tests run: 2,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

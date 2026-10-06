@@ -1,0 +1,71 @@
+{
+  "runId": "20261004T193842346704Z-nominal",
+  "scenario": "take",
+  "count": 10,
+  "medicine": "Medicamento fictício QA 1791142731825",
+  "passed": true,
+  "secureKeyguard": true,
+  "events": [
+    {
+      "occurrenceId": "dose:1:1:2026-10-04T16:42",
+      "originalDueAt": 1791142920000,
+      "deliveredAt": 1791142920027,
+      "delayMillis": 27
+    },
+    {
+      "occurrenceId": "dose:2:1:2026-10-04T16:43",
+      "originalDueAt": 1791142980000,
+      "deliveredAt": 1791142980017,
+      "delayMillis": 17
+    },
+    {
+      "occurrenceId": "dose:3:1:2026-10-04T16:44",
+      "originalDueAt": 1791143040000,
+      "deliveredAt": 1791143040031,
+      "delayMillis": 31
+    },
+    {
+      "occurrenceId": "dose:4:1:2026-10-04T16:45",
+      "originalDueAt": 1791143100000,
+      "deliveredAt": 1791143100009,
+      "delayMillis": 9
+    },
+    {
+      "occurrenceId": "dose:5:1:2026-10-04T16:46",
+      "originalDueAt": 1791143160000,
+      "deliveredAt": 1791143160009,
+      "delayMillis": 9
+    },
+    {
+      "occurrenceId": "dose:6:1:2026-10-04T16:47",
+      "originalDueAt": 1791143220000,
+      "deliveredAt": 1791143220028,
+      "delayMillis": 28
+    },
+    {
+      "occurrenceId": "dose:7:1:2026-10-04T16:48",
+      "originalDueAt": 1791143280000,
+      "deliveredAt": 1791143280014,
+      "delayMillis": 14
+    },
+    {
+      "occurrenceId": "dose:8:1:2026-10-04T16:49",
+      "originalDueAt": 1791143340000,
+      "deliveredAt": 1791143340015,
+      "delayMillis": 15
+    },
+    {
+      "occurrenceId": "dose:9:1:2026-10-04T16:50",
+      "originalDueAt": 1791143400000,
+      "deliveredAt": 1791143400018,
+      "delayMillis": 18
+    },
+    {
+      "occurrenceId": "dose:10:1:2026-10-04T16:51",
+      "originalDueAt": 1791143460000,
+      "deliveredAt": 1791143460011,
+      "delayMillis": 11
+    }
+  ],
+  "completedAt": 1791143472598
+}

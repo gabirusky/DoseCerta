@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/home/gabirusky/Code/DoseCerta/scripts/qa/instrument.py", line 147, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/gabirusky/Code/DoseCerta/scripts/qa/instrument.py", line 86, in main
+    run(["install", "-r", str(apk)], text=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gabirusky/Code/DoseCerta/scripts/qa/instrument.py", line 55, in run
+    return subprocess.run(adb + parts, capture_output=True, timeout=90, check=True, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['adb', '-s', 'emulator-5590', 'install', '-r', '/home/gabirusky/Code/DoseCerta/docs/qa/runs/20261004T212532169049Z-api-matrix/apks/app-debug.apk']' returned non-zero exit status 1.

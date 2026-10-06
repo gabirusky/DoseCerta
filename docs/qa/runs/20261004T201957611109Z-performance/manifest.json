@@ -1,0 +1,46 @@
+{
+  "runId": "20261004T201957611109Z-performance",
+  "serial": "emulator-5580",
+  "avd": "DoseCerta_QA",
+  "api": "36",
+  "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE4B.251210.005/14574095:user/release-keys",
+  "timezone": "America/Sao_Paulo",
+  "apkSha256": "47e79d2d0e4293d236a1604eee496e91256dd520b32273b50141e9af3d03fd00",
+  "syntheticOnly": true,
+  "startedAt": "2026-10-04T20:19:57.700045+00:00",
+  "passed": false,
+  "coldStartScope": "am start -S -W: process cold, filesystem caches retained, first displayed frame",
+  "setupScope": "Onboarding completion is fixture setup; not a visible onboarding demonstration",
+  "cleanSyntheticInstall": true,
+  "samples": [
+    {
+      "index": 1,
+      "TotalTime": 1524,
+      "WaitTime": 1526
+    }
+  ],
+  "fixture": {
+    "api": 36,
+    "manufacturer": "Google",
+    "model": "sdk_gphone64_x86_64",
+    "device": "emu64xa",
+    "androidBuild": "BE4B.251210.005",
+    "zone": "America/Sao_Paulo",
+    "volumeBeforeAction": 10000,
+    "medications": 50,
+    "slots": 100,
+    "historyDays": 100,
+    "database": "dose_certa_database",
+    "mainDatabaseSeeded": true,
+    "fixtureWriteMs": 3932.87815,
+    "reportSnapshotMs": 437.375366,
+    "sharedSummaryMs": 121.945707,
+    "takeCommitMs": 4.015529,
+    "nextDose100SlotsMs": 337.068449,
+    "coldStartMeasured": false,
+    "measuredAtEpochMs": 1791145201279,
+    "syntheticOnly": true
+  },
+  "failure": "RuntimeError: The populated Home did not appear after cold launch",
+  "finishedAt": "2026-10-04T20:20:12.962352+00:00"
+}

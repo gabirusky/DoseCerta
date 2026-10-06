@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261004T193805975166Z-pdf-ui",
+  "scenario": "pdf-ui",
+  "startedAt": "2026-10-04T19:38:06.175833+00:00",
+  "serial": "emulator-5580",
+  "avd": "DoseCerta_QA",
+  "timezone": "America/Sao_Paulo",
+  "api": "36",
+  "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE4B.251210.005/14574095:user/release-keys",
+  "pageSize": "4096",
+  "pageSizeSource": "getconf PAGE_SIZE",
+  "gitCommit": "043875a6e320c3cbda065a34b6c4cdcf8f41ef1e",
+  "workingTree": " M TASKS.md\n M app/src/androidTest/java/com/dosecerta/data/SyntheticScaleTest.kt\n M app/src/androidTest/java/com/dosecerta/ui/CompactUiInstrumentedTest.kt\n M app/src/androidTest/java/com/dosecerta/ui/FullJourneyInstrumentedTest.kt\n M app/src/androidTest/java/com/dosecerta/ui/SystemUiInstrumentedTest.kt\n M docs/evidence/index.json\n M scripts/qa/evidence_record.py\n M scripts/qa/instrument.py\n M scripts/qa/start-emulator.sh\n?? app/src/androidTest/AndroidManifest.xml\n?? app/src/androidTest/java/com/dosecerta/alarm/AlarmInteractionInstrumentedTest.kt\n?? app/src/androidTest/java/com/dosecerta/alarm/AlarmSafetyInstrumentedTest.kt\n?? app/src/androidTest/java/com/dosecerta/ui/history/FaultReportProvider.java\n?? app/src/androidTest/java/com/dosecerta/ui/history/ReportExportStateInstrumentedTest.kt\n?? app/src/androidTest/java/com/dosecerta/ui/history/ReportIntegrityInstrumentedTest.kt\n?? app/src/androidTest/java/com/dosecerta/ui/history/ReportProviderInstrumentedTest.kt\n?? docs/evidence/20261004T185619848229Z-main/\n?? docs/evidence/20261004T190014725074Z-main/\n?? docs/evidence/20261004T190449511676Z-main/\n?? docs/evidence/20261004T190520122071Z-main/\n?? docs/evidence/20261004T191139857927Z-main/\n?? docs/evidence/20261004T191833703801Z-skip/\n?? docs/evidence/20261004T192615844023Z-skip/\n?? docs/evidence/20261004T192705308678Z-snooze/\n?? docs/evidence/20261004T193105961139Z-silence/\n?? docs/evidence/20261004T193504483221Z-denied/\n?? docs/qa/goal-execution-20261004.md\n?? docs/qa/runs/20261004T183624552348Z-system/\n?? docs/qa/runs/20261004T184119664656Z-system/\n?? docs/qa/runs/20261004T184459507065Z-interactions/\n?? docs/qa/runs/20261004T184908439646Z-interactions/\n?? docs/qa/runs/20261004T185144581931Z-provider/\n?? docs/qa/runs/20261004T185508344724Z-provider/\n?? docs/qa/runs/20261004T190653461439Z-api-matrix/\n?? docs/qa/runs/20261004T191022298204Z-api-matrix/\n?? docs/qa/runs/20261004T191048523143Z-data/\n?? docs/qa/runs/20261004T191146368306Z-pdf/\n?? docs/qa/runs/20261004T191211668440Z-provider/\n?? docs/qa/runs/20261004T191312069414Z-integrity/\n?? docs/qa/runs/20261004T191318385398Z-system/\n?? docs/qa/runs/20261004T191851306265Z-api-matrix/\n?? docs/qa/runs/20261004T191910878517Z-data/\n?? docs/qa/runs/20261004T191943688212Z-pdf/\n?? docs/qa/runs/20261004T191956032890Z-provider/\n?? docs/qa/runs/20261004T192045830178Z-integrity/\n?? docs/qa/runs/20261004T192053045496Z-system/\n?? docs/qa/runs/20261004T192614559940Z-api-matrix/\n?? docs/qa/runs/20261004T192615755028Z-recordings/\n?? docs/qa/runs/20261004T192634155092Z-data/\n?? docs/qa/runs/20261004T192718887644Z-pdf/\n?? docs/qa/runs/20261004T192735930883Z-provider/\n?? docs/qa/runs/20261004T192828569555Z-integrity/\n?? docs/qa/runs/20261004T192835820114Z-export-state/\n?? docs/qa/runs/20261004T192845490900Z-system/\n?? docs/qa/runs/20261004T192921226855Z-alarm/\n?? docs/qa/runs/20261004T193235350348Z-data/\n?? docs/qa/runs/20261004T193338024673Z-pdf/\n?? docs/qa/runs/20261004T193419256983Z-provider/\n?? docs/qa/runs/20261004T193505060302Z-integrity/\n?? docs/qa/runs/20261004T193510999201Z-export-state/\n?? docs/qa/runs/20261004T193519560731Z-system/\n?? docs/qa/runs/20261004T193603070280Z-alarm/\n?? scripts/qa/api_matrix.py\n?? scripts/qa/pdf_audit.py\n?? scripts/qa/performance.py\n?? scripts/qa/ui_matrix.py\n",
+  "apk": {
+    "path": "/home/gabirusky/Code/DoseCerta/app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "b7eb1c8f2d2946befdcd08ff3836de21fa0f14d562af8ae7f956fecfbd3dd8b0"
+  },
+  "testApk": {
+    "path": "/home/gabirusky/Code/DoseCerta/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+    "sha256": "472406690cd636ec14b30e025f9d2b7ed9b299e0bf471a6e01f0e3813e3b791a"
+  },
+  "command": [
+    "adb",
+    "-s",
+    "emulator-5580",
+    "shell",
+    "am",
+    "instrument",
+    "-w",
+    "-e",
+    "class",
+    "com.dosecerta.ui.SystemUiInstrumentedTest#documentPickerCancellationAndSaveProduceOneReadableGrantedPdf",
+    "-e",
+    "evidenceRunId",
+    "20261004T193805975166Z-pdf-ui",
+    "com.dosecerta.test/androidx.test.runner.AndroidJUnitRunner"
+  ],
+  "cleanInstall": true,
+  "videoSegments": [
+    {
+      "file": "screen-001.mp4",
+      "remote": "/sdcard/Download/dosecerta-evidence-20261004T193805975166Z-pdf-ui-001.mp4",
+      "startedAt": "2026-10-04T19:38:10.570118+00:00",
+      "available": true,
+      "remotePid": "19067",
+      "completedAt": "2026-10-04T19:38:41.445793+00:00",
+      "returnCode": 0,
+      "bytes": 2533165,
+      "sha256": "a9e0f64a4881c9db009f87facafeb7a99e896484acc41a12ffb19810f00d10bf"
+    }
+  ],
+  "collectionErrors": [],
+  "controlActions": [
+    "Enabled lock screen only on the dedicated synthetic AVD",
+    "Woke synthetic display for video segment 1; keyguard authentication unchanged",
+    "Restored original synthetic lock-screen setting"
+  ],
+  "audio": "Android screenrecord does not capture internal alarm audio. Observe audio separately; this video cannot prove sound.",
+  "videoReviewed": false,
+  "syntheticDataOnly": true,
+  "instrumentationPassed": true,
+  "secureLockFixture": false,
+  "originalLockDisabled": "true",
+  "scope": "Real History UI, DocumentsUI cancellation/save, readable PDF and viewer/no-viewer recovery; setup fixture is explicit",
+  "instrumentationStartedAt": "2026-10-04T19:38:10.642041+00:00",
+  "instrumentationReturnCode": 0,
+  "completedAt": "2026-10-04T19:38:42.106338+00:00",
+  "elapsedSeconds": 35.87,
+  "failure": null,
+  "videoAvailable": true,
+  "evidenceCollected": true
+}

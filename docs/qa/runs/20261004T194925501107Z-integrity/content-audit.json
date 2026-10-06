@@ -1,0 +1,33 @@
+{
+  "runId": "20261004T194925501107Z-integrity",
+  "api": "31",
+  "suite": "integrity",
+  "results": [
+    {
+      "file": "integrity-all.pdf",
+      "pages": 1,
+      "expectedRows": 5,
+      "rowCount": 5,
+      "rowsOnce": true,
+      "wordsOutsideHorizontalMargins": [],
+      "pagesMatchRenderer": true,
+      "frozenNamePreserved": true,
+      "renamedParentAbsent": true,
+      "passed": true
+    },
+    {
+      "file": "integrity-taken.pdf",
+      "pages": 1,
+      "expectedRows": 3,
+      "rowCount": 3,
+      "rowsOnce": true,
+      "wordsOutsideHorizontalMargins": [],
+      "pagesMatchRenderer": true,
+      "frozenNamePreserved": true,
+      "renamedParentAbsent": true,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "scope": "Extracted text and row IDs plus native PdfRenderer assertions in the linked run; visual review remains separate"
+}

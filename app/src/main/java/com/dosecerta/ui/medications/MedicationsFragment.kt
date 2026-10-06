@@ -24,6 +24,7 @@ import com.dosecerta.data.model.Frequency
 import com.dosecerta.data.repository.MedicationRepository
 import com.dosecerta.databinding.FragmentMedicationsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
 class MedicationsFragment : Fragment() {
@@ -58,9 +59,15 @@ class MedicationsFragment : Fragment() {
         binding.fabAdd.setOnClickListener { findNavController().navigate(R.id.action_medications_to_addMedication) }
         viewLifecycleOwner.lifecycleScope.launch { viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
             launch { viewModel.medications.collect { list -> adapter.submitList(list)
-                binding.textEmpty.setText(if (viewModel.searchQuery.value.isBlank() && viewModel.selectedFilter.value == null) R.string.medications_empty else R.string.ui_no_results)
                 binding.textEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
                 binding.recyclerMedications.visibility = if (list.isEmpty()) View.GONE else View.VISIBLE
+            } }
+            // StateFlow can suppress an unchanged empty list. The empty-state
+            // label must still react when the query or filter changes.
+            launch { combine(viewModel.searchQuery, viewModel.selectedFilter) { query, filter ->
+                query.isNotBlank() || filter != null
+            }.collect { filtered ->
+                binding.textEmpty.setText(if (filtered) R.string.ui_no_results else R.string.medications_empty)
             } }
             launch { viewModel.upcoming.collect(adapter::updateUpcoming) }
             launch { viewModel.operation.collect { operation -> when (operation) {

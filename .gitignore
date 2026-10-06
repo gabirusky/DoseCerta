@@ -17,6 +17,7 @@ release/
 
 # Gradle files
 .gradle/
+.kotlin/
 build/
 
 # Local configuration file (sdk path, etc)
@@ -48,6 +49,12 @@ captures/
 .idea/.name
 .idea/compiler.xml
 .idea/misc.xml
+.idea/deploymentTargetSelector.xml
+.idea/deviceManager.xml
+.idea/deploymentTargets.xml
+.idea/androidTestResultsUserPreferences.xml
+.idea/shelf/
+.idea/httpRequests/
 # Comment this line if you want to keep .idea/codeStyles
 .idea/codeStyles/
 
@@ -91,23 +98,62 @@ lint/tmp/
 
 # OSX files
 .DS_Store
+.AppleDouble
+._*
 
 # Windows thumbnail cache
 Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 
 # Backup files
 *.bak
 *~
+*.swp
+*.swo
+*.orig
+*.rej
 
 # Misc
 .cache/
 __pycache__/
 *.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
 tmp/
 temp/
 conversations/
 SKILL.md
 RELATORIO.md
+
+# Local environment and signing configuration; keep templates versioned.
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+keystore.properties
+
+# Local assistant worktrees contain independent copies of the project.
+/.kilo/worktrees/
+
+# QA transport archives duplicate extracted evidence; PDF fixtures are generated.
+# Keep manifests, audit results, screenshots, videos and instrumentation results.
+# Archives and exported cache files stay on disk but must be regenerated or
+# archived separately when collecting the complete original QA bundle.
+/docs/qa/runs/**/*.tar
+/docs/qa/runs/**/cache/
+# Routine logcat dumps are large; retain the crash cited by the QA report.
+/docs/qa/runs/**/logcat.txt
+!/docs/qa/runs/20261004T200607980630Z-safety/logcat.txt
+/docs/evidence/**/*.tar
+/docs/evidence/**/cache/
 
 # Release documentation is source material, not a generated release directory.
 !docs/release/

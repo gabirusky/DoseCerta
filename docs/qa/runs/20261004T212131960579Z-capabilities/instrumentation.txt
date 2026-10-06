@@ -1,0 +1,168 @@
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.CapabilityUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.alarm.CapabilityUiInstrumentedTest:
+INSTRUMENTATION_STATUS: test=userChannelBlockSurvivesEnsureAndSettingsResume
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.CapabilityUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Missing capability control: text_settings_title
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.find(CapabilityUiInstrumentedTest.kt:48)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$find(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$userChannelBlockSurvivesEnsureAndSettingsResume$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:97)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.userChannelBlockSurvivesEnsureAndSettingsResume(CapabilityUiInstrumentedTest.kt:82)
+
+INSTRUMENTATION_STATUS: stream=
+Error in userChannelBlockSurvivesEnsureAndSettingsResume(com.dosecerta.alarm.CapabilityUiInstrumentedTest):
+java.lang.AssertionError: Missing capability control: text_settings_title
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.find(CapabilityUiInstrumentedTest.kt:48)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$find(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$userChannelBlockSurvivesEnsureAndSettingsResume$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:97)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.userChannelBlockSurvivesEnsureAndSettingsResume(CapabilityUiInstrumentedTest.kt:82)
+
+INSTRUMENTATION_STATUS: test=userChannelBlockSurvivesEnsureAndSettingsResume
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.CapabilityUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=realFullScreenDenialUsesNotificationAndForegroundRecovery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.CapabilityUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Real Settings switch did not become true
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:70)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:121)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.realFullScreenDenialUsesNotificationAndForegroundRecovery(CapabilityUiInstrumentedTest.kt:110)
+	Suppressed: java.lang.AssertionError: Real Settings switch did not become true
+		at org.junit.Assert.fail(Assert.java:89)
+		at org.junit.Assert.assertTrue(Assert.java:42)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:70)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:164)
+		at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+		at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+		at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+		at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+		at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+		at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+		at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+		at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest.realFullScreenDenialUsesNotificationAndForegroundRecovery(CapabilityUiInstrumentedTest.kt:110)
+
+INSTRUMENTATION_STATUS: stream=
+Error in realFullScreenDenialUsesNotificationAndForegroundRecovery(com.dosecerta.alarm.CapabilityUiInstrumentedTest):
+java.lang.AssertionError: Real Settings switch did not become true
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:70)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:121)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.realFullScreenDenialUsesNotificationAndForegroundRecovery(CapabilityUiInstrumentedTest.kt:110)
+	Suppressed: java.lang.AssertionError: Real Settings switch did not become true
+		at org.junit.Assert.fail(Assert.java:89)
+		at org.junit.Assert.assertTrue(Assert.java:42)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:70)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:164)
+		at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+		at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+		at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+		at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+		at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+		at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+		at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+		at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest.realFullScreenDenialUsesNotificationAndForegroundRecovery(CapabilityUiInstrumentedTest.kt:110)
+
+INSTRUMENTATION_STATUS: test=realFullScreenDenialUsesNotificationAndForegroundRecovery
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 55.011
+There were 2 failures:
+1) userChannelBlockSurvivesEnsureAndSettingsResume(com.dosecerta.alarm.CapabilityUiInstrumentedTest)
+java.lang.AssertionError: Missing capability control: text_settings_title
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.find(CapabilityUiInstrumentedTest.kt:48)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$find(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$userChannelBlockSurvivesEnsureAndSettingsResume$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:97)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.userChannelBlockSurvivesEnsureAndSettingsResume(CapabilityUiInstrumentedTest.kt:82)
+2) realFullScreenDenialUsesNotificationAndForegroundRecovery(com.dosecerta.alarm.CapabilityUiInstrumentedTest)
+java.lang.AssertionError: Real Settings switch did not become true
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:70)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:121)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.realFullScreenDenialUsesNotificationAndForegroundRecovery(CapabilityUiInstrumentedTest.kt:110)
+	Suppressed: java.lang.AssertionError: Real Settings switch did not become true
+		at org.junit.Assert.fail(Assert.java:89)
+		at org.junit.Assert.assertTrue(Assert.java:42)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:70)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+		at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:164)
+		... 42 more
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

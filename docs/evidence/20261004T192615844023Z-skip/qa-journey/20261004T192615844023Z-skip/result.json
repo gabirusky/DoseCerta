@@ -1,0 +1,12 @@
+{
+  "runId": "20261004T192615844023Z-skip",
+  "scenario": "skip",
+  "count": 1,
+  "medicine": "Medicamento fictício QA 1791141985969",
+  "passed": false,
+  "secureKeyguard": true,
+  "failure": "PerformException",
+  "message": "Error performing 'scroll to' on view 'Animations or transitions are enabled on the target device.\nFor more info check: https:\/\/developer.android.com\/training\/testing\/espresso\/setup#set-up-environment\n\nview.getId() is <2131231199\/com.dosecerta:id\/recycler_upcoming>'.",
+  "events": [],
+  "completedAt": 1791142022400
+}

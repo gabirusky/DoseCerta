@@ -1,0 +1,11 @@
+{
+  "runId": "20261004T185619848229Z-main",
+  "scenario": "take",
+  "count": 1,
+  "medicine": "Medicamento fictício QA 1791140184811",
+  "passed": false,
+  "failure": "ComparisonFailure",
+  "message": "expected:<[Time to review your dose]> but was:<[Medicamento fictício QA 1791140184811]>",
+  "events": [],
+  "completedAt": 1791140213147
+}

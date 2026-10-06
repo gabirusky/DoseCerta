@@ -1,0 +1,176 @@
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.ui.SurfaceUiInstrumentedTest:
+INSTRUMENTATION_STATUS: test=emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Missing surface label: Nenhum medicamento ativo
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.label(SurfaceUiInstrumentedTest.kt:58)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$label(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:105)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(SurfaceUiInstrumentedTest.kt:101)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(com.dosecerta.ui.SurfaceUiInstrumentedTest):
+java.lang.AssertionError: Missing surface label: Nenhum medicamento ativo
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.label(SurfaceUiInstrumentedTest.kt:58)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$label(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:105)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(SurfaceUiInstrumentedTest.kt:101)
+
+INSTRUMENTATION_STATUS: test=emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=historyOptionsSettingsAndPrivacyUseExplicitControls
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.NullPointerException
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$historyOptionsSettingsAndPrivacyUseExplicitControls$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:154)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.historyOptionsSettingsAndPrivacyUseExplicitControls(SurfaceUiInstrumentedTest.kt:143)
+
+INSTRUMENTATION_STATUS: stream=
+Error in historyOptionsSettingsAndPrivacyUseExplicitControls(com.dosecerta.ui.SurfaceUiInstrumentedTest):
+java.lang.NullPointerException
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$historyOptionsSettingsAndPrivacyUseExplicitControls$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:154)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.historyOptionsSettingsAndPrivacyUseExplicitControls(SurfaceUiInstrumentedTest.kt:143)
+
+INSTRUMENTATION_STATUS: test=historyOptionsSettingsAndPrivacyUseExplicitControls
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=searchManagementAndFormErrorsRemainDiscoverableAtLargeFont
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Missing surface label: Nenhum medicamento cadastrado
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.label(SurfaceUiInstrumentedTest.kt:58)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$label(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$searchManagementAndFormErrorsRemainDiscoverableAtLargeFont$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:125)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.searchManagementAndFormErrorsRemainDiscoverableAtLargeFont(SurfaceUiInstrumentedTest.kt:122)
+
+INSTRUMENTATION_STATUS: stream=
+Error in searchManagementAndFormErrorsRemainDiscoverableAtLargeFont(com.dosecerta.ui.SurfaceUiInstrumentedTest):
+java.lang.AssertionError: Missing surface label: Nenhum medicamento cadastrado
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.label(SurfaceUiInstrumentedTest.kt:58)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$label(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$searchManagementAndFormErrorsRemainDiscoverableAtLargeFont$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:125)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.searchManagementAndFormErrorsRemainDiscoverableAtLargeFont(SurfaceUiInstrumentedTest.kt:122)
+
+INSTRUMENTATION_STATUS: test=searchManagementAndFormErrorsRemainDiscoverableAtLargeFont
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 48.02
+There were 3 failures:
+1) emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(com.dosecerta.ui.SurfaceUiInstrumentedTest)
+java.lang.AssertionError: Missing surface label: Nenhum medicamento ativo
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.label(SurfaceUiInstrumentedTest.kt:58)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$label(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:105)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(SurfaceUiInstrumentedTest.kt:101)
+2) historyOptionsSettingsAndPrivacyUseExplicitControls(com.dosecerta.ui.SurfaceUiInstrumentedTest)
+java.lang.NullPointerException
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$historyOptionsSettingsAndPrivacyUseExplicitControls$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:154)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.historyOptionsSettingsAndPrivacyUseExplicitControls(SurfaceUiInstrumentedTest.kt:143)
+3) searchManagementAndFormErrorsRemainDiscoverableAtLargeFont(com.dosecerta.ui.SurfaceUiInstrumentedTest)
+java.lang.AssertionError: Missing surface label: Nenhum medicamento cadastrado
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.label(SurfaceUiInstrumentedTest.kt:58)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$label(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$searchManagementAndFormErrorsRemainDiscoverableAtLargeFont$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:125)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.searchManagementAndFormErrorsRemainDiscoverableAtLargeFont(SurfaceUiInstrumentedTest.kt:122)
+
+FAILURES!!!
+Tests run: 3,  Failures: 3
+
+
+INSTRUMENTATION_CODE: -1

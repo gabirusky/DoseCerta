@@ -1,0 +1,152 @@
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.alarm.AlarmSafetyInstrumentedTest:
+INSTRUMENTATION_STATUS: test=oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Runtime condition did not become true
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.await(AlarmSafetyInstrumentedTest.kt:83)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.access$await(AlarmSafetyInstrumentedTest.kt:42)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest$await$1.invokeSuspend(Unknown Source:17)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:235)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:168)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:474)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl(CancellableContinuationImpl.kt:508)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$default(CancellableContinuationImpl.kt:497)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:595)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedResumeTask.run(EventLoop.common.kt:493)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule(AlarmSafetyInstrumentedTest.kt:89)
+
+INSTRUMENTATION_STATUS: stream=
+Error in oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule(com.dosecerta.alarm.AlarmSafetyInstrumentedTest):
+java.lang.AssertionError: Runtime condition did not become true
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.await(AlarmSafetyInstrumentedTest.kt:83)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.access$await(AlarmSafetyInstrumentedTest.kt:42)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest$await$1.invokeSuspend(Unknown Source:17)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:235)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:168)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:474)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl(CancellableContinuationImpl.kt:508)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$default(CancellableContinuationImpl.kt:497)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:595)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedResumeTask.run(EventLoop.common.kt:493)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule(AlarmSafetyInstrumentedTest.kt:89)
+
+INSTRUMENTATION_STATUS: test=oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest$stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased$1.invokeSuspend(AlarmSafetyInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(AlarmSafetyInstrumentedTest.kt:110)
+
+INSTRUMENTATION_STATUS: stream=
+Error in stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(com.dosecerta.alarm.AlarmSafetyInstrumentedTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest$stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased$1.invokeSuspend(AlarmSafetyInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(AlarmSafetyInstrumentedTest.kt:110)
+
+INSTRUMENTATION_STATUS: test=stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 31.713
+There were 2 failures:
+1) oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule(com.dosecerta.alarm.AlarmSafetyInstrumentedTest)
+java.lang.AssertionError: Runtime condition did not become true
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.await(AlarmSafetyInstrumentedTest.kt:83)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.access$await(AlarmSafetyInstrumentedTest.kt:42)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest$await$1.invokeSuspend(Unknown Source:17)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:235)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:168)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:474)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl(CancellableContinuationImpl.kt:508)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$default(CancellableContinuationImpl.kt:497)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:595)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedResumeTask.run(EventLoop.common.kt:493)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule(AlarmSafetyInstrumentedTest.kt:89)
+2) stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(com.dosecerta.alarm.AlarmSafetyInstrumentedTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest$stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased$1.invokeSuspend(AlarmSafetyInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(AlarmSafetyInstrumentedTest.kt:110)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

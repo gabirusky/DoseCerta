@@ -1,0 +1,22 @@
+{
+  "api": 33,
+  "manufacturer": "Google",
+  "model": "sdk_gphone64_x86_64",
+  "device": "emu64x",
+  "androidBuild": "sdk_gphone64_x86_64-userdebug 13 TE1A.240213.009 12342917 dev-keys",
+  "zone": "America\/Sao_Paulo",
+  "volumeBeforeAction": 10000,
+  "medications": 50,
+  "slots": 100,
+  "historyDays": 100,
+  "database": "scale-fixture-45136063028.db",
+  "mainDatabaseSeeded": false,
+  "fixtureWriteMs": 4194.518424,
+  "reportSnapshotMs": 529.730102,
+  "sharedSummaryMs": 35.962238,
+  "takeCommitMs": 5.839148,
+  "nextDose100SlotsMs": 376.552679,
+  "coldStartMeasured": false,
+  "measuredAtEpochMs": 1791149456940,
+  "syntheticOnly": true
+}

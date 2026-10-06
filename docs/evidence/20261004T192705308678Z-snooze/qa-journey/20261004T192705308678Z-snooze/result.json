@@ -1,0 +1,17 @@
+{
+  "runId": "20261004T192705308678Z-snooze",
+  "scenario": "snooze",
+  "count": 1,
+  "medicine": "Medicamento fictício QA 1791142033821",
+  "passed": true,
+  "secureKeyguard": true,
+  "events": [
+    {
+      "occurrenceId": "dose:1:1:2026-10-04T16:31",
+      "originalDueAt": 1791142260000,
+      "deliveredAt": 1791142260024,
+      "delayMillis": 24
+    }
+  ],
+  "completedAt": 1791142263912
+}

@@ -36,6 +36,123 @@
       "videoAvailable": true,
       "evidenceCollected": false,
       "videoReviewed": false
+    },
+    {
+      "runId": "20261004T185619848229Z-main",
+      "manifest": "docs/evidence/20261004T185619848229Z-main/manifest.json",
+      "scenario": "main",
+      "instrumentationPassed": false,
+      "videoAvailable": true,
+      "evidenceCollected": false,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T190014725074Z-main",
+      "manifest": "docs/evidence/20261004T190014725074Z-main/manifest.json",
+      "scenario": "main",
+      "instrumentationPassed": false,
+      "videoAvailable": true,
+      "evidenceCollected": false,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T190449511676Z-main",
+      "manifest": "docs/evidence/20261004T190449511676Z-main/manifest.json",
+      "scenario": "main",
+      "instrumentationPassed": false,
+      "videoAvailable": false,
+      "evidenceCollected": false,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T190520122071Z-main",
+      "manifest": "docs/evidence/20261004T190520122071Z-main/manifest.json",
+      "scenario": "main",
+      "instrumentationPassed": false,
+      "videoAvailable": false,
+      "evidenceCollected": false,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T191139857927Z-main",
+      "manifest": "docs/evidence/20261004T191139857927Z-main/manifest.json",
+      "scenario": "main",
+      "instrumentationPassed": true,
+      "videoAvailable": true,
+      "evidenceCollected": true,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T191833703801Z-skip",
+      "manifest": "docs/evidence/20261004T191833703801Z-skip/manifest.json",
+      "scenario": "skip",
+      "instrumentationPassed": false,
+      "videoAvailable": true,
+      "evidenceCollected": false,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T192615844023Z-skip",
+      "manifest": "docs/evidence/20261004T192615844023Z-skip/manifest.json",
+      "scenario": "skip",
+      "instrumentationPassed": false,
+      "videoAvailable": true,
+      "evidenceCollected": false,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T192705308678Z-snooze",
+      "manifest": "docs/evidence/20261004T192705308678Z-snooze/manifest.json",
+      "scenario": "snooze",
+      "instrumentationPassed": true,
+      "videoAvailable": true,
+      "evidenceCollected": true,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T193105961139Z-silence",
+      "manifest": "docs/evidence/20261004T193105961139Z-silence/manifest.json",
+      "scenario": "silence",
+      "instrumentationPassed": true,
+      "videoAvailable": true,
+      "evidenceCollected": true,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T193504483221Z-denied",
+      "manifest": "docs/evidence/20261004T193504483221Z-denied/manifest.json",
+      "scenario": "denied",
+      "instrumentationPassed": true,
+      "videoAvailable": true,
+      "evidenceCollected": true,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T193805975166Z-pdf-ui",
+      "manifest": "docs/evidence/20261004T193805975166Z-pdf-ui/manifest.json",
+      "scenario": "pdf-ui",
+      "instrumentationPassed": true,
+      "videoAvailable": true,
+      "evidenceCollected": true,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T193842346704Z-nominal",
+      "manifest": "docs/evidence/20261004T193842346704Z-nominal/manifest.json",
+      "scenario": "nominal",
+      "instrumentationPassed": true,
+      "videoAvailable": true,
+      "evidenceCollected": true,
+      "videoReviewed": false
+    },
+    {
+      "runId": "20261004T195725803191Z-skip",
+      "manifest": "docs/evidence/20261004T195725803191Z-skip/manifest.json",
+      "scenario": "skip",
+      "instrumentationPassed": true,
+      "videoAvailable": true,
+      "evidenceCollected": true,
+      "videoReviewed": false
     }
   ]
 }

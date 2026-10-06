@@ -1,0 +1,46 @@
+{
+  "runId": "20261004T201351336662Z-pdf",
+  "api": "37",
+  "suite": "pdf",
+  "results": [
+    {
+      "file": "empty.pdf",
+      "pages": 1,
+      "expectedRows": 0,
+      "rowCount": 0,
+      "rowsOnce": true,
+      "wordsOutsideHorizontalMargins": [],
+      "emptyNoData": true,
+      "passed": true
+    },
+    {
+      "file": "many.pdf",
+      "pages": 15,
+      "expectedRows": 150,
+      "rowCount": 150,
+      "rowsOnce": true,
+      "wordsOutsideHorizontalMargins": [],
+      "passed": true
+    },
+    {
+      "file": "10000.pdf",
+      "pages": 911,
+      "expectedRows": 10000,
+      "rowCount": 10000,
+      "rowsOnce": true,
+      "wordsOutsideHorizontalMargins": [],
+      "passed": true
+    },
+    {
+      "file": "long.pdf",
+      "pages": 63,
+      "expectedRows": 30,
+      "rowCount": 30,
+      "rowsOnce": true,
+      "wordsOutsideHorizontalMargins": [],
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "scope": "Extracted text and row IDs plus native PdfRenderer assertions in the linked run; visual review remains separate"
+}

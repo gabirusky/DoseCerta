@@ -1,0 +1,17 @@
+{
+  "runId": "20261004T193105961139Z-silence",
+  "scenario": "silence",
+  "count": 1,
+  "medicine": "Medicamento fictício QA 1791142277892",
+  "passed": true,
+  "secureKeyguard": true,
+  "events": [
+    {
+      "occurrenceId": "dose:1:1:2026-10-04T16:35",
+      "originalDueAt": 1791142500000,
+      "deliveredAt": 1791142500016,
+      "delayMillis": 16
+    }
+  ],
+  "completedAt": 1791142502256
+}

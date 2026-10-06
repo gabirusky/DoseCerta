@@ -1,9 +1,9 @@
 {
-  "checked_at_utc": "2026-10-04T13:47:31.987151+00:00",
+  "checked_at_utc": "2026-10-05T14:18:09.859314+00:00",
   "artifact": "app/build/outputs/apk/debug/app-debug.apk",
   "artifact_kind": "apk",
-  "size_bytes": 8878564,
-  "sha256": "20667ba884b4519ee279276987a158a7c8566f013f2b5bad2ae6bf95da177366",
+  "size_bytes": 8879068,
+  "sha256": "723f20503a7e491dbb272a73f97602819227d6c1cd77494fa3d422e273183b9f",
   "native_libraries": [],
   "bundled_license_notice_entries": [],
   "agp_app_metadata": "appMetadataVersion=1.1\nandroidGradlePluginVersion=8.13.2\n",

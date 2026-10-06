@@ -14,6 +14,7 @@ import com.dosecerta.domain.DoseActionResult
 import com.dosecerta.domain.DoseState
 import com.dosecerta.domain.RecurrenceCalculator
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -35,9 +36,11 @@ class HomeViewModel(private val repository: MedicationRepository, private val al
         val today = Instant.ofEpochMilli(now).atZone(ZoneId.systemDefault()).toLocalDate()
         val start = today.atStartOfDay(ZoneId.systemDefault()).toInstant()
         val end = today.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()
+        val medicationsById = medications.associateBy { it.id }
+        val logsBySchedule = logs.groupBy { it.scheduleId to it.scheduleVersion }
         schedules.flatMap { schedule ->
-            val med = medications.find { it.id == schedule.medicationId && it.frequency != Frequency.AS_NEEDED } ?: return@flatMap emptyList()
-            val captured = logs.filter { it.scheduleId == schedule.id && it.scheduleVersion == schedule.version }
+            val med = medicationsById[schedule.medicationId]?.takeIf { it.frequency != Frequency.AS_NEEDED } ?: return@flatMap emptyList()
+            val captured = logsBySchedule[schedule.id to schedule.version].orEmpty()
             val todayCaptured = captured.filter { it.state != DoseState.CANCELLED && it.originalDueAt >= start.toEpochMilli() && it.originalDueAt < end.toEpochMilli() }
             val items = todayCaptured.map { log -> ScheduleItem(med, schedule, log.originalDueAt, log.status,
                 log.originalDueAt < now && log.status == MedicationStatus.PENDING) }.toMutableList()
@@ -50,19 +53,20 @@ class HomeViewModel(private val repository: MedicationRepository, private val al
             }
             items
         }.sortedBy { it.scheduledTime }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     val upcoming = combine(repository.getAllActiveSchedules(), activeMedications, clock) { schedules, medications, now ->
+        val medicationsById = medications.associateBy { it.id }
         schedules.mapNotNull { schedule ->
-            val med = medications.find { it.id == schedule.medicationId && it.frequency != Frequency.AS_NEEDED } ?: return@mapNotNull null
+            val med = medicationsById[schedule.medicationId]?.takeIf { it.frequency != Frequency.AS_NEEDED } ?: return@mapNotNull null
             repository.previewOccurrences(schedule, 1, Instant.ofEpochMilli(now)).firstOrNull()?.let { med.name to it.originalDueAt }
         }.sortedBy { it.second }.take(5)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
     val statistics = combine(repository.getAllLogs(), clock) { logs, now ->
         val zone = ZoneId.systemDefault()
         val today = Instant.ofEpochMilli(now).atZone(zone).toLocalDate()
         val start = today.minusDays((today.dayOfWeek.value - 1).toLong()).atStartOfDay(zone).toInstant().toEpochMilli()
         AdherenceCalculator.calculate(logs.filter { it.originalDueAt in start..now })
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), AdherenceSummary(0, 0, 0, 0))
+    }.flowOn(Dispatchers.Default).stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), AdherenceSummary(0, 0, 0, 0))
     private val actionMutex = Mutex()
     suspend fun markAsTaken(item: ScheduleItem): Boolean = actionMutex.withLock {
         val occurrence = repository.getLog(item.medication.id, item.schedule.id, item.scheduledTime)

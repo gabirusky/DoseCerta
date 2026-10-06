@@ -1,0 +1,20 @@
+--------- beginning of main
+10-04 16:31:17.689 16577 16601 I DoseCertaAlarm: reconcile - begin
+10-04 16:31:18.735 16577 16601 I DoseCertaAlarm: reconcile - done
+10-04 16:31:30.082 16577 16601 I DoseCertaAlarm: reconcile - begin
+10-04 16:31:30.106 16577 16601 I DoseCertaAlarm: reconcile - done
+10-04 16:31:47.829 16577 16577 I DoseCertaAlarm: schedule_recurrence cbb586a60383 exact
+10-04 16:31:47.841 16577 16577 I DoseCertaAlarm: schedule_timeout cbb586a60383 exact
+10-04 16:35:00.007 16577 16577 I DoseCertaAlarm: receiver cbb586a60383 ok
+10-04 16:35:00.046 16577 16602 I DoseCertaAlarm: schedule_recurrence 2d9d067ca5e8 exact
+10-04 16:35:00.050 16577 16602 I DoseCertaAlarm: schedule_timeout 2d9d067ca5e8 exact
+10-04 16:35:00.080 16577 16601 I DoseCertaAlarm: schedule_timeout cbb586a60383 exact
+10-04 16:35:00.094 16577 17462 I DoseCertaAlarm: service_start cbb586a60383 requested
+10-04 16:35:00.145 16577 16577 I DoseCertaAlarm: notification_build cbb586a60383 fsi_attached
+10-04 16:35:00.160 16577 16577 I DoseCertaAlarm: notification cbb586a60383 published
+10-04 16:35:00.165 16577 16577 I DoseCertaAlarm: service_validate cbb586a60383 accepted
+10-04 16:35:00.227 16577 16577 I DoseCertaAlarm: audio cbb586a60383 prepare_requested
+10-04 16:35:00.243 16577 16577 I DoseCertaAlarm: audio cbb586a60383 playing
+10-04 16:35:00.479 16577 16577 I DoseCertaAlarm: card cbb586a60383 opened
+10-04 16:35:02.285 16577 16577 I DoseCertaAlarm: audio cbb586a60383 stopped
+10-04 16:35:02.354 16577 16577 I DoseCertaAlarm: service_destroy - ok

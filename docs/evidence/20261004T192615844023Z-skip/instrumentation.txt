@@ -1,0 +1,99 @@
+
+com.dosecerta.ui.FullJourneyInstrumentedTest:
+Error in firstUseFutureDoseRealAlarmAndPersistedOutcome(com.dosecerta.ui.FullJourneyInstrumentedTest):
+androidx.test.espresso.PerformException: Error performing 'scroll to' on view 'Animations or transitions are enabled on the target device.
+For more info check: https://developer.android.com/training/testing/espresso/setup#set-up-environment
+
+view.getId() is <2131231199/com.dosecerta:id/recycler_upcoming>'.
+	at androidx.test.espresso.PerformException$Builder.build(PerformException.java:86)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:56)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:31)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.scrollTo(FullJourneyInstrumentedTest.kt:85)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.addFutureMedication(FullJourneyInstrumentedTest.kt:159)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.access$addFutureMedication(FullJourneyInstrumentedTest.kt:40)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest$firstUseFutureDoseRealAlarmAndPersistedOutcome$1.invokeSuspend(FullJourneyInstrumentedTest.kt:179)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.firstUseFutureDoseRealAlarmAndPersistedOutcome(FullJourneyInstrumentedTest.kt:164)
+	... 32 trimmed
+Caused by: java.lang.RuntimeException: Action will not be performed because the target view does not match one or more of the following constraints:
+(view has effective visibility <VISIBLE> and is descendant of a view matching (is assignable from class <class android.widget.ScrollView> or is assignable from class <class android.widget.HorizontalScrollView> or is assignable from class <class android.widget.ListView> or is assignable from class <class androidx.core.widget.NestedScrollView> or  or is assignable from class <class androidx.recyclerview.widget.RecyclerView>))
+Target view: "RecyclerView{id=2131231199, res-name=recycler_upcoming, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=true, is-selected=false, layout-params=android.widget.LinearLayout$LayoutParams@YYYYYY, tag=null, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=0}"
+	at androidx.test.espresso.ViewInteraction.doPerform(ViewInteraction.java:287)
+	at androidx.test.espresso.ViewInteraction.-$$Nest$mdoPerform(Unknown Source:0)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:193)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:182)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at android.os.Handler.handleCallback(Handler.java:1070)
+	at android.os.Handler.dispatchMessage(Handler.java:125)
+	at android.os.Looper.dispatchMessage(Looper.java:333)
+	at android.os.Looper.loopOnce(Looper.java:263)
+	at android.os.Looper.loop(Looper.java:367)
+	at android.app.ActivityThread.main(ActivityThread.java:9287)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+
+
+Time: 38.089
+There was 1 failure:
+1) firstUseFutureDoseRealAlarmAndPersistedOutcome(com.dosecerta.ui.FullJourneyInstrumentedTest)
+androidx.test.espresso.PerformException: Error performing 'scroll to' on view 'Animations or transitions are enabled on the target device.
+For more info check: https://developer.android.com/training/testing/espresso/setup#set-up-environment
+
+view.getId() is <2131231199/com.dosecerta:id/recycler_upcoming>'.
+	at androidx.test.espresso.PerformException$Builder.build(PerformException.java:86)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:56)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:31)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.scrollTo(FullJourneyInstrumentedTest.kt:85)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.addFutureMedication(FullJourneyInstrumentedTest.kt:159)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.access$addFutureMedication(FullJourneyInstrumentedTest.kt:40)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest$firstUseFutureDoseRealAlarmAndPersistedOutcome$1.invokeSuspend(FullJourneyInstrumentedTest.kt:179)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.firstUseFutureDoseRealAlarmAndPersistedOutcome(FullJourneyInstrumentedTest.kt:164)
+	... 32 trimmed
+Caused by: java.lang.RuntimeException: Action will not be performed because the target view does not match one or more of the following constraints:
+(view has effective visibility <VISIBLE> and is descendant of a view matching (is assignable from class <class android.widget.ScrollView> or is assignable from class <class android.widget.HorizontalScrollView> or is assignable from class <class android.widget.ListView> or is assignable from class <class androidx.core.widget.NestedScrollView> or  or is assignable from class <class androidx.recyclerview.widget.RecyclerView>))
+Target view: "RecyclerView{id=2131231199, res-name=recycler_upcoming, visibility=GONE, width=0, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=true, is-layout-requested=true, is-selected=false, layout-params=android.widget.LinearLayout$LayoutParams@YYYYYY, tag=null, root-is-layout-requested=false, has-input-connection=false, x=0.0, y=0.0, child-count=0}"
+	at androidx.test.espresso.ViewInteraction.doPerform(ViewInteraction.java:287)
+	at androidx.test.espresso.ViewInteraction.-$$Nest$mdoPerform(Unknown Source:0)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:193)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:182)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at android.os.Handler.handleCallback(Handler.java:1070)
+	at android.os.Handler.dispatchMessage(Handler.java:125)
+	at android.os.Looper.dispatchMessage(Looper.java:333)
+	at android.os.Looper.loopOnce(Looper.java:263)
+	at android.os.Looper.loop(Looper.java:367)
+	at android.app.ActivityThread.main(ActivityThread.java:9287)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

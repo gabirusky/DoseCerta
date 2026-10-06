@@ -1,0 +1,152 @@
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.CapabilityUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.alarm.CapabilityUiInstrumentedTest:
+INSTRUMENTATION_STATUS: test=userChannelBlockSurvivesEnsureAndSettingsResume
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.CapabilityUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Missing capability control: text_reminder_status
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.find(CapabilityUiInstrumentedTest.kt:48)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$find(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$userChannelBlockSurvivesEnsureAndSettingsResume$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:93)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.userChannelBlockSurvivesEnsureAndSettingsResume(CapabilityUiInstrumentedTest.kt:79)
+
+INSTRUMENTATION_STATUS: stream=
+Error in userChannelBlockSurvivesEnsureAndSettingsResume(com.dosecerta.alarm.CapabilityUiInstrumentedTest):
+java.lang.AssertionError: Missing capability control: text_reminder_status
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.find(CapabilityUiInstrumentedTest.kt:48)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$find(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$userChannelBlockSurvivesEnsureAndSettingsResume$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:93)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.userChannelBlockSurvivesEnsureAndSettingsResume(CapabilityUiInstrumentedTest.kt:79)
+
+INSTRUMENTATION_STATUS: test=userChannelBlockSurvivesEnsureAndSettingsResume
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.CapabilityUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=realFullScreenDenialUsesNotificationAndForegroundRecovery
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.CapabilityUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:67)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:150)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:235)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:168)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:474)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl(CancellableContinuationImpl.kt:508)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$default(CancellableContinuationImpl.kt:497)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:595)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedResumeTask.run(EventLoop.common.kt:493)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.realFullScreenDenialUsesNotificationAndForegroundRecovery(CapabilityUiInstrumentedTest.kt:106)
+
+INSTRUMENTATION_STATUS: stream=
+Error in realFullScreenDenialUsesNotificationAndForegroundRecovery(com.dosecerta.alarm.CapabilityUiInstrumentedTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:67)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:150)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:235)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:168)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:474)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl(CancellableContinuationImpl.kt:508)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$default(CancellableContinuationImpl.kt:497)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:595)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedResumeTask.run(EventLoop.common.kt:493)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.realFullScreenDenialUsesNotificationAndForegroundRecovery(CapabilityUiInstrumentedTest.kt:106)
+
+INSTRUMENTATION_STATUS: test=realFullScreenDenialUsesNotificationAndForegroundRecovery
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 56.952
+There were 2 failures:
+1) userChannelBlockSurvivesEnsureAndSettingsResume(com.dosecerta.alarm.CapabilityUiInstrumentedTest)
+java.lang.AssertionError: Missing capability control: text_reminder_status
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.find(CapabilityUiInstrumentedTest.kt:48)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$find(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$userChannelBlockSurvivesEnsureAndSettingsResume$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:93)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.userChannelBlockSurvivesEnsureAndSettingsResume(CapabilityUiInstrumentedTest.kt:79)
+2) realFullScreenDenialUsesNotificationAndForegroundRecovery(com.dosecerta.alarm.CapabilityUiInstrumentedTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.toggle(CapabilityUiInstrumentedTest.kt:67)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.access$toggle(CapabilityUiInstrumentedTest.kt:40)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest$realFullScreenDenialUsesNotificationAndForegroundRecovery$1.invokeSuspend(CapabilityUiInstrumentedTest.kt:150)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTaskKt.resume(DispatchedTask.kt:235)
+	at kotlinx.coroutines.DispatchedTaskKt.dispatch(DispatchedTask.kt:168)
+	at kotlinx.coroutines.CancellableContinuationImpl.dispatchResume(CancellableContinuationImpl.kt:474)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl(CancellableContinuationImpl.kt:508)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeImpl$default(CancellableContinuationImpl.kt:497)
+	at kotlinx.coroutines.CancellableContinuationImpl.resumeUndispatched(CancellableContinuationImpl.kt:595)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedResumeTask.run(EventLoop.common.kt:493)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.CapabilityUiInstrumentedTest.realFullScreenDenialUsesNotificationAndForegroundRecovery(CapabilityUiInstrumentedTest.kt:106)
+
+FAILURES!!!
+Tests run: 2,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

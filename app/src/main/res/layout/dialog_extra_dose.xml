@@ -1,5 +1,7 @@
 <?xml version="1.0" ?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="false">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
     <TextView android:id="@+id/text_dialog_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/extra_dose_dialog_title" android:textAppearance="@style/TextAppearance.DoseCerta.AccessibleBody" android:layout_marginBottom="12dp" android:textStyle="bold"/>
     <TextView android:id="@+id/text_extra_hint" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_extra_hint" android:textAppearance="@style/TextAppearance.DoseCerta.AccessibleBody" android:layout_marginBottom="12dp"/>
     <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_custom" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:hint="@string/extra_dose_custom_hint">
@@ -7,6 +9,7 @@
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.button.MaterialButton android:id="@+id/button_add_custom" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="48dp" android:text="@string/ui_take"/>
     <TextView android:id="@+id/text_active_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/extra_dose_active_meds" android:textAppearance="@style/TextAppearance.DoseCerta.AccessibleBody" android:layout_marginBottom="12dp"/>
-    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_medications" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:nestedScrollingEnabled="true"/>
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_medications" android:layout_width="match_parent" android:layout_height="240dp" android:nestedScrollingEnabled="true"/>
     <TextView android:id="@+id/text_empty" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/extra_dose_no_medications" android:textAppearance="@style/TextAppearance.DoseCerta.AccessibleBody" android:layout_marginBottom="12dp" android:visibility="gone"/>
-</LinearLayout>
+  </LinearLayout>
+</androidx.core.widget.NestedScrollView>

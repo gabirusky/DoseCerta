@@ -193,11 +193,11 @@ class MedicationRepository(
     }
 
     /** Captured slots retain their original timestamp; the preview labels these after a zone change. */
-    suspend fun previewOccurrences(schedule: Schedule, count: Int = 5, after: Instant = clock.instant()): List<OccurrenceDate> {
+    suspend fun previewOccurrences(schedule: Schedule, count: Int = 5, after: Instant = clock.instant()): List<OccurrenceDate> = transaction {
         require(count in 1..100)
-        val retained = medicationLogDao.getPendingOccurrences().filter {
-            it.scheduleId == schedule.id && it.scheduleVersion == schedule.version && it.originalDueAt > after.toEpochMilli()
-        }.map { captured ->
+        // Restrict the indexed lookup to this prescription. Keep the preview's
+        // related reads on one Room transaction thread and one consistent view.
+        val retained = medicationLogDao.getPendingOccurrencesForSchedule(schedule.id, schedule.version, after.toEpochMilli()).map { captured ->
             val requested = LocalDateTime.parse(captured.originalLocalDateTime)
             val originalZone = ZoneId.of(captured.originalZoneId)
             OccurrenceDate(captured.originalDueAt, Instant.ofEpochMilli(captured.originalDueAt).atZone(originalZone).toLocalDateTime(),
@@ -212,7 +212,7 @@ class MedicationRepository(
             val key = occurrenceKey(schedule, candidate.requestedLocalDateTime)
             if (medicationLogDao.getOccurrence(key) == null && medicationLogDao.suppressionCount(key) == 0) calculated += candidate
         }
-        return (retained + calculated).distinctBy { it.requestedLocalDateTime }.sortedBy { it.originalDueAt }.take(count)
+        (retained + calculated).distinctBy { it.requestedLocalDateTime }.sortedBy { it.originalDueAt }.take(count)
     }
 
     suspend fun command(occurrenceId: String, command: DoseCommand, until: Long? = null,

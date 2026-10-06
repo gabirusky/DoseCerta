@@ -10,6 +10,7 @@ import re
 import subprocess
 import tarfile
 import time
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 PACKAGE = "com.dosecerta"
@@ -62,25 +63,64 @@ def main() -> int:
     parser.add_argument("--serial", required=True, help="Explicit dedicated synthetic AVD serial")
     parser.add_argument("--apk", type=pathlib.Path, default=ROOT / "app/build/outputs/apk/debug/app-debug.apk")
     parser.add_argument("--test-apk", type=pathlib.Path, default=ROOT / "app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk")
-    parser.add_argument("--scenario", choices=("main", "skip", "snooze", "silence", "denied", "nominal", "pdf-fixtures"), default="main")
+    parser.add_argument("--scenario", choices=("main", "skip", "snooze", "silence", "denied", "nominal", "pdf-ui", "pdf-fixtures"), default="main")
+    parser.add_argument("--scenarios", nargs="+", choices=("main", "skip", "snooze", "silence", "denied", "nominal", "pdf-ui", "pdf-fixtures"),
+                        help="Run separately identified recordings sequentially on this serial")
     parser.add_argument("--clean", action="store_true", help="Uninstall/reinstall only DoseCerta packages, after the dedicated-AVD guard")
+    parser.add_argument("--secure-lock", action="store_true", help="Use a temporary known PIN on a synthetic AVD that currently has no lock")
     parser.add_argument("--output", type=pathlib.Path, help="A new evidence directory; existing directories are rejected")
     parser.add_argument("--timezone", default="America/Sao_Paulo")
     parser.add_argument("--timeout-seconds", type=int, default=1200)
     parser.add_argument("--print-plan", action="store_true", help="Print commands without running or changing a device")
     args = parser.parse_args()
+    if args.scenarios:
+        if args.output or args.print_plan:
+            parser.error("Batch recordings use separate automatic output directories")
+        batch_id = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + "-recordings"
+        batch_output = ROOT / "docs/qa/runs" / batch_id
+        batch_output.mkdir(parents=True, exist_ok=False)
+        batch = {"runId": batch_id, "serial": args.serial, "startedAt": utc_now(), "results": [], "passed": False}
+        for scenario in args.scenarios:
+            command = [sys.executable, str(pathlib.Path(__file__).resolve()), "--serial", args.serial, "--scenario", scenario,
+                       "--apk", str(args.apk), "--test-apk", str(args.test_apk), "--timezone", args.timezone,
+                       "--timeout-seconds", str(args.timeout_seconds)]
+            if args.clean:
+                command.append("--clean")
+            if args.secure_lock and scenario not in ("denied", "pdf-ui", "pdf-fixtures"):
+                command.append("--secure-lock")
+            print(f"Recording {scenario} on {args.serial}", flush=True)
+            with (batch_output / f"{scenario}.log").open("w") as log:
+                result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+            output_text = (batch_output / f"{scenario}.log").read_text()
+            match = re.search(r"^Evidence saved: (.+)$", output_text, re.M)
+            child_manifest = pathlib.Path(match[1]) if match else None
+            batch["results"].append({"scenario": scenario, "returnCode": result.returncode,
+                "manifest": str(child_manifest.relative_to(ROOT)) if child_manifest else None})
+            write_json(batch_output / "manifest.json", batch)
+            print(f"{scenario}: returnCode={result.returncode}, manifest={child_manifest}", flush=True)
+            if child_manifest is None or any(item["stage"] == "restore_synthetic_lock"
+                for item in json.loads(child_manifest.read_text()).get("collectionErrors", [])):
+                break
+        batch["completedAt"] = utc_now()
+        batch["passed"] = len(batch["results"]) == len(args.scenarios) and all(item["returnCode"] == 0 for item in batch["results"])
+        write_json(batch_output / "manifest.json", batch)
+        return 0 if batch["passed"] else 1
     if not 30 <= args.timeout_seconds <= 7200:
         parser.error("timeout-seconds must be 30..7200")
     adb = ["adb", "-s", args.serial]
     run_id = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ") + "-" + args.scenario
     if args.scenario == "pdf-fixtures":
         parameters = ["-e", "class", PACKAGE + ".ui.history.PdfReportInstrumentedTest"]
+    elif args.scenario == "pdf-ui":
+        parameters = ["-e", "class", PACKAGE + ".ui.SystemUiInstrumentedTest#documentPickerCancellationAndSaveProduceOneReadableGrantedPdf"]
     elif args.scenario == "denied":
         parameters = ["-e", "class", JOURNEY + "#deniedNotificationIsVisibleAndDoesNotClaimAlarmAudio", "-e", "deniedJourney", "1"]
     else:
         action = args.scenario if args.scenario in ("skip", "snooze", "silence") else "take"
         parameters = ["-e", "class", JOURNEY + "#firstUseFutureDoseRealAlarmAndPersistedOutcome", "-e", "fullJourney", "1", "-e", "journeyAction", action, "-e", "journeyCount", "10" if args.scenario == "nominal" else "1"]
     parameters += ["-e", "evidenceRunId", run_id]
+    if args.secure_lock:
+        parameters += ["-e", "syntheticPin", "2468"]
     instrument = adb + ["shell", "am", "instrument", "-w"] + parameters + [RUNNER]
     if args.print_plan:
         print(json.dumps({"guard": "ro.boot.qemu.avd_name or ro.kernel.qemu.avd_name=DoseCerta_QA; boot=1; exact timezone; no other screenrecord",
@@ -107,6 +147,9 @@ def main() -> int:
         parser.error(f"Device timezone {timezone!r} differs from explicit {args.timezone!r}")
     if run(["shell", "pidof", "screenrecord"], check=False).stdout.strip():
         parser.error("Another screenrecord is active; use one evidence driver per serial")
+    original_lock_disabled = run(["shell", "locksettings", "get-disabled"]).stdout.strip()
+    if args.secure_lock and original_lock_disabled != "true":
+        parser.error("Secure fixture requires an existing None lock; refusing to replace a credential")
     output = (args.output or ROOT / "docs/evidence" / run_id).resolve()
     output.mkdir(parents=True, exist_ok=False)
     manifest_path = output / "manifest.json"
@@ -128,11 +171,16 @@ def main() -> int:
                 "command": instrument, "cleanInstall": args.clean, "videoSegments": [], "collectionErrors": [], "controlActions": [],
                 "audio": "Android screenrecord does not capture internal alarm audio. Observe audio separately; this video cannot prove sound.",
                 "videoReviewed": False, "syntheticDataOnly": True, "instrumentationPassed": False,
-                "scope": "PDF fixture rendering/provider tests only" if args.scenario == "pdf-fixtures" else "Visible UI onboarding, grants, future medicine creation, real scheduled delivery and outcome"}
+                "secureLockFixture": args.secure_lock, "originalLockDisabled": original_lock_disabled,
+                "scope": ("PDF fixture rendering/provider tests only" if args.scenario == "pdf-fixtures" else
+                          "Real History UI, DocumentsUI cancellation/save, readable PDF and viewer/no-viewer recovery; setup fixture is explicit" if args.scenario == "pdf-ui" else
+                          "Visible UI onboarding, grants, future medicine creation, real scheduled delivery and outcome")}
     write_json(manifest_path, manifest)
     process = recorder = recorder_log = log_stream = active = None
     started = time.monotonic()
     failure = None
+    pin_created = False
+    lock_changed = False
 
     def collection_error(stage: str, error: Exception) -> None:
         manifest["collectionErrors"].append({"stage": stage, "error": type(error).__name__, "message": str(error)})
@@ -174,6 +222,12 @@ def main() -> int:
 
     def start_segment(number: int) -> None:
         nonlocal recorder, recorder_log, active
+        # Android 16 has no recording layer stack while the display is asleep.
+        # Waking the display preserves the secure keyguard and every permission;
+        # it only makes the next video segment capturable.
+        run(["shell", "input", "keyevent", "KEYCODE_WAKEUP"])
+        time.sleep(0.5)
+        manifest["controlActions"].append(f"Woke synthetic display for video segment {number}; keyguard authentication unchanged")
         remote = f"/sdcard/Download/dosecerta-evidence-{run_id}-{number:03d}.mp4"
         active = {"file": f"screen-{number:03d}.mp4", "remote": remote, "startedAt": utc_now(), "available": False}
         recorder_log = (output / f"screen-{number:03d}.log").open("w")
@@ -189,6 +243,22 @@ def main() -> int:
         raise RuntimeError("Screenrecord did not start; inspect segment log")
 
     try:
+        # Start unlocked before introducing the temporary fixture credential;
+        # the onboarding demonstration remains visible from its first frame.
+        run(["shell", "input", "keyevent", "KEYCODE_WAKEUP"])
+        run(["shell", "input", "keyevent", "KEYCODE_MENU"])
+        run(["shell", "locksettings", "set-disabled", "false"])
+        lock_changed = True
+        manifest["controlActions"].append("Enabled lock screen only on the dedicated synthetic AVD")
+        if args.secure_lock:
+            result = run(["shell", "locksettings", "set-pin", "2468"])
+            # locksettings reports "Pin set to ..." on success. Verify the
+            # effective credential, and always clear it even if setup verification fails.
+            pin_created = True
+            verification = run(["shell", "locksettings", "verify", "--old", "2468"])
+            if "verified successfully" not in verification.stdout.lower():
+                raise RuntimeError("Synthetic secure PIN setup did not succeed")
+            manifest["controlActions"].append("Created temporary known synthetic PIN; cleared in finally")
         if args.clean:
             run(["uninstall", PACKAGE + ".test"], check=False)
             run(["uninstall", PACKAGE], check=False)
@@ -248,7 +318,8 @@ def main() -> int:
                 collection_error(name, error)
         try:
             base = "cache" if args.scenario == "pdf-fixtures" else "files"
-            folder = "qa-reports" if args.scenario == "pdf-fixtures" else f"qa-journey/{run_id}"
+            folder = ("qa-reports" if args.scenario == "pdf-fixtures" else
+                      f"qa-system/{run_id}" if args.scenario == "pdf-ui" else f"qa-journey/{run_id}")
             exported = run(["exec-out", "run-as", PACKAGE, "tar", "-C", base, "-cf", "-", folder], binary=True, timeout=90, check=False)
             if exported.returncode:
                 (output / "journey-export-error.txt").write_bytes(exported.stderr)
@@ -262,7 +333,7 @@ def main() -> int:
         text = instrumentation_path.read_text() if instrumentation_path.is_file() else ""
         manifest["instrumentationReturnCode"] = process.returncode if process else None
         manifest["instrumentationPassed"] = process is not None and process.returncode == 0 and "OK (" in text and "FAILURES!!!" not in text and "INSTRUMENTATION_FAILED" not in text
-        if args.scenario != "pdf-fixtures":
+        if args.scenario not in ("pdf-fixtures", "pdf-ui"):
             try:
                 result = json.loads((output / f"qa-journey/{run_id}/result.json").read_text())
                 manifest["journeyResult"] = result
@@ -275,6 +346,16 @@ def main() -> int:
         manifest["failure"] = failure
         manifest["videoAvailable"] = bool(manifest["videoSegments"]) and all(item["available"] for item in manifest["videoSegments"])
         manifest["evidenceCollected"] = manifest["instrumentationPassed"] and manifest["videoAvailable"] and not failure and not manifest["collectionErrors"]
+        try:
+            if pin_created:
+                run(["shell", "locksettings", "clear", "--old", "2468"])
+                manifest["controlActions"].append("Cleared temporary synthetic PIN")
+            if lock_changed:
+                run(["shell", "locksettings", "set-disabled", original_lock_disabled])
+                manifest["controlActions"].append("Restored original synthetic lock-screen setting")
+        except Exception as error:
+            collection_error("restore_synthetic_lock", error)
+            manifest["evidenceCollected"] = False
         write_json(manifest_path, manifest)
         index_path = ROOT / "docs/evidence/index.json"
         index_path.parent.mkdir(parents=True, exist_ok=True)

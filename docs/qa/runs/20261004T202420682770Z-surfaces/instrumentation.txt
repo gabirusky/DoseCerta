@@ -1,0 +1,220 @@
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.ui.SurfaceUiInstrumentedTest:
+INSTRUMENTATION_STATUS: test=emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=androidx.test.espresso.PerformException: Error performing 'scroll to' on view 'Animations or transitions are enabled on the target device.
+For more info check: https://developer.android.com/training/testing/espresso/setup#set-up-environment
+
+view.getId() is <2131231324/com.dosecerta:id/text_empty>'.
+	at androidx.test.espresso.PerformException$Builder.build(PerformException.java:86)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:56)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:31)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(SurfaceUiInstrumentedTest.kt:110)
+	... 34 trimmed
+Caused by: java.lang.RuntimeException: Action will not be performed because the target view does not match one or more of the following constraints:
+(view has effective visibility <VISIBLE> and is descendant of a view matching (is assignable from class <class android.widget.ScrollView> or is assignable from class <class android.widget.HorizontalScrollView> or is assignable from class <class android.widget.ListView> or is assignable from class <class androidx.core.widget.NestedScrollView> or  or is assignable from class <class androidx.recyclerview.widget.RecyclerView>))
+Target view: "MaterialTextView{id=2131231324, res-name=text_empty, visibility=VISIBLE, width=560, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, layout-params=android.widget.LinearLayout$LayoutParams@YYYYYY, tag=null, root-is-layout-requested=false, has-input-connection=false, x=32.0, y=594.0, text=Nenhum medicamento ativo, input-type=0, ime-target=false, has-links=false}"
+	at androidx.test.espresso.ViewInteraction.doPerform(ViewInteraction.java:287)
+	at androidx.test.espresso.ViewInteraction.-$$Nest$mdoPerform(Unknown Source:0)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:193)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:182)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at android.os.Handler.handleCallback(Handler.java:1070)
+	at android.os.Handler.dispatchMessage(Handler.java:125)
+	at android.os.Looper.dispatchMessage(Looper.java:333)
+	at android.os.Looper.loopOnce(Looper.java:263)
+	at android.os.Looper.loop(Looper.java:367)
+	at android.app.ActivityThread.main(ActivityThread.java:9287)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+
+INSTRUMENTATION_STATUS: stream=
+Error in emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(com.dosecerta.ui.SurfaceUiInstrumentedTest):
+androidx.test.espresso.PerformException: Error performing 'scroll to' on view 'Animations or transitions are enabled on the target device.
+For more info check: https://developer.android.com/training/testing/espresso/setup#set-up-environment
+
+view.getId() is <2131231324/com.dosecerta:id/text_empty>'.
+	at androidx.test.espresso.PerformException$Builder.build(PerformException.java:86)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:56)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:31)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(SurfaceUiInstrumentedTest.kt:110)
+	... 34 trimmed
+Caused by: java.lang.RuntimeException: Action will not be performed because the target view does not match one or more of the following constraints:
+(view has effective visibility <VISIBLE> and is descendant of a view matching (is assignable from class <class android.widget.ScrollView> or is assignable from class <class android.widget.HorizontalScrollView> or is assignable from class <class android.widget.ListView> or is assignable from class <class androidx.core.widget.NestedScrollView> or  or is assignable from class <class androidx.recyclerview.widget.RecyclerView>))
+Target view: "MaterialTextView{id=2131231324, res-name=text_empty, visibility=VISIBLE, width=560, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, layout-params=android.widget.LinearLayout$LayoutParams@YYYYYY, tag=null, root-is-layout-requested=false, has-input-connection=false, x=32.0, y=594.0, text=Nenhum medicamento ativo, input-type=0, ime-target=false, has-links=false}"
+	at androidx.test.espresso.ViewInteraction.doPerform(ViewInteraction.java:287)
+	at androidx.test.espresso.ViewInteraction.-$$Nest$mdoPerform(Unknown Source:0)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:193)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:182)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at android.os.Handler.handleCallback(Handler.java:1070)
+	at android.os.Handler.dispatchMessage(Handler.java:125)
+	at android.os.Looper.dispatchMessage(Looper.java:333)
+	at android.os.Looper.loopOnce(Looper.java:263)
+	at android.os.Looper.loop(Looper.java:367)
+	at android.app.ActivityThread.main(ActivityThread.java:9287)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+
+INSTRUMENTATION_STATUS: test=emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=historyOptionsSettingsAndPrivacyUseExplicitControls
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Missing surface control: chip_skipped
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.find(SurfaceUiInstrumentedTest.kt:55)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$find(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$historyOptionsSettingsAndPrivacyUseExplicitControls$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:163)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.historyOptionsSettingsAndPrivacyUseExplicitControls(SurfaceUiInstrumentedTest.kt:153)
+
+INSTRUMENTATION_STATUS: stream=
+Error in historyOptionsSettingsAndPrivacyUseExplicitControls(com.dosecerta.ui.SurfaceUiInstrumentedTest):
+java.lang.AssertionError: Missing surface control: chip_skipped
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.find(SurfaceUiInstrumentedTest.kt:55)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$find(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$historyOptionsSettingsAndPrivacyUseExplicitControls$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:163)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.historyOptionsSettingsAndPrivacyUseExplicitControls(SurfaceUiInstrumentedTest.kt:153)
+
+INSTRUMENTATION_STATUS: test=historyOptionsSettingsAndPrivacyUseExplicitControls
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=searchManagementAndFormErrorsRemainDiscoverableAtLargeFont
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.ui.SurfaceUiInstrumentedTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=3
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=searchManagementAndFormErrorsRemainDiscoverableAtLargeFont
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 46.28
+There were 2 failures:
+1) emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(com.dosecerta.ui.SurfaceUiInstrumentedTest)
+androidx.test.espresso.PerformException: Error performing 'scroll to' on view 'Animations or transitions are enabled on the target device.
+For more info check: https://developer.android.com/training/testing/espresso/setup#set-up-environment
+
+view.getId() is <2131231324/com.dosecerta:id/text_empty>'.
+	at androidx.test.espresso.PerformException$Builder.build(PerformException.java:86)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:56)
+	at androidx.test.espresso.base.PerformExceptionHandler.handleSafely(PerformExceptionHandler.java:31)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.emptyAndLongExtraDoseListsHaveVisibleErrorsAndExplicitConfirmation(SurfaceUiInstrumentedTest.kt:110)
+	... 34 trimmed
+Caused by: java.lang.RuntimeException: Action will not be performed because the target view does not match one or more of the following constraints:
+(view has effective visibility <VISIBLE> and is descendant of a view matching (is assignable from class <class android.widget.ScrollView> or is assignable from class <class android.widget.HorizontalScrollView> or is assignable from class <class android.widget.ListView> or is assignable from class <class androidx.core.widget.NestedScrollView> or  or is assignable from class <class androidx.recyclerview.widget.RecyclerView>))
+Target view: "MaterialTextView{id=2131231324, res-name=text_empty, visibility=VISIBLE, width=560, height=0, has-focus=false, has-focusable=false, has-window-focus=true, is-clickable=false, is-enabled=true, is-focused=false, is-focusable=false, is-layout-requested=false, is-selected=false, layout-params=android.widget.LinearLayout$LayoutParams@YYYYYY, tag=null, root-is-layout-requested=false, has-input-connection=false, x=32.0, y=594.0, text=Nenhum medicamento ativo, input-type=0, ime-target=false, has-links=false}"
+	at androidx.test.espresso.ViewInteraction.doPerform(ViewInteraction.java:287)
+	at androidx.test.espresso.ViewInteraction.-$$Nest$mdoPerform(Unknown Source:0)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:193)
+	at androidx.test.espresso.ViewInteraction$1.call(ViewInteraction.java:182)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at android.os.Handler.handleCallback(Handler.java:1070)
+	at android.os.Handler.dispatchMessage(Handler.java:125)
+	at android.os.Looper.dispatchMessage(Looper.java:333)
+	at android.os.Looper.loopOnce(Looper.java:263)
+	at android.os.Looper.loop(Looper.java:367)
+	at android.app.ActivityThread.main(ActivityThread.java:9287)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+2) historyOptionsSettingsAndPrivacyUseExplicitControls(com.dosecerta.ui.SurfaceUiInstrumentedTest)
+java.lang.AssertionError: Missing surface control: chip_skipped
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.find(SurfaceUiInstrumentedTest.kt:55)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.access$find(SurfaceUiInstrumentedTest.kt:39)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest$historyOptionsSettingsAndPrivacyUseExplicitControls$1.invokeSuspend(SurfaceUiInstrumentedTest.kt:163)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.SurfaceUiInstrumentedTest.historyOptionsSettingsAndPrivacyUseExplicitControls(SurfaceUiInstrumentedTest.kt:153)
+
+FAILURES!!!
+Tests run: 3,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

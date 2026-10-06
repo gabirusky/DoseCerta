@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -125,7 +126,14 @@ class CompactUiInstrumentedTest {
                 pharmaceuticalForm = PharmaceuticalForm.TABLET, frequency = Frequency.AS_NEEDED,
                 notes = "Fixture sintética para revisão visual", color = 0xFF80648D.toInt()))
             data class Appearance(val name: String, val language: String, val night: Int, val scale: Float)
-            val appearances = listOf(
+            val appearances = if (InstrumentationRegistry.getArguments().getString("fullUiMatrix") == "true") {
+                listOf(1f, 1.3f, 2f).flatMap { scale -> listOf("pt-BR", "en").flatMap { language ->
+                    listOf(AppCompatDelegate.MODE_NIGHT_NO, AppCompatDelegate.MODE_NIGHT_YES).map { night ->
+                        Appearance("${if (night == AppCompatDelegate.MODE_NIGHT_YES) "dark" else "light"}-${language}-${(scale * 100).toInt()}",
+                            language, night, scale)
+                    }
+                } }
+            } else listOf(
                 Appearance("light-pt", "pt-BR", AppCompatDelegate.MODE_NIGHT_NO, 1f),
                 Appearance("dark-pt", "pt-BR", AppCompatDelegate.MODE_NIGHT_YES, 1f),
                 Appearance("light-en", "en", AppCompatDelegate.MODE_NIGHT_NO, 1f),
@@ -139,8 +147,15 @@ class CompactUiInstrumentedTest {
                     AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(appearance.language))
                 }
                 ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+                    assertTrue(device.wait(Until.hasObject(By.res(context.packageName, "bottom_navigation")), 10000))
+                    instrumentation.runOnMainSync {
+                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(appearance.language))
+                    }
                     assertTrue(device.wait(Until.hasObject(By.res(context.packageName, "text_medication_name")), 10000))
-                    scenario.onActivity { assertEquals(appearance.scale, it.resources.configuration.fontScale, 0.05f) }
+                    scenario.onActivity {
+                        assertEquals(appearance.scale, it.resources.configuration.fontScale, 0.05f)
+                        assertEquals(appearance.language.substringBefore('-'), it.resources.configuration.locales[0].language)
+                    }
                     capture("${appearance.name}-home")
                     measureCards(scenario, "${appearance.name}-home", appearance.scale == 1f)
                     navigate(scenario, R.id.nav_medications, "search_view")
@@ -160,6 +175,26 @@ class CompactUiInstrumentedTest {
                     navigate(scenario, R.id.nav_add_medication, "edit_name")
                     onView(withId(R.id.button_save)).check(matches(isCompletelyDisplayed()))
                     capture("${appearance.name}-form")
+                    if (InstrumentationRegistry.getArguments().getString("fullUiMatrix") == "true") {
+                        onView(withId(R.id.edit_name)).perform(scrollTo(), replaceText("Medicamento sintético de nome longo"), closeSoftKeyboard())
+                        onView(withId(R.id.edit_dosage)).perform(scrollTo(), replaceText("500"), closeSoftKeyboard())
+                        onView(withId(R.id.autoComplete_unit)).perform(scrollTo()).check(matches(isCompletelyDisplayed()))
+                        onView(withId(R.id.button_details)).perform(scrollTo(), click())
+                        onView(withId(R.id.autoComplete_form)).perform(scrollTo(), click())
+                        capture("${appearance.name}-form-selector")
+                        device.pressBack()
+                        onView(withId(R.id.color_option_blue)).perform(scrollTo(), click()).check(matches(isChecked()))
+                        onView(withId(R.id.color_option_green)).perform(scrollTo()).check(matches(isCompletelyDisplayed()))
+                        capture("${appearance.name}-form-colors")
+                        onView(withId(R.id.button_save)).check(matches(isCompletelyDisplayed()))
+                        navigate(scenario, R.id.nav_settings, "text_settings_title")
+                        onView(withId(R.id.button_diagnostics)).perform(scrollTo(), click())
+                        capture("${appearance.name}-diagnostics")
+                        device.wait(Until.findObject(By.res("android", "button1")), 5000)!!.click()
+                        navigate(scenario, R.id.nav_privacy_policy, "text_privacy_policy")
+                        capture("${appearance.name}-privacy")
+                        onView(withId(R.id.text_privacy_policy)).check(matches(isDisplayed()))
+                    }
                 }
             }
         } finally {

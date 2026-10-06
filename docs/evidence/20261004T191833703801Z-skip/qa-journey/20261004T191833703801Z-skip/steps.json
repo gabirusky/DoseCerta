@@ -1,0 +1,92 @@
+[
+  {
+    "stage": "01-terms",
+    "timestampMillis": 1791141524062,
+    "screenshot": "01-terms.png"
+  },
+  {
+    "stage": "02-access-before",
+    "timestampMillis": 1791141525672,
+    "screenshot": "02-access-before.png"
+  },
+  {
+    "stage": "03-system-notification-choice",
+    "timestampMillis": 1791141527151,
+    "screenshot": "03-system-notification-choice.png"
+  },
+  {
+    "stage": "settings-button_exact-before",
+    "timestampMillis": 1791141530406,
+    "screenshot": "settings-button_exact-before.png"
+  },
+  {
+    "stage": "settings-button_exact-after",
+    "timestampMillis": 1791141531469,
+    "screenshot": "settings-button_exact-after.png"
+  },
+  {
+    "stage": "04-access-effective",
+    "timestampMillis": 1791141532962,
+    "screenshot": "04-access-effective.png"
+  },
+  {
+    "stage": "05-tutorial-1",
+    "timestampMillis": 1791141533749,
+    "screenshot": "05-tutorial-1.png"
+  },
+  {
+    "stage": "05-tutorial-2",
+    "timestampMillis": 1791141534642,
+    "screenshot": "05-tutorial-2.png"
+  },
+  {
+    "stage": "05-tutorial-3",
+    "timestampMillis": 1791141535580,
+    "screenshot": "05-tutorial-3.png"
+  },
+  {
+    "stage": "06-home-empty",
+    "timestampMillis": 1791141538224,
+    "screenshot": "06-home-empty.png"
+  },
+  {
+    "stage": "07-form-preview",
+    "timestampMillis": 1791141548659,
+    "screenshot": "07-form-preview.png"
+  },
+  {
+    "stage": "08-home-future-dose",
+    "timestampMillis": 1791141553472,
+    "screenshot": "08-home-future-dose.png"
+  },
+  {
+    "stage": "09-locked-1",
+    "timestampMillis": 1791141555631,
+    "screenshot": "09-locked-1.png"
+  },
+  {
+    "stage": "10-alarm-private-1",
+    "timestampMillis": 1791141722199,
+    "screenshot": "10-alarm-private-1.png"
+  },
+  {
+    "stage": "11-credential-fixture-1",
+    "timestampMillis": 1791141723921,
+    "screenshot": "11-credential-fixture-1.png"
+  },
+  {
+    "stage": "11-alarm-identified-1",
+    "timestampMillis": 1791141728924,
+    "screenshot": "11-alarm-identified-1.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-1",
+    "timestampMillis": 1791141730276,
+    "screenshot": "12-explicit-confirmation-1.png"
+  },
+  {
+    "stage": "failure",
+    "timestampMillis": 1791141741743,
+    "screenshot": "failure.png"
+  }
+]

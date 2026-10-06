@@ -155,6 +155,7 @@ class HomeFragment : Fragment() {
         var listJob: Job? = null
         dialog.setOnShowListener {
             dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, (resources.displayMetrics.heightPixels * 0.85).toInt())
+            dialog.window?.setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
             listJob = viewLifecycleOwner.lifecycleScope.launch { viewModel.activeMedications.collect { list ->
                 meds.submitList(list)
                 content.textEmpty.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE

@@ -1,0 +1,22 @@
+{
+  "api": 26,
+  "manufacturer": "unknown",
+  "model": "Android SDK built for x86_64",
+  "device": "generic_x86_64",
+  "androidBuild": "sdk_gphone_x86_64-userdebug 8.0.0 OSR1.180418.026 6741039 dev-keys",
+  "zone": "America\/Sao_Paulo",
+  "volumeBeforeAction": 10000,
+  "medications": 50,
+  "slots": 100,
+  "historyDays": 100,
+  "database": "scale-fixture-40454462270.db",
+  "mainDatabaseSeeded": false,
+  "fixtureWriteMs": 8649.21216,
+  "reportSnapshotMs": 413.61385,
+  "sharedSummaryMs": 72.18594,
+  "takeCommitMs": 7.05625,
+  "nextDose100SlotsMs": 351.92116,
+  "coldStartMeasured": false,
+  "measuredAtEpochMs": 1791141572628,
+  "syntheticOnly": true
+}

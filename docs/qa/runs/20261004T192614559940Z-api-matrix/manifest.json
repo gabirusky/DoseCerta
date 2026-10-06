@@ -1,0 +1,531 @@
+{
+  "runId": "20261004T192614559940Z-api-matrix",
+  "serial": "emulator-5590",
+  "startedAt": "2026-10-04T19:26:14.560211+00:00",
+  "emulator": "/home/gabirusky/Android/Sdk/emulator/emulator",
+  "profiles": [
+    "api26-oct03",
+    "api28-goal1004",
+    "api29-goal1004",
+    "api31-goal1004",
+    "api33-goal1004",
+    "api34-goal1004",
+    "api35-goal1004",
+    "api37-16kb-oct04"
+  ],
+  "suites": [
+    "data",
+    "pdf",
+    "provider",
+    "integrity",
+    "export-state",
+    "system",
+    "alarm"
+  ],
+  "results": [
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T192634155092Z-data"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "pdf",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T192718887644Z-pdf"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "provider",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T192735930883Z-provider"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "integrity",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T192828569555Z-integrity"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "export-state",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T192835820114Z-export-state"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "system",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T192845490900Z-system"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T192921226855Z-alarm"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T193235350348Z-data"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "pdf",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T193338024673Z-pdf"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "provider",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T193419256983Z-provider"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "integrity",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T193505060302Z-integrity"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "export-state",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T193510999201Z-export-state"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "system",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T193519560731Z-system"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T193603070280Z-alarm"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T193853841491Z-data"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "pdf",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194040024548Z-pdf"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "provider",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194139684556Z-provider"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "integrity",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194231714125Z-integrity"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "export-state",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194244539841Z-export-state"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "system",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194254620171Z-system"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194339031954Z-alarm"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194657390882Z-data"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "pdf",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194732503808Z-pdf"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "provider",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194840648765Z-provider"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "integrity",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194925501107Z-integrity"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "export-state",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T194936740563Z-export-state"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "system",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T194949903070Z-system"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T195039752990Z-alarm"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "data",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T195408310480Z-data"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "pdf",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T195454804349Z-pdf"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "provider",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T195601758720Z-provider"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "integrity",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T195650273002Z-integrity"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "export-state",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T195659528261Z-export-state"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "system",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T195711029432Z-system"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T195804647092Z-alarm"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "data",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T200106880675Z-data"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "pdf",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T200208287821Z-pdf"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "provider",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T200345036675Z-provider"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "integrity",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T200443488094Z-integrity"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "export-state",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T200452183845Z-export-state"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "system",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T200503689460Z-system"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T200550898070Z-alarm"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "data",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T200809325207Z-data"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "pdf",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T200854898483Z-pdf"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "provider",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T201029901492Z-provider"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "integrity",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T201128573007Z-integrity"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "export-state",
+      "returnCode": 1,
+      "evidence": []
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "system",
+      "returnCode": 1,
+      "evidence": []
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T201135219853Z-alarm"
+      ]
+    },
+    {
+      "profile": "api37-16kb-oct04",
+      "api": "37",
+      "suite": "data",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T201328493905Z-data"
+      ]
+    },
+    {
+      "profile": "api37-16kb-oct04",
+      "api": "37",
+      "suite": "pdf",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T201351336662Z-pdf"
+      ]
+    },
+    {
+      "profile": "api37-16kb-oct04",
+      "api": "37",
+      "suite": "provider",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T201424934618Z-provider"
+      ]
+    },
+    {
+      "profile": "api37-16kb-oct04",
+      "api": "37",
+      "suite": "integrity",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T201501582332Z-integrity"
+      ]
+    },
+    {
+      "profile": "api37-16kb-oct04",
+      "api": "37",
+      "suite": "export-state",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T201505393307Z-export-state"
+      ]
+    },
+    {
+      "profile": "api37-16kb-oct04",
+      "api": "37",
+      "suite": "system",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T201513423305Z-system"
+      ]
+    },
+    {
+      "profile": "api37-16kb-oct04",
+      "api": "37",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T201612650499Z-alarm"
+      ]
+    }
+  ],
+  "passed": false,
+  "scope": "Synthetic Google images, debug APK functional coverage; OEM and signed release are separate gates",
+  "currentProfile": "api37-16kb-oct04",
+  "finishedAt": "2026-10-04T20:18:24.627802+00:00"
+}

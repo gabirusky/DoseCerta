@@ -1,0 +1,8 @@
+
+com.dosecerta.ui.SystemUiInstrumentedTest:.
+
+Time: 28.083
+
+OK (1 test)
+
+

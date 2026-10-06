@@ -1,0 +1,45 @@
+{
+  "serial": "emulator-5580",
+  "avd": "DoseCerta_QA",
+  "api": "36",
+  "startedAt": "2026-10-05T14:23:46.439702+00:00",
+  "originalDisplay": {
+    "size": "Physical size: 720x1280",
+    "density": "Physical density: 320"
+  },
+  "passed": false,
+  "runs": [
+    {
+      "widthDp": 320,
+      "heightDp": 640,
+      "configurationCount": 12,
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261005T142347025550Z-compact"
+      ]
+    },
+    {
+      "widthDp": 360,
+      "heightDp": 640,
+      "configurationCount": 12,
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261005T142730523663Z-compact"
+      ]
+    },
+    {
+      "widthDp": 412,
+      "heightDp": 800,
+      "configurationCount": 12,
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261005T143108177106Z-compact"
+      ]
+    }
+  ],
+  "configurationCount": 48,
+  "frozenApkDirectory": "docs/qa/runs/20261005T142346439702Z-ui-matrix/apks",
+  "scope": "Main surfaces for the specified display/locale/theme/font configurations; readers/dialogs are separate",
+  "failure": "RuntimeError: UI matrix failed at 412dp; inspect the preserved run",
+  "finishedAt": "2026-10-05T22:22:57.030002+00:00"
+}

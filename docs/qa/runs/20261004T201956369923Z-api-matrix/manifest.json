@@ -1,0 +1,321 @@
+{
+  "runId": "20261004T201956369923Z-api-matrix",
+  "serial": "emulator-5590",
+  "startedAt": "2026-10-04T20:19:56.371948+00:00",
+  "emulator": "/home/gabirusky/Android/Sdk/emulator/emulator",
+  "profiles": [
+    "api26-oct03",
+    "api28-goal1004",
+    "api29-goal1004",
+    "api31-goal1004",
+    "api33-goal1004",
+    "api34-goal1004",
+    "api35-goal1004",
+    "api36-goal1004",
+    "api37-16kb-oct04"
+  ],
+  "suites": [
+    "data",
+    "history-flow",
+    "system",
+    "alarm"
+  ],
+  "results": [
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202031434717Z-data"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "history-flow",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202050352203Z-history-flow"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "system",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T202107487437Z-system"
+      ]
+    },
+    {
+      "profile": "api26-oct03",
+      "api": "26",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202148078798Z-alarm"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202449612002Z-data"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "history-flow",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202511268024Z-history-flow"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "system",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202526809544Z-system"
+      ]
+    },
+    {
+      "profile": "api28-goal1004",
+      "api": "28",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202616685859Z-alarm"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202846255892Z-data"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "history-flow",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202906501217Z-history-flow"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "system",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202920652552Z-system"
+      ]
+    },
+    {
+      "profile": "api29-goal1004",
+      "api": "29",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T202958871058Z-alarm"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T203245593555Z-data"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "history-flow",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T203257590965Z-history-flow"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "system",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T203311109236Z-system"
+      ]
+    },
+    {
+      "profile": "api31-goal1004",
+      "api": "31",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T203348856453Z-alarm"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T210927268533Z-data"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "history-flow",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T210956959080Z-history-flow"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "system",
+      "returnCode": 1,
+      "evidence": [
+        "docs/qa/runs/20261004T211038277860Z-system"
+      ]
+    },
+    {
+      "profile": "api33-goal1004",
+      "api": "33",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211125627963Z-alarm"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211350532877Z-data"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "history-flow",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211424164156Z-history-flow"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "system",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211442553036Z-system"
+      ]
+    },
+    {
+      "profile": "api34-goal1004",
+      "api": "34",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211530008329Z-alarm"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "data",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211750088331Z-data"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "history-flow",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211815308190Z-history-flow"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "system",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211826733013Z-system"
+      ]
+    },
+    {
+      "profile": "api35-goal1004",
+      "api": "35",
+      "suite": "alarm",
+      "returnCode": 0,
+      "evidence": [
+        "docs/qa/runs/20261004T211911208084Z-alarm"
+      ]
+    }
+  ],
+  "passed": false,
+  "frozenApkDirectory": "docs/qa/runs/20261004T201956369923Z-api-matrix/apks",
+  "scope": "Synthetic Google images, debug APK functional coverage; OEM and signed release are separate gates",
+  "environmentSetup": {
+    "api26-oct03": {
+      "deviceProvisioned": true,
+      "sdkSetupDisabled": false,
+      "scope": "Synthetic OS setup only; app permissions remain under each suite's explicit control"
+    },
+    "api28-goal1004": {
+      "deviceProvisioned": true,
+      "sdkSetupDisabled": false,
+      "scope": "Synthetic OS setup only; app permissions remain under each suite's explicit control"
+    },
+    "api29-goal1004": {
+      "deviceProvisioned": true,
+      "sdkSetupDisabled": false,
+      "scope": "Synthetic OS setup only; app permissions remain under each suite's explicit control"
+    },
+    "api31-goal1004": {
+      "deviceProvisioned": true,
+      "sdkSetupDisabled": false,
+      "scope": "Synthetic OS setup only; app permissions remain under each suite's explicit control"
+    },
+    "api33-goal1004": {
+      "deviceProvisioned": true,
+      "sdkSetupDisabled": false,
+      "scope": "Synthetic OS setup only; app permissions remain under each suite's explicit control"
+    },
+    "api34-goal1004": {
+      "deviceProvisioned": true,
+      "sdkSetupDisabled": true,
+      "scope": "Synthetic OS setup only; app permissions remain under each suite's explicit control"
+    },
+    "api35-goal1004": {
+      "deviceProvisioned": true,
+      "sdkSetupDisabled": true,
+      "scope": "Synthetic OS setup only; app permissions remain under each suite's explicit control"
+    }
+  },
+  "currentProfile": "api35-goal1004",
+  "failure": "RuntimeError: Synthetic api36-goal1004 did not boot; emulator exit=1",
+  "emulatorStillRunning": false,
+  "finishedAt": "2026-10-04T21:21:05.976760+00:00"
+}

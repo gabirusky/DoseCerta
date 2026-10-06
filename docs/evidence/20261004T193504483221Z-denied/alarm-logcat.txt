@@ -1,0 +1,19 @@
+--------- beginning of main
+10-04 16:35:12.328 17827 17846 I DoseCertaAlarm: reconcile - begin
+10-04 16:35:12.983 17827 17848 I DoseCertaAlarm: reconcile - done
+10-04 16:35:22.497 17827 17848 I DoseCertaAlarm: reconcile - begin
+10-04 16:35:22.515 17827 17848 I DoseCertaAlarm: reconcile - done
+10-04 16:35:40.063 17827 17827 I DoseCertaAlarm: schedule_recurrence e3d2f9aeebbf exact
+10-04 16:35:40.084 17827 17827 I DoseCertaAlarm: schedule_timeout e3d2f9aeebbf exact
+10-04 16:38:00.008 17827 17827 I DoseCertaAlarm: receiver e3d2f9aeebbf ok
+10-04 16:38:00.029 17827 18677 I DoseCertaAlarm: schedule_recurrence 5d7d29119587 exact
+10-04 16:38:00.033 17827 18677 I DoseCertaAlarm: schedule_timeout 5d7d29119587 exact
+10-04 16:38:00.049 17827 18677 I DoseCertaAlarm: schedule_timeout e3d2f9aeebbf exact
+10-04 16:38:00.055 17827 18677 I DoseCertaAlarm: delivery e3d2f9aeebbf notification_blocked
+10-04 16:38:03.160 17827 17847 I DoseCertaAlarm: reconcile - begin
+10-04 16:38:03.266 17827 18677 I DoseCertaAlarm: schedule_timeout e3d2f9aeebbf exact
+10-04 16:38:03.349 17827 17848 I DoseCertaAlarm: schedule_recurrence 5d7d29119587 exact
+10-04 16:38:03.358 17827 17848 I DoseCertaAlarm: schedule_timeout 5d7d29119587 exact
+10-04 16:38:03.444 17827 17848 I DoseCertaAlarm: schedule_recurrence 5d7d29119587 exact
+10-04 16:38:03.449 17827 17848 I DoseCertaAlarm: schedule_timeout 5d7d29119587 exact
+10-04 16:38:03.466 17827 17847 I DoseCertaAlarm: reconcile - done

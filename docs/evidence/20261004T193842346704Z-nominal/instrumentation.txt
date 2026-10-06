@@ -1,0 +1,8 @@
+
+com.dosecerta.ui.FullJourneyInstrumentedTest:.
+
+Time: 742.808
+
+OK (1 test)
+
+

@@ -1,0 +1,19 @@
+{
+  "runId": "20261004T191833703801Z-skip",
+  "scenario": "skip",
+  "count": 1,
+  "medicine": "Medicamento fictício QA 1791141520684",
+  "passed": false,
+  "secureKeyguard": true,
+  "failure": "AssertionError",
+  "message": "Missing UI: BySelector [TEXT='\\QMedicamento fictício QA 1791141520684\\E']",
+  "events": [
+    {
+      "occurrenceId": "dose:1:1:2026-10-04T16:22",
+      "originalDueAt": 1791141720000,
+      "deliveredAt": 1791141720025,
+      "delayMillis": 25
+    }
+  ],
+  "completedAt": 1791141741743
+}

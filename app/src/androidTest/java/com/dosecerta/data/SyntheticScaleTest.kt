@@ -122,6 +122,10 @@ class SyntheticScaleTest {
             assertTrue("Upcoming 100 slots must respond under two seconds", nextMillis < 2000)
             // Action is measured at its slot; seed for UI should contain exactly the requested 10,000 historical rows.
             db.medicationLogDao().delete((result as DoseActionResult.Success).occurrence)
+            if (InstrumentationRegistry.getArguments().getString("prepareColdStart") == "true") {
+                require(seedMain) { "Cold start preparation requires the guarded main database fixture" }
+                com.dosecerta.util.SettingsPreferences(context).setSetupCompleted()
+            }
         } finally {
             if (!seedMain) { db.close(); context.deleteDatabase(databaseName) }
         }

@@ -1,0 +1,39 @@
+
+com.dosecerta.ui.FullJourneyInstrumentedTest:
+Error in firstUseFutureDoseRealAlarmAndPersistedOutcome(com.dosecerta.ui.FullJourneyInstrumentedTest):
+org.junit.ComparisonFailure: expected:<[Time to review your dose]> but was:<[Medicamento fictício QA 1791140184811]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest$firstUseFutureDoseRealAlarmAndPersistedOutcome$1.invokeSuspend(FullJourneyInstrumentedTest.kt:188)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.firstUseFutureDoseRealAlarmAndPersistedOutcome(FullJourneyInstrumentedTest.kt:164)
+
+
+Time: 28.977
+There was 1 failure:
+1) firstUseFutureDoseRealAlarmAndPersistedOutcome(com.dosecerta.ui.FullJourneyInstrumentedTest)
+org.junit.ComparisonFailure: expected:<[Time to review your dose]> but was:<[Medicamento fictício QA 1791140184811]>
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest$firstUseFutureDoseRealAlarmAndPersistedOutcome$1.invokeSuspend(FullJourneyInstrumentedTest.kt:188)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.ui.FullJourneyInstrumentedTest.firstUseFutureDoseRealAlarmAndPersistedOutcome(FullJourneyInstrumentedTest.kt:164)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

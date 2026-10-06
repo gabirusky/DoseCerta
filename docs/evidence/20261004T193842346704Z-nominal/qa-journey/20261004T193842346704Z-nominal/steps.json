@@ -1,0 +1,362 @@
+[
+  {
+    "stage": "01-terms",
+    "timestampMillis": 1791142736592,
+    "screenshot": "01-terms.png"
+  },
+  {
+    "stage": "02-access-before",
+    "timestampMillis": 1791142738120,
+    "screenshot": "02-access-before.png"
+  },
+  {
+    "stage": "03-system-notification-choice",
+    "timestampMillis": 1791142739847,
+    "screenshot": "03-system-notification-choice.png"
+  },
+  {
+    "stage": "settings-button_exact-before",
+    "timestampMillis": 1791142743771,
+    "screenshot": "settings-button_exact-before.png"
+  },
+  {
+    "stage": "settings-button_exact-after",
+    "timestampMillis": 1791142744742,
+    "screenshot": "settings-button_exact-after.png"
+  },
+  {
+    "stage": "04-access-effective",
+    "timestampMillis": 1791142746105,
+    "screenshot": "04-access-effective.png"
+  },
+  {
+    "stage": "05-tutorial-1",
+    "timestampMillis": 1791142746909,
+    "screenshot": "05-tutorial-1.png"
+  },
+  {
+    "stage": "05-tutorial-2",
+    "timestampMillis": 1791142747834,
+    "screenshot": "05-tutorial-2.png"
+  },
+  {
+    "stage": "05-tutorial-3",
+    "timestampMillis": 1791142748777,
+    "screenshot": "05-tutorial-3.png"
+  },
+  {
+    "stage": "06-home-empty",
+    "timestampMillis": 1791142751104,
+    "screenshot": "06-home-empty.png"
+  },
+  {
+    "stage": "07-form-preview",
+    "timestampMillis": 1791142801864,
+    "screenshot": "07-form-preview.png"
+  },
+  {
+    "stage": "08-home-future-dose",
+    "timestampMillis": 1791142808095,
+    "screenshot": "08-home-future-dose.png"
+  },
+  {
+    "stage": "09-locked-1",
+    "timestampMillis": 1791142810098,
+    "screenshot": "09-locked-1.png"
+  },
+  {
+    "stage": "10-alarm-private-1",
+    "timestampMillis": 1791142922416,
+    "screenshot": "10-alarm-private-1.png"
+  },
+  {
+    "stage": "11-credential-fixture-1",
+    "timestampMillis": 1791142925149,
+    "screenshot": "11-credential-fixture-1.png"
+  },
+  {
+    "stage": "11-alarm-identified-1",
+    "timestampMillis": 1791142930818,
+    "screenshot": "11-alarm-identified-1.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-1",
+    "timestampMillis": 1791142932298,
+    "screenshot": "12-explicit-confirmation-1.png"
+  },
+  {
+    "stage": "13-history-1",
+    "timestampMillis": 1791142935221,
+    "screenshot": "13-history-1.png"
+  },
+  {
+    "stage": "09-locked-2",
+    "timestampMillis": 1791142937191,
+    "screenshot": "09-locked-2.png"
+  },
+  {
+    "stage": "10-alarm-private-2",
+    "timestampMillis": 1791142982750,
+    "screenshot": "10-alarm-private-2.png"
+  },
+  {
+    "stage": "11-credential-fixture-2",
+    "timestampMillis": 1791142984788,
+    "screenshot": "11-credential-fixture-2.png"
+  },
+  {
+    "stage": "11-alarm-identified-2",
+    "timestampMillis": 1791142989851,
+    "screenshot": "11-alarm-identified-2.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-2",
+    "timestampMillis": 1791142991112,
+    "screenshot": "12-explicit-confirmation-2.png"
+  },
+  {
+    "stage": "13-history-2",
+    "timestampMillis": 1791142993813,
+    "screenshot": "13-history-2.png"
+  },
+  {
+    "stage": "09-locked-3",
+    "timestampMillis": 1791142995894,
+    "screenshot": "09-locked-3.png"
+  },
+  {
+    "stage": "10-alarm-private-3",
+    "timestampMillis": 1791143042676,
+    "screenshot": "10-alarm-private-3.png"
+  },
+  {
+    "stage": "11-credential-fixture-3",
+    "timestampMillis": 1791143044379,
+    "screenshot": "11-credential-fixture-3.png"
+  },
+  {
+    "stage": "11-alarm-identified-3",
+    "timestampMillis": 1791143049115,
+    "screenshot": "11-alarm-identified-3.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-3",
+    "timestampMillis": 1791143050445,
+    "screenshot": "12-explicit-confirmation-3.png"
+  },
+  {
+    "stage": "13-history-3",
+    "timestampMillis": 1791143053095,
+    "screenshot": "13-history-3.png"
+  },
+  {
+    "stage": "09-locked-4",
+    "timestampMillis": 1791143054949,
+    "screenshot": "09-locked-4.png"
+  },
+  {
+    "stage": "10-alarm-private-4",
+    "timestampMillis": 1791143102339,
+    "screenshot": "10-alarm-private-4.png"
+  },
+  {
+    "stage": "11-credential-fixture-4",
+    "timestampMillis": 1791143104123,
+    "screenshot": "11-credential-fixture-4.png"
+  },
+  {
+    "stage": "11-alarm-identified-4",
+    "timestampMillis": 1791143109141,
+    "screenshot": "11-alarm-identified-4.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-4",
+    "timestampMillis": 1791143110415,
+    "screenshot": "12-explicit-confirmation-4.png"
+  },
+  {
+    "stage": "13-history-4",
+    "timestampMillis": 1791143113005,
+    "screenshot": "13-history-4.png"
+  },
+  {
+    "stage": "09-locked-5",
+    "timestampMillis": 1791143114873,
+    "screenshot": "09-locked-5.png"
+  },
+  {
+    "stage": "10-alarm-private-5",
+    "timestampMillis": 1791143162545,
+    "screenshot": "10-alarm-private-5.png"
+  },
+  {
+    "stage": "11-credential-fixture-5",
+    "timestampMillis": 1791143164854,
+    "screenshot": "11-credential-fixture-5.png"
+  },
+  {
+    "stage": "11-alarm-identified-5",
+    "timestampMillis": 1791143169906,
+    "screenshot": "11-alarm-identified-5.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-5",
+    "timestampMillis": 1791143171262,
+    "screenshot": "12-explicit-confirmation-5.png"
+  },
+  {
+    "stage": "13-history-5",
+    "timestampMillis": 1791143173891,
+    "screenshot": "13-history-5.png"
+  },
+  {
+    "stage": "09-locked-6",
+    "timestampMillis": 1791143175709,
+    "screenshot": "09-locked-6.png"
+  },
+  {
+    "stage": "10-alarm-private-6",
+    "timestampMillis": 1791143222780,
+    "screenshot": "10-alarm-private-6.png"
+  },
+  {
+    "stage": "11-credential-fixture-6",
+    "timestampMillis": 1791143224927,
+    "screenshot": "11-credential-fixture-6.png"
+  },
+  {
+    "stage": "11-alarm-identified-6",
+    "timestampMillis": 1791143230114,
+    "screenshot": "11-alarm-identified-6.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-6",
+    "timestampMillis": 1791143231567,
+    "screenshot": "12-explicit-confirmation-6.png"
+  },
+  {
+    "stage": "13-history-6",
+    "timestampMillis": 1791143234530,
+    "screenshot": "13-history-6.png"
+  },
+  {
+    "stage": "09-locked-7",
+    "timestampMillis": 1791143236810,
+    "screenshot": "09-locked-7.png"
+  },
+  {
+    "stage": "10-alarm-private-7",
+    "timestampMillis": 1791143282499,
+    "screenshot": "10-alarm-private-7.png"
+  },
+  {
+    "stage": "11-credential-fixture-7",
+    "timestampMillis": 1791143284339,
+    "screenshot": "11-credential-fixture-7.png"
+  },
+  {
+    "stage": "11-alarm-identified-7",
+    "timestampMillis": 1791143289625,
+    "screenshot": "11-alarm-identified-7.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-7",
+    "timestampMillis": 1791143290953,
+    "screenshot": "12-explicit-confirmation-7.png"
+  },
+  {
+    "stage": "13-history-7",
+    "timestampMillis": 1791143293720,
+    "screenshot": "13-history-7.png"
+  },
+  {
+    "stage": "09-locked-8",
+    "timestampMillis": 1791143295711,
+    "screenshot": "09-locked-8.png"
+  },
+  {
+    "stage": "10-alarm-private-8",
+    "timestampMillis": 1791143342282,
+    "screenshot": "10-alarm-private-8.png"
+  },
+  {
+    "stage": "11-credential-fixture-8",
+    "timestampMillis": 1791143344026,
+    "screenshot": "11-credential-fixture-8.png"
+  },
+  {
+    "stage": "11-alarm-identified-8",
+    "timestampMillis": 1791143348993,
+    "screenshot": "11-alarm-identified-8.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-8",
+    "timestampMillis": 1791143350476,
+    "screenshot": "12-explicit-confirmation-8.png"
+  },
+  {
+    "stage": "13-history-8",
+    "timestampMillis": 1791143353720,
+    "screenshot": "13-history-8.png"
+  },
+  {
+    "stage": "09-locked-9",
+    "timestampMillis": 1791143355803,
+    "screenshot": "09-locked-9.png"
+  },
+  {
+    "stage": "10-alarm-private-9",
+    "timestampMillis": 1791143402794,
+    "screenshot": "10-alarm-private-9.png"
+  },
+  {
+    "stage": "11-credential-fixture-9",
+    "timestampMillis": 1791143404739,
+    "screenshot": "11-credential-fixture-9.png"
+  },
+  {
+    "stage": "11-alarm-identified-9",
+    "timestampMillis": 1791143410052,
+    "screenshot": "11-alarm-identified-9.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-9",
+    "timestampMillis": 1791143411448,
+    "screenshot": "12-explicit-confirmation-9.png"
+  },
+  {
+    "stage": "13-history-9",
+    "timestampMillis": 1791143414717,
+    "screenshot": "13-history-9.png"
+  },
+  {
+    "stage": "09-locked-10",
+    "timestampMillis": 1791143417093,
+    "screenshot": "09-locked-10.png"
+  },
+  {
+    "stage": "10-alarm-private-10",
+    "timestampMillis": 1791143461975,
+    "screenshot": "10-alarm-private-10.png"
+  },
+  {
+    "stage": "11-credential-fixture-10",
+    "timestampMillis": 1791143463721,
+    "screenshot": "11-credential-fixture-10.png"
+  },
+  {
+    "stage": "11-alarm-identified-10",
+    "timestampMillis": 1791143468640,
+    "screenshot": "11-alarm-identified-10.png"
+  },
+  {
+    "stage": "12-explicit-confirmation-10",
+    "timestampMillis": 1791143469890,
+    "screenshot": "12-explicit-confirmation-10.png"
+  },
+  {
+    "stage": "13-history-10",
+    "timestampMillis": 1791143472544,
+    "screenshot": "13-history-10.png"
+  }
+]

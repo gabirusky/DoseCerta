@@ -1,9 +1,9 @@
 {
-  "checked_at_utc": "2026-10-04T13:47:32.292064+00:00",
+  "checked_at_utc": "2026-10-05T14:18:10.148679+00:00",
   "artifact": "app/build/outputs/bundle/release/app-release.aab",
   "artifact_kind": "aab",
-  "size_bytes": 5432640,
-  "sha256": "8c45bb1cad06634389c5b1470e8f56a73b20806e4f17b6d591f2b5cf3a2cddbc",
+  "size_bytes": 5435170,
+  "sha256": "cfe9e2e40aa7e08f9f2c8530beb25097f79237dbf919e229fc1c489911e5711a",
   "native_libraries": [],
   "bundled_license_notice_entries": [],
   "agp_app_metadata": null,

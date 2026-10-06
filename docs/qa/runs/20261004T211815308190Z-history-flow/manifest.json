@@ -1,0 +1,43 @@
+{
+  "runId": "20261004T211815308190Z-history-flow",
+  "serial": "emulator-5590",
+  "avd": "DoseCerta_QA",
+  "suite": "history-flow",
+  "api": "35",
+  "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:15/AE3A.240806.043/12960925:userdebug/dev-keys",
+  "timezone": "America/Sao_Paulo",
+  "syntheticOnly": true,
+  "cryptoState": "encrypted",
+  "cryptoType": "file",
+  "startedAt": "2026-10-04T21:18:15.422517+00:00",
+  "passed": true,
+  "cleanSyntheticInstall": false,
+  "apkSha256": {
+    "app-debug.apk": "47e79d2d0e4293d236a1604eee496e91256dd520b32273b50141e9af3d03fd00",
+    "app-debug-androidTest.apk": "d4e2f399afa8287fdad570ddc87fa1dd9d6212f66df9d664f1fa404620bb8f92"
+  },
+  "collectionErrors": [],
+  "kernelPageSizesBytes": [
+    4096
+  ],
+  "pageSizeSource": "KernelPageSize of /proc/self/smaps (getconf is absent on API 26)",
+  "command": [
+    "adb",
+    "-s",
+    "emulator-5590",
+    "shell",
+    "am",
+    "instrument",
+    "-w",
+    "-r",
+    "-e",
+    "class",
+    "com.dosecerta.data.LargeHistoryFlowInstrumentedTest",
+    "com.dosecerta.test/androidx.test.runner.AndroidJUnitRunner"
+  ],
+  "returnCode": 0,
+  "skipped": 0,
+  "tests": 1,
+  "finishedAt": "2026-10-04T21:18:26.514328+00:00",
+  "instrumentationPassed": true
+}

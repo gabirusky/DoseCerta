@@ -1,9 +1,9 @@
 {
-  "checked_at_utc": "2026-10-04T13:47:32.146108+00:00",
+  "checked_at_utc": "2026-10-05T14:18:10.005924+00:00",
   "artifact": "app/build/outputs/apk/release/app-release-unsigned.apk",
   "artifact_kind": "apk",
-  "size_bytes": 6157502,
-  "sha256": "ebf1c433a394d41bef6b1c8804d66739233a5328ac5da78f24878669592a3f95",
+  "size_bytes": 6160482,
+  "sha256": "36a257fe56ccc0af0c7d6600440cb3416622a77e7be24bca7692c99943683e8f",
   "native_libraries": [],
   "bundled_license_notice_entries": [],
   "agp_app_metadata": "appMetadataVersion=1.1\nandroidGradlePluginVersion=8.13.2\n",

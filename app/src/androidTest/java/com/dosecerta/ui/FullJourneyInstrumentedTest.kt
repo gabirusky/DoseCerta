@@ -77,7 +77,9 @@ class FullJourneyInstrumentedTest {
             instrumentation.runOnMainSync {
                 attached = androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
                     .getActivitiesInStage(androidx.test.runner.lifecycle.Stage.RESUMED)
-                    .any { it.findViewById<android.view.View>(id)?.isAttachedToWindow == true }
+                    .any { activity -> activity.findViewById<android.view.View>(id)?.let { view ->
+                        view.isAttachedToWindow && view.isShown && view.width > 0
+                    } == true }
             }
             if (!attached) Thread.sleep(50)
         }
@@ -169,6 +171,7 @@ class FullJourneyInstrumentedTest {
         require(count == 1 || action == "take")
         val name = "Medicamento fictício QA ${System.currentTimeMillis()}"
         val result = JSONObject().put("runId", evidenceRunId).put("scenario", action).put("count", count).put("medicine", name).put("passed", false)
+            .put("secureKeyguard", context.getSystemService(android.app.KeyguardManager::class.java).isDeviceSecure)
         val events = JSONArray()
         try {
             onboarding()
@@ -178,12 +181,21 @@ class FullJourneyInstrumentedTest {
             addFutureMedication(name, dates)
             val repo = MedicationRepository(DoseCertaDatabase.getDatabase(context))
             val med = repo.getAllActiveMedicationsSync().single { it.name == name }
-            assertEquals(count, repo.getSchedulesForMedicationSync(med.id).size)
+            val schedules = repo.getSchedulesForMedicationSync(med.id)
+            assertEquals(count, schedules.size)
+            assertEquals(dates.map { Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).let { local -> local.hour * 60 + local.minute } }.sorted(),
+                schedules.map { it.timeInMinutes }.sorted())
             for ((index, due) in dates.withIndex()) {
                 device.sleep()
+                await(5000) { context.getSystemService(android.app.KeyguardManager::class.java).isKeyguardLocked }
                 capture("09-locked-${index + 1}")
                 // This assertion waits for actual scheduled delivery; it never starts card/receiver itself.
-                find(app("button_snooze"), (due - System.currentTimeMillis() + 20_000).coerceAtLeast(20_000))
+                await(due - System.currentTimeMillis() + 20_000) {
+                    repo.getLogsForMedication(med.id).first().any { it.originalDueAt == due && it.deliveredAt != null }
+                }
+                // Home also has a legacy button_snooze ID for its skip action;
+                // wait for the alarm-only control after confirmed receiver delivery.
+                find(app("button_silence"), 15_000)
                 capture("10-alarm-private-${index + 1}")
                 assertEquals(context.getString(R.string.reminder_private_title), find(app("text_medication_name")).text)
                 assertNull(device.findObject(app("button_take")))
@@ -194,6 +206,13 @@ class FullJourneyInstrumentedTest {
                 assertTrue("Nominal scheduled delivery exceeded 10 s: $delay", delay in 0..10_000)
                 if (action in listOf("take", "skip")) {
                     find(app("button_unlock")).click()
+                    arguments.getString("syntheticPin")?.let { pin ->
+                        require(pin == "2468") { "Only the documented synthetic PIN is supported" }
+                        find(By.res(java.util.regex.Pattern.compile(".*:id/(pinEntry|password_entry)")))
+                        capture("11-credential-fixture-${index + 1}")
+                        pin.forEach { digit -> device.pressKeyCode(android.view.KeyEvent.KEYCODE_0 + digit.digitToInt()) }
+                        device.pressKeyCode(android.view.KeyEvent.KEYCODE_ENTER)
+                    }
                     find(app("button_take"))
                     assertEquals(name, find(app("text_medication_name")).text)
                     capture("11-alarm-identified-${index + 1}")
@@ -202,7 +221,8 @@ class FullJourneyInstrumentedTest {
                     find(By.res("android", "button1")).click()
                     find(app("bottom_navigation"))
                     find(app("nav_history")).click()
-                    find(By.text(name))
+                    find(app("recycler_logs"))
+                    find(app("text_medication_name").textStartsWith(name))
                     capture("13-history-${index + 1}")
                     val log = repo.getOccurrence(original.occurrenceId)!!
                     assertEquals(if (action == "take") MedicationStatus.TAKEN else MedicationStatus.SKIPPED, log.status)

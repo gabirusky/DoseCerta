@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <!-- Installed only with the test APK; never packaged in debug/release app APKs. -->
+        <provider
+            android:name="com.dosecerta.ui.history.FaultReportProvider"
+            android:authorities="com.dosecerta.test.qa.reports"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:process=":qa_reports" />
+    </application>
+</manifest>

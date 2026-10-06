@@ -1,0 +1,7 @@
+--------- beginning of main
+10-04 16:05:25.661  9310  9328 I DoseCertaAlarm: reconcile - begin
+10-04 16:05:26.052  9310  9328 I DoseCertaAlarm: reconcile - done
+10-04 16:05:34.627  9310  9328 I DoseCertaAlarm: reconcile - begin
+10-04 16:05:34.643  9310  9329 I DoseCertaAlarm: reconcile - done
+10-04 16:05:48.717  9310  9310 I DoseCertaAlarm: schedule_recurrence 09ed8b87586c exact
+10-04 16:05:48.727  9310  9310 I DoseCertaAlarm: schedule_timeout 09ed8b87586c exact

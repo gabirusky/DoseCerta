@@ -1,0 +1,20 @@
+--------- beginning of main
+10-04 16:11:54.628 10768 10794 I DoseCertaAlarm: reconcile - begin
+10-04 16:11:55.201 10768 10794 I DoseCertaAlarm: reconcile - done
+10-04 16:12:11.318 10768 10794 I DoseCertaAlarm: reconcile - begin
+10-04 16:12:11.391 10768 10795 I DoseCertaAlarm: reconcile - done
+10-04 16:12:34.348 10768 10768 I DoseCertaAlarm: schedule_recurrence 475a9903d866 exact
+10-04 16:12:34.370 10768 10768 I DoseCertaAlarm: schedule_timeout 475a9903d866 exact
+10-04 16:15:00.015 10768 10768 I DoseCertaAlarm: receiver 475a9903d866 ok
+10-04 16:15:00.068 10768 10794 I DoseCertaAlarm: schedule_recurrence d7c337f12bc7 exact
+10-04 16:15:00.081 10768 10794 I DoseCertaAlarm: schedule_timeout d7c337f12bc7 exact
+10-04 16:15:00.107 10768 11494 I DoseCertaAlarm: schedule_timeout 475a9903d866 exact
+10-04 16:15:00.136 10768 11494 I DoseCertaAlarm: service_start 475a9903d866 requested
+10-04 16:15:00.185 10768 10768 I DoseCertaAlarm: notification_build 475a9903d866 fsi_attached
+10-04 16:15:00.195 10768 10768 I DoseCertaAlarm: notification 475a9903d866 published
+10-04 16:15:00.198 10768 10768 I DoseCertaAlarm: service_validate 475a9903d866 accepted
+10-04 16:15:00.245 10768 10768 I DoseCertaAlarm: audio 475a9903d866 prepare_requested
+10-04 16:15:00.275 10768 10768 I DoseCertaAlarm: audio 475a9903d866 playing
+10-04 16:15:00.551 10768 10768 I DoseCertaAlarm: card 475a9903d866 opened
+10-04 16:15:10.852 10768 10768 I DoseCertaAlarm: audio 475a9903d866 stopped
+10-04 16:15:10.934 10768 10768 I DoseCertaAlarm: service_destroy - ok

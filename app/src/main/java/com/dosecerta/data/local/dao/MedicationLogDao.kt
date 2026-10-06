@@ -13,18 +13,25 @@ private const val FROZEN_DETAILS = "SELECT *, snapshotName AS medicationName, sn
 
 @Dao
 interface MedicationLogDao {
+    // Large results can span CursorWindow refills. A transaction keeps each
+    // emission consistent while another command inserts or removes records.
+    @Transaction
     @Query("SELECT * FROM medication_logs ORDER BY scheduledTime DESC, id DESC")
     fun getAllLogs(): Flow<List<MedicationLog>>
 
+    @Transaction
     @Query("SELECT * FROM medication_logs WHERE medicationId = :medicationId ORDER BY scheduledTime DESC")
     fun getLogsForMedication(medicationId: Long): Flow<List<MedicationLog>>
 
+    @Transaction
     @Query("SELECT * FROM medication_logs WHERE medicationId = :medicationId")
     suspend fun getLogsForMedicationSync(medicationId: Long): List<MedicationLog>
 
+    @Transaction
     @Query("SELECT * FROM medication_logs WHERE scheduledTime >= :startTime AND scheduledTime <= :endTime AND state != 'CANCELLED' ORDER BY scheduledTime DESC")
     fun getLogsInRange(startTime: Long, endTime: Long): Flow<List<MedicationLog>>
 
+    @Transaction
     @Query("SELECT * FROM medication_logs WHERE scheduledTime >= :startTime AND scheduledTime <= :endTime AND status = :status AND state != 'CANCELLED' ORDER BY scheduledTime DESC")
     fun getLogsByStatusInRange(startTime: Long, endTime: Long, status: MedicationStatus): Flow<List<MedicationLog>>
 
@@ -49,25 +56,36 @@ interface MedicationLogDao {
     @Query("SELECT * FROM medication_logs WHERE id = :id")
     suspend fun getById(id: Long): MedicationLog?
 
+    @Transaction
     @Query("SELECT * FROM medication_logs WHERE state IN ('PENDING','ALERTING','SNOOZED','DISMISSED') ORDER BY originalDueAt")
     suspend fun getPendingOccurrences(): List<MedicationLog>
 
+    @Transaction
+    @Query("SELECT * FROM medication_logs WHERE scheduleId = :scheduleId AND scheduleVersion = :version AND originalDueAt > :after AND state IN ('PENDING','ALERTING','SNOOZED','DISMISSED') ORDER BY originalDueAt")
+    suspend fun getPendingOccurrencesForSchedule(scheduleId: Long, version: Long, after: Long): List<MedicationLog>
+
+    @Transaction
     @Query("SELECT * FROM medication_logs WHERE state = 'MISSED' AND reminderAt IS NOT NULL ORDER BY reminderAt")
     suspend fun getFollowUpOccurrences(): List<MedicationLog>
 
+    @Transaction
     @Query(FROZEN_DETAILS + "WHERE state != 'CANCELLED' ORDER BY scheduledTime DESC, id DESC")
     fun getAllLogsWithDetails(): Flow<List<MedicationLogWithDetails>>
 
+    @Transaction
     @Query(FROZEN_DETAILS + "WHERE status = :status AND state != 'CANCELLED' ORDER BY scheduledTime DESC, id DESC")
     fun getAllLogsByStatusWithDetails(status: MedicationStatus): Flow<List<MedicationLogWithDetails>>
 
+    @Transaction
     @Query(FROZEN_DETAILS + "WHERE scheduledTime >= :startTime AND scheduledTime <= :endTime AND state != 'CANCELLED' ORDER BY scheduledTime DESC, id DESC")
     fun getLogsInRangeWithDetails(startTime: Long, endTime: Long): Flow<List<MedicationLogWithDetails>>
 
+    @Transaction
     @Query(FROZEN_DETAILS + "WHERE scheduledTime >= :startTime AND scheduledTime <= :endTime AND status = :status AND state != 'CANCELLED' ORDER BY scheduledTime DESC, id DESC")
     fun getLogsByStatusInRangeWithDetails(startTime: Long, endTime: Long, status: MedicationStatus): Flow<List<MedicationLogWithDetails>>
 
     /** Frozen half-open range; independent of the screen's latest Flow value. */
+    @Transaction
     @Query(FROZEN_DETAILS + "WHERE originalDueAt >= :startInclusive AND originalDueAt < :endExclusive AND state != 'CANCELLED' ORDER BY originalDueAt ASC, id ASC")
     suspend fun reportSnapshot(startInclusive: Long, endExclusive: Long): List<MedicationLogWithDetails>
 

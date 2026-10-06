@@ -1,0 +1,211 @@
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmInteractionInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.alarm.AlarmInteractionInstrumentedTest:
+INSTRUMENTATION_STATUS: test=newIntentAndRecreationDiscardPreviousConfirmation
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmInteractionInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: Activity never becomes requested state "[RESUMED]" (last lifecycle transition = "PAUSED")
+	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+	at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+	at androidx.test.core.app.ActivityScenario.recreate(ActivityScenario.java:718)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$newIntentAndRecreationDiscardPreviousConfirmation$1.invokeSuspend(AlarmInteractionInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.newIntentAndRecreationDiscardPreviousConfirmation(AlarmInteractionInstrumentedTest.kt:99)
+	Suppressed: java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+		at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+		at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+		at androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)
+		at kotlin.io.CloseableKt.closeFinally(Closeable.kt:59)
+		at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$newIntentAndRecreationDiscardPreviousConfirmation$1.invokeSuspend(AlarmInteractionInstrumentedTest.kt:105)
+		at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+		at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+		at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+		at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+		at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+		at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+		at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+		at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+		at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.newIntentAndRecreationDiscardPreviousConfirmation(AlarmInteractionInstrumentedTest.kt:99)
+
+INSTRUMENTATION_STATUS: stream=
+Error in newIntentAndRecreationDiscardPreviousConfirmation(com.dosecerta.alarm.AlarmInteractionInstrumentedTest):
+java.lang.AssertionError: Activity never becomes requested state "[RESUMED]" (last lifecycle transition = "PAUSED")
+	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+	at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+	at androidx.test.core.app.ActivityScenario.recreate(ActivityScenario.java:718)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$newIntentAndRecreationDiscardPreviousConfirmation$1.invokeSuspend(AlarmInteractionInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.newIntentAndRecreationDiscardPreviousConfirmation(AlarmInteractionInstrumentedTest.kt:99)
+	Suppressed: java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+		at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+		at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+		at androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)
+		at kotlin.io.CloseableKt.closeFinally(Closeable.kt:59)
+		at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$newIntentAndRecreationDiscardPreviousConfirmation$1.invokeSuspend(AlarmInteractionInstrumentedTest.kt:105)
+		at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+		at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+		at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+		at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+		at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+		at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+		at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+		at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+		at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.newIntentAndRecreationDiscardPreviousConfirmation(AlarmInteractionInstrumentedTest.kt:99)
+
+INSTRUMENTATION_STATUS: test=newIntentAndRecreationDiscardPreviousConfirmation
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmInteractionInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=staleNotificationActionsKeepClosedDoseAndOtherNotification
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmInteractionInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=staleNotificationActionsKeepClosedDoseAndOtherNotification
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmInteractionInstrumentedTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=actualTimeoutAndFollowUpRespectPersistedState
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmInteractionInstrumentedTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=actualTimeoutAndFollowUpRespectPersistedState
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmInteractionInstrumentedTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=cancelledSwipeNeverConfirmsAndAccessibilityClickDoes
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmInteractionInstrumentedTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=4
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.cancelledSwipeNeverConfirmsAndAccessibilityClickDoes$lambda$2(AlarmInteractionInstrumentedTest.kt:141)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.$r8$lambda$ZYEugf1hrXDExYVME37xg_2NkAY(Unknown Source:0)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:520)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2647)
+	at android.os.Handler.handleCallback(Handler.java:1070)
+	at android.os.Handler.dispatchMessage(Handler.java:125)
+	at android.os.Looper.dispatchMessage(Looper.java:333)
+	at android.os.Looper.loopOnce(Looper.java:263)
+	at android.os.Looper.loop(Looper.java:367)
+	at android.app.ActivityThread.main(ActivityThread.java:9287)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+
+INSTRUMENTATION_STATUS: stream=
+Error in cancelledSwipeNeverConfirmsAndAccessibilityClickDoes(com.dosecerta.alarm.AlarmInteractionInstrumentedTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.cancelledSwipeNeverConfirmsAndAccessibilityClickDoes$lambda$2(AlarmInteractionInstrumentedTest.kt:141)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.$r8$lambda$ZYEugf1hrXDExYVME37xg_2NkAY(Unknown Source:0)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:520)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2647)
+	at android.os.Handler.handleCallback(Handler.java:1070)
+	at android.os.Handler.dispatchMessage(Handler.java:125)
+	at android.os.Looper.dispatchMessage(Looper.java:333)
+	at android.os.Looper.loopOnce(Looper.java:263)
+	at android.os.Looper.loop(Looper.java:367)
+	at android.app.ActivityThread.main(ActivityThread.java:9287)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+
+INSTRUMENTATION_STATUS: test=cancelledSwipeNeverConfirmsAndAccessibilityClickDoes
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 106.841
+There were 2 failures:
+1) newIntentAndRecreationDiscardPreviousConfirmation(com.dosecerta.alarm.AlarmInteractionInstrumentedTest)
+java.lang.AssertionError: Activity never becomes requested state "[RESUMED]" (last lifecycle transition = "PAUSED")
+	at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+	at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+	at androidx.test.core.app.ActivityScenario.recreate(ActivityScenario.java:718)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$newIntentAndRecreationDiscardPreviousConfirmation$1.invokeSuspend(AlarmInteractionInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.newIntentAndRecreationDiscardPreviousConfirmation(AlarmInteractionInstrumentedTest.kt:99)
+	Suppressed: java.lang.AssertionError: Activity never becomes requested state "[DESTROYED]" (last lifecycle transition = "PAUSED")
+		at androidx.test.core.app.ActivityScenario.waitForActivityToBecomeAnyOf(ActivityScenario.java:454)
+		at androidx.test.core.app.ActivityScenario.moveToState(ActivityScenario.java:689)
+		at androidx.test.core.app.ActivityScenario.close(ActivityScenario.java:421)
+		at kotlin.io.CloseableKt.closeFinally(Closeable.kt:59)
+		at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$newIntentAndRecreationDiscardPreviousConfirmation$1.invokeSuspend(AlarmInteractionInstrumentedTest.kt:105)
+		... 44 more
+2) cancelledSwipeNeverConfirmsAndAccessibilityClickDoes(com.dosecerta.alarm.AlarmInteractionInstrumentedTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.cancelledSwipeNeverConfirmsAndAccessibilityClickDoes$lambda$2(AlarmInteractionInstrumentedTest.kt:141)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest.$r8$lambda$ZYEugf1hrXDExYVME37xg_2NkAY(Unknown Source:0)
+	at com.dosecerta.alarm.AlarmInteractionInstrumentedTest$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:520)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+	at android.app.Instrumentation$SyncRunnable.run(Instrumentation.java:2647)
+	at android.os.Handler.handleCallback(Handler.java:1070)
+	at android.os.Handler.dispatchMessage(Handler.java:125)
+	at android.os.Looper.dispatchMessage(Looper.java:333)
+	at android.os.Looper.loopOnce(Looper.java:263)
+	at android.os.Looper.loop(Looper.java:367)
+	at android.app.ActivityThread.main(ActivityThread.java:9287)
+	at java.lang.reflect.Method.invoke(Native Method)
+	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:566)
+	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:929)
+
+FAILURES!!!
+Tests run: 4,  Failures: 2
+
+
+INSTRUMENTATION_CODE: -1

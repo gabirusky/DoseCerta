@@ -1,0 +1,206 @@
+{
+  "schemaVersion": 1,
+  "runId": "20261004T193842346704Z-nominal",
+  "scenario": "nominal",
+  "startedAt": "2026-10-04T19:38:42.577352+00:00",
+  "serial": "emulator-5580",
+  "avd": "DoseCerta_QA",
+  "timezone": "America/Sao_Paulo",
+  "api": "36",
+  "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE4B.251210.005/14574095:user/release-keys",
+  "pageSize": "4096",
+  "pageSizeSource": "getconf PAGE_SIZE",
+  "gitCommit": "043875a6e320c3cbda065a34b6c4cdcf8f41ef1e",
+  "workingTree": " M TASKS.md\n M app/src/androidTest/java/com/dosecerta/data/SyntheticScaleTest.kt\n M app/src/androidTest/java/com/dosecerta/ui/CompactUiInstrumentedTest.kt\n M app/src/androidTest/java/com/dosecerta/ui/FullJourneyInstrumentedTest.kt\n M app/src/androidTest/java/com/dosecerta/ui/SystemUiInstrumentedTest.kt\n M docs/evidence/index.json\n M scripts/qa/evidence_record.py\n M scripts/qa/instrument.py\n M scripts/qa/start-emulator.sh\n?? app/src/androidTest/AndroidManifest.xml\n?? app/src/androidTest/java/com/dosecerta/alarm/AlarmInteractionInstrumentedTest.kt\n?? app/src/androidTest/java/com/dosecerta/alarm/AlarmSafetyInstrumentedTest.kt\n?? app/src/androidTest/java/com/dosecerta/ui/history/FaultReportProvider.java\n?? app/src/androidTest/java/com/dosecerta/ui/history/ReportExportStateInstrumentedTest.kt\n?? app/src/androidTest/java/com/dosecerta/ui/history/ReportIntegrityInstrumentedTest.kt\n?? app/src/androidTest/java/com/dosecerta/ui/history/ReportProviderInstrumentedTest.kt\n?? docs/evidence/20261004T185619848229Z-main/\n?? docs/evidence/20261004T190014725074Z-main/\n?? docs/evidence/20261004T190449511676Z-main/\n?? docs/evidence/20261004T190520122071Z-main/\n?? docs/evidence/20261004T191139857927Z-main/\n?? docs/evidence/20261004T191833703801Z-skip/\n?? docs/evidence/20261004T192615844023Z-skip/\n?? docs/evidence/20261004T192705308678Z-snooze/\n?? docs/evidence/20261004T193105961139Z-silence/\n?? docs/evidence/20261004T193504483221Z-denied/\n?? docs/evidence/20261004T193805975166Z-pdf-ui/\n?? docs/qa/goal-execution-20261004.md\n?? docs/qa/runs/20261004T183624552348Z-system/\n?? docs/qa/runs/20261004T184119664656Z-system/\n?? docs/qa/runs/20261004T184459507065Z-interactions/\n?? docs/qa/runs/20261004T184908439646Z-interactions/\n?? docs/qa/runs/20261004T185144581931Z-provider/\n?? docs/qa/runs/20261004T185508344724Z-provider/\n?? docs/qa/runs/20261004T190653461439Z-api-matrix/\n?? docs/qa/runs/20261004T191022298204Z-api-matrix/\n?? docs/qa/runs/20261004T191048523143Z-data/\n?? docs/qa/runs/20261004T191146368306Z-pdf/\n?? docs/qa/runs/20261004T191211668440Z-provider/\n?? docs/qa/runs/20261004T191312069414Z-integrity/\n?? docs/qa/runs/20261004T191318385398Z-system/\n?? docs/qa/runs/20261004T191851306265Z-api-matrix/\n?? docs/qa/runs/20261004T191910878517Z-data/\n?? docs/qa/runs/20261004T191943688212Z-pdf/\n?? docs/qa/runs/20261004T191956032890Z-provider/\n?? docs/qa/runs/20261004T192045830178Z-integrity/\n?? docs/qa/runs/20261004T192053045496Z-system/\n?? docs/qa/runs/20261004T192614559940Z-api-matrix/\n?? docs/qa/runs/20261004T192615755028Z-recordings/\n?? docs/qa/runs/20261004T192634155092Z-data/\n?? docs/qa/runs/20261004T192718887644Z-pdf/\n?? docs/qa/runs/20261004T192735930883Z-provider/\n?? docs/qa/runs/20261004T192828569555Z-integrity/\n?? docs/qa/runs/20261004T192835820114Z-export-state/\n?? docs/qa/runs/20261004T192845490900Z-system/\n?? docs/qa/runs/20261004T192921226855Z-alarm/\n?? docs/qa/runs/20261004T193235350348Z-data/\n?? docs/qa/runs/20261004T193338024673Z-pdf/\n?? docs/qa/runs/20261004T193419256983Z-provider/\n?? docs/qa/runs/20261004T193505060302Z-integrity/\n?? docs/qa/runs/20261004T193510999201Z-export-state/\n?? docs/qa/runs/20261004T193519560731Z-system/\n?? docs/qa/runs/20261004T193603070280Z-alarm/\n?? scripts/qa/api_matrix.py\n?? scripts/qa/pdf_audit.py\n?? scripts/qa/performance.py\n?? scripts/qa/ui_matrix.py\n",
+  "apk": {
+    "path": "/home/gabirusky/Code/DoseCerta/app/build/outputs/apk/debug/app-debug.apk",
+    "sha256": "b7eb1c8f2d2946befdcd08ff3836de21fa0f14d562af8ae7f956fecfbd3dd8b0"
+  },
+  "testApk": {
+    "path": "/home/gabirusky/Code/DoseCerta/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+    "sha256": "24c49b645d9688362929eed3aeb06ce282d9fad4a0c9f8078b4f1e7eed396b01"
+  },
+  "command": [
+    "adb",
+    "-s",
+    "emulator-5580",
+    "shell",
+    "am",
+    "instrument",
+    "-w",
+    "-e",
+    "class",
+    "com.dosecerta.ui.FullJourneyInstrumentedTest#firstUseFutureDoseRealAlarmAndPersistedOutcome",
+    "-e",
+    "fullJourney",
+    "1",
+    "-e",
+    "journeyAction",
+    "take",
+    "-e",
+    "journeyCount",
+    "10",
+    "-e",
+    "evidenceRunId",
+    "20261004T193842346704Z-nominal",
+    "-e",
+    "syntheticPin",
+    "2468",
+    "com.dosecerta.test/androidx.test.runner.AndroidJUnitRunner"
+  ],
+  "cleanInstall": true,
+  "videoSegments": [
+    {
+      "file": "screen-001.mp4",
+      "remote": "/sdcard/Download/dosecerta-evidence-20261004T193842346704Z-nominal-001.mp4",
+      "startedAt": "2026-10-04T19:38:48.221757+00:00",
+      "available": true,
+      "remotePid": "19909",
+      "completedAt": "2026-10-04T19:41:44.356006+00:00",
+      "returnCode": 0,
+      "bytes": 11796640,
+      "sha256": "622540e7733fcb1628efe90691d6d10774eede462fcd0556b1b7867dabf6abf4"
+    },
+    {
+      "file": "screen-002.mp4",
+      "remote": "/sdcard/Download/dosecerta-evidence-20261004T193842346704Z-nominal-002.mp4",
+      "startedAt": "2026-10-04T19:41:45.071207+00:00",
+      "available": true,
+      "remotePid": "21637",
+      "completedAt": "2026-10-04T19:44:40.793384+00:00",
+      "returnCode": 0,
+      "bytes": 6644852,
+      "sha256": "287714a74b3b96e2e8c99b8ea283735004dcdc21595005d96e9899e5ccc31ff5"
+    },
+    {
+      "file": "screen-003.mp4",
+      "remote": "/sdcard/Download/dosecerta-evidence-20261004T193842346704Z-nominal-003.mp4",
+      "startedAt": "2026-10-04T19:44:41.476922+00:00",
+      "available": true,
+      "remotePid": "22967",
+      "completedAt": "2026-10-04T19:47:37.059364+00:00",
+      "returnCode": 0,
+      "bytes": 6585906,
+      "sha256": "c138105ec5002f6d7ee3874050b54d1495a2eeb6a28156e83cb94832b7cbac61"
+    },
+    {
+      "file": "screen-004.mp4",
+      "remote": "/sdcard/Download/dosecerta-evidence-20261004T193842346704Z-nominal-004.mp4",
+      "startedAt": "2026-10-04T19:47:37.761525+00:00",
+      "available": true,
+      "remotePid": "24314",
+      "completedAt": "2026-10-04T19:50:33.382360+00:00",
+      "returnCode": 0,
+      "bytes": 5745479,
+      "sha256": "e2c4e201ffae77384cf66d1cfce784e5902d65e9c1aa2e069132077cca9a8d66"
+    },
+    {
+      "file": "screen-005.mp4",
+      "remote": "/sdcard/Download/dosecerta-evidence-20261004T193842346704Z-nominal-005.mp4",
+      "startedAt": "2026-10-04T19:50:34.045910+00:00",
+      "available": true,
+      "remotePid": "25545",
+      "completedAt": "2026-10-04T19:51:14.771725+00:00",
+      "returnCode": 0,
+      "bytes": 2471319,
+      "sha256": "b48e89f89933288f42615fdb333cd75992ffed2e3e9ada0ebcd068fd59d7f047"
+    }
+  ],
+  "collectionErrors": [],
+  "controlActions": [
+    "Enabled lock screen only on the dedicated synthetic AVD",
+    "Created temporary known synthetic PIN; cleared in finally",
+    "Woke synthetic display for video segment 1; keyguard authentication unchanged",
+    "Woke synthetic display for video segment 2; keyguard authentication unchanged",
+    "Woke synthetic display for video segment 3; keyguard authentication unchanged",
+    "Woke synthetic display for video segment 4; keyguard authentication unchanged",
+    "Woke synthetic display for video segment 5; keyguard authentication unchanged",
+    "Cleared temporary synthetic PIN",
+    "Restored original synthetic lock-screen setting"
+  ],
+  "audio": "Android screenrecord does not capture internal alarm audio. Observe audio separately; this video cannot prove sound.",
+  "videoReviewed": false,
+  "syntheticDataOnly": true,
+  "instrumentationPassed": true,
+  "secureLockFixture": true,
+  "originalLockDisabled": "true",
+  "scope": "Visible UI onboarding, grants, future medicine creation, real scheduled delivery and outcome",
+  "instrumentationStartedAt": "2026-10-04T19:38:48.304920+00:00",
+  "instrumentationReturnCode": 0,
+  "journeyResult": {
+    "runId": "20261004T193842346704Z-nominal",
+    "scenario": "take",
+    "count": 10,
+    "medicine": "Medicamento fictício QA 1791142731825",
+    "passed": true,
+    "secureKeyguard": true,
+    "events": [
+      {
+        "occurrenceId": "dose:1:1:2026-10-04T16:42",
+        "originalDueAt": 1791142920000,
+        "deliveredAt": 1791142920027,
+        "delayMillis": 27
+      },
+      {
+        "occurrenceId": "dose:2:1:2026-10-04T16:43",
+        "originalDueAt": 1791142980000,
+        "deliveredAt": 1791142980017,
+        "delayMillis": 17
+      },
+      {
+        "occurrenceId": "dose:3:1:2026-10-04T16:44",
+        "originalDueAt": 1791143040000,
+        "deliveredAt": 1791143040031,
+        "delayMillis": 31
+      },
+      {
+        "occurrenceId": "dose:4:1:2026-10-04T16:45",
+        "originalDueAt": 1791143100000,
+        "deliveredAt": 1791143100009,
+        "delayMillis": 9
+      },
+      {
+        "occurrenceId": "dose:5:1:2026-10-04T16:46",
+        "originalDueAt": 1791143160000,
+        "deliveredAt": 1791143160009,
+        "delayMillis": 9
+      },
+      {
+        "occurrenceId": "dose:6:1:2026-10-04T16:47",
+        "originalDueAt": 1791143220000,
+        "deliveredAt": 1791143220028,
+        "delayMillis": 28
+      },
+      {
+        "occurrenceId": "dose:7:1:2026-10-04T16:48",
+        "originalDueAt": 1791143280000,
+        "deliveredAt": 1791143280014,
+        "delayMillis": 14
+      },
+      {
+        "occurrenceId": "dose:8:1:2026-10-04T16:49",
+        "originalDueAt": 1791143340000,
+        "deliveredAt": 1791143340015,
+        "delayMillis": 15
+      },
+      {
+        "occurrenceId": "dose:9:1:2026-10-04T16:50",
+        "originalDueAt": 1791143400000,
+        "deliveredAt": 1791143400018,
+        "delayMillis": 18
+      },
+      {
+        "occurrenceId": "dose:10:1:2026-10-04T16:51",
+        "originalDueAt": 1791143460000,
+        "deliveredAt": 1791143460011,
+        "delayMillis": 11
+      }
+    ],
+    "completedAt": 1791143472598
+  },
+  "completedAt": "2026-10-04T19:51:15.601065+00:00",
+  "elapsedSeconds": 752.95,
+  "failure": null,
+  "videoAvailable": true,
+  "evidenceCollected": true
+}

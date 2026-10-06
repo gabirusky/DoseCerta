@@ -1,0 +1,98 @@
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+com.dosecerta.alarm.AlarmSafetyInstrumentedTest:
+INSTRUMENTATION_STATUS: test=oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=oldScheduledIntentDeliveredAfterArchiveCannotPlayOrReschedule
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest$stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased$1.invokeSuspend(AlarmSafetyInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(AlarmSafetyInstrumentedTest.kt:110)
+
+INSTRUMENTATION_STATUS: stream=
+Error in stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(com.dosecerta.alarm.AlarmSafetyInstrumentedTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest$stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased$1.invokeSuspend(AlarmSafetyInstrumentedTest.kt:114)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:280)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:85)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:59)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:38)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.dosecerta.alarm.AlarmSafetyInstrumentedTest.stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(AlarmSafetyInstrumentedTest.kt:110)
+
+INSTRUMENTATION_STATUS: test=stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.dosecerta.alarm.AlarmSafetyInstrumentedTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=2
+INSTRUMENTATION_STATUS: stack=java.lang.IllegalStateException: Couldn't read row 1038, col 0 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.
+	at android.database.CursorWindow.nativeGetLong(Native Method)
+	at android.database.CursorWindow.getLong(CursorWindow.java:574)
+	at android.database.AbstractWindowedCursor.getLong(AbstractWindowedCursor.java:78)
+	at com.dosecerta.data.local.dao.MedicationLogDao_Impl$19.call(MedicationLogDao_Impl.java:634)
+	at com.dosecerta.data.local.dao.MedicationLogDao_Impl$19.call(MedicationLogDao_Impl.java:595)
+	at androidx.room.CoroutinesRoom$Companion$createFlow$1$1$1.invokeSuspend(CoroutinesRoom.kt:129)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1154)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:652)
+	at java.lang.Thread.run(Thread.java:1563)
+	Suppressed: kotlinx.coroutines.internal.DiagnosticCoroutineContextException: [StandaloneCoroutine{Cancelling}@51238b7, Dispatchers.Main.immediate]
+
+INSTRUMENTATION_STATUS: stream=
+Process crashed while executing stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased(com.dosecerta.alarm.AlarmSafetyInstrumentedTest):
+java.lang.IllegalStateException: Couldn't read row 1038, col 0 from CursorWindow.  Make sure the Cursor is initialized correctly before accessing data from it.
+	at android.database.CursorWindow.nativeGetLong(Native Method)
+	at android.database.CursorWindow.getLong(CursorWindow.java:574)
+	at android.database.AbstractWindowedCursor.getLong(AbstractWindowedCursor.java:78)
+	at com.dosecerta.data.local.dao.MedicationLogDao_Impl$19.call(MedicationLogDao_Impl.java:634)
+	at com.dosecerta.data.local.dao.MedicationLogDao_Impl$19.call(MedicationLogDao_Impl.java:595)
+	at androidx.room.CoroutinesRoom$Companion$createFlow$1$1$1.invokeSuspend(CoroutinesRoom.kt:129)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:33)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:108)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1154)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:652)
+	at java.lang.Thread.run(Thread.java:1563)
+	Suppressed: kotlinx.coroutines.internal.DiagnosticCoroutineContextException: [StandaloneCoroutine{Cancelling}@51238b7, Dispatchers.Main.immediate]
+
+INSTRUMENTATION_STATUS: test=stoppedServiceCannotPlayWhenItsPendingDatabaseReadIsReleased
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: shortMsg=Process crashed.
+INSTRUMENTATION_CODE: 0
