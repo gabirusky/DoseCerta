@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_privacy_device_title">Your records on this device</string>
+    <string name="premium_privacy_device_summary">Medications, schedules and history stay on your device. You control what appears in notifications and what you export.</string>
+</resources>

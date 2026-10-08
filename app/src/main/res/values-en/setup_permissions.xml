@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_access_title">Prepare your alarms</string>
+    <string name="setup_access_description">Tap each item to open its setting. A check appears when Android allows access. You can continue whenever you want.</string>
+    <string name="setup_access_verified_ready">Alarms and notifications are allowed. Also review your battery and device settings.</string>
+    <string name="setup_access_review_pending">Some access is pending. Review the items below or continue and adjust them later in Settings.</string>
+    <string name="setup_access_notifications_check">Allow notifications</string>
+    <string name="setup_access_alarm_channel_check">Allow alarm notifications</string>
+    <string name="setup_access_reminder_channel_check">Allow reminder notifications</string>
+    <string name="setup_access_exact_check">Allow exact alarms</string>
+    <string name="setup_access_fullscreen_check">Allow full-screen card</string>
+    <string name="setup_access_battery_check">Allow running without optimization</string>
+    <string name="setup_access_autostart_reviewed">Background autostart: reviewed by you</string>
+    <string name="setup_access_lock_screen_reviewed">Lock screen and windows: reviewed by you</string>
+    <string name="setup_access_allowed">Allowed by Android</string>
+    <string name="setup_access_pending">Authorization needed</string>
+    <string name="setup_access_notifications_title">Notifications and reminders</string>
+    <string name="setup_access_notifications_description">Enable notifications, alarm alerts and follow-up reminders to keep track of your doses.</string>
+    <string name="setup_access_notifications_pending">Review notifications, alarm alerts and reminders</string>
+    <string name="setup_access_exact_title">Alarms on time</string>
+    <string name="setup_access_exact_description">Exact alarm access allows alerts at your chosen time, even with the screen off.</string>
+    <string name="setup_access_fullscreen_title">Lock-screen card</string>
+    <string name="setup_access_fullscreen_description">Allow full-screen alarms to show the complete card, with the medication and actions, while the device is locked. Android controls when the card opens.</string>
+    <string name="setup_access_battery_title">Running in the background</string>
+    <string name="setup_access_battery_description">In the battery optimization list, select DoseCerta and allow it to run without optimization. On Xiaomi, also check that app battery saver is set to No restrictions.</string>
+    <string name="setup_access_battery_button">Adjust battery</string>
+    <string name="setup_access_battery_guidance">Select DoseCerta in the app list and choose Don’t optimize.</string>
+    <string name="setup_access_battery_ready">Android battery optimization disabled</string>
+    <string name="setup_access_battery_pending">Battery optimization is active: review this setting</string>
+    <string name="setup_access_xiaomi_title">Xiaomi, Redmi and POCO settings</string>
+    <string name="setup_access_autostart_guidance">In DoseCerta app info, allow Autostart. Depending on the version, you can find it under Settings › Apps › Permissions › Background autostart.</string>
+    <string name="setup_access_autostart_button">Adjust background autostart</string>
+    <string name="setup_access_xiaomi_windows_guidance">In DoseCerta app info, open Other permissions. Allow Show on Lock screen and Open new windows while running in the background, when these options are available.</string>
+    <string name="setup_access_xiaomi_windows_button">Adjust lock screen and windows</string>
+    <string name="setup_access_xiaomi_manual_status">These checks only save your own review. DoseCerta cannot verify manufacturer authorizations.</string>
+    <string name="setup_access_automatic_title">Automatic access</string>
+    <string name="setup_access_automatic_description">Vibration, alarm playback, waking the screen and restoring reminders after a restart are authorized by Android when installed. They require no additional confirmation.</string>
+</resources>

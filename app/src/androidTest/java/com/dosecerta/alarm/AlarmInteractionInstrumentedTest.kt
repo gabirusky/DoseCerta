@@ -1,5 +1,6 @@
 package com.dosecerta.alarm
 
+import android.app.KeyguardManager
 import android.app.NotificationManager
 import android.content.Intent
 import android.os.Build
@@ -7,6 +8,7 @@ import android.os.SystemClock
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -73,6 +75,11 @@ class AlarmInteractionInstrumentedTest {
     }
     @After fun cleanup() = runBlocking {
         if (!dedicated) return@runBlocking
+        instrumentation.runOnMainSync {
+            androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+                .getActivitiesInStage(androidx.test.runner.lifecycle.Stage.RESUMED)
+                .filterIsInstance<AlarmActivity>().forEach { it.finish() }
+        }
         for (id in medications) {
             scheduler.cancelAlarmsForMedication(id, repository.getSchedulesForMedicationSync(id))
             repository.permanentlyDeleteMedication(id, true)
@@ -84,7 +91,8 @@ class AlarmInteractionInstrumentedTest {
         val due = now / 60_000 * 60_000
         val local = Instant.ofEpochMilli(due).atZone(ZoneId.systemDefault())
         val id = repository.insertMedication(Medication(name = "Synthetic card ${UUID.randomUUID()}", dosage = "1", unit = "mg",
-            pharmaceuticalForm = PharmaceuticalForm.TABLET, frequency = Frequency.DAILY, createdAt = now - 3_600_000))
+            pharmaceuticalForm = PharmaceuticalForm.TABLET, frequency = Frequency.DAILY,
+            color = 0xFFD81B60.toInt(), createdAt = now - 3_600_000))
         medications += id
         val slot = repository.insertSchedule(Schedule(medicationId = id, timeInMinutes = local.hour * 60 + local.minute,
             daysOfWeek = emptyList(), validFrom = now - 3_600_000))
@@ -109,7 +117,7 @@ class AlarmInteractionInstrumentedTest {
         return activity
     }
 
-    @Test fun newIntentAndRecreationDiscardPreviousConfirmation() = runBlocking {
+    @Test fun newIntentAndRecreationDiscardPreviousGesture() = runBlocking {
         val first = occurrence(); val second = occurrence()
         assertTrue(coordinator.deliver(first.occurrenceId) is DoseActionResult.Success)
         assertTrue(coordinator.deliver(second.occurrenceId) is DoseActionResult.Success)
@@ -117,15 +125,29 @@ class AlarmInteractionInstrumentedTest {
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         context.startActivity(intent)
         try {
-            find("button_take").click()
-            assertNotNull(device.wait(Until.findObject(By.res("android", "button1")), 5000))
-            capture("first-confirmation")
+            assertTrue(device.wait(Until.hasObject(By.text(requireNotNull(first.snapshotName))), 10_000))
+            find("button_take")
             val originalCard = requireNotNull(currentCard())
+            instrumentation.runOnMainSync {
+                val swipe = originalCard.findViewById<SwipeToConfirmView>(R.id.swipe_take)
+                val down = SystemClock.uptimeMillis()
+                for ((event, fraction) in listOf(MotionEvent.ACTION_DOWN to .05f, MotionEvent.ACTION_MOVE to .95f)) {
+                    MotionEvent.obtain(down, SystemClock.uptimeMillis(), event, swipe.width * fraction, swipe.height / 2f, 0)
+                        .also { swipe.dispatchTouchEvent(it); it.recycle() }
+                }
+            }
+            capture("first-unreleased-gesture")
             context.startActivity(AlarmIdentity.intent(context, AlarmActivity::class.java, second.occurrenceId, "card")
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
             assertTrue(device.wait(Until.hasObject(By.text(requireNotNull(second.snapshotName))), 10_000))
-            assertFalse("Old confirmation must be dismissed", device.hasObject(By.res("android", "button1")))
             assertSame("singleTop must update the existing card", originalCard, currentCard())
+            instrumentation.runOnMainSync {
+                val swipe = originalCard.findViewById<SwipeToConfirmView>(R.id.swipe_take)
+                MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_UP,
+                    swipe.width * .95f, swipe.height / 2f, 0).also { swipe.dispatchTouchEvent(it); it.recycle() }
+            }
+            assertEquals(DoseState.ALERTING, repository.getOccurrence(first.occurrenceId)?.state)
+            assertEquals(DoseState.ALERTING, repository.getOccurrence(second.occurrenceId)?.state)
             capture("second-intent")
             // ActivityScenario filters by its launch Intent; onNewIntent changes
             // that identity. Follow the real activity lifecycle across recreation.
@@ -134,13 +156,76 @@ class AlarmInteractionInstrumentedTest {
             assertEquals(second.snapshotName, find("text_medication_name").text)
             capture("second-restored")
             find("button_skip").click()
-            device.wait(Until.findObject(By.res("android", "button1")), 5000)!!.click()
             await { repository.getOccurrence(second.occurrenceId)?.state == DoseState.SKIPPED }
+            assertFalse("A single tap records the action without a dialog", device.hasObject(By.res("android", "button1")))
             assertEquals(DoseState.ALERTING, repository.getOccurrence(first.occurrenceId)?.state)
             assertNull(repository.getOccurrence(second.occurrenceId)?.actualTime)
         } finally {
             val remaining = currentCard()
             instrumentation.runOnMainSync { remaining?.finish() }
+        }
+    }
+
+    @Test fun completedSwipeRecordsOnceWithoutConfirmation() = runBlocking {
+        val log = occurrence()
+        assertTrue(coordinator.deliver(log.occurrenceId) is DoseActionResult.Success)
+        context.startActivity(AlarmIdentity.intent(context, AlarmActivity::class.java, log.occurrenceId, "card")
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+        assertTrue(device.wait(Until.hasObject(By.text(requireNotNull(log.snapshotName))), 10_000))
+        find("button_take")
+        val card = requireNotNull(currentCard())
+        instrumentation.runOnMainSync {
+            val swipe = card.findViewById<SwipeToConfirmView>(R.id.swipe_take)
+            val down = SystemClock.uptimeMillis()
+            for ((event, fraction) in listOf(MotionEvent.ACTION_DOWN to .05f, MotionEvent.ACTION_MOVE to .95f,
+                MotionEvent.ACTION_UP to .95f)) {
+                MotionEvent.obtain(down, SystemClock.uptimeMillis(), event, swipe.width * fraction, swipe.height / 2f, 0)
+                    .also { swipe.dispatchTouchEvent(it); it.recycle() }
+            }
+            // A second click while persistence is running cannot apply another action.
+            card.findViewById<View>(R.id.button_skip).performClick()
+        }
+        await { repository.getOccurrence(log.occurrenceId)?.state == DoseState.TAKEN }
+        val taken = requireNotNull(repository.getOccurrence(log.occurrenceId))
+        assertNotNull(taken.actualTime)
+        assertEquals(log.originalDueAt, taken.originalDueAt)
+        assertFalse(device.hasObject(By.res("android", "button1")))
+        assertTrue(coordinator.skip(log.occurrenceId) is DoseActionResult.Rejected)
+        assertEquals(taken.actualTime, repository.getOccurrence(log.occurrenceId)?.actualTime)
+    }
+
+    @Test fun lockedCardShowsCompleteDoseAndSnoozesWithOneTap() = runBlocking {
+        val log = occurrence()
+        assertTrue(coordinator.deliver(log.occurrenceId) is DoseActionResult.Success)
+        device.sleep()
+        val keyguard = context.getSystemService(KeyguardManager::class.java)
+        await { keyguard.isKeyguardLocked }
+        try {
+            context.startActivity(AlarmIdentity.intent(context, AlarmActivity::class.java, log.occurrenceId, "card")
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP))
+            assertTrue(device.wait(Until.hasObject(By.text(requireNotNull(log.snapshotName))), 10_000))
+            assertEquals(log.snapshotName, find("text_medication_name").text)
+            assertEquals("1 mg", find("text_dosage_info").text)
+            find("button_take"); find("button_skip")
+            assertTrue(keyguard.isKeyguardLocked)
+            val shownCard = requireNotNull(currentCard())
+            instrumentation.runOnMainSync {
+                assertEquals(log.snapshotColor, shownCard.findViewById<TextView>(R.id.text_medication_name).currentTextColor)
+            }
+            capture("complete-card-locked")
+            val before = System.currentTimeMillis()
+            find("button_snooze").click()
+            await { repository.getOccurrence(log.occurrenceId)?.state == DoseState.SNOOZED }
+            val snoozed = requireNotNull(repository.getOccurrence(log.occurrenceId))
+            assertEquals(log.originalDueAt, snoozed.originalDueAt)
+            assertNull(snoozed.actualTime)
+            assertTrue(requireNotNull(snoozed.snoozedUntil) in (before + Constants.SNOOZE_DURATION_MINUTES * 60_000L)..(System.currentTimeMillis() + Constants.SNOOZE_DURATION_MINUTES * 60_000L))
+            assertTrue("Alarm action must keep the device locked", keyguard.isKeyguardLocked)
+            assertFalse(device.hasObject(By.res("android", "button1")))
+        } finally {
+            val card = currentCard()
+            instrumentation.runOnMainSync { card?.finish() }
+            device.wakeUp(); device.pressMenu()
         }
     }
 

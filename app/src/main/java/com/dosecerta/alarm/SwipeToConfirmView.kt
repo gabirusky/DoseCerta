@@ -15,7 +15,7 @@ import android.view.accessibility.AccessibilityNodeInfo
 import androidx.core.content.ContextCompat
 import com.dosecerta.R
 
-/** Optional gesture; click/accessibility always reaches the same explicit confirmation dialog. */
+/** A completed gesture or accessibility click directly records the displayed occurrence. */
 class SwipeToConfirmView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
     var onConfirmed: (() -> Unit)? = null
     private var progress = 0f

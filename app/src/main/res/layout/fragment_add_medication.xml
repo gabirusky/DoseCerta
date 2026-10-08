@@ -7,54 +7,63 @@
     <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
         android:fillViewport="true" android:clipToPadding="false">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
-            android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="8dp" android:paddingBottom="24dp">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp"
-                android:text="@string/design_medication_details" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
-            <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_name" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" android:hint="@string/medication_name">
-                <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_name" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:minHeight="56dp" android:inputType="textCapWords" android:imeOptions="actionNext" android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <LinearLayout android:id="@+id/dose_row" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-                <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_dosage" android:layout_width="0dp" android:layout_weight="1"
-                    android:layout_height="wrap_content" android:layout_marginEnd="12dp" android:layout_marginBottom="12dp" android:hint="@string/medication_dosage">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_dosage" android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:minHeight="56dp" android:inputType="text" android:imeOptions="actionNext" android:textSize="16sp" />
+            android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="@dimen/ui_page_top" android:paddingBottom="@dimen/ui_page_bottom">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="24dp"
+                android:text="@string/design_form_subtitle" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/ui_form_section_surface" android:padding="@dimen/ui_content_padding">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp"
+                    android:text="@string/design_medication_details" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_name" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp" android:hint="@string/medication_name">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_name" android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:minHeight="56dp" android:inputType="textCapWords" android:imeOptions="actionNext" android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_unit" style="@style/Widget.DoseCerta.TextInput.Dropdown"
-                    android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:hint="@string/medication_unit">
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView android:id="@+id/autoComplete_unit" android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:minHeight="56dp" android:inputType="text" android:imeOptions="actionNext" android:textSize="16sp" />
+                <LinearLayout android:id="@+id/dose_row" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_dosage" android:layout_width="0dp" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:layout_marginEnd="12dp" android:layout_marginBottom="12dp" android:hint="@string/medication_dosage">
+                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_dosage" android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:minHeight="56dp" android:inputType="text" android:imeOptions="actionNext" android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_unit" style="@style/Widget.DoseCerta.TextInput.Dropdown"
+                        android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:hint="@string/medication_unit">
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView android:id="@+id/autoComplete_unit" android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:minHeight="56dp" android:inputType="text" android:imeOptions="actionNext" android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:layout_marginTop="24dp" android:background="@drawable/ui_form_section_surface" android:padding="@dimen/ui_content_padding">
+                <TextView android:id="@+id/text_regimen_title" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp" android:text="@string/ui_regimen" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                <TextView android:id="@+id/text_regimen_hint" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp"
+                    android:text="@string/ui_regimen_hint" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_frequency" style="@style/Widget.DoseCerta.TextInput.Dropdown"
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:hint="@string/medication_frequency">
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView android:id="@+id/autoComplete_frequency" android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:minHeight="56dp" android:inputType="none" android:imeOptions="actionNext" android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout android:id="@+id/days_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+                    <TextView android:id="@+id/text_days_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_weekdays"
+                        android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:layout_marginBottom="8dp" />
+                    <com.google.android.material.chip.ChipGroup android:id="@+id/chip_days" android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp" app:singleLine="false" />
+                    <TextView android:id="@+id/text_days_error" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_days_required"
+                        android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:layout_marginBottom="12dp" android:visibility="gone" android:textColor="?attr/colorError" android:accessibilityLiveRegion="polite" />
+                </LinearLayout>
+                <LinearLayout android:id="@+id/month_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+                    <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_month_day" android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp" android:hint="@string/ui_month_day">
+                        <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_month_day" android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:minHeight="56dp" android:inputType="number" android:imeOptions="actionNext" android:textSize="16sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView android:id="@+id/text_month_policy" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_month_policy"
+                        android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:layout_marginBottom="12dp" />
+                </LinearLayout>
             </LinearLayout>
-            <TextView android:id="@+id/text_regimen_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
-                android:layout_marginBottom="6dp" android:text="@string/ui_regimen" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
-            <TextView android:id="@+id/text_regimen_hint" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp"
-                android:text="@string/ui_regimen_hint" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
-            <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_frequency" style="@style/Widget.DoseCerta.TextInput.Dropdown"
-                android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:hint="@string/medication_frequency">
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView android:id="@+id/autoComplete_frequency" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:minHeight="56dp" android:inputType="none" android:imeOptions="actionNext" android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <LinearLayout android:id="@+id/days_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
-                <TextView android:id="@+id/text_days_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_weekdays"
-                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:layout_marginBottom="8dp" />
-                <com.google.android.material.chip.ChipGroup android:id="@+id/chip_days" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp" app:singleLine="false" />
-                <TextView android:id="@+id/text_days_error" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_days_required"
-                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:layout_marginBottom="12dp" android:visibility="gone" android:textColor="?attr/colorError" android:accessibilityLiveRegion="polite" />
-            </LinearLayout>
-            <LinearLayout android:id="@+id/month_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
-                <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_month_day" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp" android:hint="@string/ui_month_day">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/edit_month_day" android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:minHeight="56dp" android:inputType="number" android:imeOptions="actionNext" android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <TextView android:id="@+id/text_month_policy" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_month_policy"
-                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:layout_marginBottom="12dp" />
-            </LinearLayout>
-            <LinearLayout android:id="@+id/reminders_section_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:layout_marginBottom="12dp"
+            <LinearLayout android:id="@+id/reminders_section_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:layout_marginTop="24dp" android:background="@drawable/ui_form_section_surface" android:padding="@dimen/ui_content_padding">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp"
                     android:text="@string/design_reminder_times" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
                 <TextView android:id="@+id/text_interval_hint" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_interval_hint"
                     android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:layout_marginBottom="12dp" />
@@ -71,17 +80,18 @@
             <TextView android:id="@+id/text_as_needed_hint" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_as_needed_preview"
                 android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:layout_marginBottom="12dp" android:visibility="gone" />
             <LinearLayout android:id="@+id/preview_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
-                android:layout_marginTop="16dp" android:background="@drawable/ui_empty_container" android:padding="16dp">
+                android:layout_marginTop="24dp" android:background="@drawable/ui_form_section_tonal" android:padding="@dimen/ui_content_padding">
                 <TextView android:id="@+id/text_next_reminder" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_preview_empty"
-                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:accessibilityLiveRegion="polite" />
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:textColor="?attr/colorOnPrimaryContainer" android:accessibilityLiveRegion="polite" />
                 <com.google.android.material.button.MaterialButton android:id="@+id/button_preview" style="@style/Widget.DoseCerta.Button.Text"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ui_next_dates" />
+                    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/ui_next_dates" />
                 <TextView android:id="@+id/text_preview" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_preview_empty"
                     android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:visibility="gone" />
             </LinearLayout>
-            <com.google.android.material.button.MaterialButton android:id="@+id/button_details" style="@style/Widget.DoseCerta.Button.Text"
-                android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="@string/ui_more_details" />
-            <LinearLayout android:id="@+id/details_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+            <com.google.android.material.button.MaterialButton android:id="@+id/button_details" style="@style/Widget.DoseCerta.Button.Outlined"
+                android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="24dp" android:text="@string/ui_more_details" />
+            <LinearLayout android:id="@+id/details_container" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone"
+                android:layout_marginTop="12dp" android:background="@drawable/ui_form_section_surface" android:padding="@dimen/ui_content_padding">
                 <com.google.android.material.textfield.TextInputLayout android:id="@+id/input_form" style="@style/Widget.DoseCerta.TextInput.Dropdown"
                     android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:hint="@string/medication_form">
                     <com.google.android.material.textfield.MaterialAutoCompleteTextView android:id="@+id/autoComplete_form" android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -109,8 +119,8 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" />
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical"
-        android:background="?attr/colorSurface" android:paddingHorizontal="@dimen/ui_page_padding" android:paddingVertical="8dp">
+    <LinearLayout android:id="@+id/form_actions" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical"
+        android:background="?attr/colorSurface" android:paddingHorizontal="@dimen/ui_page_padding" android:paddingVertical="12dp">
         <com.google.android.material.button.MaterialButton android:id="@+id/button_cancel" style="@style/Widget.DoseCerta.Button.Text"
             android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="12dp" android:text="@string/cancel" />
         <com.google.android.material.button.MaterialButton android:id="@+id/button_save" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/ui_save" />

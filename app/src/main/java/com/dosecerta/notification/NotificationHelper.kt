@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.dosecerta.R
 import com.dosecerta.alarm.AlarmActivity
 import com.dosecerta.alarm.AlarmDiagnostics
@@ -39,6 +40,7 @@ class NotificationHelper(private val context: Context) {
         val card = cardIntent(occurrence.occurrenceId)
         val builder = NotificationCompat.Builder(context, channel)
             .setSmallIcon(R.drawable.ic_notifications)
+            .setColor(occurrence.snapshotColor ?: ContextCompat.getColor(context, R.color.ui_primary))
             .setContentTitle(occurrence.snapshotName)
             .setContentText(context.getString(if (audibleService) R.string.reminder_due else R.string.reminder_notification_only))
             .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -46,15 +48,13 @@ class NotificationHelper(private val context: Context) {
             .setVisibility(if (detailsOnLock) NotificationCompat.VISIBILITY_PUBLIC else NotificationCompat.VISIBILITY_PRIVATE)
             .setContentIntent(card).setOnlyAlertOnce(true).setOngoing(audibleService)
             .setDeleteIntent(actionIntent(occurrence.occurrenceId, AlarmIdentity.SILENCE))
-            .addAction(0, context.getString(R.string.reminder_silence), actionIntent(occurrence.occurrenceId, AlarmIdentity.SILENCE))
+            .addAction(R.drawable.ic_check, context.getString(R.string.notification_action_take), actionIntent(occurrence.occurrenceId, Constants.ACTION_TAKE_MEDICATION))
+            .addAction(0, context.getString(R.string.notification_action_skip), actionIntent(occurrence.occurrenceId, Constants.ACTION_SKIP_MEDICATION))
             .addAction(0, context.getString(R.string.reminder_snooze_ten), actionIntent(occurrence.occurrenceId, Constants.ACTION_SNOOZE_MEDICATION))
         // The alarm channel has no sound: AlarmService owns audio. setSilent(true)
         // also suppresses visual interruption and groups the dose as a silent child.
-        // Private lock-screen notifications expose only silence/snooze. Reviewing a dose opens the card.
-        if (detailsOnLock) {
-            builder.addAction(R.drawable.ic_check, context.getString(R.string.notification_action_take), actionIntent(occurrence.occurrenceId, Constants.ACTION_TAKE_MEDICATION))
-            builder.addAction(0, context.getString(R.string.notification_action_skip), actionIntent(occurrence.occurrenceId, Constants.ACTION_SKIP_MEDICATION))
-        }
+        // Android displays at most three action buttons. Keep the three dose actions
+        // available together; the full card also offers a separate silence button.
         val publicVersion = NotificationCompat.Builder(context, channel).setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(context.getString(R.string.reminder_private_title))
             .setContentText(context.getString(R.string.reminder_private_message)).setContentIntent(card)

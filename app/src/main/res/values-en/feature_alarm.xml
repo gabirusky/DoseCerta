@@ -14,7 +14,7 @@
     <string name="reminder_snooze_ten">Snooze 10 min</string>
     <string name="reminder_snooze">Snooze reminder</string>
     <string name="reminder_private_title">Time to review your dose</string>
-    <string name="reminder_private_message">Unlock to identify the medicine. Silencing or snoozing does not record an intake.</string>
+    <string name="reminder_private_message">Open the card to review the medicine. Silencing or snoozing does not record an intake.</string>
     <string name="reminder_missed_message">Unconfirmed dose. Review your history before deciding what to do; do not double the dose.</string>
     <string name="reminder_unlock">Unlock to review</string>
     <string name="reminder_scheduled_at">Scheduled for %1$s</string>
@@ -26,12 +26,12 @@
     <string name="reminder_action_expired">This dose changed or has already closed. Review your history.</string>
     <string name="reminder_action_failed">The action could not be saved. Try again.</string>
     <string name="reminder_unlock_cancelled">The device is still locked. You can silence or snooze.</string>
-    <string name="reminder_take_accessibility">Confirm intake. Activate to review the dose before recording.</string>
+    <string name="reminder_take_accessibility">Record dose as taken. Tap or swipe to record.</string>
     <string name="reminder_settings_title">Reminder status</string>
     <string name="reminder_notifications_settings">Adjust notifications and channel</string>
     <string name="reminder_exact_settings">Adjust alarms and reminders access</string>
     <string name="reminder_full_screen_settings">Adjust full-screen reminders</string>
-    <string name="reminder_show_medication_on_lock">Show medicine on the lock screen</string>
+    <string name="reminder_show_medication_on_lock">Show medicine in lock-screen notifications</string>
     <string name="reminder_diagnostics">Local reminder diagnostics</string>
     <string name="reminder_diagnostics_empty">No events recorded. Future reminders will appear here without medicine names or doses.</string>
     <string name="reminder_notifications_ready">Alarm notifications: allowed.</string>
@@ -51,6 +51,6 @@
     <string name="reminder_sound_recovered">Sound unavailable. Device default restored.</string>
     <string name="reminder_setup_explanation">Allow notifications to receive reminders. Exact timing and lock-screen cards are separate settings. You can continue and adjust them later in Settings.</string>
     <string name="reminder_continue_without_access">Continue with current settings</string>
-    <string name="reminder_show_lock_details">Show medicine on the lock screen</string>
-    <string name="reminder_lock_privacy_explanation">Off by default. Enabling this lets other people see names and doses and record intake or skipping without unlocking.</string>
+    <string name="reminder_show_lock_details">Show medicine in lock-screen notifications</string>
+    <string name="reminder_lock_privacy_explanation">The alarm card shows the complete dose and lets you take, skip or snooze without unlocking. This setting controls names and doses in notifications.</string>
 </resources>

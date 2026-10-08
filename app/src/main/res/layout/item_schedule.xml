@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.DoseCerta.CardView.Compact"
-    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="12dp" android:paddingVertical="6dp">
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/ui_card_gap">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingVertical="4dp">
         <LinearLayout android:id="@+id/schedule_heading" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
             <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="8dp">
-                <ImageView android:id="@+id/image_medication_icon" android:layout_width="20dp" android:layout_height="20dp"
+                <ImageView android:id="@+id/image_medication_icon" android:layout_width="24dp" android:layout_height="24dp"
+                    android:background="@drawable/content_icon_background" android:padding="2dp"
                     android:src="@drawable/ic_pill" android:importantForAccessibility="no" />
-                <TextView android:id="@+id/text_medication_name" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp"
+                <TextView android:id="@+id/text_medication_name" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="12dp"
                     android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Title" />
             </LinearLayout>
             <TextView android:id="@+id/text_time" android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:textColor="?attr/colorPrimary" />
         </LinearLayout>
         <LinearLayout android:id="@+id/schedule_details" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginEnd="4dp">
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginEnd="8dp">
                 <TextView android:id="@+id/text_dosage" android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" />
                 <TextView android:id="@+id/text_time_until" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp"
                     android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
             </LinearLayout>
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_gravity="end">
+            <LinearLayout android:id="@+id/schedule_actions" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
                 <com.google.android.material.button.MaterialButton android:id="@+id/button_snooze" style="@style/Widget.DoseCerta.Button.Text"
                     android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="48dp" android:paddingHorizontal="8dp" android:text="@string/ui_skip" />
                 <com.google.android.material.button.MaterialButton android:id="@+id/button_take" style="@style/Widget.DoseCerta.Button.Tonal"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:paddingHorizontal="12dp"
-                    android:minWidth="64dp" android:text="@string/ui_take" />
+                    android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="4dp" android:paddingHorizontal="8dp"
+                    android:minWidth="56dp" android:text="@string/ui_take" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

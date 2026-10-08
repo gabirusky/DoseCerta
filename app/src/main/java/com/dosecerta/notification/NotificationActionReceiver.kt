@@ -1,6 +1,5 @@
 package com.dosecerta.notification
 
-import android.app.KeyguardManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -13,7 +12,6 @@ import com.dosecerta.data.repository.MedicationRepository
 import com.dosecerta.domain.DoseActionCoordinator
 import com.dosecerta.domain.DoseActionResult
 import com.dosecerta.util.Constants
-import com.dosecerta.util.SettingsPreferences
 
 class NotificationActionReceiver : BroadcastReceiver() {
     companion object {
@@ -29,12 +27,6 @@ class NotificationActionReceiver : BroadcastReceiver() {
             if (intent.action == Constants.ACTION_DISMISS_REMINDER) {
                 repository.clearReminder(id)
                 NotificationHelper(context).cancel(id)
-                return@runAlarmWork
-            }
-            val locked = context.getSystemService(KeyguardManager::class.java).isKeyguardLocked
-            val requiresIdentity = intent.action in setOf(Constants.ACTION_TAKE_MEDICATION, Constants.ACTION_SKIP_MEDICATION)
-            if (requiresIdentity && locked && !SettingsPreferences(context).getShowMedicationOnLockScreenSync()) {
-                AlarmDiagnostics.record(context, "action", id, "authentication_required")
                 return@runAlarmWork
             }
             val result = when (intent.action) {

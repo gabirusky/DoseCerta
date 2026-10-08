@@ -2,16 +2,16 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent" android:background="?android:attr/colorBackground">
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"
-        android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="8dp">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="4dp">
+        android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="@dimen/ui_page_top">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="8dp">
             <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/nav_medications"
-                android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:maxLines="1" android:ellipsize="end" android:accessibilityHeading="true" />
+                android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:layout_marginEnd="12dp" android:accessibilityHeading="true" />
             <com.google.android.material.button.MaterialButton android:id="@+id/fab_add" style="@style/Widget.DoseCerta.IconButton"
                 android:layout_width="48dp" android:layout_height="48dp" android:contentDescription="@string/cd_add_medication" app:icon="@drawable/ic_add" />
         </LinearLayout>
         <androidx.appcompat.widget.SearchView android:id="@+id/search_view" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:minHeight="48dp" android:background="@drawable/search_background" app:iconifiedByDefault="false" app:queryHint="@string/medications_search_hint" />
-        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="4dp"
+            android:minHeight="48dp" android:background="@drawable/content_search_background" app:iconifiedByDefault="false" app:queryHint="@string/medications_search_hint" />
+        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:layout_marginBottom="4dp"
             android:scrollbars="none" android:clipToPadding="false">
             <com.google.android.material.chip.ChipGroup android:layout_width="wrap_content" android:layout_height="wrap_content" app:singleSelection="true" app:singleLine="true"
                 app:selectionRequired="true" app:chipSpacingHorizontal="8dp">
@@ -28,9 +28,10 @@
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
         <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_medications" android:layout_width="match_parent" android:layout_height="0dp"
-            android:layout_weight="1" android:paddingBottom="16dp" android:clipToPadding="false" />
+            android:layout_weight="1" android:paddingBottom="@dimen/ui_page_bottom" android:clipToPadding="false" />
         <TextView android:id="@+id/text_empty" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:gravity="center"
-            android:padding="24dp" android:text="@string/medications_empty" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:visibility="gone" />
+            android:layout_marginBottom="@dimen/ui_page_bottom" android:background="@drawable/content_empty_background"
+            android:padding="@dimen/ui_content_padding" android:text="@string/medications_empty" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:visibility="gone" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

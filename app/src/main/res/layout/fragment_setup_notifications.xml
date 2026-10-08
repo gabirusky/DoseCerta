@@ -1,13 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="?attr/colorSurface">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp">
-        <ImageView android:layout_width="64dp" android:layout_height="64dp" android:src="@drawable/ic_notifications" android:importantForAccessibility="no" app:tint="?attr/colorPrimary" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="@string/setup_notifications_title" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/reminder_setup_explanation" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@color/ui_background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="@dimen/ui_page_padding" android:paddingEnd="@dimen/ui_page_padding" android:paddingTop="@dimen/ui_page_top" android:paddingBottom="@dimen/ui_page_bottom">
+        <ImageView android:layout_width="56dp" android:layout_height="56dp" android:padding="14dp" android:background="@drawable/ui_icon_container" android:src="@drawable/ic_notifications" android:importantForAccessibility="no" app:tint="?attr/colorPrimary" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="@string/setup_access_title" android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:accessibilityHeading="true" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/setup_access_description" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
         <TextView android:id="@+id/text_capability_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:accessibilityLiveRegion="polite" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/button_allow" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="16dp" android:text="@string/setup_notifications_button" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/button_exact" style="@style/Widget.DoseCerta.Button.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/reminder_exact_settings" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/button_full_screen" style="@style/Widget.DoseCerta.Button.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/reminder_full_screen_settings" />
-        <com.google.android.material.button.MaterialButton android:id="@+id/button_skip" style="@style/Widget.Material3.Button.TextButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/reminder_continue_without_access" android:layout_marginTop="8dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/button_allow" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="24dp" android:text="@string/setup_notifications_continue" />
+
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_notifications" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" app:cardCornerRadius="22dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/ui_content_padding">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/setup_access_notifications_title" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/setup_access_notifications_description" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+                <TextView android:id="@+id/text_notifications_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textAppearance="@style/TextAppearance.DoseCerta.Label" android:textColor="?attr/colorPrimary" />
+                <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/button_notifications" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="8dp" android:text="@string/setup_access_notifications_check" />
+                <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/button_alarm_channel" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/setup_access_alarm_channel_check" />
+                <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/button_reminder_channel" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/setup_access_reminder_channel_check" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_exact" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/ui_card_gap" app:cardCornerRadius="22dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/ui_content_padding">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/setup_access_exact_title" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/setup_access_exact_description" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+                <TextView android:id="@+id/text_exact_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textAppearance="@style/TextAppearance.DoseCerta.Label" android:textColor="?attr/colorPrimary" />
+                <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/button_exact" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="8dp" android:text="@string/setup_access_exact_check" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_full_screen" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/ui_card_gap" app:cardCornerRadius="22dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/ui_content_padding">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/setup_access_fullscreen_title" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/setup_access_fullscreen_description" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+                <TextView android:id="@+id/text_full_screen_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textAppearance="@style/TextAppearance.DoseCerta.Label" android:textColor="?attr/colorPrimary" />
+                <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/button_full_screen" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="8dp" android:text="@string/setup_access_fullscreen_check" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/ui_card_gap" app:cardCornerRadius="22dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/ui_content_padding">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/setup_access_battery_title" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/setup_access_battery_description" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+                <TextView android:id="@+id/text_battery_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:textAppearance="@style/TextAppearance.DoseCerta.Label" android:textColor="?attr/colorPrimary" />
+                <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/button_battery" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="8dp" android:text="@string/setup_access_battery_check" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_xiaomi" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/ui_card_gap" android:visibility="gone" app:cardCornerRadius="22dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/ui_content_padding">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/setup_access_xiaomi_title" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/setup_access_autostart_guidance" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/button_auto_start" style="@style/Widget.DoseCerta.Button.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="8dp" android:text="@string/setup_access_autostart_button" />
+                <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/check_auto_start_reviewed" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/setup_access_autostart_reviewed" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/setup_access_xiaomi_windows_guidance" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/button_lock_screen" style="@style/Widget.DoseCerta.Button.Outlined" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:layout_marginTop="8dp" android:text="@string/setup_access_xiaomi_windows_button" />
+                <com.google.android.material.checkbox.MaterialCheckBox android:id="@+id/check_lock_screen_reviewed" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/setup_access_lock_screen_reviewed" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/setup_access_xiaomi_manual_status" android:textAppearance="@style/TextAppearance.DoseCerta.Label" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" app:cardCornerRadius="22dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/ui_content_padding">
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/setup_access_automatic_title" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/setup_access_automatic_description" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton android:id="@+id/button_skip" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp" android:text="@string/setup_notifications_continue" android:layout_marginTop="24dp" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

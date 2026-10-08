@@ -65,7 +65,7 @@
 
 Você pode arquivar medicamentos mantendo o histórico, excluir permanentemente o cadastro mantendo o histórico, ou excluir o cadastro e seus registros. PDFs exportados são cópias fora do app: excluir dados locais não remove cópias já salvas ou compartilhadas.
 
-Por padrão, o conteúdo sensível fica oculto na tela bloqueada. Confira a escolha de privacidade nas Configurações. Os acessos de notificação e alarme permitem lembretes; recusar um acesso limita a entrega. O Android e o fabricante podem restringir alertas.
+O cartão do alarme mostra nome, dose e horário mesmo com a tela bloqueada, e permite registrar tomada, pular ou adiar sem desbloquear. Você pode ocultar os detalhes das notificações nas Configurações. Os acessos de notificação e alarme permitem lembretes; recusar um acesso limita a entrega. O Android e o fabricante podem restringir alertas.
 
 Este texto descreve o funcionamento local. O contato público e a política publicada serão disponibilizados pelo responsável pelo produto antes da distribuição.</string>
   <string name="ui_setup_summary">Leia antes de começar</string>

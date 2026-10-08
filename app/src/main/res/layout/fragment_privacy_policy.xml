@@ -4,12 +4,23 @@
     <com.google.android.material.appbar.MaterialToolbar android:id="@+id/toolbar" android:layout_width="match_parent" android:layout_height="wrap_content" android:minHeight="56dp"
         app:navigationIcon="@drawable/ic_arrow_back" app:navigationContentDescription="@string/design_back" app:navigationIconTint="?attr/colorOnSurface"
         app:title="@string/privacy_policy_title" app:titleTextAppearance="@style/TextAppearance.DoseCerta.AccessibleTitle" />
-    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="@dimen/ui_page_padding">
-            <ImageView android:layout_width="56dp" android:layout_height="56dp" android:layout_marginBottom="20dp" android:padding="14dp"
-                android:src="@drawable/ic_shield_privacy" android:background="@drawable/ui_icon_container" app:tint="?attr/colorPrimary" android:importantForAccessibility="no" />
-            <TextView android:id="@+id/text_privacy_policy" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ui_privacy_text"
-                android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="16sp" android:lineSpacingMultiplier="1.35" />
+    <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true" android:clipToPadding="false">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+            android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="@dimen/ui_page_top" android:paddingBottom="@dimen/ui_page_bottom">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/ui_form_section_tonal" android:padding="@dimen/ui_content_padding">
+                <ImageView android:layout_width="44dp" android:layout_height="44dp" android:layout_marginBottom="16dp" android:padding="10dp"
+                    android:src="@drawable/ic_shield_privacy" android:background="@drawable/ui_icon_container" app:tint="?attr/colorPrimary" android:importantForAccessibility="no" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/premium_privacy_device_title"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Section" android:textColor="?attr/colorOnPrimaryContainer" android:accessibilityHeading="true" />
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"
+                    android:text="@string/premium_privacy_device_summary" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textColor="?attr/colorOnPrimaryContainer" />
+            </LinearLayout>
+            <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp"
+                app:cardCornerRadius="22dp">
+                <TextView android:id="@+id/text_privacy_policy" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="@dimen/ui_content_padding"
+                    android:text="@string/ui_privacy_text" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="16sp" android:lineSpacingMultiplier="1.35" />
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

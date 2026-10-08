@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/Widget.DoseCerta.CardView.Compact"
-    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="6dp" android:clickable="true" android:focusable="true">
-    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="12dp" android:paddingVertical="8dp">
-        <ImageView android:id="@+id/image_medication_icon" android:layout_width="20dp" android:layout_height="20dp"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/ui_card_gap" android:clickable="true" android:focusable="true">
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingHorizontal="16dp" android:paddingVertical="4dp">
+        <ImageView android:id="@+id/image_medication_icon" android:layout_width="36dp" android:layout_height="36dp"
+            android:background="@drawable/content_icon_background" android:padding="8dp"
             android:src="@drawable/ic_pill" android:importantForAccessibility="no" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
-        <TextView android:id="@+id/text_medication_name" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp"
+        <TextView android:id="@+id/text_medication_name" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginEnd="8dp"
             android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Title"
             app:layout_constraintStart_toEndOf="@id/image_medication_icon" app:layout_constraintEnd_toStartOf="@id/button_delete" app:layout_constraintTop_toTopOf="parent" />
-        <TextView android:id="@+id/text_dosage_info" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="2dp"
+        <TextView android:id="@+id/text_dosage_info" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginEnd="8dp"
             android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@id/text_medication_name" app:layout_constraintEnd_toStartOf="@id/button_delete" app:layout_constraintTop_toBottomOf="@id/text_medication_name" />
         <com.google.android.material.button.MaterialButton android:id="@+id/button_delete" style="@style/Widget.DoseCerta.IconButton"
             android:layout_width="48dp" android:layout_height="48dp" app:icon="@drawable/ic_more_vert" android:contentDescription="@string/ui_manage_actions"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
         <androidx.constraintlayout.widget.Barrier android:id="@+id/medication_details_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content"
-            app:barrierDirection="bottom" app:constraint_referenced_ids="text_dosage_info,button_delete" />
-        <TextView android:id="@+id/text_next_dose" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="0dp"
-            android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp"
+            app:barrierDirection="bottom" app:constraint_referenced_ids="text_dosage_info,button_delete,image_medication_icon" />
+        <TextView android:id="@+id/text_next_dose" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="4dp"
+            android:includeFontPadding="false" android:textAppearance="@style/TextAppearance.DoseCerta.Label" android:textSize="13sp" android:textColor="?attr/colorPrimary"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@id/medication_details_bottom" app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

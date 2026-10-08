@@ -14,7 +14,7 @@
     <string name="reminder_snooze_ten">Adiar 10 min</string>
     <string name="reminder_snooze">Adiar lembrete</string>
     <string name="reminder_private_title">Hora de conferir sua dose</string>
-    <string name="reminder_private_message">Desbloqueie para identificar a medicação. Silenciar ou adiar não registra uma tomada.</string>
+    <string name="reminder_private_message">Abra o cartão para conferir a medicação. Silenciar ou adiar não registra uma tomada.</string>
     <string name="reminder_missed_message">Dose não confirmada. Confira o histórico antes de decidir o que fazer; não dobre a dose.</string>
     <string name="reminder_unlock">Desbloquear para conferir</string>
     <string name="reminder_scheduled_at">Prevista para %1$s</string>
@@ -26,12 +26,12 @@
     <string name="reminder_action_expired">Esta dose mudou ou já foi encerrada. Confira o histórico.</string>
     <string name="reminder_action_failed">Não foi possível salvar a ação. Tente novamente.</string>
     <string name="reminder_unlock_cancelled">O aparelho continua bloqueado. Você pode silenciar ou adiar.</string>
-    <string name="reminder_take_accessibility">Confirmar tomada. Ative para conferir a dose antes de registrar.</string>
+    <string name="reminder_take_accessibility">Registrar dose tomada. Toque ou deslize para registrar.</string>
     <string name="reminder_settings_title">Estado dos lembretes</string>
     <string name="reminder_notifications_settings">Ajustar notificações e canal</string>
     <string name="reminder_exact_settings">Ajustar alarmes no horário</string>
     <string name="reminder_full_screen_settings">Ajustar cartão na tela bloqueada</string>
-    <string name="reminder_show_medication_on_lock">Mostrar medicação na tela bloqueada</string>
+    <string name="reminder_show_medication_on_lock">Mostrar medicação nas notificações da tela bloqueada</string>
     <string name="reminder_diagnostics">Diagnóstico local dos lembretes</string>
     <string name="reminder_diagnostics_empty">Nenhum evento registrado. Os próximos lembretes aparecerão aqui sem nomes ou doses.</string>
     <string name="reminder_notifications_ready">Notificações de alarme: permitidas.</string>
@@ -51,6 +51,6 @@
     <string name="reminder_sound_recovered">Som indisponível. Padrão do aparelho restaurado.</string>
     <string name="reminder_setup_explanation">Permita notificações para receber lembretes. Alarmes no horário e cartão na tela bloqueada são ajustes separados. Você pode continuar e ajustar depois em Configurações.</string>
     <string name="reminder_continue_without_access">Continuar com os ajustes atuais</string>
-    <string name="reminder_show_lock_details">Mostrar medicação na tela bloqueada</string>
-    <string name="reminder_lock_privacy_explanation">Desativado por padrão. Ao ativar, outras pessoas podem ver nomes e doses e registrar tomada ou pulo sem desbloquear.</string>
+    <string name="reminder_show_lock_details">Mostrar medicação nas notificações da tela bloqueada</string>
+    <string name="reminder_lock_privacy_explanation">O cartão do alarme mostra a dose completa e permite tomar, pular ou adiar sem desbloquear. Este ajuste controla os nomes e doses nas notificações.</string>
 </resources>

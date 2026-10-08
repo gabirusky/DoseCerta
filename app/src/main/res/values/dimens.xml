@@ -7,12 +7,12 @@
     <dimen name="spacing_xl">32dp</dimen>
     
     <!-- Card -->
-    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_corner_radius">22dp</dimen>
     <dimen name="card_elevation">0dp</dimen>
-    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_padding">20dp</dimen>
     
     <!-- Button -->
-    <dimen name="button_corner_radius">24dp</dimen>
+    <dimen name="button_corner_radius">16dp</dimen>
     <dimen name="button_padding_vertical">12dp</dimen>
     <dimen name="button_padding_horizontal">24dp</dimen>
     <dimen name="button_height">48dp</dimen>

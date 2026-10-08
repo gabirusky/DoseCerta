@@ -34,8 +34,8 @@ class SettingsPreferences(private val context: Context) {
         const val MAX_MISSED_REMINDER_HOURS = 10
     }
     
-    /** Private by default. Explicitly enabling this reveals medicine identity over the keyguard. */
-    val showMedicationOnLockScreen: Flow<Boolean> = context.dataStore.data.map { it[SHOW_MEDICATION_ON_LOCK_KEY] ?: false }
+    /** Controls notification details; the ringing alarm card always shows the complete dose. */
+    val showMedicationOnLockScreen: Flow<Boolean> = context.dataStore.data.map { it[SHOW_MEDICATION_ON_LOCK_KEY] ?: true }
     suspend fun getShowMedicationOnLockScreenSync() = showMedicationOnLockScreen.first()
     suspend fun saveShowMedicationOnLockScreen(show: Boolean) {
         context.dataStore.edit { it[SHOW_MEDICATION_ON_LOCK_KEY] = show }

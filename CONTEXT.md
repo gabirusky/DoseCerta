@@ -1,5 +1,9 @@
 # DoseCerta — contexto completo para retomada
 
+## Estado vigente — correções de 08/10/2026
+
+Pedido vigente: corrigir introdução e reunir os acessos de alarme no início, remover o espaço duplicado da barra inferior observado no Xiaomi, mostrar o cartão completo sobre a tela bloqueada, executar tomar/pular/adiar sem confirmação e usar a cor do medicamento no cartão. O usuário também pediu restaurar os três cards coloridos de resumo do Histórico conforme seu print. Implementação e limites da validação estão em [correções de 08/10](docs/qa/fixes-20261008.md). Esta sessão usa o workspace Windows; os estados de emulador/Linux abaixo são históricos. Nenhum dispositivo ou AVD estava disponível no início desta validação. Nenhum commit ou publicação solicitado.
+
 ## Estado vigente — TASKS em 04/10/2026
 
 Pedido atual: terminar TASKS rapidamente, incluindo validações locais. [Registro desta retomada](docs/qa/task-completion-20261004.md) e TASKS atualizado prevalecem sobre os checkpoints abaixo. Checks debug/release/lint/JVM passaram; alarmes reais API26 passaram. A ferramenta de teste foi atualizada para Android16. API36 bootou, mas um crash do emulador/GPU interrompeu a suíte; API37/16KB foi preparada separadamente. Gates externos permanecem não definidos. Preservar Home com gráfico, dados preexistentes e AVD pessoal. Nenhum commit ou publicação.

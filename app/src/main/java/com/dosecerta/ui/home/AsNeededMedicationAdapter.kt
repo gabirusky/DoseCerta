@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dosecerta.data.local.entity.Medication
 import com.dosecerta.databinding.ItemAsNeededBinding
+import com.dosecerta.ui.stackForReadingSize
 
 /**
  * Adapter for displaying AS_NEEDED medications on the home screen.
@@ -34,6 +35,7 @@ class AsNeededMedicationAdapter(
         private val binding: ItemAsNeededBinding,
         private val onTakeClick: (Medication) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+        init { binding.asNeededContent.stackForReadingSize() }
 
         fun bind(medication: Medication) {
             binding.textMedicationName.text = medication.name

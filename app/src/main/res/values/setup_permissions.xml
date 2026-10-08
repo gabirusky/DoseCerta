@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="setup_indicator_size">8dp</dimen>
+    <string name="setup_access_title">Prepare seus alarmes</string>
+    <string name="setup_access_description">Toque em cada item para abrir seu ajuste. O visto aparece quando o Android autoriza. Você pode continuar quando quiser.</string>
+    <string name="setup_access_verified_ready">Alarmes e notificações permitidos. Confira também os ajustes de bateria e do seu aparelho.</string>
+    <string name="setup_access_review_pending">Há acessos pendentes. Confira os itens abaixo ou continue e ajuste depois em Configurações.</string>
+    <string name="setup_access_notifications_check">Permitir notificações</string>
+    <string name="setup_access_alarm_channel_check">Permitir avisos de alarmes</string>
+    <string name="setup_access_reminder_channel_check">Permitir avisos de lembretes</string>
+    <string name="setup_access_exact_check">Permitir alarmes exatos</string>
+    <string name="setup_access_fullscreen_check">Permitir cartão em tela cheia</string>
+    <string name="setup_access_battery_check">Permitir funcionar sem otimização</string>
+    <string name="setup_access_autostart_reviewed">Inicialização automática: conferido por você</string>
+    <string name="setup_access_lock_screen_reviewed">Tela bloqueada e janelas: conferido por você</string>
+    <string name="setup_access_allowed">Permitido pelo Android</string>
+    <string name="setup_access_pending">Precisa de autorização</string>
+    <string name="setup_access_notifications_title">Notificações e lembretes</string>
+    <string name="setup_access_notifications_description">Ative as notificações, os avisos dos alarmes e os lembretes para acompanhar suas doses.</string>
+    <string name="setup_access_notifications_pending">Confira as notificações e os avisos de alarmes e lembretes</string>
+    <string name="setup_access_exact_title">Alarmes no horário</string>
+    <string name="setup_access_exact_description">O acesso a alarmes exatos permite avisar no horário que você escolheu, mesmo com a tela apagada.</string>
+    <string name="setup_access_fullscreen_title">Cartão na tela bloqueada</string>
+    <string name="setup_access_fullscreen_description">Permita os alarmes em tela cheia para mostrar o cartão completo, com o medicamento e as ações, mesmo quando o aparelho estiver bloqueado. O Android controla quando abrir o cartão.</string>
+    <string name="setup_access_battery_title">Funcionamento em segundo plano</string>
+    <string name="setup_access_battery_description">Na lista de otimização da bateria, selecione DoseCerta e permita funcionar sem otimização. No Xiaomi, confira também se a economia de bateria do app está Sem restrições.</string>
+    <string name="setup_access_battery_button">Ajustar bateria</string>
+    <string name="setup_access_battery_guidance">Selecione DoseCerta na lista de apps e escolha Não otimizar.</string>
+    <string name="setup_access_battery_ready">Sem otimização de bateria pelo Android</string>
+    <string name="setup_access_battery_pending">Otimização de bateria ativa: confira este ajuste</string>
+    <string name="setup_access_xiaomi_title">Ajustes Xiaomi, Redmi e POCO</string>
+    <string name="setup_access_autostart_guidance">Nas informações do DoseCerta, permita Inicialização automática. Dependendo da versão, ela fica em Configurações › Apps › Permissões › Inicialização automática em segundo plano.</string>
+    <string name="setup_access_autostart_button">Ajustar inicialização automática</string>
+    <string name="setup_access_xiaomi_windows_guidance">Nas informações do DoseCerta, abra Outras permissões. Permita Mostrar na tela bloqueada e Abrir novas janelas em segundo plano, quando essas opções existirem.</string>
+    <string name="setup_access_xiaomi_windows_button">Ajustar tela bloqueada e janelas</string>
+    <string name="setup_access_xiaomi_manual_status">Estes vistos guardam somente sua conferência. O DoseCerta não consegue verificar as autorizações do fabricante.</string>
+    <string name="setup_access_automatic_title">Acessos automáticos</string>
+    <string name="setup_access_automatic_description">Vibração, reprodução do alarme, ativação da tela e retomada dos lembretes após reiniciar já são autorizados pelo Android na instalação. Não precisam de outra confirmação.</string>
+</resources>

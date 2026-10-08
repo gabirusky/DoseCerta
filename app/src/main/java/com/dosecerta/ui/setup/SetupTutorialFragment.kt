@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.dosecerta.R
@@ -13,7 +12,6 @@ import com.dosecerta.databinding.FragmentSetupTutorialBinding
 import com.dosecerta.databinding.ItemTutorialCardBinding
 import com.dosecerta.ui.MainActivity
 import com.dosecerta.util.SettingsPreferences
-import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 
 /**
@@ -98,6 +96,11 @@ class SetupTutorialFragment : Fragment() {
             cardBinding.indicator3
         )
         indicators.forEachIndexed { index, view ->
+            val diameter = resources.getDimensionPixelSize(R.dimen.setup_indicator_size)
+            view.layoutParams = view.layoutParams.apply { width = diameter; height = diameter }
+            view.minimumWidth = 0
+            view.minimumHeight = 0
+            view.isSelected = index == currentStep
             view.setBackgroundResource(
                 if (index == currentStep) {
                     R.drawable.indicator_dot_selected

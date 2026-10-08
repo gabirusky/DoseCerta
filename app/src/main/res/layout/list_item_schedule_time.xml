@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical">
-<com.google.android.material.button.MaterialButton
-    android:id="@+id/button_time"
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="wrap_content"
-    android:minHeight="48dp"
-    android:layout_margin="4dp"
-    android:insetTop="0dp"
-    android:insetBottom="0dp"
-    android:textColor="?attr/colorPrimary"
-    android:textSize="16sp"
-    android:textStyle="bold"
-    style="@style/Widget.Material3.Button.OutlinedButton"
-    app:cornerRadius="24dp"
-    app:strokeColor="@color/time_button_stroke"
-    app:strokeWidth="1dp" />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_remove_time"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:padding="12dp"
-        android:contentDescription="@string/cd_remove_reminder_time"
-        app:icon="@drawable/ic_delete"
-        app:iconPadding="0dp" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:paddingVertical="4dp">
+    <com.google.android.material.button.MaterialButton android:id="@+id/button_time" style="@style/Widget.DoseCerta.Button.Outlined"
+        android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginEnd="8dp"
+        android:minHeight="48dp" android:insetTop="0dp" android:insetBottom="0dp" android:textColor="?attr/colorPrimary" android:textSize="16sp" android:textStyle="bold"
+        app:backgroundTint="?attr/colorSurfaceContainer" app:cornerRadius="16dp" app:strokeColor="?attr/colorOutlineVariant" app:strokeWidth="1dp" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/button_remove_time" style="@style/Widget.DoseCerta.IconButton"
+        android:layout_width="48dp" android:layout_height="wrap_content" android:minWidth="48dp" android:minHeight="48dp" android:padding="12dp"
+        android:contentDescription="@string/cd_remove_reminder_time" app:icon="@drawable/ic_delete" app:iconPadding="0dp" />
 </LinearLayout>

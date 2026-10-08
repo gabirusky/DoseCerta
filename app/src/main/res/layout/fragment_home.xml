@@ -3,21 +3,21 @@
     android:id="@+id/home_scroll" android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="?android:attr/colorBackground" android:fillViewport="true" android:clipToPadding="false">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
-        android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="8dp" android:paddingBottom="16dp">
+        android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="@dimen/ui_page_top" android:paddingBottom="@dimen/ui_page_bottom">
         <com.google.android.material.card.MaterialCardView android:id="@+id/card_weekly_adherence"
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp" app:strokeWidth="0dp" app:cardElevation="0dp">
+            app:cardCornerRadius="22dp" app:strokeWidth="0dp" app:cardElevation="0dp">
             <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/hero_content" android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp" android:paddingVertical="12dp" android:background="@drawable/gradient_welcome_card">
+                android:paddingHorizontal="@dimen/ui_content_padding" android:paddingVertical="8dp" android:background="@drawable/gradient_welcome_card">
                 <TextView android:id="@+id/text_greeting" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginEnd="16dp"
                     android:text="@string/home_greeting_morning" android:textAppearance="@style/TextAppearance.DoseCerta.Headline"
-                    android:textSize="22sp" android:textColor="@color/ui_on_hero" android:includeFontPadding="false" android:accessibilityHeading="true"
+                    android:textSize="24sp" app:lineHeight="28sp" android:textColor="@color/ui_on_hero" android:includeFontPadding="false" android:accessibilityHeading="true"
                     app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/adherence_graph" app:layout_constraintTop_toTopOf="parent" />
                 <TextView android:id="@+id/text_date" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:layout_marginEnd="16dp"
-                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" android:textColor="@color/ui_on_hero_secondary" android:includeFontPadding="false"
+                    android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" app:lineHeight="16sp" android:textColor="@color/ui_on_hero_secondary" android:includeFontPadding="false"
                     app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/adherence_graph" app:layout_constraintTop_toBottomOf="@id/text_greeting" />
                 <TextView android:id="@+id/text_week_adherence" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:layout_marginEnd="16dp"
-                    android:text="@string/ui_week_adherence" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp"
+                    android:text="@string/ui_week_adherence" android:textAppearance="@style/TextAppearance.DoseCerta.Body" android:textSize="13sp" app:lineHeight="16sp"
                     android:textColor="@color/ui_on_hero" android:includeFontPadding="false"
                     app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@id/adherence_graph" app:layout_constraintTop_toBottomOf="@id/text_date" />
                 <FrameLayout android:id="@+id/adherence_graph" android:layout_width="72dp" android:layout_height="72dp"
@@ -35,33 +35,33 @@
                 </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp"
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/ui_card_gap"
             android:orientation="horizontal" android:gravity="center_vertical">
             <TextView android:id="@+id/text_medications_header" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
-                android:text="@string/design_today_doses" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+                android:text="@string/design_today_doses" android:textAppearance="@style/TextAppearance.DoseCerta.Section" android:accessibilityHeading="true" />
             <com.google.android.material.button.MaterialButton android:id="@+id/button_add_medication" style="@style/Widget.DoseCerta.IconButton"
                 android:layout_width="48dp" android:layout_height="48dp" app:icon="@drawable/ic_add" android:contentDescription="@string/cd_add_medication" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_medications" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" />
         <TextView android:id="@+id/text_no_medications" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:background="@drawable/ui_empty_container" android:padding="12dp"
+            android:background="@drawable/content_empty_background" android:padding="@dimen/ui_content_padding" android:minHeight="96dp" android:gravity="center_vertical"
             android:text="@string/home_no_medications" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:layout_marginBottom="6dp"
-            android:text="@string/ui_next_dates" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/ui_section_gap" android:layout_marginBottom="@dimen/ui_card_gap"
+            android:text="@string/ui_next_dates" android:textAppearance="@style/TextAppearance.DoseCerta.Section" android:accessibilityHeading="true" />
         <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                <TextView android:id="@+id/text_upcoming" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="12dp"
+                <TextView android:id="@+id/text_upcoming" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="@dimen/ui_content_padding"
                     android:text="@string/ui_upcoming_empty" android:textAppearance="@style/TextAppearance.DoseCerta.Body" />
                 <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_upcoming" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
         <LinearLayout android:id="@+id/section_as_needed" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
-            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:layout_marginBottom="6dp"
-                android:text="@string/home_as_needed_title" android:textAppearance="@style/TextAppearance.DoseCerta.Title" android:accessibilityHeading="true" />
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/ui_section_gap" android:layout_marginBottom="@dimen/ui_card_gap"
+                android:text="@string/home_as_needed_title" android:textAppearance="@style/TextAppearance.DoseCerta.Section" android:accessibilityHeading="true" />
             <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_as_needed" android:layout_width="match_parent" android:layout_height="wrap_content" android:nestedScrollingEnabled="false" />
         </LinearLayout>
         <com.google.android.material.button.MaterialButton android:id="@+id/button_register_extra_dose" style="@style/Widget.DoseCerta.Button.Outlined"
-            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/ui_section_gap" android:minHeight="56dp"
             android:text="@string/design_register_extra" app:icon="@drawable/ic_add" app:iconGravity="textStart" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

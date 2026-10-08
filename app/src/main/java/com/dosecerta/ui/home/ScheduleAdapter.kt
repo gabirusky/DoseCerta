@@ -21,6 +21,7 @@ class ScheduleAdapter(private val onTakeClick: (ScheduleItem) -> Unit, private v
         init {
             binding.scheduleHeading.stackForReadingSize()
             binding.scheduleDetails.stackForReadingSize()
+            binding.scheduleActions.stackForReadingSize()
         }
         fun bind(item: ScheduleItem) {
             val ctx = binding.root.context
@@ -36,6 +37,7 @@ class ScheduleAdapter(private val onTakeClick: (ScheduleItem) -> Unit, private v
             })
             // Historical corrections are explicit in History; a closed occurrence cannot be acted on again here.
             val pending = item.status == MedicationStatus.PENDING
+            binding.scheduleActions.visibility = if (pending) View.VISIBLE else View.GONE
             binding.buttonTake.visibility = if (pending) View.VISIBLE else View.GONE
             binding.buttonSnooze.visibility = if (pending) View.VISIBLE else View.GONE
             binding.buttonTake.contentDescription = ctx.getString(R.string.ui_take_for, item.medication.name)

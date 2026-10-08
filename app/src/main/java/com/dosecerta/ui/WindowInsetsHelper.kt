@@ -4,7 +4,7 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-/** Apply system/IME padding once from the original XML padding, also on resize. */
+/** The activity root owns system/IME padding, including after resize. */
 object WindowInsetsHelper {
     fun apply(view: View) {
         val left = view.paddingLeft
@@ -16,7 +16,10 @@ object WindowInsetsHelper {
             val keyboard = insets.getInsets(WindowInsetsCompat.Type.ime())
             target.setPadding(left + safe.left, top + safe.top, right + safe.right,
                 bottom + maxOf(safe.bottom, keyboard.bottom))
-            insets
+            // Descendants already sit inside this safe area. Material's
+            // BottomNavigationView would otherwise add the navigation/IME
+            // inset to its own padding a second time.
+            WindowInsetsCompat.CONSUMED
         }
         ViewCompat.requestApplyInsets(view)
     }

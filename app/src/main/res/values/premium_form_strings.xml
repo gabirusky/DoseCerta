@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="premium_privacy_device_title">Seus registros neste aparelho</string>
+    <string name="premium_privacy_device_summary">Medicamentos, horários e histórico ficam salvos no dispositivo. Você controla o que aparece nas notificações e o que exporta.</string>
+</resources>

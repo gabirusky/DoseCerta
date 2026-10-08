@@ -71,6 +71,10 @@ class AddMedicationFragment : Fragment() {
             listOf(binding.inputDosage, binding.inputUnit).forEach { input ->
                 input.layoutParams = android.widget.LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { bottomMargin = (12 * resources.displayMetrics.density).toInt() }
             }
+            binding.formActions.orientation = android.widget.LinearLayout.VERTICAL
+            listOf(binding.buttonCancel, binding.buttonSave).forEach { button ->
+                button.layoutParams = android.widget.LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            }
         }
         binding.buttonCancel.setOnClickListener { confirmLeave() }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {

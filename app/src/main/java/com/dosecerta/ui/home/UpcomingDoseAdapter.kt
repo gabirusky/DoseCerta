@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dosecerta.databinding.ItemUpcomingBinding
+import com.dosecerta.ui.stackForReadingSize
 
 /** A small, readable agenda using the same upcoming occurrences as the medication list. */
 class UpcomingDoseAdapter : ListAdapter<Pair<String, Long>, UpcomingDoseAdapter.ViewHolder>(DiffCallback()) {
@@ -15,6 +16,7 @@ class UpcomingDoseAdapter : ListAdapter<Pair<String, Long>, UpcomingDoseAdapter.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position))
 
     class ViewHolder(private val binding: ItemUpcomingBinding) : RecyclerView.ViewHolder(binding.root) {
+        init { binding.upcomingDetails.stackForReadingSize() }
         fun bind(dose: Pair<String, Long>) {
             binding.textName.text = dose.first
             binding.textDate.text = com.dosecerta.ui.UiDateTime.dateLabel(binding.root.context, dose.second)

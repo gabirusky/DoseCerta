@@ -3,6 +3,7 @@ package com.dosecerta.ui
 import android.content.Intent
 import android.graphics.pdf.PdfRenderer
 import android.provider.DocumentsContract
+import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.core.app.ActivityScenario
@@ -58,6 +59,52 @@ class SystemUiInstrumentedTest {
                 else "settings put secure show_ime_with_hard_keyboard $it")
             device.setOrientationNatural()
             device.unfreezeRotation()
+        }
+    }
+    @Test fun bottomNavigationDoesNotRepeatRootSystemOrKeyboardInsets() {
+        // API 30 can represent all inset types independently, including
+        // synthetic cutouts and the IME. Older APIs retain the real-IME
+        // coverage in backKeyboardRecentsAndRotationKeepDraftAndSafeInsets.
+        assumeTrue(android.os.Build.VERSION.SDK_INT >= 30)
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            find("bottom_navigation")
+            scenario.onActivity { activity ->
+                val content = activity.findViewById<android.view.ViewGroup>(android.R.id.content)
+                val root = content.getChildAt(0)
+                val navigation = activity.findViewById<android.view.View>(R.id.bottom_navigation)
+                val originalInsets = requireNotNull(ViewCompat.getRootWindowInsets(root))
+                val navigationHeight = navigation.height
+                assertEquals("The root already protects the navigation bar", 0, navigation.paddingBottom)
+                assertTrue(navigationHeight > 0)
+                fun dispatch(keyboardBottom: Int) {
+                    val insets = WindowInsetsCompat.Builder()
+                        .setInsets(WindowInsetsCompat.Type.systemBars(), Insets.of(12, 24, 18, 48))
+                        .setInsets(WindowInsetsCompat.Type.displayCutout(), Insets.of(0, 56, 0, 0))
+                        .setInsets(WindowInsetsCompat.Type.ime(), Insets.of(0, 0, 0, keyboardBottom))
+                        .build()
+                    ViewCompat.dispatchApplyWindowInsets(root, insets)
+                    root.measure(
+                        android.view.View.MeasureSpec.makeMeasureSpec(root.width, android.view.View.MeasureSpec.EXACTLY),
+                        android.view.View.MeasureSpec.makeMeasureSpec(root.height, android.view.View.MeasureSpec.EXACTLY)
+                    )
+                    root.layout(root.left, root.top, root.right, root.bottom)
+                    assertEquals(12, root.paddingLeft)
+                    assertEquals(56, root.paddingTop)
+                    assertEquals(18, root.paddingRight)
+                    assertEquals(maxOf(48, keyboardBottom), root.paddingBottom)
+                    assertEquals("Material must not add a second bottom inset", 0, navigation.paddingBottom)
+                    assertEquals("Insets must not inflate the app navigation bar", navigationHeight, navigation.height)
+                }
+                try {
+                    dispatch(0)
+                    dispatch(0) // Repeated delivery must not accumulate padding.
+                    dispatch(320)
+                    dispatch(0) // IME dismissal restores just the navigation-bar inset.
+                } finally {
+                    ViewCompat.dispatchApplyWindowInsets(root, originalInsets)
+                    ViewCompat.requestApplyInsets(root)
+                }
+            }
         }
     }
     @Test fun backKeyboardRecentsAndRotationKeepDraftAndSafeInsets() {

@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="?android:attr/colorBackground">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical"
-        android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="8dp">
+        android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="@dimen/ui_page_top" android:paddingBottom="@dimen/ui_card_gap">
         <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/nav_history"
-            android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:maxLines="1" android:ellipsize="end" android:accessibilityHeading="true" />
+            android:textAppearance="@style/TextAppearance.DoseCerta.Headline" android:layout_marginEnd="12dp" android:accessibilityHeading="true" />
         <com.google.android.material.button.MaterialButton android:id="@+id/fab_export_pdf" style="@style/Widget.DoseCerta.Button.Text"
             android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/design_pdf" android:contentDescription="@string/history_export_pdf"
             app:icon="@drawable/ic_pdf" app:iconSize="18dp" app:iconGravity="textStart" />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler_logs" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
-        android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="8dp" android:paddingBottom="16dp" android:clipToPadding="false" />
+        android:paddingHorizontal="@dimen/ui_page_padding" android:paddingTop="@dimen/ui_card_gap" android:paddingBottom="@dimen/ui_page_bottom" android:clipToPadding="false" />
 </LinearLayout>

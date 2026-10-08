@@ -117,11 +117,11 @@ class FullJourneyInstrumentedTest {
         capture("01-terms")
         scrollTo(R.id.button_continue)
         find(app("button_continue")).click()
-        scrollTo(R.id.button_allow)
-        find(app("button_allow"))
+        scrollTo(R.id.button_notifications)
+        find(app("button_notifications"))
         capture("02-access-before")
         val checker = ReminderCapabilityChecker(context)
-        if (!checker.check().canNotifyAlarm) find(app("button_allow")).click()
+        if (!checker.check().canNotifyAlarm) find(app("button_notifications")).click()
         val permissionButton = if (denyNotification) "permission_deny_button" else "permission_allow_button"
         val permission = device.wait(Until.findObject(By.res(java.util.regex.Pattern.compile(".*permissioncontroller:id/$permissionButton"))), 4000)
         if (permission != null) { capture("03-system-notification-choice"); permission.click() }
@@ -196,29 +196,39 @@ class FullJourneyInstrumentedTest {
                 // Home also has a legacy button_snooze ID for its skip action;
                 // wait for the alarm-only control after confirmed receiver delivery.
                 find(app("button_silence"), 15_000)
-                capture("10-alarm-private-${index + 1}")
-                assertEquals(context.getString(R.string.reminder_private_title), find(app("text_medication_name")).text)
-                assertNull(device.findObject(app("button_take")))
+                find(app("text_medication_name").text(name))
+                capture("10-alarm-complete-locked-${index + 1}")
+                assertTrue(context.getSystemService(android.app.KeyguardManager::class.java).isKeyguardLocked)
+                assertEquals(name, find(app("text_medication_name")).text)
+                assertEquals("500 mg", find(app("text_dosage_info")).text)
+                find(app("button_take"))
+                find(app("button_skip"))
+                instrumentation.runOnMainSync {
+                    val card = androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+                        .getActivitiesInStage(androidx.test.runner.lifecycle.Stage.RESUMED)
+                        .filterIsInstance<com.dosecerta.alarm.AlarmActivity>().single()
+                    assertEquals(med.color, card.findViewById<android.widget.TextView>(R.id.text_medication_name).currentTextColor)
+                }
                 val original = repo.getLogsForMedication(med.id).first().single { it.originalDueAt == due }
                 assertNotNull(original.deliveredAt)
                 val delay = requireNotNull(original.deliveredAt) - due
                 events.put(JSONObject().put("occurrenceId", original.occurrenceId).put("originalDueAt", due).put("deliveredAt", original.deliveredAt).put("delayMillis", delay))
                 assertTrue("Nominal scheduled delivery exceeded 10 s: $delay", delay in 0..10_000)
                 if (action in listOf("take", "skip")) {
-                    find(app("button_unlock")).click()
+                    find(app(if (action == "take") "button_take" else "button_skip")).click()
+                    await(5000) { repo.getOccurrence(original.occurrenceId)?.state == if (action == "take") DoseState.TAKEN else DoseState.SKIPPED }
+                    assertTrue("Dose action must keep the keyguard locked", context.getSystemService(android.app.KeyguardManager::class.java).isKeyguardLocked)
+                    assertFalse(device.hasObject(By.res("android", "button1")))
+                    capture("11-action-recorded-locked-${index + 1}")
+                    // Unlock only after the alarm action has persisted, to inspect history.
+                    device.wakeUp(); device.pressMenu()
                     arguments.getString("syntheticPin")?.let { pin ->
                         require(pin == "2468") { "Only the documented synthetic PIN is supported" }
                         find(By.res(java.util.regex.Pattern.compile(".*:id/(pinEntry|password_entry)")))
-                        capture("11-credential-fixture-${index + 1}")
+                        capture("12-history-credential-fixture-${index + 1}")
                         pin.forEach { digit -> device.pressKeyCode(android.view.KeyEvent.KEYCODE_0 + digit.digitToInt()) }
                         device.pressKeyCode(android.view.KeyEvent.KEYCODE_ENTER)
                     }
-                    find(app("button_take"))
-                    assertEquals(name, find(app("text_medication_name")).text)
-                    capture("11-alarm-identified-${index + 1}")
-                    find(app(if (action == "take") "button_take" else "button_skip")).click()
-                    capture("12-explicit-confirmation-${index + 1}")
-                    find(By.res("android", "button1")).click()
                     find(app("bottom_navigation"))
                     find(app("nav_history")).click()
                     find(app("recycler_logs"))
@@ -232,9 +242,10 @@ class FullJourneyInstrumentedTest {
                     find(app("nav_home")).click()
                 } else if (action == "snooze") {
                     find(app("button_snooze")).click()
-                    capture("12-snooze-selection")
-                    find(By.res("android", "button1")).click()
                     await(5000) { repo.getOccurrence(original.occurrenceId)?.state == DoseState.SNOOZED }
+                    assertTrue(context.getSystemService(android.app.KeyguardManager::class.java).isKeyguardLocked)
+                    assertFalse(device.hasObject(By.res("android", "button1")))
+                    capture("11-snooze-recorded-locked")
                     val log = repo.getOccurrence(original.occurrenceId)!!
                     assertEquals(due, log.originalDueAt); assertNotNull(log.snoozedUntil)
                     assertEquals(MedicationStatus.PENDING, log.status)

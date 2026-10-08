@@ -72,6 +72,7 @@ class HistoryFragment : Fragment() {
             chip.setOnCheckedChangeListener { _, checked -> if (checked) viewModel.updateFilter(status) }
         }
         header.summaryMetrics.stackForReadingSize()
+        header.adherenceSummary.stackForReadingSize()
         header.textDateRange.setOnClickListener { viewModel.cyclePeriod() }
         binding.fabExportPdf.setOnClickListener {
             if (viewModel.beginExport(resources.configuration.locales[0].toLanguageTag(), ZoneId.systemDefault().id)) {

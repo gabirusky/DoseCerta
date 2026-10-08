@@ -65,7 +65,7 @@
 
 You can archive medications while keeping history, permanently delete a medication while keeping history, or delete both the medication and its records. Exported PDFs are copies outside the app: deleting local data does not remove copies already saved or shared.
 
-Sensitive details are hidden on the lock screen by default. Review your privacy choice in Settings. Notification and alarm access enable reminders; denying access limits delivery. Android and device manufacturers may restrict alerts.
+The alarm card shows the medicine name, dose and time even while the screen is locked, and lets you record intake, skip or snooze without unlocking. You can hide notification details in Settings. Notification and alarm access enable reminders; denying access limits delivery. Android and device manufacturers may restrict alerts.
 
 This text describes local behavior. The product owner must provide a public contact and published policy before distribution.</string>
   <string name="ui_setup_summary">Read before starting</string>
